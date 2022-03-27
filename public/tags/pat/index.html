@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>PAT | My-Thistledown</title>
+<meta name="keywords" content="" />
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="canonical" href="https://fang-lansheng.github.io/tags/pat/" />
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.48a18943c2fc15c38a372b8dde1f5e5dc0bc64fa6cb90f5a817d2f8c76b7f3ae.css" integrity="sha256-SKGJQ8L8FcOKNyuN3h9eXcC8ZPpsuQ9agX0vjHa3864=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://fang-lansheng.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://fang-lansheng.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://fang-lansheng.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://fang-lansheng.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://fang-lansheng.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" type="application/rss+xml" href="https://fang-lansheng.github.io/tags/pat/index.xml">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="PAT" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://fang-lansheng.github.io/tags/pat/" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="PAT"/>
+<meta name="twitter:description" content=""/>
+
+</head>
+
+<body class="list" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://fang-lansheng.github.io" accesskey="h" title="My-Thistledown (Alt + H)">My-Thistledown</a>
+            <span class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </span>
+        </div>
+        <ul id="menu">
+        </ul>
+    </nav>
+</header>
+<main class="main"> 
+<header class="page-header">
+  <h1>PAT</h1>
+</header>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>PAT Advanced Level Practice (I)
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>PAT Advanced Level 刷题（一）
+PTA | 程序设计类实验辅助教学平台
+ PAT A 1025 解题思路
+题目大意为：有 N（≤100） 个考场，每个考场有若干数量（K≤300）的考生。现给出各个考场中考生的准考证号与分数，要求将所有考生按分数从高到低排序，并按顺序输出所有考生的准考证号、排名、考场号及考场内排名。
+题目要求的信息（准考证号、分数等）可以用结构体 Student 来存放。对考生进行排序可以使用 C&#43;&#43; 标准库中的 sort() 函数，题目中指出结果应按照考生排名递增排序，相同分数的考生排名相同且按照准考证号递增排序。因此，我们需要准们编写一个符合题目条件的 cmp 函数，它应该满足如下规则：
+ 当分数不同时，按分数从大到小排序 否则，按准考证号从小到大排序。  也即：
+bool cmp(Student a, Student b) {  if (a.score != b.score)  return a.score &gt; b.score; // 先按分数从高到低排序  else  return strcmp(a.id, b.id) &lt; 0;	// 若分数相同，则按准考证号从小到大排序 } 算法本身分为三步：
+ 按考场读入各考生的信息，并对当前读入考场的所有考生进行排序。之后将该考场的所有考生的排名写入其结构体中。 对所有考生进行排序 按照排序，一遍计算总排名，一遍输出信息  参考代码
+#include &lt;cstdio&gt;#include &lt;cstring&gt;#include &lt;algorithm&gt; using namespace std;  struct Student {  char id[15];	// 准考证号  int score;	// 分数  int location_number;	// 考场号  int local_rank;	// 考场内排名 }stu[30010];  bool cmp(Student a, Student b) { 	if (a....</p>
+  </section>
+  <footer class="entry-footer"><span title='2019-03-16 00:00:00 +0000 UTC'>March 16, 2019</span>&nbsp;·&nbsp;Thistledown</footer>
+  <a class="entry-link" aria-label="post link to PAT Advanced Level Practice (I)" href="https://fang-lansheng.github.io/posts/2019-03-16-pat-a-1/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>PAT Basic Level Practice (I)
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>PAT Basic Level 刷题（一）
+PTA | 程序设计类实验辅助教学平台
+ PAT B 1001 解题思路
+题目比较基础，利用循环语句和条件语句实现对目标整数的不断缩小，直至 n == 1，通过变量 step 来计算步数（砍了多少次）
+参考代码
+#include &lt;stdio.h&gt;int main(){  int n, step = 0;  scanf(&#34;%d&#34;, &amp;n); // 输入题目给出的 n  while (n != 1) {  if (n % 2 == 0) n /= 2;  else n = (3 * n &#43; 1) / 2;  step&#43;&#43;;  }  printf(&#34;%d\n&#34;, step);  return 0; } PAT B 1002 解题思路...</p>
+  </section>
+  <footer class="entry-footer"><span title='2019-02-28 00:00:00 +0000 UTC'>February 28, 2019</span>&nbsp;·&nbsp;Thistledown</footer>
+  <a class="entry-link" aria-label="post link to PAT Basic Level Practice (I)" href="https://fang-lansheng.github.io/posts/2019-02-28-pat-basic-level-practice-1/"></a>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2022 <a href="https://fang-lansheng.github.io">My-Thistledown</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

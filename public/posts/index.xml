@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Posts on My-Thistledown</title>
+    <link>https://fang-lansheng.github.io/posts/</link>
+    <description>Recent content in Posts on My-Thistledown</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 27 Mar 2022 11:09:20 +0800</lastBuildDate><atom:link href="https://fang-lansheng.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Test</title>
+      <link>https://fang-lansheng.github.io/posts/test/</link>
+      <pubDate>Sun, 27 Mar 2022 11:09:20 +0800</pubDate>
+      
+      <guid>https://fang-lansheng.github.io/posts/test/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>机器学习基石-数学篇：Why Can Machines Learn?</title>
+      <link>https://fang-lansheng.github.io/posts/2020-07-02-mlf-mf-ntu-2/</link>
+      <pubDate>Thu, 02 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fang-lansheng.github.io/posts/2020-07-02-mlf-mf-ntu-2/</guid>
+      <description>Course Link ：
+ Week 5 - Training versus Testing Week 6 - Theory of Generalization Week 7 - The VC Dimension Week 8 - Noise and Error   5 Training versus Testing  What we pay in choosing hypotheses during training: the growth function for representing effective number of choices &amp;hellip;
+ 5.1 Recap and Preview   Recap: the statistical learning flow
+ if $\mathcal{H} = M$ finite, $N$ large enough  for whatever $g$ picked by $\cal A$, $E_{out}(g) \approx E_{in}(g)$   if $\cal A$ finds one $g$ with $E_{in}(g) \approx 0$  PAC guarantee for $E_{out}(g) \approx 0$ $\Rightarrow$ learning possible      Two central questions</description>
+    </item>
+    
+    <item>
+      <title>机器学习基石-数学篇：When Can Machines Learn?</title>
+      <link>https://fang-lansheng.github.io/posts/2020-06-30-mlf-mf-ntu-1/</link>
+      <pubDate>Tue, 30 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fang-lansheng.github.io/posts/2020-06-30-mlf-mf-ntu-1/</guid>
+      <description>Course Link ：
+ Week 1 - The Learning Problem Week 2 - Learning to Answer Yes/No Week 3 - Types of Learning Week 4 - Feasibility of Learning   1 The Learning Problem  What machine learning is and its connection to applications and other fields &amp;hellip;
+ 1.1 Course Introduction   Machine Learning: a mixture of theoretical and practical tools
+ theory oriented  derive everything deeply for solid understanding less interesting to general audience   techniques oriented  flash over the sexiest techniques broadly for shiny converge too many techniques, hard to choose, hard to use properly   **Our approach: **foundation oriented    Foundation Oriented ML Course</description>
+    </item>
+    
+    <item>
+      <title>机器学习-吴恩达：学习笔记及总结（10）</title>
+      <link>https://fang-lansheng.github.io/posts/2020-06-25-ml-ng-10/</link>
+      <pubDate>Thu, 25 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fang-lansheng.github.io/posts/2020-06-25-ml-ng-10/</guid>
+      <description>Course Link ：Week10 - Large Scale Machine Learning &amp;amp; Week11 - Application Example: Photo OCR
+Code : Fang-Lansheng/Coursera-MachineLearning-Python
+ 34 Gradient Descent with Large Datasets 34.1 Learning With Large Datasets   If you look back at 5-10 year history of machine learning, ML is much better now because we have much more data
+ However, with this increase in data comes great responsibility? No, comes a much more significant computational cost New and exciting problems are emerging that need to be dealt with on both the algorithmic and architectural level    One of best ways to get high performance is take a low bias algorithm and train it on a lot of data</description>
+    </item>
+    
+    <item>
+      <title>机器学习-吴恩达：学习笔记及总结（9）</title>
+      <link>https://fang-lansheng.github.io/posts/2020-06-24-ml-ng-9/</link>
+      <pubDate>Wed, 24 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fang-lansheng.github.io/posts/2020-06-24-ml-ng-9/</guid>
+      <description>Course Link ：Week9 - Anomaly Detection &amp;amp; Recommender Systems
+Code : Fang-Lansheng/Coursera-MachineLearning-Python
+ 28 Density Estimation 28.1 Problem Motivation   Anomaly detection is a reasonably commonly used type of machine learning application
+ Can be thought of as a solution to an unsupervised learning problem But, has aspects of supervised learning    What is anomaly detection?
+ Imagine you&amp;rsquo;re an aircraft engine manufacturer As engines roll off your assembly line you&amp;rsquo;re doing QA  Measure some features from engines (e.</description>
+    </item>
+    
+    <item>
+      <title>机器学习-吴恩达：学习笔记及总结（8）</title>
+      <link>https://fang-lansheng.github.io/posts/2020-06-22-ml-ng-8/</link>
+      <pubDate>Mon, 22 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fang-lansheng.github.io/posts/2020-06-22-ml-ng-8/</guid>
+      <description>Course Link ：Week8 - Unsupervised Learning &amp;amp; Dimensionality Reduction
+Code : Fang-Lansheng/Coursera-MachineLearning-Python
+ 24 Clustering 24.1 Unsupervised Learning: Introduction  Unsupervised learning: learning from unlabeled data Supervised learning &amp;amp; unsupervised learning: Compare and contrast:  Supervised learning:  Given a set of labels, fit a hypothesis to it   Unsupervised learning:  Try and determining structure in the data Clustering algorithm groups data together based on data features     What is clustering good for  Market segmentation: group customers into different market segments Social network analysis: Facebook &amp;ldquo;smartlists&amp;rdquo; Organizing computer clustering and data centers for network layout and location Astronomical data analysis: understanding galaxy formation    24.</description>
+    </item>
+    
+    <item>
+      <title>机器学习-吴恩达：学习笔记及总结（7）</title>
+      <link>https://fang-lansheng.github.io/posts/2020-06-20-ml-ng-7/</link>
+      <pubDate>Sat, 20 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fang-lansheng.github.io/posts/2020-06-20-ml-ng-7/</guid>
+      <description>Course Link ：Week7 - Support Vector Machines
+Code : Fang-Lansheng/Coursera-MachineLearning-Python
+ 21 Large Margin Classification 21.1 Optimization Objective  So far, we&amp;rsquo;ve seen a range of different algorithms  With supervised learning algorithms - performance is pretty similar  What matters often is:  The amount of training data Skill of applying algorithms       One final supervised learning algorithms that is widely used - Support Vector Machine (SVM)  Compared to both logistic regression and neural networks, a SVM sometimes gives a cleaner way of learning non-linear functions Later in the course we&amp;rsquo;ll do a survey of different supervised learning algorithms      Start with logistic regression, see how we can modify it to get the SVM</description>
+    </item>
+    
+    <item>
+      <title>机器学习-吴恩达：学习笔记及总结（6）</title>
+      <link>https://fang-lansheng.github.io/posts/2020-03-22-ml-ng-6/</link>
+      <pubDate>Sun, 22 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fang-lansheng.github.io/posts/2020-03-22-ml-ng-6/</guid>
+      <description>Course Link ：Week6 - Advice for Applying Machine Learning &amp;amp; Machine Learning System Design
+Code : Fang-Lansheng/Coursera-MachineLearning-Python
+ 16 Evaluating a Learning Algorithm 16.1 Deciding What to Try Next   Debugging a learning algorithm:
+  Suppose you have implemented regularized linear regression to predict housing prices.
+$$ J(\theta) = \frac{1}{2m}\left[\sum_{i=1}^m(h_\theta(x^{(i)}) - y^{(i)})^2 + \lambda\sum_{j=1}^n\theta_j^2 \right] $$
+    However, when you test your hypothesis on a new set of houses, you find that it makes unacceptably large errors in its predictions.</description>
+    </item>
+    
+    <item>
+      <title>机器学习-吴恩达：学习笔记及总结（5）</title>
+      <link>https://fang-lansheng.github.io/posts/2020-03-14-ml-ng-5/</link>
+      <pubDate>Sat, 14 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fang-lansheng.github.io/posts/2020-03-14-ml-ng-5/</guid>
+      <description>Course Link ：Week 5 - Neural Networks: Learning
+Code : Fang-Lansheng/Coursera-MachineLearning-Python
+ 14 Cost Function and Backpropagation 14.1 Cost Function   Neural Network (Classification)
+ Training Set: $\lbrace \left( x^{(1)}, y^{(1)} \right), \left( x^{(2)}, y^{(2)} \right), \dots, \left( x^{(m)}, y^{(m)} \right) \rbrace$  $L$ = total number of layers in the network $s_l$ = number of units (not counting bias unit) in layer $l$ $K$ = number of output units/classes   Binary classification: $y = 0 \text{ or } 1$ (1 output unit) Multi-class classification (K classes): $y \in \mathbb{R}^K$ (K output units)    Cost function</description>
+    </item>
+    
+    <item>
+      <title>机器学习-吴恩达：学习笔记及总结（4）</title>
+      <link>https://fang-lansheng.github.io/posts/2020-03-10-ml-ng-4/</link>
+      <pubDate>Tue, 10 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fang-lansheng.github.io/posts/2020-03-10-ml-ng-4/</guid>
+      <description>Course Link ：Week 4 - Neural Networks: Representation
+Code : Fang-Lansheng/Coursera-MachineLearning-Python
+ 11 Motivations 11.1 Non-linear Hypotheses Neural Networks is a much better way to learn complex non-linear hypotheses even when your input feature space $(n)$ is large.
+11.2 Neurons and the Brain  Origins: Algorithms that try to mimin the brain. Was very widely used in 80s and early 90s; popularity diminished in late 90s. Recent resurgence: State-of-the-art technique for many applications.</description>
+    </item>
+    
+    <item>
+      <title>机器学习-吴恩达：学习笔记及总结（3）</title>
+      <link>https://fang-lansheng.github.io/posts/2020-03-04-ml-ng-3/</link>
+      <pubDate>Wed, 04 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fang-lansheng.github.io/posts/2020-03-04-ml-ng-3/</guid>
+      <description>Course Link ：Week 3 - Logistic Regression
+Code : Fang-Lansheng/Coursera-MachineLearning-Python
+ 7 Classification and Representation 7.1 Classification   The classification problem is just like the regression problem, except that the values we now want to predict take on only a small number of discrete values.
+  For now, we will focus on the binary classification problem.
+  $y \in {0,1}$ - the variable that we&amp;rsquo;re trying to predict</description>
+    </item>
+    
+    <item>
+      <title>机器学习-吴恩达：学习笔记及总结（2）</title>
+      <link>https://fang-lansheng.github.io/posts/2020-02-26-ml-ng-2/</link>
+      <pubDate>Fri, 28 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fang-lansheng.github.io/posts/2020-02-26-ml-ng-2/</guid>
+      <description>Course Link ：Week 2 - Linear Regression with Multiple Variables
+Code : Fang-Lansheng/Coursera-MachineLearning-Python
+ 5. Multivariate Linear Regression 5.1 Multiple Features  Training set:  Notation:  $m$ = the number of training examples $n$ = number of features $x^{(i)}$ = input (features) of $i^{th}$ training example (an $n$-dimensional vector, $i = 1, 2, \cdots, m$). $x_j^{(i)}$ = value of feature $j$ in $i^{th}$ training example (a number, $j = 1, 2, \cdots, n$).</description>
+    </item>
+    
+    <item>
+      <title>机器学习-吴恩达：学习笔记及总结（1）</title>
+      <link>https://fang-lansheng.github.io/posts/2020-02-26-ml-ng-1/</link>
+      <pubDate>Wed, 26 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fang-lansheng.github.io/posts/2020-02-26-ml-ng-1/</guid>
+      <description>Course Link ：Week 1 - Introduction
+Code : Fang-Lansheng/Coursera-MachineLearning-Python
+ 0. 写在课前  作为机器学习入门课程中的经典，吴恩达教授的课程具有如下特点：  数学推导过程少，偏重基础，门槛较低 课程短小精悍，讲解清晰，覆盖面广 主要用 Matlab 完成课后程序作业   课程学习目标：  理解机器学习的基本思想和方法 用 Python 实现课程要求掌握的算法    1. Introduction 1.1 Welcome   Machine Learning
+ Grew out of work in AI New capability for computers    Examples:
+  Database mining
+  Large datesets from growth of automation/web
+E.g., Web click data, medical records, biology, engineering</description>
+    </item>
+    
+    <item>
+      <title>OpenCV——SIFT 算法及源码分析（1）：原理简介</title>
+      <link>https://fang-lansheng.github.io/posts/2019-05-10-opencv-4/</link>
+      <pubDate>Fri, 10 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://fang-lansheng.github.io/posts/2019-05-10-opencv-4/</guid>
+      <description>本文及接下来几篇同系列文章是学习 SIFT 算法和 OpenCV SIFT 源码时的学习笔记，整合自参考文献及博客。强烈建议阅读 论文原文、GitHub上的源码 以及 @赵春江 的 opencv 2.4.9 源码分析。
+ Lowe 在 2004 年提出了尺度不变特征变换 (Scale Invariant Feature Transform, SIFT) 算法。 SIFT 主要由关键点探测器 (detector) 和描述符 (descriptor) 组成，它的实现分为以下四步:
+ 尺度空间极值探测 (scale-space extrema detection)：通过高斯差分函数搜索所有尺度和图像位置，以识别对于尺度和方向不变的潜在兴趣点。 关键点精确定位 (keypoint localization)：精确确定每个候选点的尺度与亚像素级位置，根据其稳定性阈值选择关键点。 方向分配 (orientation assignment)：基于图像的局部梯度方向，为每个特性点分配一个或多个方向角度。所有后续的操作都是相对于所确定下来的特征点的角度、尺度和位置的基础上进行的，因此特征点具有角度、尺度和位置的不变性。 关键点描述符 (keypoint descriptor)：在所选定的尺度空间内，测量特征点邻域区域的局部图像梯度，将这些梯度转换成一种允许局部较大程度的形状变形和亮度变化的描述符形式。  下面将对其进行详细阐释：
+1. 尺度空间极值探测 关键点检测的第一阶段是识别可以在同一对象的不同视图下重复分配的位置和尺度。通过在素有可能的尺度进行搜索，可以检测出对图像尺度不变的稳定特征。这一过程中使用到的是被称为尺度空间 (scale space) 的尺度连续函数^[1]。
+Koenderink (The structure of images, 1984) 和 Lindeberg (Detecting salient blob-like image structures and their scales with a scale-space primal sketch: A method for focus-of-attention, 1993) 已经证明，唯一可能的尺度空间核是高斯函数。因此，图像的尺度空间被定义为函数 $L(x, y, \sigma)$，它是由可变尺度高斯函数 $G(x, y, \sigma)$ 与输入图像 $I(x,y)$ 卷积得到的：</description>
+    </item>
+    
+    <item>
+      <title>OpenCV——相机检校</title>
+      <link>https://fang-lansheng.github.io/posts/2019-04-18-opencv-3/</link>
+      <pubDate>Thu, 18 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://fang-lansheng.github.io/posts/2019-04-18-opencv-3/</guid>
+      <description>本文主要参考自 OpenCV 官方教程 OpenCV: Camera calibration With OpenCV，大部分内容是对原文的直接翻译。
+ 1. 前言 利用手机相机对棋盘图拍摄得到的图像如下（左边为原图，右边为二值化处理后的图像）：
+如下所示，将其与原始棋盘图对比（左侧为原始图像，右侧为手机相机拍摄影像）。可以明显地看出出现了一定程度的畸变。
+2. 相机检校原理 目前常用的相机检校方法是附加参数法，其关键在于通过一组额外参数拟合镜头畸变，主要是径向畸变和切向畸变：
+$$ \begin{align} dx &amp;amp;= x(k_1r^2+k_2r^4+k_3r^6) + p_1(r^2+2x^2) + p_2xy \ dy &amp;amp;= \underbrace{y(k_1r^2+k_2r^4+k_3r^6)}\text{radial distortion} + \underbrace{p_2(r^2+2y^2) + p_1xy}\text{tangential distortion} \end{align} $$
+式中，
+$$ x=x&amp;rsquo;-x_0, \quad y=y&amp;rsquo;-y_0 \ r^2 = x^2 + y^2 $$
+其中 $(x&amp;rsquo;,y&amp;rsquo;)$ 为像片坐标的原始量测值，$k_i,(i=1,2,3)$ 为径向畸变参数，$p_j, (j=1,2)$ 为切向畸变参数。所以 5 个畸变参数构成的矩阵为：
+$$ distortion_coeffients = (\begin{matrix}k_1&amp;amp;k_2&amp;amp;p_1&amp;amp;p_2&amp;amp;k_3\end{matrix}) $$
+对于影像坐标和物空间坐标的转换关系为：
+$$ \begin{bmatrix}x\y\f\end{bmatrix}= K \begin{bmatrix}X\Y\Z\end{bmatrix}= \begin{bmatrix}f_x&amp;amp;0&amp;amp;c_x\0&amp;amp;f_y&amp;amp;c_y\0&amp;amp;0&amp;amp;1\end{bmatrix} \begin{bmatrix}X\Y\Z\end{bmatrix} $$</description>
+    </item>
+    
+    <item>
+      <title>线性代数——特征值分解、奇异值分解与 RQ 分解</title>
+      <link>https://fang-lansheng.github.io/posts/2019-04-12-math-1/</link>
+      <pubDate>Fri, 12 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://fang-lansheng.github.io/posts/2019-04-12-math-1/</guid>
+      <description>特征值分解 1. 特征值与特征向量 在线性代数中，对于 $n$ 阶方阵 $A$，如果存在某个数 $\lambda$ 及某个 $n$ 维非零列向量 $v$，使得
+$$ Av = \lambda v $$
+则称 $\lambda$ 是方阵 $A$ 的一个特征值，$v$ 是方阵 $A$ 的属于特征值 $\lambda$ 的一个特征向量。
+对上式进行变换：
+$$ \begin{align} Av-\lambda v &amp;amp;= \overrightarrow{0} \ Av-\lambda I v &amp;amp;= \overrightarrow{0} \ (A - \lambda I)v &amp;amp;= \overrightarrow{0} \ (\lambda I - A)v &amp;amp;= \overrightarrow{0} \end{align} $$
+则称
+ $\lambda E - A$ 为 $A$ 的特征矩阵 行列式 $f(\lambda) = |\lambda E- A|$ 为 $A$ 的特征多项式 $|\lambda E - A| = 0$ 是 $A$ 的特征方程 $(\lambda E - A)v = \overrightarrow{0}$ 是 $A$ 关于该特征值 $\lambda$ 的齐次线性方程组  $A$ 的主对角线上元素之和称为矩阵的迹（trace），记为 $tr(A)$，即</description>
+    </item>
+    
+    <item>
+      <title>OpenCV——点特征提取算子：Moravec，Forstner 与 Harris</title>
+      <link>https://fang-lansheng.github.io/posts/2019-04-02-opencv-2/</link>
+      <pubDate>Tue, 02 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://fang-lansheng.github.io/posts/2019-04-02-opencv-2/</guid>
+      <description>在计算机视觉（Computer Vision）与摄影测量（Photogrammetry）中，我们在不同影像之间找到相匹配的特征，已建立两幅影像之间的联系，提取出我们所需要的信息。这些特征主要分为：
+ 边缘（Edges） 角点（Corners） 兴趣区域 ROI（Regions of Interest）  其中，提取点特征的算子称为兴趣算子或有利算子（Interest Operator），即运用某种算法从影像种提取我们感兴趣的、有利于某种目的的点。
+人眼对角点的识别通常是在一个局部的小区域或小窗口内完成的。如果在各个方向上移动这个特征的小窗口，窗口内区域的灰度发生了较大的变化，那么就认为在窗口内遇到了角点。如果这个特定的窗口在图像各个方面移动时，窗口内图像的灰度没有发生变化，那么窗口内就不存在角点；如果窗口在某一个方向移动时，窗口内图像的灰度发生了较大的变化，而在另一些方向上没有发生变化，那么窗口内的图像可能只是一条直线的线段。
+角点的特殊之处在于，它是两条边的交点，所以它代表这两条边的方向发生变化的点。因此，图像在该点的梯度（在各个方向上）具有明显的变化。利用这一点，前人提出了一系列算法，其中比较经典的有 Moravec 算子、Forstner 算子以及 Harris 算子等。
+Moravec 算子 基本原理 Moravec 于 1977 年提出利用灰度方差提取点特征的算子，其步骤为：
+1. 计算各像元的兴趣值 $IV$（Interest Value）。 在以像素 $(c, r)$ 为中心的 $w \times w$ 的窗口中（如 $5 \times 5$ 的窗口），计算四个方向相邻像素灰度差的平方和：
+$$ \begin{cases} V_1 &amp;amp;=&amp;amp; \sum_{i = -k}^{k-1}(g_{c+i,r}-g_{c+i+1, r})^2 \[2ex] V_2 &amp;amp;=&amp;amp; \sum_{i = -k}^{k-1}(g_{c+i,r+i}-g_{c+i+1, r+i+1})^2 \[2ex] V_3 &amp;amp;=&amp;amp; \sum_{i = -k}^{k-1}(g_{c,r+i}-g_{c+i+1, r+i+1})^2 \[2ex] V_4 &amp;amp;=&amp;amp; \sum_{i = -k}^{k-1}(g_{c+i,r-i}-g_{c+i+1, r-i-1})^2 \end{cases} $$</description>
+    </item>
+    
+    <item>
+      <title>OpenCV——内置边缘检测算子：Canny，Sobel 与 Laplace</title>
+      <link>https://fang-lansheng.github.io/posts/2019-03-19-opencv-1/</link>
+      <pubDate>Tue, 19 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://fang-lansheng.github.io/posts/2019-03-19-opencv-1/</guid>
+      <description>边缘检测（Edge Detection）是图像处理的基础内容。本文中，我从OpenCV官网上下载了最新版本的 OpenCV 4.0.1（2018-12-22），借助官方文档和网络教程完成了环境配置与测试，具体步骤不再赘述。
+在 OpenCV 中可用于边缘检测的算子主要有：
+ Canny 算子 Sobel 算子 Laplace 算子   Canny 算子 理论 Canny 算法是由 John F. Canny 于 1987 年在 A computational approach to edge detection 一文提出来的，它旨在满足三个主要标准：
+ **低错误率（Low error rate）：**意味着只检测实际存在的边缘。 **高定位性（Good localization）：**将检测到的边缘像素与实际边缘像素之间的距离最小化。 **最小响应（Minimal response）：**每个边缘只有一个检测器响应。  Canny 算子的步骤如下：
+ 滤掉任何噪声。这一过程将使用高斯滤波器。例如，一个 5×5 的高斯内核如下所示：  $$ K = \dfrac{1}{159}\begin{bmatrix} 2 &amp;amp; 4 &amp;amp; 5 &amp;amp; 4 &amp;amp; 2 \ 4 &amp;amp; 9 &amp;amp; 12 &amp;amp; 9 &amp;amp; 4 \ 5 &amp;amp; 12 &amp;amp; 15 &amp;amp; 12 &amp;amp; 5 \ 4 &amp;amp; 9 &amp;amp; 12 &amp;amp; 9 &amp;amp; 4 \ 2 &amp;amp; 4 &amp;amp; 5 &amp;amp; 4 &amp;amp; 2 \end{bmatrix} $$</description>
+    </item>
+    
+    <item>
+      <title>PAT Advanced Level Practice (I)</title>
+      <link>https://fang-lansheng.github.io/posts/2019-03-16-pat-a-1/</link>
+      <pubDate>Sat, 16 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://fang-lansheng.github.io/posts/2019-03-16-pat-a-1/</guid>
+      <description>PAT Advanced Level 刷题（一）
+PTA | 程序设计类实验辅助教学平台
+ PAT A 1025 解题思路
+题目大意为：有 N（≤100） 个考场，每个考场有若干数量（K≤300）的考生。现给出各个考场中考生的准考证号与分数，要求将所有考生按分数从高到低排序，并按顺序输出所有考生的准考证号、排名、考场号及考场内排名。
+题目要求的信息（准考证号、分数等）可以用结构体 Student 来存放。对考生进行排序可以使用 C++ 标准库中的 sort() 函数，题目中指出结果应按照考生排名递增排序，相同分数的考生排名相同且按照准考证号递增排序。因此，我们需要准们编写一个符合题目条件的 cmp 函数，它应该满足如下规则：
+ 当分数不同时，按分数从大到小排序 否则，按准考证号从小到大排序。  也即：
+bool cmp(Student a, Student b) {  if (a.score != b.score)  return a.score &amp;gt; b.score; // 先按分数从高到低排序  else  return strcmp(a.id, b.id) &amp;lt; 0;	// 若分数相同，则按准考证号从小到大排序 } 算法本身分为三步：
+ 按考场读入各考生的信息，并对当前读入考场的所有考生进行排序。之后将该考场的所有考生的排名写入其结构体中。 对所有考生进行排序 按照排序，一遍计算总排名，一遍输出信息  参考代码
+#include &amp;lt;cstdio&amp;gt;#include &amp;lt;cstring&amp;gt;#include &amp;lt;algorithm&amp;gt; using namespace std;  struct Student {  char id[15];	// 准考证号  int score;	// 分数  int location_number;	// 考场号  int local_rank;	// 考场内排名 }stu[30010];  bool cmp(Student a, Student b) { 	if (a.</description>
+    </item>
+    
+    <item>
+      <title>数据结构——求解斐波那契数列算法的复杂度</title>
+      <link>https://fang-lansheng.github.io/posts/2019-03-01-ds-1/</link>
+      <pubDate>Fri, 01 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://fang-lansheng.github.io/posts/2019-03-01-ds-1/</guid>
+      <description>斐波那契数列 斐波那契数列（Fibonacci Sequence）是一串数字：
+\[ (0,) 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, &amp;hellip; \] 很容易看出，每一个数（除第 1、2 个）都等于它之前的两个数之和。因此，用公式可归纳为： \[ F_n = \begin{cases} 0, &amp;amp; n=0 \\ 1, &amp;amp; n=1 \\ F_{n-1} + F_{n-2}, &amp;amp; n&amp;gt;1 \end{cases} \]
+计算复杂性理论 在将斐波那契数列用 C++ 代码实现并计算时间、空间复杂度之前，先要了解一下什么是所谓的“复杂度”
+时间复杂度  在计算机科学中， 算法的时间复杂度（Time Complexity）是一个函数，它定性描述算法的运行时间。这是一个代表算法输入值的字符串的长度的函数。
+ 一个语句的频度是指该语句在算法中被重复执行的次数。算法中所有语句的频度之和即为 $T(n)$，它是该算法问题规模 $n$ 的函数，时间复杂度主要分析 $T(n)$ 的数量级。 算法的基本运算（最深层循环内的语句）的频度与 $T(n)$ 同数量级。因此通常采用算法中基本运算的频度 $f(n)$ 来分析算法的时间复杂度。因此，算法的时间复杂度记为： \[ T(n) = O(f(n)) \] 式中，$O$ 的含义是 $T(n)$ 的数量级，其严格的数学定义是：若 $T(n)$ 和 $f(n)$ 是定义在正整数集合上的两个函数，则存在正常数 $C$ 和 $n_0$，使得当 $n \geq n_0$ 时，都满足 $0 \leq T(n) \leq Cf(n)$。</description>
+    </item>
+    
+    <item>
+      <title>PAT Basic Level Practice (I)</title>
+      <link>https://fang-lansheng.github.io/posts/2019-02-28-pat-basic-level-practice-1/</link>
+      <pubDate>Thu, 28 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://fang-lansheng.github.io/posts/2019-02-28-pat-basic-level-practice-1/</guid>
+      <description>PAT Basic Level 刷题（一）
+PTA | 程序设计类实验辅助教学平台
+ PAT B 1001 解题思路
+题目比较基础，利用循环语句和条件语句实现对目标整数的不断缩小，直至 n == 1，通过变量 step 来计算步数（砍了多少次）
+参考代码
+#include &amp;lt;stdio.h&amp;gt;int main(){  int n, step = 0;  scanf(&amp;#34;%d&amp;#34;, &amp;amp;n); // 输入题目给出的 n  while (n != 1) {  if (n % 2 == 0) n /= 2;  else n = (3 * n + 1) / 2;  step++;  }  printf(&amp;#34;%d\n&amp;#34;, step);  return 0; } PAT B 1002 解题思路</description>
+    </item>
+    
+    <item>
+      <title>C&#43;&#43; 学习笔记（一）：初学者的小窍门</title>
+      <link>https://fang-lansheng.github.io/posts/2019-02-27-cpp-study-notes-1/</link>
+      <pubDate>Wed, 27 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://fang-lansheng.github.io/posts/2019-02-27-cpp-study-notes-1/</guid>
+      <description>一个多月以来，确定好了考研的计划。现在开始准备刷题学习一些算法的基础，也是从头开始学习C/C++，当然在学习过程中踩了不少坑，在这里进行一些总结。
+ C++ 数据类型及其表示范围 这一部分是基础，不过我之前都没有系统性的搞清楚，所以现在还是先把这些知识点列出来，该部分参考C++ 数据类型 - 菜鸟教程。
+1. 基本的内置类型 C++ 为程序员提供了种类丰富的内置数据类型和用户自定义的数据类型。下表列出了七种基本的 C++ 数据类型：
+   类型 关键字     布尔型 bool   字符型 char   整型 int   浮点型 float   双浮点型 double   无类型 void   宽字符型 wchar_t    其中，wchar_t 实际上是：
+typedef wchar_t short int; 所以 wchar_t 实际上的空间是和 short int 一样。 一些基本类型可以使用一个或多个类型修饰符进行修饰：
+ signed unsigned short long  2.</description>
+    </item>
+    
+    <item>
+      <title>JavaScript 学习笔记（三）：数组、数组操作以及数组方法</title>
+      <link>https://fang-lansheng.github.io/posts/2019-01-20-javascript-study-notes-3/</link>
+      <pubDate>Sun, 20 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://fang-lansheng.github.io/posts/2019-01-20-javascript-study-notes-3/</guid>
+      <description>本篇学习笔记是在慕课网上学习JavaScript深入浅出时所做笔记，内容主要来自课程课件及老师讲解，同时穿插自己的一些理解和尝试。部分资料整理自 MDN Web Docs。
+ 数组是值的有序集合。每个值叫做元素，每个元素在数组中都有数字位置编号，也就是索引。JavaScript 中的数组是弱类型的，数组中可以含有不同类型的元素。数组元素甚至可以是对象或其他数组。
+// 例如 var arr = [1, true, null, undefined, {x: 1}, [1, 2, 3]]; arr[0];	// 1 arr[3];	// undefined arr[4].x;	// 1 arr[5][1];	// 2 5.1 创建数组 &amp;amp; 数组操作 创建数组 - 字面量 var BAT = [&amp;#39;Baidu&amp;#39;, &amp;#39;Alibaba&amp;#39;, &amp;#39;Tencent&amp;#39;]; var students = [{name: &amp;#39;Bosn&amp;#39;, age: 27}, {name: &amp;#39;Nunnly&amp;#39;, age: 3}]; var arr = [&amp;#39;Nunnly&amp;#39;, &amp;#39;is&amp;#39;, &amp;#39;big&amp;#39;, &amp;#39;keng&amp;#39;, &amp;#39;B&amp;#39;, 123, true, null];  var commasArr1 = [1, , 2];	// 1, undefined, 2 var commasArr2 = [,,];	// undefined * 2，不赞同这种定义方式 数组的大小是有限制的：size from 0 to 4,294,967,295 ($2^{23} - 1$)</description>
+    </item>
+    
+    <item>
+      <title>JavaScript 学习笔记（二）：对象、对象的属性以及对象的方法</title>
+      <link>https://fang-lansheng.github.io/posts/2019-01-10-javascript-study-notes-2/</link>
+      <pubDate>Thu, 10 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://fang-lansheng.github.io/posts/2019-01-10-javascript-study-notes-2/</guid>
+      <description>本篇学习笔记是在慕课网上学习JavaScript深入浅出时所做笔记，内容主要来自课程课件及老师讲解，同时穿插自己的一些理解和尝试。部分资料整理自 MDN Web Docs。
+ 4.1 对象概述 对象中包含一系列属性，这些属性是无序的。每个属性都有一个字符串 key 和对应的 value。
+var obj_0 = { x : 1, y : 2 }; obj_0.x;	// 1 obj_0.y;	// 2  var obj = {}; obj[1] = 1; obj[&amp;#39;1&amp;#39;] = 2; obj; // Object {1: 2}  obj[{}] = true; obj[{x: 1}] = true; obj; // Object {1: 2, [object Object]: true} 函数 function、数组 Array 等都是对象。
+4.2 创建对象、原型链 1. 字面量
+var obj1 = { x : 1, y : 2 }; var obj2 = {  x: 1,  y: 2,  o: {	// 嵌套  z: 3,  n: 4  } }; 2.</description>
+    </item>
+    
+    <item>
+      <title>JavaScript 学习笔记（一）：数据类型、表达式、运算符和语句</title>
+      <link>https://fang-lansheng.github.io/posts/2019-01-09-javascript-study-notes-1/</link>
+      <pubDate>Wed, 09 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://fang-lansheng.github.io/posts/2019-01-09-javascript-study-notes-1/</guid>
+      <description>本篇学习笔记是在慕课网上学习JavaScript深入浅出时所做笔记，内容主要来自课程课件及老师讲解，同时穿插自己的一些理解和尝试。部分资料整理自 MDN Web Docs。
+ 一、数据类型 有意思的特性：
+
+1.1 六种数据类型  五种原始类型：  number string Boolean null undefined   一种对象类型  object：  function Array Date …      1.2 隐式转换  字符串拼接：  var x = &amp;#34;The answer is &amp;#34; + 42;	// &amp;#34;The answer is 42&amp;#34; var y = 42 + &amp;#39; is the answer&amp;#39;;	// &amp;#34;42 is the answer&amp;#34;  巧用 + / - 规则转换类型：  num - 0：num 转换为数字类型 num + &#39;&#39;：num 转换为字符串类型   a == b  类型相同，同 === 类型不同时，尝试类型转换和比较  null == undifined 相等 number == string 转 number boolean = ?</description>
+    </item>
+    
+    <item>
+      <title>Jekyll 博客美化：添加评论系统、侧边栏目录与中文字数统计</title>
+      <link>https://fang-lansheng.github.io/posts/2019-01-06-making-blog-look-better/</link>
+      <pubDate>Sun, 06 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://fang-lansheng.github.io/posts/2019-01-06-making-blog-look-better/</guid>
+      <description>前言 博客基本搭建好了，不过还有不少细节需要完善一下。浏览了一些他人精致的博客网站，发现还有很多值得学习的地方。接下来就从 评论系统 、侧边栏目录 以及 中文字数统计 三个方面入手，进行一些美化。
+评论系统  搭建参考教程：一步一步教你在Jekyll博客添加评论系统 - 一之笔的博客
+ 之前在其实使用过 Disqus，但是几经比较还是觉得 Gitalk 更加美观些，而且使用 GitHub 账号登录也比较方便，支持 markdown 语法这一点也深得我意 （其实根本没有人会评论）。所以最后还是关掉了 Disqus，着手开始搭建 Gitalk 啦 ~
+申请 GitHub OAuth Application 在 GitHub 中点击头像下拉菜单，选择 Settings，然后点击左侧的 Developer settings ，接下来点击 OAuth Apps &amp;gt; Register a new application，开始填写你的信息：
+点击 Register application 后，就会得到你的 Client ID 和 Client Secret。
+在 Jekyll 中添加 Gitalk 在你需要添加评论系统的地方，一般是 _layout/ 目录下的 post.html：
+在 Post Header 中，引入 gitalk.css 和 gitalk.min.js ：
+ &amp;lt;link rel=&amp;#34;stylesheet&amp;#34; href=&amp;#34;https://unpkg.</description>
+    </item>
+    
+    <item>
+      <title>Hello, Blog!</title>
+      <link>https://fang-lansheng.github.io/posts/2019-01-03-hello-my-blog/</link>
+      <pubDate>Thu, 03 Jan 2019 12:00:00 +0000</pubDate>
+      
+      <guid>https://fang-lansheng.github.io/posts/2019-01-03-hello-my-blog/</guid>
+      <description>前言 上一个基于 WordPress 的博客已经在重装服务器系统之后烟消云散了，因为搭建过程全程百度，自己毫无印象，也就不愿意再重复一遍机械式地抄写。这一回打算参考网上的教程，重新搭建一个自己 blog，并且把过程记录下来，权当做一个学习的过程吧。
+搭建教程主要参考：
+ 程序员如何搭建自己的个人博客 - 方志朋的博客
+感谢 @方志朋 在博客搭建过程中的指导
+ 使用自己的服务器部署博客 参考教程，我也是使用 Jekyll 搭建博客。服务器系统为 Centos 6 x86_64 bbr 
+VPS 及域名购买 VPS 是买的搬瓦工，一年不到 $20，相当划算。域名则是来自阿里云。这两者已经是很久之前购买的了，网络上相关教程及介绍也非常详尽，故不在此赘述。
+连接到服务器 这里我是用的是 Xshell，Putty 也不错。因为不了解原理，所以也不多讲，实际操作中善用搜索引擎基本就能掌握操作。
+安装 Node 使用 Xshell 连接到服务器之后。安装 Node 环境，执行以下命令：
+wget https://nodejs.org/dist/v8.12.0/node-v8.12.0-linux-x64.tar.xz xz -d node-v8.12.0-linux-x64.tar.xz tar -xf node-v8.12.0-linux-x64.tar ln -s ~/node-v8.12.0-linux-x64/bin/node /usr/bin/node ln -s ~/node-v8.12.0-linux-x64/bin/npm /usr/bin/npm node -v npm PS：使用 xz 命令时，提示：
+-bash: xz: command not found 据了解，是 xz 这个解压工具尚未安装，解决步骤如下
+# 1.</description>
+    </item>
+    
+  </channel>
+</rss>
