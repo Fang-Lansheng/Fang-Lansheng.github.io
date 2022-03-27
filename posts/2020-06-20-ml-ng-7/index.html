@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>机器学习-吴恩达：学习笔记及总结（7） | My-Thistledown</title>
+<meta name="keywords" content="ML/DL, Course Learning, Python" />
+<meta name="description" content="Course Link ：Week7 - Support Vector Machines
+Code : Fang-Lansheng/Coursera-MachineLearning-Python
+ 21 Large Margin Classification 21.1 Optimization Objective  So far, we&rsquo;ve seen a range of different algorithms  With supervised learning algorithms - performance is pretty similar  What matters often is:  The amount of training data Skill of applying algorithms       One final supervised learning algorithms that is widely used - Support Vector Machine (SVM)  Compared to both logistic regression and neural networks, a SVM sometimes gives a cleaner way of learning non-linear functions Later in the course we&rsquo;ll do a survey of different supervised learning algorithms      Start with logistic regression, see how we can modify it to get the SVM">
+<meta name="author" content="Thistledown">
+<link rel="canonical" href="https://fang-lansheng.github.io/posts/2020-06-20-ml-ng-7/" />
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.48a18943c2fc15c38a372b8dde1f5e5dc0bc64fa6cb90f5a817d2f8c76b7f3ae.css" integrity="sha256-SKGJQ8L8FcOKNyuN3h9eXcC8ZPpsuQ9agX0vjHa3864=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.min.4dcb3c4f38462f66c6b6137227726f5543cb934cca9788f041c087e374491df2.js" integrity="sha256-Tcs8TzhGL2bGthNyJ3JvVUPLk0zKl4jwQcCH43RJHfI="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://fang-lansheng.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://fang-lansheng.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://fang-lansheng.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://fang-lansheng.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://fang-lansheng.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="机器学习-吴恩达：学习笔记及总结（7）" />
+<meta property="og:description" content="Course Link ：Week7 - Support Vector Machines
+Code : Fang-Lansheng/Coursera-MachineLearning-Python
+ 21 Large Margin Classification 21.1 Optimization Objective  So far, we&rsquo;ve seen a range of different algorithms  With supervised learning algorithms - performance is pretty similar  What matters often is:  The amount of training data Skill of applying algorithms       One final supervised learning algorithms that is widely used - Support Vector Machine (SVM)  Compared to both logistic regression and neural networks, a SVM sometimes gives a cleaner way of learning non-linear functions Later in the course we&rsquo;ll do a survey of different supervised learning algorithms      Start with logistic regression, see how we can modify it to get the SVM" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://fang-lansheng.github.io/posts/2020-06-20-ml-ng-7/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-06-20T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2020-06-20T00:00:00&#43;00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="机器学习-吴恩达：学习笔记及总结（7）"/>
+<meta name="twitter:description" content="Course Link ：Week7 - Support Vector Machines
+Code : Fang-Lansheng/Coursera-MachineLearning-Python
+ 21 Large Margin Classification 21.1 Optimization Objective  So far, we&rsquo;ve seen a range of different algorithms  With supervised learning algorithms - performance is pretty similar  What matters often is:  The amount of training data Skill of applying algorithms       One final supervised learning algorithms that is widely used - Support Vector Machine (SVM)  Compared to both logistic regression and neural networks, a SVM sometimes gives a cleaner way of learning non-linear functions Later in the course we&rsquo;ll do a survey of different supervised learning algorithms      Start with logistic regression, see how we can modify it to get the SVM"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Posts",
+      "item": "https://fang-lansheng.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "机器学习-吴恩达：学习笔记及总结（7）",
+      "item": "https://fang-lansheng.github.io/posts/2020-06-20-ml-ng-7/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "机器学习-吴恩达：学习笔记及总结（7）",
+  "name": "机器学习-吴恩达：学习笔记及总结（7）",
+  "description": "Course Link ：Week7 - Support Vector Machines\nCode : Fang-Lansheng/Coursera-MachineLearning-Python\n 21 Large Margin Classification 21.1 Optimization Objective  So far, we\u0026rsquo;ve seen a range of different algorithms  With supervised learning algorithms - performance is pretty similar  What matters often is:  The amount of training data Skill of applying algorithms       One final supervised learning algorithms that is widely used - Support Vector Machine (SVM)  Compared to both logistic regression and neural networks, a SVM sometimes gives a cleaner way of learning non-linear functions Later in the course we\u0026rsquo;ll do a survey of different supervised learning algorithms      Start with logistic regression, see how we can modify it to get the SVM",
+  "keywords": [
+    "ML/DL", "Course Learning", "Python"
+  ],
+  "articleBody": " Course Link ：Week7 - Support Vector Machines\nCode : Fang-Lansheng/Coursera-MachineLearning-Python\n 21 Large Margin Classification 21.1 Optimization Objective  So far, we’ve seen a range of different algorithms  With supervised learning algorithms - performance is pretty similar  What matters often is:  The amount of training data Skill of applying algorithms       One final supervised learning algorithms that is widely used - Support Vector Machine (SVM)  Compared to both logistic regression and neural networks, a SVM sometimes gives a cleaner way of learning non-linear functions Later in the course we’ll do a survey of different supervised learning algorithms      Start with logistic regression, see how we can modify it to get the SVM\n  As before, the logistic regression hypothesis is as follows: $$ h_\\theta(x) \\frac{1}{1 + e^{-\\theta^Tx}} $$\n  And the sigmoid activation function looks like the one in the picture above.\n  In order to explain the math, we use $z$ as defined above\n    What do we want logistic regression to do?\n We have an example where $y = 1$  Then we hope $h_\\theta(x)$ is close to 1 With $h_\\theta(x)$ close to 1, $\\theta^Tx$ must be much largerthan 0   Similarly, when $y = 0$  Then we hope $h_\\theta(x)$ is close to 0 With $h_\\theta(x)$ close to 0, $\\theta^Tx$ must be much lessthan 0   This is our classic view of logistic regression, let’s consider another way of thinking about the problem     If you look at cost function, each example contributes a term (like the one in the picture) to the overall cost function If you then plug in the hypothesis definition $h_\\theta(x)$, you get an expanded cost function equation  So each training example contributes that term to the cost function for logistic regression   If $y = 1$ then only the first term in the objective matters. The plot of the function vs. $z$ shows that the cost contribution of an example when $y = 1$ given $z$  So if $z$ is big, the cost is low But if $z$ is 0 or negative the cost contribution is high This is why, when logistic regression sees a positive example, it tries to set $\\theta^Tx$ to be a very large term   If $y = 0$ then only the second term matters. We can again plot it and get a similar graph. Same deal,  If $z$ is small then the cost is low But if $z$ is large then the cost is massive   To build a SVM we must define our cost function  When $y = 1$  Take the $y = 1$ function and create a new cost function Instead of a curved line create two straight lines (magenta) which acts as an approximation to the logistic regression $y = 1$ function So this is the new $y=1$ cost function  Gives the SVM a computational advantage and an easier optimization problem We call this function $cost_1(z) $     Similarly, when $y = 0$  Do the equivalent with the $y=0$ function plot We call this function $cost_0(z)$     So here we define the two cost function terms for our SVM graphically  How do we implement this?      As a comparison/reminder we have logistic regression (as is shown in the picture above)\n  For the SVM we take our two logistic regression $ y=1$ and $y=0$ terms described previously and replace with $cost_1(\\theta^Tx)$ and $cost_0(\\theta^Tx)$\n  SVM notation is slightly different\n  21.2 Large Margin Intuition  Sometimes people refer to SVM as large margin classifiers  We’ll consider what that means and what an SVM hypothesis looks like The SVM cost function is as above, and we can draw out the cost terms: left is $cost_1$ and right is $cost_0$ What does it take to make terms small:  If $y=1$: $cost_1(z)=0$ only when $z \\ge 1$ if $y = 0$: $cost_0(z) = 0$ only when $z \\le -1$   Interesting property of SVM  In logistic regression, if you have a positive example, you only really need $z$ to be greater or equal to 0  If this is the case then you predict 1   SVM wants a bit more than that - doesn’t want to just get it right, but have the value be quite a bit bigger than zero  Throws in an extra safety margin factor       Logistic regression dose something similar   What are the consequences of this? Consider a case where we set C to be huge  $C = 100000$ So considering we’re minimizing $CA + B$  If $C$ is huge we’re going to pick an $A$ value so that $A$ is equal to zero What is the optimization problem here - how do we make $A = 0$?   Making $A = 0$  If $y = 1$: Then to make our “$A$” term 0 need to find a value of $\\theta$ so $(\\theta^T x)$ is greater than or equal to 1 Similarly, if $y = 0$: Then we want to make “$A$” term 0 then we need to find a value of $\\theta$ so $(\\theta^T x)$ is equal to or less than -1   So - if we think of our optimization problem a way to ensure that this first “$A$” term is equal to 0, we re-factor our optimization problem into just minimizing the “$B$” (regularization) term, because when $A = 0 \\rightarrow A*C = 0$ So we’re minimizing $B$, under the constraints shown above     Turns out when you solve this problem you get interesting decision boundaries  The green and magenta lines are functional decision boundaries which could be chosen by logistic regression  But they probably don’t generalize too well   The black line, by contrast is the the chosen by the SVM because of this safety net imposed by the optimization graph  More robust separator   Mathematically, that black line has a larger minimum distance (margin) from any of the training examples By separating with the largest margin you incorporate robustness into your decision making process     We looked at this at when $C$ is very large  SVM is more sophisticated than the large margin might look If you were just using large margin then SVM would be very sensitive to outliers You would risk making a ridiculous hugely impact your classification boundary  A single example might not represent a good reason to change an algorithm If $C$ is very large then we do use this quite naïve maximize the margin approach So we’d change the black to the magenta     What about non-linearly separable data?  Then SVM still does the right thing if you use a normal size $C$ So the idea of SVM being a large margin classifier is only really relevant when you have no outliers and you can easily linearly separable data    21.3 Mathematics Behind Large Margin Classification  Vector inner products   SVM Decision Boundary    The constraints we defined earlier:\n $\\theta^Tx \\ge 1 \\text{ if } y = 1$ $\\theta^Tx \\le -1 \\text{ if } y = 0$    Can be replaced/substituted with the constraints\n $p^i\\left|\\theta\\right| \\ge 1 \\text{ if } y = 1 $ $p^i\\left|\\theta\\right| \\le -1 \\text{ if } y = 0 $    Writing that into our optimization objective\n$$ \\begin{align*} \\min_\\theta \u0026 \\frac{1}{2}\\sum_{j=1}^n\\theta_j^2\\ \\mbox{s.t.} \u0026 |\\theta|\\cdot p^{(i)} \\geq 1\\quad \\mbox{if}\\ y^{(i)} = 1\\ \u0026 |\\theta|\\cdot p^{(i)} \\leq -1\\quad \\mbox{if}\\ y^{(i)} = 0 \\end{align*} $$\n  22 Kernels 22.1 Kernels I   What are kernels and how do we use them\n  We have a training set\n  We want to find a non-linear boundary\n  Come up with a complex set of polynomial features to fit the data\n Have $h_\\theta(x)$ which  Returns 1 if the combined weighted sum of vectors (weighted by the parameter vector) is less than or equal to 0 Else return 0   Another way of writing this (new notation) is  That a hypothesis computes a decision boundary by taking the sum of the parameter vector multiplied by a new feature vector $f$, which simply contains the various high order $x$ terms e.g., $h_\\theta(x) = \\theta_0 + \\theta_1f_1+\\theta_2f_2 + \\theta_3 f_3$, where $f_1 = x_1,f_2=x_1x_2,f_3=\\cdots$ (i.e. not specific values, but each of the terms from your complex polynomial function)   Is there a better choice of feature $f$ than the high order polynomials?  As we saw with computer imaging, high order polynomials become computationally expensive        New features\n  Define three features in this example (ignore $x_0$)\n  Have a graph of $x_1$ vs. $x_2$ (don’t plot the values, just define the space)\n  Pick three points in that space\n  These points $l^1$, $l^2$ and $l^3$, were chosen manually and are called landmarks\n Given $x$, define $f_1$ as the similarity between $(x, l^1)$: $f_1 = \\exp(-\\frac{|x-l^{(1)}|^2}{2\\sigma^2})$ If we remember our statistics, we know that: $\\sigma$ is the standard derivation, $\\sigma^2$ is commonly called the variance Remember, that as discussed: $|x-l^{(1)}|^2 = \\sum_{j =1}^n \\left( x_j - l_j^{(1)}\\right)^2$    So, $f_2$ is defined as:\n $f_2 = \\text{similarity}(x, l^2) = \\exp(-|x-l^{(2)}|^2/{2\\sigma^2})$    And similarly\n $f_3 = \\text{similarity}(x, l^3) = \\exp(-|x-l^{(3)}|^2/{2\\sigma^2})$    This similarity function is called a kernel\n The function is a Gaussian Kernel    So, instead of writing similarity between $x$ and $l$ we might write $f_1 = k(x, l^1)$\n    Driving deeper into the kernel\n So lets see what these kernels do and why the functions defined make sense  Say $x$ is close to a landmark,  Then the squared distance will be $\\sim0$ So $f_1 \\approx \\exp(-0^2/2\\sigma^2) \\approx e^{-0} \\approx 1$   Say $x$ is far from a landmark  Then the squared distance is big Gives $e^{\\text{- large number}} \\approx 0$   Each landmark defines a new features      22.2 Kernels II   Take the training data\n  For each example place a landmark at exactly the same location\n  So end up with $m$ landmarks\n One landmark per location per training example Means our features measure how close to a training set example something is    Given a new example, compute all the f values\n Gives you a feature vector $f$ ($f_0 \\cdots f_m$)  $f_0 = 1$ always      A more detailed look at generating the f vector\n  If we had a training example - features we compute would be using $(x_i, y_i)$\n  So we just cycle through each landmark, calculating how close to that landmark actually $x_i$ is\n $f_1^i, = k(x^i, l^1)$ $f_2^i, = k(x^i, l^2)$ $…$ $f_m^i, = k(x^i, l^m)$    Somewhere in the list we compare $x$ to itself… (i.e. when we’re at $f_i^i$)\n So because we’re using the Gaussian Kernel this evaluates to 1    Take these $m$ features $(f_1, f_2 \\cdots f_m)$ group them into an $[m +1 \\times 1]$ dimensional vector called $f$\n fi is the f feature vector for the $i^{\\text{th}}$ example And add a $0^{\\text{th}}$ term = 1      Given these kernels, how do we use a support vector machine\n    SVM hypothesis prediction with kernels\n Predict $y = 1$ if $\\theta^Tf \\ge 0$  Because $\\theta = [m + 1 \\times 1]$, $f = [m + 1 \\times 1]$   So, this is how you make a prediction assuming you already have $\\theta$  How do you get $\\theta$?      SVM training with kernels\n  Using the SVM learning algorithm $$ \\mathop{\\text{min}}\\limits{\\theta} C \\sum{i=1}^m y^{(i)}cost_1(\\theta^Tf^{(i)}) + (1 - y^{(i)})cost_0(\\theta^Tf^{(i)}) + \\frac{1}{2}\\sum_{j=1}^{n} \\theta^2_j $$\n Now, we minimizing using $f$ as the feature vector instead of $x$ By solving this minimization problem you get the parameters for your SVM    In this setup, $m = n$\n Because number of features is the number of training data examples we have    One final mathematic detail (not crucial to understand)\n If we ignore $\\theta_0$ then $\\sum_{j = 1}^n \\theta^2_j = \\theta^T\\theta$ is true What many implementations do is $\\theta^TM\\theta$  Where the matrix $M$ depends on the kernel you use Gives a slightly different minimization - means we determine a rescaled version of $\\theta$ Allows more efficient computation, and scale to much bigger training sets If you have a training set with 10,000 values, means you get 10,000 features  Solving for all these parameters can become expensive So by adding this in we avoid a for loop and use a matrix multiplication algorithm instead        You can apply kernels to other algorithms\n But they tend to be very computationally expensive But the SVM is far more efficient - so more practical    Lots of good off the shelf software to minimize this function, you don’t need to write your own\n    SVM parameters ($C$)\n Bias and variance trade off Must chose $C$:  $C$ plays a role similar to $1/\\lambda$ (where $\\lambda$ is the regularization parameter)   Large $C$ gives a hypothesis of low bias \u0026 high variance→ overfitting Small $C$ gives a hypothesis of high bias \u0026 low variance→ underfitting    SVM parameters ($\\sigma^2$)\n Parameters for calculating $f$ values Large $\\sigma^2$ → $f$ features vary more smoothly → higher bias, low variance Small $\\sigma^2$ → $f$ features vary more abruptly → lower bias, higher variance    23 SVMs in Practice 23.1 Using An SVM  Choosing a kernel  We’ve looked at the Gaussian kernel Need to define $\\sigma$ ($\\sigma^2$) When would you chose a Gaussian?  If $n$ is small and/or $m$ is large   If you’re using a Gaussian kernel then you may need to implement the kernel function Note: make sure you perform feature scaling before using a Gaussian kernel   Could use no kernel - linear kernel Predict $y = 1$ if $\\theta^Tx \\ge 0$  So no $f$ vector Get a standard linear classifier   Why do this?  If $n$ is large and $m$ is small then  Lots of features, few examples Not enough data - risk overfitting in a high dimensional feature-space       Other choice of kernel  Linear and Gaussian are most common Not all similarity functions are valid kernels  Must satisfy Mercer’s Theorem SVM use numerical optimization tricks  Mean certain optimization can be made, but they must follow the theorem     Polynomial Kernel: $(x^Tl + \\text{const})^{\\text{degree}}$  Usually performs worse than the Gaussian kernel Used when $x$ and $ l$ are both non-negative   String kernel Used if input is text strings Use for text classification   Chi-squared kernel Histogram intersection kernel     Multi-class classification for SVM  Many packages have built in multi-class classification packages Otherwise use one-vs all method   Logistic regression vs. SVM  When should you use SVM and when is logistic regression more applicable  If $n$ (features) is large vs. $m$ (training set) is small: Then use logistic regression or SVM with a linear kernel If $n$ is small and $m$ is intermediate: Gaussian kernel is good If $n$ is small and $m$ is large: SVM will be slow to run with Gaussian kernel  Manually create or add more features Use logistic regression of SVM with a linear kernel     Logistic regression and SVM with a linear kernel are pretty similar  Do similar things Get similar performance   A lot of SVM’s power is using different kernels to learn complex non-linear functions For all these regimes a well designed NN should work  But, for some of these problems a NN might be slower - SVM well implemented would be faster   SVM has a convex optimization problem - so you get a global minimum It’s not always clear how to chose an algorithm  Often more important to get enough data Designing new features Debugging the algorithm   SVM is widely perceived a very powerful learning algorithm    Ex6: Support Vector Machines👨‍💻  See this exercise on Coursera-MachineLearning-Python/ex6/ex6.ipynb\n ",
+  "wordCount" : "2466",
+  "inLanguage": "en",
+  "datePublished": "2020-06-20T00:00:00Z",
+  "dateModified": "2020-06-20T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "Thistledown"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://fang-lansheng.github.io/posts/2020-06-20-ml-ng-7/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "My-Thistledown",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://fang-lansheng.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://fang-lansheng.github.io" accesskey="h" title="My-Thistledown (Alt + H)">My-Thistledown</a>
+            <span class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </span>
+        </div>
+        <ul id="menu">
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title">
+      机器学习-吴恩达：学习笔记及总结（7）
+    </h1>
+    <div class="post-meta"><span title='2020-06-20 00:00:00 +0000 UTC'>June 20, 2020</span>&nbsp;·&nbsp;Thistledown
+
+</div>
+  </header> 
+  <div class="post-content"><blockquote>
+<p>Course Link ：<a href="https://www.coursera.org/learn/machine-learning/home/week/7">Week7 - Support Vector Machines</a></p>
+<p>Code : <a href="https://github.com/Fang-Lansheng/Coursera-MachineLearning-Python">Fang-Lansheng/Coursera-MachineLearning-Python</a></p>
+</blockquote>
+<h2 id="21-large-margin-classification">21 Large Margin Classification<a hidden class="anchor" aria-hidden="true" href="#21-large-margin-classification">#</a></h2>
+<h4 id="211-optimization-objective">21.1 Optimization Objective<a hidden class="anchor" aria-hidden="true" href="#211-optimization-objective">#</a></h4>
+<ul>
+<li>So far, we&rsquo;ve seen a range of different algorithms
+<ul>
+<li>With supervised learning algorithms - performance is pretty similar
+<ul>
+<li>What matters often is:
+<ul>
+<li>The amount of training data</li>
+<li>Skill of applying algorithms</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>One final supervised learning algorithms that is widely used - <strong>Support Vector Machine (SVM)</strong>
+<ul>
+<li>Compared to both logistic regression and neural networks, a SVM sometimes gives a cleaner way of learning non-linear functions</li>
+<li>Later in the course we&rsquo;ll do a survey of different supervised learning algorithms</li>
+</ul>
+</li>
+</ul>
+<p><img loading="lazy" src="https://i.loli.net/2020/06/20/UMsnIgBG76vlcjK.png" alt="image-20200620154342498"  />
+</p>
+<ul>
+<li>
+<p>Start with logistic regression, see how we can modify it to get the SVM</p>
+<ul>
+<li>
+<p>As before, the logistic  regression hypothesis is as follows:
+$$
+h_\theta(x) \frac{1}{1 + e^{-\theta^Tx}}
+$$</p>
+</li>
+<li>
+<p>And the sigmoid activation function looks like the one in the picture above.</p>
+</li>
+<li>
+<p>In order to explain the math, we use $z$ as defined above</p>
+</li>
+</ul>
+</li>
+<li>
+<p>What do we want logistic regression to do?</p>
+<ul>
+<li>We have an example where $y = 1$
+<ul>
+<li>Then we hope $h_\theta(x)$ is close to 1</li>
+<li>With $h_\theta(x)$ close to 1, $\theta^Tx$ must be <!-- raw HTML omitted -->much larger<!-- raw HTML omitted --> than 0</li>
+</ul>
+</li>
+<li>Similarly, when $y = 0$
+<ul>
+<li>Then we hope $h_\theta(x)$ is close to 0</li>
+<li>With $h_\theta(x)$ close to 0, $\theta^Tx$ must be <!-- raw HTML omitted -->much less<!-- raw HTML omitted --> than 0</li>
+</ul>
+</li>
+<li>This is our classic view of logistic regression, let&rsquo;s consider another way of thinking about the problem</li>
+</ul>
+</li>
+</ul>
+<p><img loading="lazy" src="https://i.loli.net/2020/06/20/8eOlHQGDnZFScMh.png" alt="image-20200620154443692"  />
+</p>
+<ul>
+<li>If you look at cost function, each example contributes a term (like the one in the picture) to the overall cost function</li>
+<li>If you then plug in the hypothesis definition $h_\theta(x)$, you get an expanded cost function equation
+<ul>
+<li>So each training example contributes that term to the cost function for logistic regression</li>
+</ul>
+</li>
+<li>If $y = 1$ then only the first term in the objective matters. The plot of the function vs. $z$ shows that the cost contribution of an example when $y = 1$ given $z$
+<ul>
+<li>So if $z$ is big, the cost is low</li>
+<li>But if $z$ is 0 or negative the cost contribution is high</li>
+<li>This is why, when logistic regression sees a positive example, it tries to set $\theta^Tx$ to be a very large term</li>
+</ul>
+</li>
+<li>If $y = 0$ then only the second term matters. We can again plot it and get a similar graph. Same deal,
+<ul>
+<li>If $z$ is small then the cost is low</li>
+<li>But if $z$ is large then the cost is massive</li>
+</ul>
+</li>
+<li>To build a SVM we must define our cost function
+<ul>
+<li>When $y = 1$
+<ul>
+<li>Take the $y = 1$ function and create a new cost function</li>
+<li>Instead of a curved line create two straight lines (magenta) which acts as an approximation to the logistic regression $y = 1$ function</li>
+<li>So this is the new $y=1$ cost function
+<ul>
+<li>Gives the SVM a computational advantage and an easier optimization problem</li>
+<li>We call this function $cost_1(z) $</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Similarly, when $y = 0$
+<ul>
+<li>Do the equivalent with the $y=0$ function plot</li>
+<li>We call this function $cost_0(z)$</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>So here we define the two cost function terms for our SVM graphically
+<ul>
+<li>How do we implement this?</li>
+</ul>
+</li>
+</ul>
+<p><img loading="lazy" src="https://i.loli.net/2020/06/20/3jgLdeCMI2ZVH9n.png" alt="image-20200620161530481"  />
+</p>
+<ul>
+<li>
+<p>As a comparison/reminder we have logistic regression (as is shown in the picture above)</p>
+</li>
+<li>
+<p>For the SVM we take our two logistic regression $ y=1$ and $y=0$ terms described previously and replace with $cost_1(\theta^Tx)$ and $cost_0(\theta^Tx)$</p>
+</li>
+<li>
+<p>SVM notation is slightly different</p>
+</li>
+</ul>
+<h4 id="212-large-margin-intuition">21.2 Large Margin Intuition<a hidden class="anchor" aria-hidden="true" href="#212-large-margin-intuition">#</a></h4>
+<p><img loading="lazy" src="https://i.loli.net/2020/06/20/qQV6yBDhGdZKMAc.png" alt="image-20200620162012334"  />
+</p>
+<ul>
+<li>Sometimes people refer to SVM as <em>large margin classifiers</em>
+<ul>
+<li>We&rsquo;ll consider what that means and what an SVM hypothesis looks like</li>
+<li>The SVM cost function is as above, and we can draw out the cost terms: left is $cost_1$ and right is $cost_0$</li>
+<li>What does it take to make terms small:
+<ul>
+<li>If $y=1$: $cost_1(z)=0$ only when $z \ge 1$</li>
+<li>if $y = 0$: $cost_0(z) = 0$ only when $z \le -1$</li>
+</ul>
+</li>
+<li>Interesting property of SVM
+<ul>
+<li>In logistic regression, if you have a positive example, you only really need $z$ to be greater or equal to 0
+<ul>
+<li>If this is the case then you predict 1</li>
+</ul>
+</li>
+<li>SVM wants a bit more than that - doesn&rsquo;t want to <em>just</em> get it right, but have the value be quite a bit bigger than zero
+<ul>
+<li>Throws in an extra safety margin factor</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Logistic regression dose something similar</li>
+</ul>
+<p><img loading="lazy" src="https://i.loli.net/2020/06/20/TY7mwOpWGigFKQr.png" alt="image-20200620172734287"  />
+</p>
+<ul>
+<li>What are the consequences of this? Consider a case where we set C to be huge
+<ul>
+<li>$C = 100000$</li>
+<li>So considering we&rsquo;re minimizing $CA + B$
+<ul>
+<li>If $C$ is huge we&rsquo;re going to pick an $A$ value so that $A$ is equal to zero</li>
+<li>What is the optimization problem here - how do we make $A = 0$?</li>
+</ul>
+</li>
+<li>Making $A = 0$
+<ul>
+<li>If $y = 1$: Then to make our &ldquo;$A$&rdquo; term 0 need to find a value of $\theta$ so $(\theta^T x)$ is greater than or equal to 1</li>
+<li>Similarly, if $y = 0$: Then we want to make &ldquo;$A$&rdquo; term 0 then we need to find a value of $\theta$ so $(\theta^T x)$ is equal to or less than -1</li>
+</ul>
+</li>
+<li>So - if we think of our optimization problem a way to ensure that this first &ldquo;$A$&rdquo; term is equal to 0, we re-factor our optimization problem into just minimizing the &ldquo;$B$&rdquo; (regularization) term, because when $A = 0 \rightarrow A*C = 0$</li>
+<li>So we&rsquo;re minimizing $B$, under the constraints shown above</li>
+</ul>
+</li>
+</ul>
+<p><img loading="lazy" src="C:/Users/12076/AppData/Roaming/Typora/typora-user-images/image-20200620173119658.png" alt="image-20200620173119658"  />
+</p>
+<ul>
+<li>Turns out when you solve this problem you get interesting decision boundaries
+<ul>
+<li>The green and magenta lines are functional decision boundaries which could be chosen by logistic regression
+<ul>
+<li>But they probably don&rsquo;t generalize too well</li>
+</ul>
+</li>
+<li>The black line, by contrast is the the chosen by the SVM because of this safety net imposed by the optimization graph
+<ul>
+<li>More robust separator</li>
+</ul>
+</li>
+<li>Mathematically, that black line has a larger minimum distance (margin) from any of the training examples</li>
+<li>By separating with the largest margin you incorporate robustness into your decision making process</li>
+</ul>
+</li>
+</ul>
+<p><img loading="lazy" src="https://i.loli.net/2020/06/20/i9APTybZEwdIx6c.png" alt="image-20200620173332435"  />
+</p>
+<ul>
+<li>We looked at this at when $C$ is very large
+<ul>
+<li>SVM is more sophisticated than the large margin might look</li>
+<li>If you were just using large margin then SVM would be very sensitive to outliers</li>
+<li>You would risk making a ridiculous hugely impact your classification boundary
+<ul>
+<li>A single example might not represent a good reason to change an algorithm</li>
+<li>If $C$ is very large then we <em>do</em> use this quite naïve maximize the margin approach</li>
+<li>So we&rsquo;d change the black to the magenta</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>What about non-linearly separable data?
+<ul>
+<li>Then SVM still does the right thing if you use a normal size $C$</li>
+<li>So the idea of SVM being a large margin classifier is only really relevant when you have no outliers and you can easily linearly separable data</li>
+</ul>
+</li>
+</ul>
+<h4 id="213-mathematics-behind-large-margin-classification">21.3 Mathematics Behind Large Margin Classification<a hidden class="anchor" aria-hidden="true" href="#213-mathematics-behind-large-margin-classification">#</a></h4>
+<ul>
+<li>Vector inner products</li>
+</ul>
+<p><img loading="lazy" src="https://i.loli.net/2020/06/20/ranz8YDFbQufjTP.png" alt="image-20200620174139944"  />
+</p>
+<ul>
+<li>SVM Decision Boundary</li>
+</ul>
+<p><img loading="lazy" src="https://i.loli.net/2020/06/20/AZkrfiFJ1M74SIs.png" alt="image-20200620175000605"  />
+</p>
+<ul>
+<li>
+<p>The constraints we defined earlier:</p>
+<ul>
+<li>$\theta^Tx \ge 1 \text{ if } y = 1$</li>
+<li>$\theta^Tx \le -1 \text{ if } y = 0$</li>
+</ul>
+</li>
+<li>
+<p>Can be replaced/substituted with the constraints</p>
+<ul>
+<li>$p^i\left|\theta\right| \ge 1 \text{ if } y = 1 $</li>
+<li>$p^i\left|\theta\right| \le -1 \text{ if } y = 0 $</li>
+</ul>
+</li>
+<li>
+<p>Writing that into our optimization objective</p>
+<p>$$
+\begin{align*} \min_\theta &amp; \frac{1}{2}\sum_{j=1}^n\theta_j^2\ \mbox{s.t.} &amp; |\theta|\cdot p^{(i)} \geq 1\quad \mbox{if}\ y^{(i)} = 1\ &amp; |\theta|\cdot p^{(i)} \leq -1\quad \mbox{if}\ y^{(i)} = 0 \end{align*}
+$$</p>
+</li>
+</ul>
+<p><img loading="lazy" src="https://i.loli.net/2020/06/20/nfUatWXQBCFgDlx.png" alt="image-20200620182923493"  />
+</p>
+<h2 id="22-kernels">22 Kernels<a hidden class="anchor" aria-hidden="true" href="#22-kernels">#</a></h2>
+<h4 id="221-kernels-i">22.1 Kernels I<a hidden class="anchor" aria-hidden="true" href="#221-kernels-i">#</a></h4>
+<ul>
+<li>
+<p>What are kernels and how do we use them</p>
+<ul>
+<li>
+<p>We have a training set</p>
+</li>
+<li>
+<p>We want to find a non-linear boundary</p>
+<p><img loading="lazy" src="https://i.loli.net/2020/06/21/JugSmaRckiVEb7z.png" alt="image-20200621110236599"  />
+</p>
+</li>
+<li>
+<p>Come up with a complex set of polynomial features to fit the data</p>
+<ul>
+<li>Have $h_\theta(x)$ which
+<ul>
+<li>Returns 1 if the combined weighted sum of vectors (weighted by the parameter vector) is less than or equal to 0</li>
+<li>Else return 0</li>
+</ul>
+</li>
+<li>Another way of writing this (new notation) is
+<ul>
+<li>That a hypothesis computes a decision boundary by taking the sum of the parameter vector multiplied by a <strong>new feature vector $f$</strong>, which simply contains the various high order $x$ terms</li>
+<li>e.g., $h_\theta(x) = \theta_0 + \theta_1f_1+\theta_2f_2 + \theta_3 f_3$, where $f_1 = x_1,f_2=x_1x_2,f_3=\cdots$ (i.e. not specific values, but each of the terms from your complex polynomial function)</li>
+</ul>
+</li>
+<li>Is there a better choice of feature $f$ than the high order polynomials?
+<ul>
+<li>As we saw with computer imaging, high order polynomials become computationally expensive</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>New features</p>
+<ul>
+<li>
+<p>Define three features in this example (ignore $x_0$)</p>
+</li>
+<li>
+<p>Have a graph of $x_1$ vs. $x_2$ (don&rsquo;t plot the values, just define the space)</p>
+</li>
+<li>
+<p>Pick three points in that space</p>
+<p><img loading="lazy" src="https://i.loli.net/2020/06/21/If3wTaDJCxgZqzS.png" alt="image-20200621111131150"  />
+</p>
+</li>
+<li>
+<p>These points $l^1$, $l^2$ and $l^3$, were chosen manually and are called <em>landmarks</em></p>
+<ul>
+<li>Given $x$, define $f_1$ as the similarity between $(x, l^1)$: $f_1 = \exp(-\frac{|x-l^{(1)}|^2}{2\sigma^2})$</li>
+<li>If we remember our statistics, we know that: $\sigma$ is the standard derivation, $\sigma^2$ is commonly called the variance</li>
+<li>Remember, that as discussed: $|x-l^{(1)}|^2 = \sum_{j =1}^n \left( x_j - l_j^{(1)}\right)^2$</li>
+</ul>
+</li>
+<li>
+<p>So, $f_2$ is defined as:</p>
+<ul>
+<li>$f_2 = \text{similarity}(x, l^2) = \exp(-|x-l^{(2)}|^2/{2\sigma^2})$</li>
+</ul>
+</li>
+<li>
+<p>And similarly</p>
+<ul>
+<li>$f_3 = \text{similarity}(x, l^3) = \exp(-|x-l^{(3)}|^2/{2\sigma^2})$</li>
+</ul>
+</li>
+<li>
+<p>This similarity function is called a <strong>kernel</strong></p>
+<ul>
+<li>The function is a <strong>Gaussian Kernel</strong></li>
+</ul>
+</li>
+<li>
+<p>So, instead of writing similarity between $x$ and $l$ we might write $f_1 = k(x, l^1)$</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Driving deeper into the kernel</p>
+<ul>
+<li>So lets see what these kernels do and why the functions defined make sense
+<ul>
+<li>Say $x$ is close to a landmark,
+<ul>
+<li>Then the squared distance will be $\sim0$</li>
+<li>So $f_1 \approx \exp(-0^2/2\sigma^2) \approx e^{-0} \approx 1$</li>
+</ul>
+</li>
+<li>Say $x$ is far from a landmark
+<ul>
+<li>Then the squared distance is big</li>
+<li>Gives $e^{\text{- large number}} \approx 0$</li>
+</ul>
+</li>
+<li>Each landmark defines a new features</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img loading="lazy" src="https://i.loli.net/2020/06/21/RrDCn35tXKmHaLx.png" alt="image-20200621113619099"  />
+</p>
+<p><img loading="lazy" src="https://i.loli.net/2020/06/21/apWO9MfmwuFhKBE.png" alt="image-20200621113650163"  />
+</p>
+<h4 id="222-kernels-ii">22.2 Kernels II<a hidden class="anchor" aria-hidden="true" href="#222-kernels-ii">#</a></h4>
+<p><img loading="lazy" src="https://i.loli.net/2020/06/21/7JKQeSE3paAUuzi.png" alt="image-20200621113954246"  />
+</p>
+<p><img loading="lazy" src="https://i.loli.net/2020/06/21/e5rs1VKSPXzFmYL.png" alt="image-20200621114839058"  />
+</p>
+<ul>
+<li>
+<p>Take the training data</p>
+</li>
+<li>
+<p>For each example place a landmark at exactly the same location</p>
+</li>
+<li>
+<p>So end up with $m$ landmarks</p>
+<ul>
+<li>One landmark per location per training example</li>
+<li>Means our features measure how close to a training set example something is</li>
+</ul>
+</li>
+<li>
+<p>Given a new example, compute all the f values</p>
+<ul>
+<li>Gives you a feature vector $f$ ($f_0 \cdots f_m$)
+<ul>
+<li>$f_0 = 1$ always</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>A more detailed look at generating the f vector</p>
+<ul>
+<li>
+<p>If we had a training example - features we compute would be using $(x_i, y_i)$</p>
+<ul>
+<li>
+<p>So we just cycle through each landmark, calculating how close to that landmark actually $x_i$ is</p>
+<ul>
+<li>$f_1^i, = k(x^i, l^1)$</li>
+<li>$f_2^i, = k(x^i, l^2)$</li>
+<li>$&hellip;$</li>
+<li>$f_m^i, = k(x^i, l^m)$</li>
+</ul>
+</li>
+<li>
+<p>Somewhere in the list we compare $x$ to itself&hellip; (i.e. when we&rsquo;re at $f_i^i$)</p>
+<ul>
+<li>So because we&rsquo;re using the Gaussian Kernel this evaluates to 1</li>
+</ul>
+</li>
+<li>
+<p>Take these $m$ features $(f_1, f_2 \cdots f_m)$ group them into an $[m +1 \times 1]$ dimensional vector called $f$</p>
+<ul>
+<li>fi is the f feature vector for the $i^{\text{th}}$ example</li>
+<li>And add a $0^{\text{th}}$ term = 1</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Given these kernels, how do we use a support vector machine</p>
+</li>
+</ul>
+</li>
+<li>
+<p>SVM hypothesis prediction with kernels</p>
+<ul>
+<li>Predict $y = 1$ if $\theta^Tf \ge 0$
+<ul>
+<li>Because $\theta = [m + 1 \times 1]$, $f = [m + 1 \times 1]$</li>
+</ul>
+</li>
+<li>So, this is how you make a prediction assuming you already have $\theta$
+<ul>
+<li>How do you get $\theta$?</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>SVM training with kernels</p>
+<ul>
+<li>
+<p>Using the SVM learning algorithm
+$$
+\mathop{\text{min}}<em>\limits{\theta} C \sum</em>{i=1}^m y^{(i)}cost_1(\theta^Tf^{(i)}) + (1 - y^{(i)})cost_0(\theta^Tf^{(i)}) + \frac{1}{2}\sum_{j=1}^{n} \theta^2_j
+$$</p>
+<ul>
+<li>Now, we minimizing using $f$ as the feature vector instead of $x$</li>
+<li>By solving this minimization problem you get the parameters for your SVM</li>
+</ul>
+</li>
+<li>
+<p>In this setup, $m = n$</p>
+<ul>
+<li>Because number of features is the number of training data examples we have</li>
+</ul>
+</li>
+<li>
+<p>One final mathematic detail (not crucial to understand)</p>
+<ul>
+<li>If we ignore $\theta_0$ then $\sum_{j = 1}^n \theta^2_j = \theta^T\theta$ is true</li>
+<li>What many implementations do is $\theta^TM\theta$
+<ul>
+<li>Where the matrix $M$ depends on the kernel you use</li>
+<li>Gives a slightly different minimization - means we determine a rescaled version of $\theta$</li>
+<li>Allows more efficient computation, and scale to much bigger training sets</li>
+<li>If you have a training set with 10,000 values, means you get 10,000 features
+<ul>
+<li>Solving for all these parameters can become expensive</li>
+<li>So by adding this in we avoid a <code>for</code> loop and use a matrix multiplication algorithm instead</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>You can apply kernels to other algorithms</p>
+<ul>
+<li>But they tend to be very computationally expensive</li>
+<li>But the SVM is far more efficient - so more practical</li>
+</ul>
+</li>
+<li>
+<p>Lots of good off the shelf software to minimize this function, you don&rsquo;t need to write your own</p>
+</li>
+</ul>
+</li>
+<li>
+<p>SVM parameters ($C$)</p>
+<ul>
+<li>Bias and variance trade off</li>
+<li>Must chose $C$:
+<ul>
+<li>$C$ plays a role similar to $1/\lambda$ (where $\lambda$ is the regularization parameter)</li>
+</ul>
+</li>
+<li>Large $C$ gives a hypothesis of <!-- raw HTML omitted -->low bias &amp; high variance<!-- raw HTML omitted --> → overfitting</li>
+<li>Small $C$ gives a hypothesis of <!-- raw HTML omitted -->high bias &amp; low variance<!-- raw HTML omitted --> → underfitting</li>
+</ul>
+</li>
+<li>
+<p>SVM parameters ($\sigma^2$)</p>
+<ul>
+<li>Parameters for calculating $f$ values</li>
+<li>Large $\sigma^2$ → $f$ features vary more smoothly → higher bias, low variance</li>
+<li>Small $\sigma^2$ → $f$ features vary more abruptly → lower bias, higher variance</li>
+</ul>
+</li>
+</ul>
+<h2 id="23-svms-in-practice">23 SVMs in Practice<a hidden class="anchor" aria-hidden="true" href="#23-svms-in-practice">#</a></h2>
+<h4 id="231-using-an-svm">23.1 Using An SVM<a hidden class="anchor" aria-hidden="true" href="#231-using-an-svm">#</a></h4>
+<ul>
+<li>Choosing a kernel
+<ul>
+<li>We&rsquo;ve looked at the <!-- raw HTML omitted -->Gaussian kernel<!-- raw HTML omitted -->
+<ul>
+<li>Need to define $\sigma$ ($\sigma^2$)</li>
+<li>When would you chose a Gaussian?
+<ul>
+<li>If $n$ is small and/or $m$ is large</li>
+</ul>
+</li>
+<li>If you&rsquo;re using a Gaussian kernel then you may need to implement the kernel function</li>
+<li>Note: make sure you perform <em>feature scaling</em> before using a Gaussian kernel</li>
+</ul>
+</li>
+<li>Could use no kernel - <!-- raw HTML omitted -->linear kernel<!-- raw HTML omitted -->
+<ul>
+<li>Predict $y = 1$ if $\theta^Tx \ge 0$
+<ul>
+<li>So no $f$ vector</li>
+<li>Get a standard linear classifier</li>
+</ul>
+</li>
+<li>Why do this?
+<ul>
+<li>If $n$ is large and $m$ is small then
+<ul>
+<li>Lots of features, few examples</li>
+<li>Not enough data - risk overfitting in a high dimensional feature-space</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Other choice of kernel
+<ul>
+<li>Linear and Gaussian are most common</li>
+<li>Not all similarity functions are valid kernels
+<ul>
+<li>Must satisfy <!-- raw HTML omitted -->Mercer&rsquo;s Theorem<!-- raw HTML omitted --></li>
+<li>SVM use numerical optimization tricks
+<ul>
+<li>Mean certain optimization can be made, but they must follow the theorem</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><!-- raw HTML omitted -->Polynomial Kernel<!-- raw HTML omitted -->: $(x^Tl + \text{const})^{\text{degree}}$
+<ul>
+<li>Usually performs worse than the Gaussian kernel</li>
+<li>Used when $x$ and $ l$ are both non-negative</li>
+</ul>
+</li>
+<li><!-- raw HTML omitted -->String kernel<!-- raw HTML omitted -->
+<ul>
+<li>Used if input is text strings</li>
+<li>Use for text classification</li>
+</ul>
+</li>
+<li><!-- raw HTML omitted -->Chi-squared kernel<!-- raw HTML omitted --></li>
+<li><!-- raw HTML omitted -->Histogram intersection kernel<!-- raw HTML omitted --></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Multi-class classification for SVM
+<ul>
+<li>Many packages have built in multi-class classification packages</li>
+<li>Otherwise use one-vs all method</li>
+</ul>
+</li>
+<li>Logistic regression vs. SVM
+<ul>
+<li>When should you use SVM and when is logistic regression more applicable
+<ul>
+<li>If $n$ (features) is large vs. $m$ (training set) is small: Then use logistic regression or SVM with a linear kernel</li>
+<li>If $n$ is small and $m$ is intermediate: Gaussian kernel is good</li>
+<li>If $n$ is small and $m$ is large: SVM will be slow to run with Gaussian kernel
+<ul>
+<li>Manually create or add more features</li>
+<li>Use logistic regression of SVM with a linear kernel</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Logistic regression and SVM with a linear kernel are pretty similar
+<ul>
+<li>Do similar things</li>
+<li>Get similar performance</li>
+</ul>
+</li>
+<li>A lot of SVM&rsquo;s power is using different kernels to learn complex non-linear functions</li>
+<li>For all these regimes a well designed NN should work
+<ul>
+<li>But, for some of these problems a NN might be slower - SVM well implemented would be faster</li>
+</ul>
+</li>
+<li>SVM has a convex optimization problem - so you get a global minimum</li>
+<li>It&rsquo;s not always clear how to chose an algorithm
+<ul>
+<li>Often more important to get enough data</li>
+<li>Designing new features</li>
+<li>Debugging the algorithm</li>
+</ul>
+</li>
+<li>SVM is widely perceived a very powerful learning algorithm</li>
+</ul>
+</li>
+</ul>
+<h2 id="ex6-support-vector-machines">Ex6: Support Vector Machines👨‍💻<a hidden class="anchor" aria-hidden="true" href="#ex6-support-vector-machines">#</a></h2>
+<blockquote>
+<p>See this exercise on <a href="https://github.com/Fang-Lansheng/Coursera-MachineLearning-Python/blob/master/ex6/ex6.ipynb">Coursera-MachineLearning-Python/ex6/ex6.ipynb</a></p>
+</blockquote>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://fang-lansheng.github.io/tags/ml/dl/">ML/DL</a></li>
+      <li><a href="https://fang-lansheng.github.io/tags/course-learning/">Course Learning</a></li>
+      <li><a href="https://fang-lansheng.github.io/tags/python/">Python</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2022 <a href="https://fang-lansheng.github.io">My-Thistledown</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

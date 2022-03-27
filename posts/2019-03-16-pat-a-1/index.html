@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>PAT Advanced Level Practice (I) | My-Thistledown</title>
+<meta name="keywords" content="PAT, C&#43;&#43;, Algorithm" />
+<meta name="description" content="PAT Advanced Level 刷题（一）
+PTA | 程序设计类实验辅助教学平台
+ PAT A 1025 解题思路
+题目大意为：有 N（≤100） 个考场，每个考场有若干数量（K≤300）的考生。现给出各个考场中考生的准考证号与分数，要求将所有考生按分数从高到低排序，并按顺序输出所有考生的准考证号、排名、考场号及考场内排名。
+题目要求的信息（准考证号、分数等）可以用结构体 Student 来存放。对考生进行排序可以使用 C&#43;&#43; 标准库中的 sort() 函数，题目中指出结果应按照考生排名递增排序，相同分数的考生排名相同且按照准考证号递增排序。因此，我们需要准们编写一个符合题目条件的 cmp 函数，它应该满足如下规则：
+ 当分数不同时，按分数从大到小排序 否则，按准考证号从小到大排序。  也即：
+bool cmp(Student a, Student b) {  if (a.score != b.score)  return a.score &gt; b.score; // 先按分数从高到低排序  else  return strcmp(a.id, b.id) &lt; 0;	// 若分数相同，则按准考证号从小到大排序 } 算法本身分为三步：
+ 按考场读入各考生的信息，并对当前读入考场的所有考生进行排序。之后将该考场的所有考生的排名写入其结构体中。 对所有考生进行排序 按照排序，一遍计算总排名，一遍输出信息  参考代码
+#include &lt;cstdio&gt;#include &lt;cstring&gt;#include &lt;algorithm&gt; using namespace std;  struct Student {  char id[15];	// 准考证号  int score;	// 分数  int location_number;	// 考场号  int local_rank;	// 考场内排名 }stu[30010];  bool cmp(Student a, Student b) { 	if (a.">
+<meta name="author" content="Thistledown">
+<link rel="canonical" href="https://fang-lansheng.github.io/posts/2019-03-16-pat-a-1/" />
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.48a18943c2fc15c38a372b8dde1f5e5dc0bc64fa6cb90f5a817d2f8c76b7f3ae.css" integrity="sha256-SKGJQ8L8FcOKNyuN3h9eXcC8ZPpsuQ9agX0vjHa3864=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.min.4dcb3c4f38462f66c6b6137227726f5543cb934cca9788f041c087e374491df2.js" integrity="sha256-Tcs8TzhGL2bGthNyJ3JvVUPLk0zKl4jwQcCH43RJHfI="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://fang-lansheng.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://fang-lansheng.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://fang-lansheng.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://fang-lansheng.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://fang-lansheng.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="PAT Advanced Level Practice (I)" />
+<meta property="og:description" content="PAT Advanced Level 刷题（一）
+PTA | 程序设计类实验辅助教学平台
+ PAT A 1025 解题思路
+题目大意为：有 N（≤100） 个考场，每个考场有若干数量（K≤300）的考生。现给出各个考场中考生的准考证号与分数，要求将所有考生按分数从高到低排序，并按顺序输出所有考生的准考证号、排名、考场号及考场内排名。
+题目要求的信息（准考证号、分数等）可以用结构体 Student 来存放。对考生进行排序可以使用 C&#43;&#43; 标准库中的 sort() 函数，题目中指出结果应按照考生排名递增排序，相同分数的考生排名相同且按照准考证号递增排序。因此，我们需要准们编写一个符合题目条件的 cmp 函数，它应该满足如下规则：
+ 当分数不同时，按分数从大到小排序 否则，按准考证号从小到大排序。  也即：
+bool cmp(Student a, Student b) {  if (a.score != b.score)  return a.score &gt; b.score; // 先按分数从高到低排序  else  return strcmp(a.id, b.id) &lt; 0;	// 若分数相同，则按准考证号从小到大排序 } 算法本身分为三步：
+ 按考场读入各考生的信息，并对当前读入考场的所有考生进行排序。之后将该考场的所有考生的排名写入其结构体中。 对所有考生进行排序 按照排序，一遍计算总排名，一遍输出信息  参考代码
+#include &lt;cstdio&gt;#include &lt;cstring&gt;#include &lt;algorithm&gt; using namespace std;  struct Student {  char id[15];	// 准考证号  int score;	// 分数  int location_number;	// 考场号  int local_rank;	// 考场内排名 }stu[30010];  bool cmp(Student a, Student b) { 	if (a." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://fang-lansheng.github.io/posts/2019-03-16-pat-a-1/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2019-03-16T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2019-03-16T00:00:00&#43;00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="PAT Advanced Level Practice (I)"/>
+<meta name="twitter:description" content="PAT Advanced Level 刷题（一）
+PTA | 程序设计类实验辅助教学平台
+ PAT A 1025 解题思路
+题目大意为：有 N（≤100） 个考场，每个考场有若干数量（K≤300）的考生。现给出各个考场中考生的准考证号与分数，要求将所有考生按分数从高到低排序，并按顺序输出所有考生的准考证号、排名、考场号及考场内排名。
+题目要求的信息（准考证号、分数等）可以用结构体 Student 来存放。对考生进行排序可以使用 C&#43;&#43; 标准库中的 sort() 函数，题目中指出结果应按照考生排名递增排序，相同分数的考生排名相同且按照准考证号递增排序。因此，我们需要准们编写一个符合题目条件的 cmp 函数，它应该满足如下规则：
+ 当分数不同时，按分数从大到小排序 否则，按准考证号从小到大排序。  也即：
+bool cmp(Student a, Student b) {  if (a.score != b.score)  return a.score &gt; b.score; // 先按分数从高到低排序  else  return strcmp(a.id, b.id) &lt; 0;	// 若分数相同，则按准考证号从小到大排序 } 算法本身分为三步：
+ 按考场读入各考生的信息，并对当前读入考场的所有考生进行排序。之后将该考场的所有考生的排名写入其结构体中。 对所有考生进行排序 按照排序，一遍计算总排名，一遍输出信息  参考代码
+#include &lt;cstdio&gt;#include &lt;cstring&gt;#include &lt;algorithm&gt; using namespace std;  struct Student {  char id[15];	// 准考证号  int score;	// 分数  int location_number;	// 考场号  int local_rank;	// 考场内排名 }stu[30010];  bool cmp(Student a, Student b) { 	if (a."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Posts",
+      "item": "https://fang-lansheng.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "PAT Advanced Level Practice (I)",
+      "item": "https://fang-lansheng.github.io/posts/2019-03-16-pat-a-1/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "PAT Advanced Level Practice (I)",
+  "name": "PAT Advanced Level Practice (I)",
+  "description": "PAT Advanced Level 刷题（一）\nPTA | 程序设计类实验辅助教学平台\n PAT A 1025 解题思路\n题目大意为：有 N（≤100） 个考场，每个考场有若干数量（K≤300）的考生。现给出各个考场中考生的准考证号与分数，要求将所有考生按分数从高到低排序，并按顺序输出所有考生的准考证号、排名、考场号及考场内排名。\n题目要求的信息（准考证号、分数等）可以用结构体 Student 来存放。对考生进行排序可以使用 C++ 标准库中的 sort() 函数，题目中指出结果应按照考生排名递增排序，相同分数的考生排名相同且按照准考证号递增排序。因此，我们需要准们编写一个符合题目条件的 cmp 函数，它应该满足如下规则：\n 当分数不同时，按分数从大到小排序 否则，按准考证号从小到大排序。  也即：\nbool cmp(Student a, Student b) {  if (a.score != b.score)  return a.score \u0026gt; b.score; // 先按分数从高到低排序  else  return strcmp(a.id, b.id) \u0026lt; 0;\t// 若分数相同，则按准考证号从小到大排序 } 算法本身分为三步：\n 按考场读入各考生的信息，并对当前读入考场的所有考生进行排序。之后将该考场的所有考生的排名写入其结构体中。 对所有考生进行排序 按照排序，一遍计算总排名，一遍输出信息  参考代码\n#include \u0026lt;cstdio\u0026gt;#include \u0026lt;cstring\u0026gt;#include \u0026lt;algorithm\u0026gt; using namespace std;  struct Student {  char id[15];\t// 准考证号  int score;\t// 分数  int location_number;\t// 考场号  int local_rank;\t// 考场内排名 }stu[30010];  bool cmp(Student a, Student b) { \tif (a.",
+  "keywords": [
+    "PAT", "C++", "Algorithm"
+  ],
+  "articleBody": " PAT Advanced Level 刷题（一）\nPTA | 程序设计类实验辅助教学平台\n PAT A 1025 解题思路\n题目大意为：有 N（≤100） 个考场，每个考场有若干数量（K≤300）的考生。现给出各个考场中考生的准考证号与分数，要求将所有考生按分数从高到低排序，并按顺序输出所有考生的准考证号、排名、考场号及考场内排名。\n题目要求的信息（准考证号、分数等）可以用结构体 Student 来存放。对考生进行排序可以使用 C++ 标准库中的 sort() 函数，题目中指出结果应按照考生排名递增排序，相同分数的考生排名相同且按照准考证号递增排序。因此，我们需要准们编写一个符合题目条件的 cmp 函数，它应该满足如下规则：\n 当分数不同时，按分数从大到小排序 否则，按准考证号从小到大排序。  也即：\nbool cmp(Student a, Student b) {  if (a.score != b.score)  return a.score  b.score; // 先按分数从高到低排序  else  return strcmp(a.id, b.id)  0;\t// 若分数相同，则按准考证号从小到大排序 } 算法本身分为三步：\n 按考场读入各考生的信息，并对当前读入考场的所有考生进行排序。之后将该考场的所有考生的排名写入其结构体中。 对所有考生进行排序 按照排序，一遍计算总排名，一遍输出信息  参考代码\n#include #include #include  using namespace std;  struct Student {  char id[15];\t// 准考证号  int score;\t// 分数  int location_number;\t// 考场号  int local_rank;\t// 考场内排名 }stu[30010];  bool cmp(Student a, Student b) { \tif (a.score != b.score) \treturn a.score  b.score;\t// 先按分数从高到低排序 \telse \treturn strcmp(a.id, b.id)  0;\t// 若分数相同，则按准考证号从小到大排序 } int main() {  int n, k, num = 0;\t// num 为总考生数  scanf(\"%d\", \u0026n);\t// n 为考场数  for (int i = 1; i  n; i++) {  scanf(\"%d\", \u0026k);\t// 该考场内人数  for (int j = 0; j  k; j++) {  scanf(\"%s %d\", stu[num].id, \u0026stu[num].score);  stu[num].location_number = i; // 该考生的考场号为 i  num++;\t// 总考生数 + 1  }  sort(stu + num - k, stu + num, cmp);// 将该考场内的考生排序  stu[num - k].local_rank = 1;\t// 该考场第 1 名的 local_rank 为 1  for (int j = num - k + 1; j  num; j++) {  if (stu[j].score == stu[j - 1].score) {\t// 如果与前一位考生同分  stu[j].local_rank = stu[j - 1].local_rank;  }  else {  stu[j].local_rank = j + 1 - (num - k);  }  }  }   printf(\"%d\\n\", num);\t// 输出总考生数  sort(stu, stu + num, cmp);\t// 将所有考生排序  int rank = 1;\t// 当前考生的排名  for (int i = 0; i  num; i++) {  if (i  0 \u0026\u0026 stu[i].score != stu[i - 1].score)  rank = i + 1;\t// 当前考生与上一个考生分属不同时，让 rank 更新为之前的人数(i) + 1  printf(\"%s \", stu[i].id);  printf(\"%d %d %d\\n\", rank, stu[i].location_number, stu[i].local_rank);  }   return 0; }  未完待续。。。\n ",
+  "wordCount" : "292",
+  "inLanguage": "en",
+  "datePublished": "2019-03-16T00:00:00Z",
+  "dateModified": "2019-03-16T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "Thistledown"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://fang-lansheng.github.io/posts/2019-03-16-pat-a-1/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "My-Thistledown",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://fang-lansheng.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://fang-lansheng.github.io" accesskey="h" title="My-Thistledown (Alt + H)">My-Thistledown</a>
+            <span class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </span>
+        </div>
+        <ul id="menu">
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title">
+      PAT Advanced Level Practice (I)
+    </h1>
+    <div class="post-meta"><span title='2019-03-16 00:00:00 +0000 UTC'>March 16, 2019</span>&nbsp;·&nbsp;Thistledown
+
+</div>
+  </header> 
+  <div class="post-content"><blockquote>
+<p>PAT Advanced Level 刷题（一）<br>
+<a href="https://pintia.cn/problem-sets/994805342720868352/problems">PTA | 程序设计类实验辅助教学平台</a></p>
+</blockquote>
+<h2 id="pat-a-1025httpspintiacnproblem-sets994805260223102976problems994805325918486528"><a href="https://pintia.cn/problem-sets/994805260223102976/problems/994805325918486528">PAT A 1025</a><a hidden class="anchor" aria-hidden="true" href="#pat-a-1025httpspintiacnproblem-sets994805260223102976problems994805325918486528">#</a></h2>
+<p><img loading="lazy" src="https://i.loli.net/2019/03/16/5c8caa85f2ad0.jpg" alt="PAT_A_1025"  />
+</p>
+<p><strong>解题思路</strong></p>
+<p>题目大意为：有 N（≤100） 个考场，每个考场有若干数量（K≤300）的考生。现给出各个考场中考生的准考证号与分数，要求将所有考生按分数从高到低排序，并按顺序输出所有考生的准考证号、排名、考场号及考场内排名。</p>
+<p>题目要求的信息（准考证号、分数等）可以用结构体 <code>Student</code> 来存放。对考生进行排序可以使用 C++ 标准库中的 <code>sort()</code> 函数，题目中指出结果应按照考生排名递增排序，相同分数的考生排名相同且按照准考证号递增排序。因此，我们需要准们编写一个符合题目条件的 cmp 函数，它应该满足如下规则：</p>
+<ul>
+<li>当分数不同时，按分数从大到小排序</li>
+<li>否则，按准考证号从小到大排序。</li>
+</ul>
+<p>也即：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">cmp</span>(Student a, Student b) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (a.score <span style="color:#f92672">!=</span> b.score)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> a.score <span style="color:#f92672">&gt;</span> b.score;       <span style="color:#75715e">// 先按分数从高到低排序
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> strcmp(a.id, b.id) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>;	<span style="color:#75715e">// 若分数相同，则按准考证号从小到大排序
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p>算法本身分为三步：</p>
+<ol>
+<li>按考场读入各考生的信息，并对当前读入考场的所有考生进行排序。之后将该考场的所有考生的排名写入其结构体中。</li>
+<li>对所有考生进行排序</li>
+<li>按照排序，一遍计算总排名，一遍输出信息</li>
+</ol>
+<p><strong>参考代码</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cstdio&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cstring&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;algorithm&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Student</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">char</span> id[<span style="color:#ae81ff">15</span>];		<span style="color:#75715e">// 准考证号
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> score;			<span style="color:#75715e">// 分数
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> location_number;	<span style="color:#75715e">// 考场号
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> local_rank;		<span style="color:#75715e">// 考场内排名
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}stu[<span style="color:#ae81ff">30010</span>];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">cmp</span>(Student a, Student b) {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> (a.score <span style="color:#f92672">!=</span> b.score)
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> a.score <span style="color:#f92672">&gt;</span> b.score;	<span style="color:#75715e">// 先按分数从高到低排序
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> strcmp(a.id, b.id) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>;	<span style="color:#75715e">// 若分数相同，则按准考证号从小到大排序
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> n, k, num <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;		<span style="color:#75715e">// num 为总考生数
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    scanf(<span style="color:#e6db74">&#34;%d&#34;</span>, <span style="color:#f92672">&amp;</span>n);		<span style="color:#75715e">// n 为考场数
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; i <span style="color:#f92672">&lt;=</span> n; i<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>        scanf(<span style="color:#e6db74">&#34;%d&#34;</span>, <span style="color:#f92672">&amp;</span>k);	<span style="color:#75715e">// 该考场内人数
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; j <span style="color:#f92672">&lt;</span> k; j<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>            scanf(<span style="color:#e6db74">&#34;%s %d&#34;</span>, stu[num].id, <span style="color:#f92672">&amp;</span>stu[num].score);
+</span></span><span style="display:flex;"><span>            stu[num].location_number <span style="color:#f92672">=</span> i;   <span style="color:#75715e">// 该考生的考场号为 i
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            num<span style="color:#f92672">++</span>;			        <span style="color:#75715e">// 总考生数 + 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        }
+</span></span><span style="display:flex;"><span>        sort(stu <span style="color:#f92672">+</span> num <span style="color:#f92672">-</span> k, stu <span style="color:#f92672">+</span> num, cmp);<span style="color:#75715e">// 将该考场内的考生排序
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        stu[num <span style="color:#f92672">-</span> k].local_rank <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;	    <span style="color:#75715e">// 该考场第 1 名的 local_rank 为 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> num <span style="color:#f92672">-</span> k <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>; j <span style="color:#f92672">&lt;</span> num; j<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (stu[j].score <span style="color:#f92672">==</span> stu[j <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>].score) {	<span style="color:#75715e">// 如果与前一位考生同分
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                stu[j].local_rank <span style="color:#f92672">=</span> stu[j <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>].local_rank;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>                stu[j].local_rank <span style="color:#f92672">=</span> j <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> (num <span style="color:#f92672">-</span> k);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    printf(<span style="color:#e6db74">&#34;%d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, num);	<span style="color:#75715e">// 输出总考生数
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    sort(stu, stu <span style="color:#f92672">+</span> num, cmp);	<span style="color:#75715e">// 将所有考生排序
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> rank <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;		<span style="color:#75715e">// 当前考生的排名
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> num; i<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (i <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> stu[i].score <span style="color:#f92672">!=</span> stu[i <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>].score)
+</span></span><span style="display:flex;"><span>            rank <span style="color:#f92672">=</span> i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;	<span style="color:#75715e">// 当前考生与上一个考生分属不同时，让 rank 更新为之前的人数(i) + 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        printf(<span style="color:#e6db74">&#34;%s &#34;</span>, stu[i].id);
+</span></span><span style="display:flex;"><span>        printf(<span style="color:#e6db74">&#34;%d %d %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, rank, stu[i].location_number, stu[i].local_rank);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><blockquote>
+<p>未完待续。。。</p>
+</blockquote>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://fang-lansheng.github.io/tags/pat/">PAT</a></li>
+      <li><a href="https://fang-lansheng.github.io/tags/c&#43;&#43;/">C&#43;&#43;</a></li>
+      <li><a href="https://fang-lansheng.github.io/tags/algorithm/">Algorithm</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2022 <a href="https://fang-lansheng.github.io">My-Thistledown</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>
