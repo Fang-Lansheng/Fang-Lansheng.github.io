@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Nginx on Jifan&#39;s Blog</title>
-    <link>https://fang-lansheng.github.io/tags/nginx/</link>
+    <link>https://jifan.tech/tags/nginx/</link>
     <description>Recent content in Nginx on Jifan&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 03 Jan 2019 12:00:00 +0000</lastBuildDate><atom:link href="https://fang-lansheng.github.io/tags/nginx/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 03 Jan 2019 12:00:00 +0000</lastBuildDate><atom:link href="https://jifan.tech/tags/nginx/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Hello, Blog!</title>
-      <link>https://fang-lansheng.github.io/posts/2019-01-03-hello-my-blog/</link>
+      <link>https://jifan.tech/posts/2019-01-03-hello-my-blog/</link>
       <pubDate>Thu, 03 Jan 2019 12:00:00 +0000</pubDate>
       
-      <guid>https://fang-lansheng.github.io/posts/2019-01-03-hello-my-blog/</guid>
+      <guid>https://jifan.tech/posts/2019-01-03-hello-my-blog/</guid>
       <description>前言 上一个基于 WordPress 的博客已经在重装服务器系统之后烟消云散了，因为搭建过程全程百度，自己毫无印象，也就不愿意再重复一遍机械式地抄写。这一回打算参考网上的教程，重新搭建一个自己 blog，并且把过程记录下来，权当做一个学习的过程吧。
 搭建教程主要参考：
  程序员如何搭建自己的个人博客 - 方志朋的博客

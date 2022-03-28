@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Algorithm on Jifan&#39;s Blog</title>
-    <link>https://fang-lansheng.github.io/tags/algorithm/</link>
+    <link>https://jifan.tech/tags/algorithm/</link>
     <description>Recent content in Algorithm on Jifan&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 16 Mar 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://fang-lansheng.github.io/tags/algorithm/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 16 Mar 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://jifan.tech/tags/algorithm/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>PAT Advanced Level Practice (I)</title>
-      <link>https://fang-lansheng.github.io/posts/2019-03-16-pat-a-1/</link>
+      <link>https://jifan.tech/posts/2019-03-16-pat-a-1/</link>
       <pubDate>Sat, 16 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://fang-lansheng.github.io/posts/2019-03-16-pat-a-1/</guid>
+      <guid>https://jifan.tech/posts/2019-03-16-pat-a-1/</guid>
       <description>PAT Advanced Level 刷题（一）
 PTA | 程序设计类实验辅助教学平台
  PAT A 1025 解题思路
@@ -26,10 +26,10 @@ bool cmp(Student a, Student b) { if (a.score != b.score) return a.score &amp;gt;
     
     <item>
       <title>PAT Basic Level Practice (I)</title>
-      <link>https://fang-lansheng.github.io/posts/2019-02-28-pat-basic-level-practice-1/</link>
+      <link>https://jifan.tech/posts/2019-02-28-pat-basic-level-practice-1/</link>
       <pubDate>Thu, 28 Feb 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://fang-lansheng.github.io/posts/2019-02-28-pat-basic-level-practice-1/</guid>
+      <guid>https://jifan.tech/posts/2019-02-28-pat-basic-level-practice-1/</guid>
       <description>PAT Basic Level 刷题（一）
 PTA | 程序设计类实验辅助教学平台
  PAT B 1001 解题思路
