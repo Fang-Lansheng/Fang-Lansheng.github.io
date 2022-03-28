@@ -122,8 +122,12 @@
     <loc>https://fang-lansheng.github.io/tags/nginx/</loc>
     <lastmod>2019-01-03T12:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://fang-lansheng.github.io/archives/</loc>
+  </url><url>
     <loc>https://fang-lansheng.github.io/categories/</loc>
   </url><url>
     <loc>https://fang-lansheng.github.io/tags/ml/dl/</loc>
+  </url><url>
+    <loc>https://fang-lansheng.github.io/search/</loc>
   </url>
 </urlset>

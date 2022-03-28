@@ -5,10 +5,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>C&#43;&#43; | My-Thistledown</title>
+<title>C&#43;&#43; | Jifan&#39;s Blog</title>
 <meta name="keywords" content="" />
-<meta name="description" content="">
-<meta name="author" content="">
+<meta name="description" content="Jifan&#39;s Blog - https://fang-lansheng.github.io">
+<meta name="author" content="Jifan">
 <link rel="canonical" href="https://fang-lansheng.github.io/tags/c&#43;&#43;/" />
 <link crossorigin="anonymous" href="/assets/css/stylesheet.min.48a18943c2fc15c38a372b8dde1f5e5dc0bc64fa6cb90f5a817d2f8c76b7f3ae.css" integrity="sha256-SKGJQ8L8FcOKNyuN3h9eXcC8ZPpsuQ9agX0vjHa3864=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://fang-lansheng.github.io/favicon.ico">
@@ -56,13 +56,13 @@
 
     </style>
 </noscript><meta property="og:title" content="C&#43;&#43;" />
-<meta property="og:description" content="" />
+<meta property="og:description" content="Jifan&#39;s Blog - https://fang-lansheng.github.io" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://fang-lansheng.github.io/tags/c&#43;&#43;/" />
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="C&#43;&#43;"/>
-<meta name="twitter:description" content=""/>
+<meta name="twitter:description" content="Jifan&#39;s Blog - https://fang-lansheng.github.io"/>
 
 </head>
 
@@ -81,7 +81,7 @@
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="https://fang-lansheng.github.io" accesskey="h" title="My-Thistledown (Alt + H)">My-Thistledown</a>
+            <a href="https://fang-lansheng.github.io" accesskey="h" title="Jifan&#39;s Blog (Alt + H)">Jifan&#39;s Blog</a>
             <span class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -106,6 +106,21 @@
             </span>
         </div>
         <ul id="menu">
+            <li>
+                <a href="https://fang-lansheng.github.io/archives/" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://fang-lansheng.github.io/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://fang-lansheng.github.io/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
         </ul>
     </nav>
 </header>
@@ -198,9 +213,9 @@ PTA | 程序设计类实验辅助教学平台
 题目大意为：有 N（≤100） 个考场，每个考场有若干数量（K≤300）的考生。现给出各个考场中考生的准考证号与分数，要求将所有考生按分数从高到低排序，并按顺序输出所有考生的准考证号、排名、考场号及考场内排名。
 题目要求的信息（准考证号、分数等）可以用结构体 Student 来存放。对考生进行排序可以使用 C&#43;&#43; 标准库中的 sort() 函数，题目中指出结果应按照考生排名递增排序，相同分数的考生排名相同且按照准考证号递增排序。因此，我们需要准们编写一个符合题目条件的 cmp 函数，它应该满足如下规则：
  当分数不同时，按分数从大到小排序 否则，按准考证号从小到大排序。  也即：
-bool cmp(Student a, Student b) {  if (a.score != b.score)  return a.score &gt; b.score; // 先按分数从高到低排序  else  return strcmp(a.id, b.id) &lt; 0;	// 若分数相同，则按准考证号从小到大排序 } 算法本身分为三步：
+bool cmp(Student a, Student b) { if (a.score != b.score) return a.score &gt; b.score; // 先按分数从高到低排序  else return strcmp(a.id, b.id) &lt; 0;	// 若分数相同，则按准考证号从小到大排序 } 算法本身分为三步：
  按考场读入各考生的信息，并对当前读入考场的所有考生进行排序。之后将该考场的所有考生的排名写入其结构体中。 对所有考生进行排序 按照排序，一遍计算总排名，一遍输出信息  参考代码
-#include &lt;cstdio&gt;#include &lt;cstring&gt;#include &lt;algorithm&gt; using namespace std;  struct Student {  char id[15];	// 准考证号  int score;	// 分数  int location_number;	// 考场号  int local_rank;	// 考场内排名 }stu[30010];  bool cmp(Student a, Student b) { 	if (a....</p>
+#include &lt;cstdio&gt;#include &lt;cstring&gt;#include &lt;algorithm&gt; using namespace std; struct Student { char id[15];	// 准考证号  int score;	// 分数  int location_number;	// 考场号  int local_rank;	// 考场内排名 }stu[30010]; bool cmp(Student a, Student b) { if (a....</p>
   </section>
   <footer class="entry-footer"><span title='2019-03-16 00:00:00 +0000 UTC'>March 16, 2019</span>&nbsp;·&nbsp;Thistledown</footer>
   <a class="entry-link" aria-label="post link to PAT Advanced Level Practice (I)" href="https://fang-lansheng.github.io/posts/2019-03-16-pat-a-1/"></a>
@@ -233,7 +248,8 @@ PTA | 程序设计类实验辅助教学平台
  PAT B 1001 解题思路
 题目比较基础，利用循环语句和条件语句实现对目标整数的不断缩小，直至 n == 1，通过变量 step 来计算步数（砍了多少次）
 参考代码
-#include &lt;stdio.h&gt;int main(){  int n, step = 0;  scanf(&#34;%d&#34;, &amp;n); // 输入题目给出的 n  while (n != 1) {  if (n % 2 == 0) n /= 2;  else n = (3 * n &#43; 1) / 2;  step&#43;&#43;;  }  printf(&#34;%d\n&#34;, step);  return 0; } PAT B 1002 解题思路...</p>
+#include &lt;stdio.h&gt;int main(){ int n, step = 0; scanf(&#34;%d&#34;, &amp;n); // 输入题目给出的 n  while (n != 1) { if (n % 2 == 0) n /= 2; else n = (3 * n &#43; 1) / 2; step&#43;&#43;; } printf(&#34;%d\n&#34;, step); return 0; } PAT B 1002 解题思路
+ 题目要求读入一个小于 10e100 的整数 （如，1234567890987654321123456789），它已经超出了 int (-2^31 ~ 2^31 - 1) 或者 long int (-2^63 ~ 2^63 - 1) 的范围，因此需要将其当做字符串读入。 将读入字符串的每一位“相加”即可得到 n 的各位数字之和 sum 用 / 和 % 方法获取 sum 的每一位  参考代码...</p>
   </section>
   <footer class="entry-footer"><span title='2019-02-28 00:00:00 +0000 UTC'>February 28, 2019</span>&nbsp;·&nbsp;Thistledown</footer>
   <a class="entry-link" aria-label="post link to PAT Basic Level Practice (I)" href="https://fang-lansheng.github.io/posts/2019-02-28-pat-basic-level-practice-1/"></a>
@@ -258,7 +274,7 @@ typedef wchar_t short int; 所以 wchar_t 实际上的空间是和 short int 一
     </main>
     
 <footer class="footer">
-    <span>&copy; 2022 <a href="https://fang-lansheng.github.io">My-Thistledown</a></span>
+    <span>&copy; 2022 <a href="https://fang-lansheng.github.io">Jifan&#39;s Blog</a></span>
     <span>
         Powered by
         <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &

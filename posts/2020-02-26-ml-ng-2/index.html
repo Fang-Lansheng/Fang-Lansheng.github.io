@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>机器学习-吴恩达：学习笔记及总结（2） | My-Thistledown</title>
+<title>机器学习-吴恩达：学习笔记及总结（2） | Jifan&#39;s Blog</title>
 <meta name="keywords" content="ML/DL, Course Learning, Python" />
 <meta name="description" content="Course Link ：Week 2 - Linear Regression with Multiple Variables
 Code : Fang-Lansheng/Coursera-MachineLearning-Python
@@ -104,7 +104,7 @@ Code : Fang-Lansheng/Coursera-MachineLearning-Python
   "keywords": [
     "ML/DL", "Course Learning", "Python"
   ],
-  "articleBody": " Course Link ：Week 2 - Linear Regression with Multiple Variables\nCode : Fang-Lansheng/Coursera-MachineLearning-Python\n 5. Multivariate Linear Regression 5.1 Multiple Features  Training set:  Notation:  $m$ = the number of training examples $n$ = number of features $x^{(i)}$ = input (features) of $i^{th}$ training example (an $n$-dimensional vector, $i = 1, 2, \\cdots, m$). $x_j^{(i)}$ = value of feature $j$ in $i^{th}$ training example (a number, $j = 1, 2, \\cdots, n$).   Hypothesis: $h_\\theta(x) = \\theta_0 + \\theta_1 x_1 + \\theta_2 x_2 + \\cdots + \\theta_n x_n$  Previously: $h_\\theta(x) = \\theta_0 + \\theta_1x$ Now: $h_\\theta(x) = \\theta_0 + \\theta_1 x_1 + \\theta_2 x_2 + \\theta_3 x_3 + \\theta_4 x_4$ For convenience of notation, define $x_0 = 1 \\ (x_0^{(i)}=1,\\ i=1, 2, \\cdots, m)$. $x = [ \\begin{matrix}x_0 \u0026 x_1 \u0026 x_2 \u0026 \\cdots \u0026 x_n \\end{matrix}]^T \\in \\mathbb{R^{n+1}}$ $\\theta = [ \\begin{matrix}\\theta_0 \u0026 \\theta_1 \u0026 \\theta_2 \u0026 \\cdots \u0026 \\theta_n \\end{matrix}]^T \\in \\mathbb{R^{n+1}}$   Multivariate Linear Regression  $$\\begin{align} h_\\theta(x)\u0026=\\theta^Tx= \\begin{bmatrix}\\theta_0 \\ \\theta_1 \\ \\theta_2 \\ \\cdots \\ \\theta_n \\end{bmatrix} \\begin{bmatrix}x_0 \\ x_1 \\ x_2 \\ \\cdots \\ x_n \\end{bmatrix} = \\theta_0 x_0 + \\theta_1 x_1 + \\theta_2 x_2 + \\cdots + \\theta_n x_n \\end{align}$$\n5.2 Gradient Descent for Multiple Variables   Hypothesis: $\\begin{align} h_\\theta(x)\u0026=\\theta^Tx = \\theta_0 x_0 + \\theta_1 x_1 + \\theta_2 x_2 + \\cdots + \\theta_n x_n \\end{align}$\n  Parameters: $\\theta_0, \\theta_1, \\dots, \\theta_n$ ($\\theta = \\begin{bmatrix} \\theta_0 \u0026 \\theta_1 \u0026 \\cdots \u0026 \\theta_n \\end{bmatrix}^T$)\n  Cost function: $J(\\theta_0, \\theta_1, \\dots, \\theta_n)=\\frac{1}{2m}\\sum_{i=1}^{m}(h_\\theta(x^{(i)})-y^{(i)})^2 $\n  Gradient descent:\n$$\\left.\\begin{array}{l} \\text{repeat until convergence}\\ { \\ \\qquad \\theta_j := \\theta_j-\\alpha\\frac{\\partial}{\\partial\\theta_j}J(\\theta)=\\theta_j-\\alpha\\frac{1}{m}\\sum_{i=1}^{m}(h_\\theta(x^{(i)})-y^{(i)})\\cdot x_j^{(i)} \\ \\qquad (\\text{simultaneously update for every } \\theta_j \\text{ for } j := 0\\dots n) \\ } \\end{array}\\right.$$\n  The following image compares gradient descent with one variable to gradient descent with multiple variables:   5.3 Gradient Descent in Practice I - Feature Scaling  Feature scaling Idea: make sure features are on similar scale. Get every feature into approximately a $-1 \\leq x_i \\leq 1$ range.   Mean normalization: replace $x_i$ with $x_i - u_i$ to make features have approximately zero mean.  $x_i:= \\frac{x_i-u_i}{s_i}$: $u_i$ is the average of all the values for the feature $(i)$ and $s_i$ is the range of the values $(\\text{max - min})$, or $s_i$ is the standard deviation.    5.4 Gradient Descent in Practice II - Learning Rate  Debugging gradient descent. Make a plot with number of iterations on the x-axis. Now plot the cost function, $J(\\theta)$, over the number of iterations of gradient descent. if $J(\\theta)$ ever increases, then you probably need to decrease $\\alpha$. Automatic convergence test. Declare convergence if $J(\\theta)$ decreases by less than $E$ in one iteration, where $E$ is some small value such as $10^{-3}$. However in practice it’s difficult to choose this threshold value. Make sure gradient descent is working correctly.  For sufficient small $\\alpha$, $J(\\theta)$ should decrease on every iteration. If $\\alpha$ is too large: may not decrease on every iteration and thus may not converge. if $\\alpha$ is too small: slow convergence.    5.5 Features and Polynomial Regression  [Example] Housing prices prediction: $h_\\theta(x)=\\theta_0 + \\theta_1 \\times frontage + \\theta_2 \\times depth$ Polynomial regression: We can change the behavior or curve of our hypothesis function by making it a quadratic, cubic or square root function (or any other form).  6. Computing Parameters Analytically 6.1 Normal Equation   Normal equation: Method to solve for $\\theta$ analytically.\n $\\theta \\in \\mathbb{R^{n+1}}\\qquad J(\\theta_0,\\theta_1,\\dots,\\theta_n)=\\frac{1}{2m}\\sum_{i=1}^{m}(h_\\theta(x^{(i)})-y^{(i)})^2$ $\\frac{\\partial}{\\partial\\theta_j}J(\\theta)=\\cdots=0 \\qquad (\\text{for every }j)$ Solve for $\\theta_0, \\theta_1, \\dots,\\theta_n$    $m$ examples $(x^{(1)},y^{(1)}), \\dots,(x^{(m)}, y^{(m)})$; $n$ features.\n$$x^{(i)}=\\begin{bmatrix} x_0^{(i)} \\ x_1^{(i)} \\ x_2^{(i)} \\ \\vdots \\ x_n^{(i)} \\end{bmatrix} \\in \\mathbb{R^{n+1}}, \\qquad \\mathop{x}\\limits_{\\text{(design matrix)}} = \\begin{bmatrix} (x^{(1)})^T \\ (x^{(2)})^T \\ \\vdots \\ (x^{(m)})^T \\end{bmatrix}_{m\\times(n+1)}$$\n  $\\theta=(X^TX)^{-1}X^Ty$\n  The following is a comparison of gradient descent and the normal equation:\n     Gradient Descent Normal Equation     Need to choose $\\alpha$. No need to choose $\\alpha$.   Needs many iterations. Don’t need to iterate.   $\\text{O}(kn^2)$ $\\text{O}(n^3)$, Need to compute $(X^TX)^{-1}$   Works well even when $n$ is large. Slow if $n$ is very large.    6.2 Normal Equation and Noninvertibility  Normal equation: $\\theta=(X^TX)^{-1}X^Ty$. But what if $X^TX$ is non-invertible (singular/degenerate)? If $X^TX$ is noninvertible, the common causes might be having:  Redundant features, where two features are very closely related (i.e. they are linearly dependent). Too many features (e.g. $m \\leq n$). In this case, delete some features, or use regularization.    Ex1: Linear Regression👨‍💻  See this exercise on Coursera-MachineLearning-Python/ex1/ex1.ipynb\n Ex1.1 Linear regression with one variable Instruction: In this part of this exercise, you will implement linear regression with one variable to predict profits for a food truck. Suppose you are the CEO of a restaurant franchise and are considering different cities for opening a new outlet. The chain already has trucks in various cities and you have data for profits and populations from the cities.\nCode:\nimport numpy as np import matplotlib.pyplot as plt from matplotlib import cm from mpl_toolkits.mplot3d import Axes3D  \"\"\" Part 1: Basic Function \"\"\" def computeCost(X, y, theta):  ''' Compute cost for linear regression :param X: input variables :param y: output variables :param theta: parameters :return: Cost function '''  m = len(y)  J = 0  for xi, yi in zip(X, y):  J = J + np.square(float(np.dot(xi, theta)) - yi)  return J / (2 * m)  def gradientDescent(X, y, theta, alpha, num_iters):  ''' updates theta by taking num_iters gradient steps with learning rate alpha :param X: input variables :param y: output variables :param theta: parameters :param alpha: learning rate :param num_iters: times of iteration :return: [theta, J_history] '''  # Initialize some useful values  m = len(y)  J_history = np.zeros(num_iters)  for i in range(num_iters):  sum0, sum1 = 0, 0  for j in range(m):  sum0 = sum0 + (np.dot(X[j], theta) - y[j]) * X[j][0]  sum1 = sum1 + (np.dot(X[j], theta) - y[j]) * X[j][1]  theta[0] = theta[0] - alpha * sum0 / m  theta[1] = theta[1] - alpha * sum1 / m   # Save the cost J in every iteration  J_history[i] = computeCost(X, y, theta)  return theta, J_history   \"\"\" Part 2: Plotting \"\"\" print('Plotting Data ...') data = np.loadtxt(\"ex1data1.txt\", dtype=float, delimiter=',') X = data[:, 0] y = data[:, 1] m = len(y) # number of training examples  # Plot Data fig0, ax0 = plt.subplots() ax0.scatter(X, y, marker='x', label='Training data') ax0.set_xlabel('Population of City in 10,000s') ax0.set_ylabel('Profit in $10,000s')  \"\"\" Part 3: Cost and Gradient Descent \"\"\" X = np.c_[np.ones((m, 1)), data[:,0]] # Add a column of ones to X theta = np.zeros((2, 1)) # initialize fitting parameters  # Some gradient descent settings iterations = 1500 alpha = 0.01  print('\\nTesting the cost function ... \\n') # compute and display initial cost J = computeCost(X, y, theta) print('With theta = [0 ; 0], cost computed = ', J) print('Expected cost value (approx) 32.07\\n')  # further testing of the cost function J = computeCost(X, y, np.array([[-1], [2]])) print('With theta = [-1 ; 2], cost computed = ', J) print('Expected cost value (approx) 54.24\\n')  print('Running Gradient Descent ...\\n') # run gradient descent theta, J_history = gradientDescent(X, y, theta, alpha, iterations)  # print theta to screen print('Theta found by gradient descent: θ0 =', theta[0], ', θ1 =', theta[1]) print('Expected theta values (approx): -3.6303 1.6664\\n')  # Plot the linear fit ax0.plot(X[:, 1], np.dot(X, theta), color='r', label='Linear regression') ax0.legend(loc='lower right') ax0.set_title('Linear regression with one variable')  # Predict values for population sizes of 35,000 and 70,000 predict1 = np.dot([1, 3.5], theta) predict2 = np.dot([1, 7], theta) print('For population = 35,000, we predict a profit of ', predict1 * 10000) print('For population = 70,000, we predict a profit of ', predict2 * 10000)  \"\"\" Part 4: Visualizing J(theta_0, theta_1) \"\"\" print('\\nVisualizing J(theta_0, theta_1) ... \\n')  # Plot the reducing of cost function during iteration fig1, ax1 = plt.subplots() ax1.plot(np.arange(iterations), J_history, 'b') ax1.set_xlabel('Iterations') ax1.set_ylabel(r'$J(\\theta_0, \\theta_1)$') ax1.set_title(r'Reducing of $J(\\theta_0, \\theta_1)$ during iteration')  # Grid over which we will calculate J theta0_vals = np.linspace(-10, 10, 100) theta1_vals = np.linspace(-1, 4, 100)  # Initialize J_vals to a matrix of 0's J_vals = np.zeros([len(theta0_vals), len(theta1_vals)])  # Fill out J_vals for i in range(len(theta0_vals)):  for j in range(len(theta1_vals)):  t = [theta0_vals[i], theta1_vals[j]]  J_vals[i][j] = computeCost(X, y, t)  x_contour, y_contour = theta0_vals, theta1_vals theta0_vals, theta1_vals = np.meshgrid(theta0_vals, theta1_vals)  # Produce surface and contour plots of J(θ) fig2 = plt.figure() ax2 = Axes3D(fig2) ax2.plot_surface(theta0_vals, theta1_vals, J_vals.T, rstride=1, cstride=1, cmap=cm.rainbow) ax2.set_xlabel(r'$\\theta_0$') ax2.set_ylabel(r'$\\theta_1$') ax2.set_title('Surface')  fig3, ax3 = plt.subplots() CS = ax3.contour(theta0_vals, theta1_vals, J_vals.T, levels=50) ax3.plot(theta[0], theta[1], 'bx') ax3.set_xlabel(r'$\\theta_0$') ax3.set_ylabel(r'$\\theta_1$') ax3.set_title('Contour')  plt.show() Output:\n Console   Training data with linear regression fit.   Reducing of $J(\\theta_0, \\theta_1)$ during iteration   Produce surface and contour plots of $J(θ)$  Ex1.2 Linear regression with multiple variables Instruction: In this part, you will implement linear regression with multiple variables to predict the prices of houses. Suppose you are selling your house and you want to know what a good market price would be. One way to do this is to first collect information on recent houses sold and make a model of housing prices.\nCode:\nimport numpy as np import matplotlib.pyplot as plt  \"\"\" Part 0: Basic Function \"\"\" def computeCost(X, y, theta):  ''' Compute cost for linear regression :param X: input variables :param y: output variables :param theta: parameters :return: Cost function '''  m = len(y)  J = np.sum(np.square(X.dot(theta) - y)) / (2 * m)  return J  def gradientDescentMulti(X, y, theta, alpha, num_iters):  ''' updates theta by taking num_iters gradient steps with learning rate alpha :param X: input variables :param y: output variables :param theta: parameters :param alpha: learning rate :param num_iters: times of iteration :return: [theta, J_history] '''  # Initialize some useful values  m, n = len(y), len(theta)  J_history = np.zeros(num_iters)  for i in range(num_iters):  temp = np.dot((np.dot(X, theta) - y.reshape(m, 1)).T, X)  theta = theta - alpha * temp.T / m  J_history[i] = computeCost(X, y, theta)  return theta, J_history  def featureNormalize(X):  ''' Normalize the features in X :param X: features :return: X_norm: normalized X; mean: mean value; sigma: standard deviation '''  mean = np.mean(X, 0)  sigma = np.std(X, 0)  X_norm = (X - mean) / sigma   return X_norm, mean, sigma  def normalEqn(X, y):  ''' Computes the closed-form solution to linear regression :param X: input variables :param y: output variables :return: parameters '''  theta = np.linalg.inv(X.T@X)@X.T@y  return theta  \"\"\" Part 1: Feature Normalization \"\"\" # Load data data = np.loadtxt('ex1data2.txt', dtype=float, delimiter=',') X = data[:, 0:2] y = data[:, 2:3] m = len(y)  # Scale features and set them to zero mean X_norm, mean, sigma = featureNormalize(X) y_norm, _, _ = featureNormalize(y)  # Add intercept term to X X_norm = np.c_[np.ones([m, 1]), X_norm]  \"\"\" Part 2: Gradient Descent \"\"\" print('Running gradient descent ... ')  # Choose some alpha value alpha = 0.01 num_iters = 1000  # Init theta and run gradient descent theta = np.zeros([3, 1]) theta, J_history = gradientDescentMulti(X_norm, y, theta, alpha, num_iters)  # Plot the convergence graph fig1, ax1 = plt.subplots() ax1.plot(np.arange(num_iters), J_history, 'b') ax1.set_xlabel('Iterations') ax1.set_ylabel(r'$J(\\theta)$') ax1.set_title(r'Convergence of $J(\\theta)$')  # Display gradient descent's result print('Theta computed from gradient descent: \\n', theta)  \"\"\" Part 3: Normal Equations \"\"\" print('\\nSolving with normal equations ... ')  # Add intercept term to X X = np.c_[np.ones([m, 1]), X]  # Calculate the parameters from the normal equation theta1 = normalEqn(X, y) print('Theta computed from normal equations: \\n', theta1)  plt.show() Output:\n Console (There is some differences between the two results)   The convergence graph  ",
+  "articleBody": " Course Link ：Week 2 - Linear Regression with Multiple Variables\nCode : Fang-Lansheng/Coursera-MachineLearning-Python\n 5. Multivariate Linear Regression 5.1 Multiple Features  Training set:  Notation:  $m$ = the number of training examples $n$ = number of features $x^{(i)}$ = input (features) of $i^{th}$ training example (an $n$-dimensional vector, $i = 1, 2, \\cdots, m$). $x_j^{(i)}$ = value of feature $j$ in $i^{th}$ training example (a number, $j = 1, 2, \\cdots, n$).   Hypothesis: $h_\\theta(x) = \\theta_0 + \\theta_1 x_1 + \\theta_2 x_2 + \\cdots + \\theta_n x_n$  Previously: $h_\\theta(x) = \\theta_0 + \\theta_1x$ Now: $h_\\theta(x) = \\theta_0 + \\theta_1 x_1 + \\theta_2 x_2 + \\theta_3 x_3 + \\theta_4 x_4$ For convenience of notation, define $x_0 = 1 \\ (x_0^{(i)}=1,\\ i=1, 2, \\cdots, m)$. $x = [ \\begin{matrix}x_0 \u0026 x_1 \u0026 x_2 \u0026 \\cdots \u0026 x_n \\end{matrix}]^T \\in \\mathbb{R^{n+1}}$ $\\theta = [ \\begin{matrix}\\theta_0 \u0026 \\theta_1 \u0026 \\theta_2 \u0026 \\cdots \u0026 \\theta_n \\end{matrix}]^T \\in \\mathbb{R^{n+1}}$   Multivariate Linear Regression  $$\\begin{align} h_\\theta(x)\u0026=\\theta^Tx= \\begin{bmatrix}\\theta_0 \\ \\theta_1 \\ \\theta_2 \\ \\cdots \\ \\theta_n \\end{bmatrix} \\begin{bmatrix}x_0 \\ x_1 \\ x_2 \\ \\cdots \\ x_n \\end{bmatrix} = \\theta_0 x_0 + \\theta_1 x_1 + \\theta_2 x_2 + \\cdots + \\theta_n x_n \\end{align}$$\n5.2 Gradient Descent for Multiple Variables   Hypothesis: $\\begin{align} h_\\theta(x)\u0026=\\theta^Tx = \\theta_0 x_0 + \\theta_1 x_1 + \\theta_2 x_2 + \\cdots + \\theta_n x_n \\end{align}$\n  Parameters: $\\theta_0, \\theta_1, \\dots, \\theta_n$ ($\\theta = \\begin{bmatrix} \\theta_0 \u0026 \\theta_1 \u0026 \\cdots \u0026 \\theta_n \\end{bmatrix}^T$)\n  Cost function: $J(\\theta_0, \\theta_1, \\dots, \\theta_n)=\\frac{1}{2m}\\sum_{i=1}^{m}(h_\\theta(x^{(i)})-y^{(i)})^2 $\n  Gradient descent:\n$$\\left.\\begin{array}{l} \\text{repeat until convergence}\\ { \\ \\qquad \\theta_j := \\theta_j-\\alpha\\frac{\\partial}{\\partial\\theta_j}J(\\theta)=\\theta_j-\\alpha\\frac{1}{m}\\sum_{i=1}^{m}(h_\\theta(x^{(i)})-y^{(i)})\\cdot x_j^{(i)} \\ \\qquad (\\text{simultaneously update for every } \\theta_j \\text{ for } j := 0\\dots n) \\ } \\end{array}\\right.$$\n  The following image compares gradient descent with one variable to gradient descent with multiple variables:   5.3 Gradient Descent in Practice I - Feature Scaling  Feature scaling Idea: make sure features are on similar scale. Get every feature into approximately a $-1 \\leq x_i \\leq 1$ range.   Mean normalization: replace $x_i$ with $x_i - u_i$ to make features have approximately zero mean.  $x_i:= \\frac{x_i-u_i}{s_i}$: $u_i$ is the average of all the values for the feature $(i)$ and $s_i$ is the range of the values $(\\text{max - min})$, or $s_i$ is the standard deviation.    5.4 Gradient Descent in Practice II - Learning Rate  Debugging gradient descent. Make a plot with number of iterations on the x-axis. Now plot the cost function, $J(\\theta)$, over the number of iterations of gradient descent. if $J(\\theta)$ ever increases, then you probably need to decrease $\\alpha$. Automatic convergence test. Declare convergence if $J(\\theta)$ decreases by less than $E$ in one iteration, where $E$ is some small value such as $10^{-3}$. However in practice it’s difficult to choose this threshold value. Make sure gradient descent is working correctly.  For sufficient small $\\alpha$, $J(\\theta)$ should decrease on every iteration. If $\\alpha$ is too large: may not decrease on every iteration and thus may not converge. if $\\alpha$ is too small: slow convergence.    5.5 Features and Polynomial Regression  [Example] Housing prices prediction: $h_\\theta(x)=\\theta_0 + \\theta_1 \\times frontage + \\theta_2 \\times depth$ Polynomial regression: We can change the behavior or curve of our hypothesis function by making it a quadratic, cubic or square root function (or any other form).  6. Computing Parameters Analytically 6.1 Normal Equation   Normal equation: Method to solve for $\\theta$ analytically.\n $\\theta \\in \\mathbb{R^{n+1}}\\qquad J(\\theta_0,\\theta_1,\\dots,\\theta_n)=\\frac{1}{2m}\\sum_{i=1}^{m}(h_\\theta(x^{(i)})-y^{(i)})^2$ $\\frac{\\partial}{\\partial\\theta_j}J(\\theta)=\\cdots=0 \\qquad (\\text{for every }j)$ Solve for $\\theta_0, \\theta_1, \\dots,\\theta_n$    $m$ examples $(x^{(1)},y^{(1)}), \\dots,(x^{(m)}, y^{(m)})$; $n$ features.\n$$x^{(i)}=\\begin{bmatrix} x_0^{(i)} \\ x_1^{(i)} \\ x_2^{(i)} \\ \\vdots \\ x_n^{(i)} \\end{bmatrix} \\in \\mathbb{R^{n+1}}, \\qquad \\mathop{x}\\limits_{\\text{(design matrix)}} = \\begin{bmatrix} (x^{(1)})^T \\ (x^{(2)})^T \\ \\vdots \\ (x^{(m)})^T \\end{bmatrix}_{m\\times(n+1)}$$\n  $\\theta=(X^TX)^{-1}X^Ty$\n  The following is a comparison of gradient descent and the normal equation:\n     Gradient Descent Normal Equation     Need to choose $\\alpha$. No need to choose $\\alpha$.   Needs many iterations. Don’t need to iterate.   $\\text{O}(kn^2)$ $\\text{O}(n^3)$, Need to compute $(X^TX)^{-1}$   Works well even when $n$ is large. Slow if $n$ is very large.    6.2 Normal Equation and Noninvertibility  Normal equation: $\\theta=(X^TX)^{-1}X^Ty$. But what if $X^TX$ is non-invertible (singular/degenerate)? If $X^TX$ is noninvertible, the common causes might be having:  Redundant features, where two features are very closely related (i.e. they are linearly dependent). Too many features (e.g. $m \\leq n$). In this case, delete some features, or use regularization.    Ex1: Linear Regression👨‍💻  See this exercise on Coursera-MachineLearning-Python/ex1/ex1.ipynb\n Ex1.1 Linear regression with one variable Instruction: In this part of this exercise, you will implement linear regression with one variable to predict profits for a food truck. Suppose you are the CEO of a restaurant franchise and are considering different cities for opening a new outlet. The chain already has trucks in various cities and you have data for profits and populations from the cities.\nCode:\nimport numpy as np import matplotlib.pyplot as plt from matplotlib import cm from mpl_toolkits.mplot3d import Axes3D \"\"\" Part 1: Basic Function \"\"\" def computeCost(X, y, theta): ''' Compute cost for linear regression :param X: input variables :param y: output variables :param theta: parameters :return: Cost function ''' m = len(y) J = 0 for xi, yi in zip(X, y): J = J + np.square(float(np.dot(xi, theta)) - yi) return J / (2 * m) def gradientDescent(X, y, theta, alpha, num_iters): ''' updates theta by taking num_iters gradient steps with learning rate alpha :param X: input variables :param y: output variables :param theta: parameters :param alpha: learning rate :param num_iters: times of iteration :return: [theta, J_history] ''' # Initialize some useful values m = len(y) J_history = np.zeros(num_iters) for i in range(num_iters): sum0, sum1 = 0, 0 for j in range(m): sum0 = sum0 + (np.dot(X[j], theta) - y[j]) * X[j][0] sum1 = sum1 + (np.dot(X[j], theta) - y[j]) * X[j][1] theta[0] = theta[0] - alpha * sum0 / m theta[1] = theta[1] - alpha * sum1 / m # Save the cost J in every iteration J_history[i] = computeCost(X, y, theta) return theta, J_history \"\"\" Part 2: Plotting \"\"\" print('Plotting Data ...') data = np.loadtxt(\"ex1data1.txt\", dtype=float, delimiter=',') X = data[:, 0] y = data[:, 1] m = len(y) # number of training examples # Plot Data fig0, ax0 = plt.subplots() ax0.scatter(X, y, marker='x', label='Training data') ax0.set_xlabel('Population of City in 10,000s') ax0.set_ylabel('Profit in $10,000s') \"\"\" Part 3: Cost and Gradient Descent \"\"\" X = np.c_[np.ones((m, 1)), data[:,0]] # Add a column of ones to X theta = np.zeros((2, 1)) # initialize fitting parameters # Some gradient descent settings iterations = 1500 alpha = 0.01 print('\\nTesting the cost function ... \\n') # compute and display initial cost J = computeCost(X, y, theta) print('With theta = [0 ; 0], cost computed = ', J) print('Expected cost value (approx) 32.07\\n') # further testing of the cost function J = computeCost(X, y, np.array([[-1], [2]])) print('With theta = [-1 ; 2], cost computed = ', J) print('Expected cost value (approx) 54.24\\n') print('Running Gradient Descent ...\\n') # run gradient descent theta, J_history = gradientDescent(X, y, theta, alpha, iterations) # print theta to screen print('Theta found by gradient descent: θ0 =', theta[0], ', θ1 =', theta[1]) print('Expected theta values (approx): -3.6303 1.6664\\n') # Plot the linear fit ax0.plot(X[:, 1], np.dot(X, theta), color='r', label='Linear regression') ax0.legend(loc='lower right') ax0.set_title('Linear regression with one variable') # Predict values for population sizes of 35,000 and 70,000 predict1 = np.dot([1, 3.5], theta) predict2 = np.dot([1, 7], theta) print('For population = 35,000, we predict a profit of ', predict1 * 10000) print('For population = 70,000, we predict a profit of ', predict2 * 10000) \"\"\" Part 4: Visualizing J(theta_0, theta_1) \"\"\" print('\\nVisualizing J(theta_0, theta_1) ... \\n') # Plot the reducing of cost function during iteration fig1, ax1 = plt.subplots() ax1.plot(np.arange(iterations), J_history, 'b') ax1.set_xlabel('Iterations') ax1.set_ylabel(r'$J(\\theta_0, \\theta_1)$') ax1.set_title(r'Reducing of $J(\\theta_0, \\theta_1)$ during iteration') # Grid over which we will calculate J theta0_vals = np.linspace(-10, 10, 100) theta1_vals = np.linspace(-1, 4, 100) # Initialize J_vals to a matrix of 0's J_vals = np.zeros([len(theta0_vals), len(theta1_vals)]) # Fill out J_vals for i in range(len(theta0_vals)): for j in range(len(theta1_vals)): t = [theta0_vals[i], theta1_vals[j]] J_vals[i][j] = computeCost(X, y, t) x_contour, y_contour = theta0_vals, theta1_vals theta0_vals, theta1_vals = np.meshgrid(theta0_vals, theta1_vals) # Produce surface and contour plots of J(θ) fig2 = plt.figure() ax2 = Axes3D(fig2) ax2.plot_surface(theta0_vals, theta1_vals, J_vals.T, rstride=1, cstride=1, cmap=cm.rainbow) ax2.set_xlabel(r'$\\theta_0$') ax2.set_ylabel(r'$\\theta_1$') ax2.set_title('Surface') fig3, ax3 = plt.subplots() CS = ax3.contour(theta0_vals, theta1_vals, J_vals.T, levels=50) ax3.plot(theta[0], theta[1], 'bx') ax3.set_xlabel(r'$\\theta_0$') ax3.set_ylabel(r'$\\theta_1$') ax3.set_title('Contour') plt.show() Output:\n Console   Training data with linear regression fit.   Reducing of $J(\\theta_0, \\theta_1)$ during iteration   Produce surface and contour plots of $J(θ)$  Ex1.2 Linear regression with multiple variables Instruction: In this part, you will implement linear regression with multiple variables to predict the prices of houses. Suppose you are selling your house and you want to know what a good market price would be. One way to do this is to first collect information on recent houses sold and make a model of housing prices.\nCode:\nimport numpy as np import matplotlib.pyplot as plt \"\"\" Part 0: Basic Function \"\"\" def computeCost(X, y, theta): ''' Compute cost for linear regression :param X: input variables :param y: output variables :param theta: parameters :return: Cost function ''' m = len(y) J = np.sum(np.square(X.dot(theta) - y)) / (2 * m) return J def gradientDescentMulti(X, y, theta, alpha, num_iters): ''' updates theta by taking num_iters gradient steps with learning rate alpha :param X: input variables :param y: output variables :param theta: parameters :param alpha: learning rate :param num_iters: times of iteration :return: [theta, J_history] ''' # Initialize some useful values m, n = len(y), len(theta) J_history = np.zeros(num_iters) for i in range(num_iters): temp = np.dot((np.dot(X, theta) - y.reshape(m, 1)).T, X) theta = theta - alpha * temp.T / m J_history[i] = computeCost(X, y, theta) return theta, J_history def featureNormalize(X): ''' Normalize the features in X :param X: features :return: X_norm: normalized X; mean: mean value; sigma: standard deviation ''' mean = np.mean(X, 0) sigma = np.std(X, 0) X_norm = (X - mean) / sigma return X_norm, mean, sigma def normalEqn(X, y): ''' Computes the closed-form solution to linear regression :param X: input variables :param y: output variables :return: parameters ''' theta = np.linalg.inv(X.T@X)@X.T@y return theta \"\"\" Part 1: Feature Normalization \"\"\" # Load data data = np.loadtxt('ex1data2.txt', dtype=float, delimiter=',') X = data[:, 0:2] y = data[:, 2:3] m = len(y) # Scale features and set them to zero mean X_norm, mean, sigma = featureNormalize(X) y_norm, _, _ = featureNormalize(y) # Add intercept term to X X_norm = np.c_[np.ones([m, 1]), X_norm] \"\"\" Part 2: Gradient Descent \"\"\" print('Running gradient descent ... ') # Choose some alpha value alpha = 0.01 num_iters = 1000 # Init theta and run gradient descent theta = np.zeros([3, 1]) theta, J_history = gradientDescentMulti(X_norm, y, theta, alpha, num_iters) # Plot the convergence graph fig1, ax1 = plt.subplots() ax1.plot(np.arange(num_iters), J_history, 'b') ax1.set_xlabel('Iterations') ax1.set_ylabel(r'$J(\\theta)$') ax1.set_title(r'Convergence of $J(\\theta)$') # Display gradient descent's result print('Theta computed from gradient descent: \\n', theta) \"\"\" Part 3: Normal Equations \"\"\" print('\\nSolving with normal equations ... ') # Add intercept term to X X = np.c_[np.ones([m, 1]), X] # Calculate the parameters from the normal equation theta1 = normalEqn(X, y) print('Theta computed from normal equations: \\n', theta1) plt.show() Output:\n Console (There is some differences between the two results)   The convergence graph  ",
   "wordCount" : "1828",
   "inLanguage": "en",
   "datePublished": "2020-02-28T00:00:00Z",
@@ -119,7 +119,7 @@ Code : Fang-Lansheng/Coursera-MachineLearning-Python
   },
   "publisher": {
     "@type": "Organization",
-    "name": "My-Thistledown",
+    "name": "Jifan's Blog",
     "logo": {
       "@type": "ImageObject",
       "url": "https://fang-lansheng.github.io/favicon.ico"
@@ -144,7 +144,7 @@ Code : Fang-Lansheng/Coursera-MachineLearning-Python
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="https://fang-lansheng.github.io" accesskey="h" title="My-Thistledown (Alt + H)">My-Thistledown</a>
+            <a href="https://fang-lansheng.github.io" accesskey="h" title="Jifan&#39;s Blog (Alt + H)">Jifan&#39;s Blog</a>
             <span class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -169,6 +169,21 @@ Code : Fang-Lansheng/Coursera-MachineLearning-Python
             </span>
         </div>
         <ul id="menu">
+            <li>
+                <a href="https://fang-lansheng.github.io/archives/" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://fang-lansheng.github.io/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://fang-lansheng.github.io/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
         </ul>
     </nav>
 </header>
@@ -183,7 +198,56 @@ Code : Fang-Lansheng/Coursera-MachineLearning-Python
     <div class="post-meta"><span title='2020-02-28 00:00:00 +0000 UTC'>February 28, 2020</span>&nbsp;·&nbsp;Thistledown
 
 </div>
-  </header> 
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#5-multivariate-linear-regression" aria-label="5. Multivariate Linear Regression">5. Multivariate Linear Regression</a><ul>
+                        <ul>
+                        
+                <li>
+                    <a href="#51-multiple-features" aria-label="5.1 Multiple Features">5.1 Multiple Features</a></li>
+                <li>
+                    <a href="#52-gradient-descent-for-multiple-variables" aria-label="5.2 Gradient Descent for Multiple Variables">5.2 Gradient Descent for Multiple Variables</a></li>
+                <li>
+                    <a href="#53-gradient-descent-in-practice-i---feature-scaling" aria-label="5.3 Gradient Descent in Practice I - Feature Scaling">5.3 Gradient Descent in Practice I - Feature Scaling</a></li>
+                <li>
+                    <a href="#54-gradient-descent-in-practice-ii---learning-rate" aria-label="5.4 Gradient Descent in Practice II - Learning Rate">5.4 Gradient Descent in Practice II - Learning Rate</a></li>
+                <li>
+                    <a href="#55-features-and-polynomial-regression" aria-label="5.5 Features and Polynomial Regression">5.5 Features and Polynomial Regression</a></li></ul>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#6-computing-parameters-analytically" aria-label="6. Computing Parameters Analytically">6. Computing Parameters Analytically</a><ul>
+                        <ul>
+                        
+                <li>
+                    <a href="#61-normal-equation" aria-label="6.1 Normal Equation">6.1 Normal Equation</a></li>
+                <li>
+                    <a href="#62-normal-equation-and-noninvertibility" aria-label="6.2 Normal Equation and Noninvertibility">6.2 Normal Equation and Noninvertibility</a></li></ul>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#ex1-linear-regression" aria-label="Ex1: Linear Regression👨‍💻">Ex1: Linear Regression👨‍💻</a><ul>
+                        <ul>
+                        
+                <li>
+                    <a href="#ex11-linear-regression-with-one-variable" aria-label="Ex1.1 Linear regression with one variable">Ex1.1 Linear regression with one variable</a></li>
+                <li>
+                    <a href="#ex12-linear-regression-with-multiple-variables" aria-label="Ex1.2 Linear regression with multiple variables">Ex1.2 Linear regression with multiple variables</a>
+                </li>
+            </ul>
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
   <div class="post-content"><blockquote>
 <p>Course Link ：<a href="https://www.coursera.org/learn/machine-learning/home/week/2">Week 2 - Linear Regression with Multiple Variables</a></p>
 <p>Code : <a href="https://github.com/Fang-Lansheng/Coursera-MachineLearning-Python">Fang-Lansheng/Coursera-MachineLearning-Python</a></p>
@@ -337,145 +401,145 @@ h_\theta(x)&amp;=\theta^Tx
 <p><strong>Instruction:</strong>
 In this part of this exercise, you will implement linear regression with one variable to predict profits for a food truck. Suppose you are the CEO of a restaurant franchise and are considering different cities for opening a new outlet. The chain already has trucks in various cities and you have data for profits and populations from the cities.</p>
 <p><strong>Code:</strong></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
-</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> matplotlib <span style="color:#f92672">import</span> cm
-</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> mpl_toolkits.mplot3d <span style="color:#f92672">import</span> Axes3D
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;&#34;&#34; Part 1: Basic Function &#34;&#34;&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">computeCost</span>(X, y, theta):
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;&#39;&#39;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Compute cost for linear regression
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    :param X: input variables
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    :param y: output variables
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    :param theta: parameters
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    :return: Cost function
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#39;&#39;&#39;</span>
-</span></span><span style="display:flex;"><span>    m <span style="color:#f92672">=</span> len(y)
-</span></span><span style="display:flex;"><span>    J <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> xi, yi <span style="color:#f92672">in</span> zip(X, y):
-</span></span><span style="display:flex;"><span>        J <span style="color:#f92672">=</span> J <span style="color:#f92672">+</span> np<span style="color:#f92672">.</span>square(float(np<span style="color:#f92672">.</span>dot(xi, theta)) <span style="color:#f92672">-</span> yi)
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> J <span style="color:#f92672">/</span> (<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> m)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">gradientDescent</span>(X, y, theta, alpha, num_iters):
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;&#39;&#39;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    updates theta by taking num_iters gradient steps with learning rate alpha
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    :param X: input variables
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    :param y: output variables
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    :param theta: parameters
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    :param alpha: learning rate
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    :param num_iters: times of iteration
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    :return: [theta, J_history]
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#39;&#39;&#39;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Initialize some useful values</span>
-</span></span><span style="display:flex;"><span>    m <span style="color:#f92672">=</span> len(y)
-</span></span><span style="display:flex;"><span>    J_history <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros(num_iters)
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(num_iters):
-</span></span><span style="display:flex;"><span>        sum0, sum1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(m):
-</span></span><span style="display:flex;"><span>            sum0 <span style="color:#f92672">=</span> sum0 <span style="color:#f92672">+</span> (np<span style="color:#f92672">.</span>dot(X[j], theta) <span style="color:#f92672">-</span> y[j]) <span style="color:#f92672">*</span> X[j][<span style="color:#ae81ff">0</span>]
-</span></span><span style="display:flex;"><span>            sum1 <span style="color:#f92672">=</span> sum1 <span style="color:#f92672">+</span> (np<span style="color:#f92672">.</span>dot(X[j], theta) <span style="color:#f92672">-</span> y[j]) <span style="color:#f92672">*</span> X[j][<span style="color:#ae81ff">1</span>]
-</span></span><span style="display:flex;"><span>        theta[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> theta[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">-</span> alpha <span style="color:#f92672">*</span> sum0 <span style="color:#f92672">/</span> m
-</span></span><span style="display:flex;"><span>        theta[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> theta[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">-</span> alpha <span style="color:#f92672">*</span> sum1 <span style="color:#f92672">/</span> m
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Save the cost J in every iteration</span>
-</span></span><span style="display:flex;"><span>        J_history[i] <span style="color:#f92672">=</span> computeCost(X, y, theta)
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> theta, J_history
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;&#34;&#34; Part 2: Plotting &#34;&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;Plotting Data ...&#39;</span>)
-</span></span><span style="display:flex;"><span>data <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>loadtxt(<span style="color:#e6db74">&#34;ex1data1.txt&#34;</span>, dtype<span style="color:#f92672">=</span>float, delimiter<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;,&#39;</span>)
-</span></span><span style="display:flex;"><span>X <span style="color:#f92672">=</span> data[:, <span style="color:#ae81ff">0</span>]
-</span></span><span style="display:flex;"><span>y <span style="color:#f92672">=</span> data[:, <span style="color:#ae81ff">1</span>]
-</span></span><span style="display:flex;"><span>m <span style="color:#f92672">=</span> len(y)      <span style="color:#75715e"># number of training examples</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Plot Data</span>
-</span></span><span style="display:flex;"><span>fig0, ax0 <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>subplots()
-</span></span><span style="display:flex;"><span>ax0<span style="color:#f92672">.</span>scatter(X, y, marker<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;x&#39;</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Training data&#39;</span>)
-</span></span><span style="display:flex;"><span>ax0<span style="color:#f92672">.</span>set_xlabel(<span style="color:#e6db74">&#39;Population of City in 10,000s&#39;</span>)
-</span></span><span style="display:flex;"><span>ax0<span style="color:#f92672">.</span>set_ylabel(<span style="color:#e6db74">&#39;Profit in $10,000s&#39;</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;&#34;&#34; Part 3: Cost and Gradient Descent &#34;&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>X <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>c_[np<span style="color:#f92672">.</span>ones((m, <span style="color:#ae81ff">1</span>)), data[:,<span style="color:#ae81ff">0</span>]]   <span style="color:#75715e"># Add a column of ones to X</span>
-</span></span><span style="display:flex;"><span>theta <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros((<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span>))                <span style="color:#75715e"># initialize fitting parameters</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Some gradient descent settings</span>
-</span></span><span style="display:flex;"><span>iterations <span style="color:#f92672">=</span> <span style="color:#ae81ff">1500</span>
-</span></span><span style="display:flex;"><span>alpha <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.01</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Testing the cost function ... </span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>)
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># compute and display initial cost</span>
-</span></span><span style="display:flex;"><span>J <span style="color:#f92672">=</span> computeCost(X, y, theta)
-</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;With theta = [0 ; 0], cost computed = &#39;</span>, J)
-</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;Expected cost value (approx) 32.07</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># further testing of the cost function</span>
-</span></span><span style="display:flex;"><span>J <span style="color:#f92672">=</span> computeCost(X, y, np<span style="color:#f92672">.</span>array([[<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>], [<span style="color:#ae81ff">2</span>]]))
-</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;With theta = [-1 ; 2], cost computed = &#39;</span>, J)
-</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;Expected cost value (approx) 54.24</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;Running Gradient Descent ...</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>)
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># run gradient descent</span>
-</span></span><span style="display:flex;"><span>theta, J_history <span style="color:#f92672">=</span> gradientDescent(X, y, theta, alpha, iterations)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># print theta to screen</span>
-</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;Theta found by gradient descent: θ0 =&#39;</span>, theta[<span style="color:#ae81ff">0</span>], <span style="color:#e6db74">&#39;, θ1 =&#39;</span>, theta[<span style="color:#ae81ff">1</span>])
-</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;Expected theta values (approx): -3.6303  1.6664</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Plot the linear fit</span>
-</span></span><span style="display:flex;"><span>ax0<span style="color:#f92672">.</span>plot(X[:, <span style="color:#ae81ff">1</span>], np<span style="color:#f92672">.</span>dot(X, theta), color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;r&#39;</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Linear regression&#39;</span>)
-</span></span><span style="display:flex;"><span>ax0<span style="color:#f92672">.</span>legend(loc<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;lower right&#39;</span>)
-</span></span><span style="display:flex;"><span>ax0<span style="color:#f92672">.</span>set_title(<span style="color:#e6db74">&#39;Linear regression with one variable&#39;</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Predict values for population sizes of 35,000 and 70,000</span>
-</span></span><span style="display:flex;"><span>predict1 <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>dot([<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">3.5</span>], theta)
-</span></span><span style="display:flex;"><span>predict2 <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>dot([<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">7</span>], theta)
-</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;For population = 35,000, we predict a profit of &#39;</span>, predict1 <span style="color:#f92672">*</span> <span style="color:#ae81ff">10000</span>)
-</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;For population = 70,000, we predict a profit of &#39;</span>, predict2 <span style="color:#f92672">*</span> <span style="color:#ae81ff">10000</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;&#34;&#34; Part 4: Visualizing J(theta_0, theta_1) &#34;&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Visualizing J(theta_0, theta_1) ... </span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Plot the reducing of cost function during iteration</span>
-</span></span><span style="display:flex;"><span>fig1, ax1 <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>subplots()
-</span></span><span style="display:flex;"><span>ax1<span style="color:#f92672">.</span>plot(np<span style="color:#f92672">.</span>arange(iterations), J_history, <span style="color:#e6db74">&#39;b&#39;</span>)
-</span></span><span style="display:flex;"><span>ax1<span style="color:#f92672">.</span>set_xlabel(<span style="color:#e6db74">&#39;Iterations&#39;</span>)
-</span></span><span style="display:flex;"><span>ax1<span style="color:#f92672">.</span>set_ylabel(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;$J(\theta_0, \theta_1)$&#39;</span>)
-</span></span><span style="display:flex;"><span>ax1<span style="color:#f92672">.</span>set_title(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;Reducing of $J(\theta_0, \theta_1)$ during iteration&#39;</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Grid over which we will calculate J</span>
-</span></span><span style="display:flex;"><span>theta0_vals <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#f92672">-</span><span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">100</span>)
-</span></span><span style="display:flex;"><span>theta1_vals <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">100</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Initialize J_vals to a matrix of 0&#39;s</span>
-</span></span><span style="display:flex;"><span>J_vals <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros([len(theta0_vals), len(theta1_vals)])
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Fill out J_vals</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(len(theta0_vals)):
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(len(theta1_vals)):
-</span></span><span style="display:flex;"><span>        t <span style="color:#f92672">=</span> [theta0_vals[i], theta1_vals[j]]
-</span></span><span style="display:flex;"><span>        J_vals[i][j] <span style="color:#f92672">=</span> computeCost(X, y, t)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>x_contour, y_contour <span style="color:#f92672">=</span> theta0_vals, theta1_vals
-</span></span><span style="display:flex;"><span>theta0_vals, theta1_vals <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>meshgrid(theta0_vals, theta1_vals)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Produce surface and contour plots of J(θ)</span>
-</span></span><span style="display:flex;"><span>fig2 <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>figure()
-</span></span><span style="display:flex;"><span>ax2 <span style="color:#f92672">=</span> Axes3D(fig2)
-</span></span><span style="display:flex;"><span>ax2<span style="color:#f92672">.</span>plot_surface(theta0_vals, theta1_vals, J_vals<span style="color:#f92672">.</span>T, rstride<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, cstride<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, cmap<span style="color:#f92672">=</span>cm<span style="color:#f92672">.</span>rainbow)
-</span></span><span style="display:flex;"><span>ax2<span style="color:#f92672">.</span>set_xlabel(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;$\theta_0$&#39;</span>)
-</span></span><span style="display:flex;"><span>ax2<span style="color:#f92672">.</span>set_ylabel(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;$\theta_1$&#39;</span>)
-</span></span><span style="display:flex;"><span>ax2<span style="color:#f92672">.</span>set_title(<span style="color:#e6db74">&#39;Surface&#39;</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>fig3, ax3 <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>subplots()
-</span></span><span style="display:flex;"><span>CS <span style="color:#f92672">=</span> ax3<span style="color:#f92672">.</span>contour(theta0_vals, theta1_vals, J_vals<span style="color:#f92672">.</span>T, levels<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>)
-</span></span><span style="display:flex;"><span>ax3<span style="color:#f92672">.</span>plot(theta[<span style="color:#ae81ff">0</span>], theta[<span style="color:#ae81ff">1</span>], <span style="color:#e6db74">&#39;bx&#39;</span>)
-</span></span><span style="display:flex;"><span>ax3<span style="color:#f92672">.</span>set_xlabel(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;$\theta_0$&#39;</span>)
-</span></span><span style="display:flex;"><span>ax3<span style="color:#f92672">.</span>set_ylabel(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;$\theta_1$&#39;</span>)
-</span></span><span style="display:flex;"><span>ax3<span style="color:#f92672">.</span>set_title(<span style="color:#e6db74">&#39;Contour&#39;</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">cm</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">mpl_toolkits.mplot3d</span> <span class="kn">import</span> <span class="n">Axes3D</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34; Part 1: Basic Function &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">computeCost</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">theta</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;&#39;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">    Compute cost for linear regression
+</span></span></span><span class="line"><span class="cl"><span class="s1">    :param X: input variables
+</span></span></span><span class="line"><span class="cl"><span class="s1">    :param y: output variables
+</span></span></span><span class="line"><span class="cl"><span class="s1">    :param theta: parameters
+</span></span></span><span class="line"><span class="cl"><span class="s1">    :return: Cost function
+</span></span></span><span class="line"><span class="cl"><span class="s1">    &#39;&#39;&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">m</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">J</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">xi</span><span class="p">,</span> <span class="n">yi</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">J</span> <span class="o">=</span> <span class="n">J</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">xi</span><span class="p">,</span> <span class="n">theta</span><span class="p">))</span> <span class="o">-</span> <span class="n">yi</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">J</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">m</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">gradientDescent</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">num_iters</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;&#39;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">    updates theta by taking num_iters gradient steps with learning rate alpha
+</span></span></span><span class="line"><span class="cl"><span class="s1">    :param X: input variables
+</span></span></span><span class="line"><span class="cl"><span class="s1">    :param y: output variables
+</span></span></span><span class="line"><span class="cl"><span class="s1">    :param theta: parameters
+</span></span></span><span class="line"><span class="cl"><span class="s1">    :param alpha: learning rate
+</span></span></span><span class="line"><span class="cl"><span class="s1">    :param num_iters: times of iteration
+</span></span></span><span class="line"><span class="cl"><span class="s1">    :return: [theta, J_history]
+</span></span></span><span class="line"><span class="cl"><span class="s1">    &#39;&#39;&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># Initialize some useful values</span>
+</span></span><span class="line"><span class="cl">    <span class="n">m</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">J_history</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">num_iters</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_iters</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">sum0</span><span class="p">,</span> <span class="n">sum1</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="n">sum0</span> <span class="o">=</span> <span class="n">sum0</span> <span class="o">+</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">theta</span><span class="p">)</span> <span class="o">-</span> <span class="n">y</span><span class="p">[</span><span class="n">j</span><span class="p">])</span> <span class="o">*</span> <span class="n">X</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">            <span class="n">sum1</span> <span class="o">=</span> <span class="n">sum1</span> <span class="o">+</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">theta</span><span class="p">)</span> <span class="o">-</span> <span class="n">y</span><span class="p">[</span><span class="n">j</span><span class="p">])</span> <span class="o">*</span> <span class="n">X</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="n">theta</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">theta</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">sum0</span> <span class="o">/</span> <span class="n">m</span>
+</span></span><span class="line"><span class="cl">        <span class="n">theta</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">theta</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">sum1</span> <span class="o">/</span> <span class="n">m</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># Save the cost J in every iteration</span>
+</span></span><span class="line"><span class="cl">        <span class="n">J_history</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">computeCost</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">theta</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">theta</span><span class="p">,</span> <span class="n">J_history</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34; Part 2: Plotting &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Plotting Data ...&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&#34;ex1data1.txt&#34;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">X</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">m</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>      <span class="c1"># number of training examples</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Plot Data</span>
+</span></span><span class="line"><span class="cl"><span class="n">fig0</span><span class="p">,</span> <span class="n">ax0</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax0</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Training data&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax0</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Population of City in 10,000s&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax0</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Profit in $10,000s&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34; Part 3: Cost and Gradient Descent &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">m</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span> <span class="n">data</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]]</span>   <span class="c1"># Add a column of ones to X</span>
+</span></span><span class="line"><span class="cl"><span class="n">theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>                <span class="c1"># initialize fitting parameters</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Some gradient descent settings</span>
+</span></span><span class="line"><span class="cl"><span class="n">iterations</span> <span class="o">=</span> <span class="mi">1500</span>
+</span></span><span class="line"><span class="cl"><span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.01</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Testing the cost function ... </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># compute and display initial cost</span>
+</span></span><span class="line"><span class="cl"><span class="n">J</span> <span class="o">=</span> <span class="n">computeCost</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">theta</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;With theta = [0 ; 0], cost computed = &#39;</span><span class="p">,</span> <span class="n">J</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Expected cost value (approx) 32.07</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># further testing of the cost function</span>
+</span></span><span class="line"><span class="cl"><span class="n">J</span> <span class="o">=</span> <span class="n">computeCost</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">]]))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;With theta = [-1 ; 2], cost computed = &#39;</span><span class="p">,</span> <span class="n">J</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Expected cost value (approx) 54.24</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Running Gradient Descent ...</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># run gradient descent</span>
+</span></span><span class="line"><span class="cl"><span class="n">theta</span><span class="p">,</span> <span class="n">J_history</span> <span class="o">=</span> <span class="n">gradientDescent</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">iterations</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># print theta to screen</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Theta found by gradient descent: θ0 =&#39;</span><span class="p">,</span> <span class="n">theta</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;, θ1 =&#39;</span><span class="p">,</span> <span class="n">theta</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Expected theta values (approx): -3.6303  1.6664</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Plot the linear fit</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax0</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">theta</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Linear regression&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax0</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;lower right&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax0</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Linear regression with one variable&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Predict values for population sizes of 35,000 and 70,000</span>
+</span></span><span class="line"><span class="cl"><span class="n">predict1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">],</span> <span class="n">theta</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">predict2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span> <span class="n">theta</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;For population = 35,000, we predict a profit of &#39;</span><span class="p">,</span> <span class="n">predict1</span> <span class="o">*</span> <span class="mi">10000</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;For population = 70,000, we predict a profit of &#39;</span><span class="p">,</span> <span class="n">predict2</span> <span class="o">*</span> <span class="mi">10000</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34; Part 4: Visualizing J(theta_0, theta_1) &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Visualizing J(theta_0, theta_1) ... </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Plot the reducing of cost function during iteration</span>
+</span></span><span class="line"><span class="cl"><span class="n">fig1</span><span class="p">,</span> <span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">iterations</span><span class="p">),</span> <span class="n">J_history</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Iterations&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$J(\theta_0, \theta_1)$&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Reducing of $J(\theta_0, \theta_1)$ during iteration&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Grid over which we will calculate J</span>
+</span></span><span class="line"><span class="cl"><span class="n">theta0_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">theta1_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Initialize J_vals to a matrix of 0&#39;s</span>
+</span></span><span class="line"><span class="cl"><span class="n">J_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">theta0_vals</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">theta1_vals</span><span class="p">)])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Fill out J_vals</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">theta0_vals</span><span class="p">)):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">theta1_vals</span><span class="p">)):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">t</span> <span class="o">=</span> <span class="p">[</span><span class="n">theta0_vals</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">theta1_vals</span><span class="p">[</span><span class="n">j</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl">        <span class="n">J_vals</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">computeCost</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">x_contour</span><span class="p">,</span> <span class="n">y_contour</span> <span class="o">=</span> <span class="n">theta0_vals</span><span class="p">,</span> <span class="n">theta1_vals</span>
+</span></span><span class="line"><span class="cl"><span class="n">theta0_vals</span><span class="p">,</span> <span class="n">theta1_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">theta0_vals</span><span class="p">,</span> <span class="n">theta1_vals</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Produce surface and contour plots of J(θ)</span>
+</span></span><span class="line"><span class="cl"><span class="n">fig2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax2</span> <span class="o">=</span> <span class="n">Axes3D</span><span class="p">(</span><span class="n">fig2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax2</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">theta0_vals</span><span class="p">,</span> <span class="n">theta1_vals</span><span class="p">,</span> <span class="n">J_vals</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">rstride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cstride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cm</span><span class="o">.</span><span class="n">rainbow</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\theta_0$&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\theta_1$&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Surface&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">fig3</span><span class="p">,</span> <span class="n">ax3</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">CS</span> <span class="o">=</span> <span class="n">ax3</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">theta0_vals</span><span class="p">,</span> <span class="n">theta1_vals</span><span class="p">,</span> <span class="n">J_vals</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax3</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">theta</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">theta</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;bx&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax3</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\theta_0$&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax3</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\theta_1$&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax3</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Contour&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </span></span></code></pre></div><p><strong>Output:</strong></p>
 <ul>
 <li>Console</li>
@@ -503,109 +567,109 @@ In this part of this exercise, you will implement linear regression with one var
 <p><strong>Instruction:</strong>
 In this part, you will implement linear regression with multiple variables to predict the prices of houses. Suppose you are selling your house and you want to know what a good market price would be. One way to do this is to first collect information on recent houses sold and make a model of housing prices.</p>
 <p><strong>Code:</strong></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;&#34;&#34; Part 0: Basic Function &#34;&#34;&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">computeCost</span>(X, y, theta):
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;&#39;&#39;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Compute cost for linear regression
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    :param X: input variables
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    :param y: output variables
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    :param theta: parameters
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    :return: Cost function
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#39;&#39;&#39;</span>
-</span></span><span style="display:flex;"><span>    m <span style="color:#f92672">=</span> len(y)
-</span></span><span style="display:flex;"><span>    J <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>sum(np<span style="color:#f92672">.</span>square(X<span style="color:#f92672">.</span>dot(theta) <span style="color:#f92672">-</span> y)) <span style="color:#f92672">/</span> (<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> m)
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> J
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">gradientDescentMulti</span>(X, y, theta, alpha, num_iters):
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;&#39;&#39;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    updates theta by taking num_iters gradient steps with learning rate alpha
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    :param X: input variables
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    :param y: output variables
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    :param theta: parameters
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    :param alpha: learning rate
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    :param num_iters: times of iteration
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    :return: [theta, J_history]
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#39;&#39;&#39;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Initialize some useful values</span>
-</span></span><span style="display:flex;"><span>    m, n <span style="color:#f92672">=</span> len(y), len(theta)
-</span></span><span style="display:flex;"><span>    J_history <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros(num_iters)
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(num_iters):
-</span></span><span style="display:flex;"><span>        temp <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>dot((np<span style="color:#f92672">.</span>dot(X, theta) <span style="color:#f92672">-</span> y<span style="color:#f92672">.</span>reshape(m, <span style="color:#ae81ff">1</span>))<span style="color:#f92672">.</span>T, X)
-</span></span><span style="display:flex;"><span>        theta <span style="color:#f92672">=</span> theta <span style="color:#f92672">-</span> alpha <span style="color:#f92672">*</span> temp<span style="color:#f92672">.</span>T <span style="color:#f92672">/</span> m
-</span></span><span style="display:flex;"><span>        J_history[i] <span style="color:#f92672">=</span> computeCost(X, y, theta)
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> theta, J_history
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">featureNormalize</span>(X):
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;&#39;&#39;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Normalize the features in X
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    :param X: features
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    :return: X_norm: normalized X; mean: mean value; sigma: standard deviation
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#39;&#39;&#39;</span>
-</span></span><span style="display:flex;"><span>    mean <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>mean(X, <span style="color:#ae81ff">0</span>)
-</span></span><span style="display:flex;"><span>    sigma <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>std(X, <span style="color:#ae81ff">0</span>)
-</span></span><span style="display:flex;"><span>    X_norm <span style="color:#f92672">=</span> (X <span style="color:#f92672">-</span> mean) <span style="color:#f92672">/</span> sigma
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> X_norm, mean, sigma
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">normalEqn</span>(X, y):
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;&#39;&#39;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Computes the closed-form solution to linear regression
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    :param X: input variables
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    :param y: output variables
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    :return: parameters
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#39;&#39;&#39;</span>
-</span></span><span style="display:flex;"><span>    theta <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linalg<span style="color:#f92672">.</span>inv(X<span style="color:#f92672">.</span>T<span style="color:#a6e22e">@X</span>)<span style="color:#a6e22e">@X</span><span style="color:#f92672">.</span>T<span style="color:#a6e22e">@y</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> theta
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;&#34;&#34; Part 1: Feature Normalization &#34;&#34;&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Load data</span>
-</span></span><span style="display:flex;"><span>data <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>loadtxt(<span style="color:#e6db74">&#39;ex1data2.txt&#39;</span>, dtype<span style="color:#f92672">=</span>float, delimiter<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;,&#39;</span>)
-</span></span><span style="display:flex;"><span>X <span style="color:#f92672">=</span> data[:, <span style="color:#ae81ff">0</span>:<span style="color:#ae81ff">2</span>]
-</span></span><span style="display:flex;"><span>y <span style="color:#f92672">=</span> data[:, <span style="color:#ae81ff">2</span>:<span style="color:#ae81ff">3</span>]
-</span></span><span style="display:flex;"><span>m <span style="color:#f92672">=</span> len(y)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Scale features and set them to zero mean</span>
-</span></span><span style="display:flex;"><span>X_norm, mean, sigma <span style="color:#f92672">=</span> featureNormalize(X)
-</span></span><span style="display:flex;"><span>y_norm, _, _ <span style="color:#f92672">=</span> featureNormalize(y)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Add intercept term to X</span>
-</span></span><span style="display:flex;"><span>X_norm <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>c_[np<span style="color:#f92672">.</span>ones([m, <span style="color:#ae81ff">1</span>]), X_norm]
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;&#34;&#34; Part 2: Gradient Descent &#34;&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;Running gradient descent ... &#39;</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Choose some alpha value</span>
-</span></span><span style="display:flex;"><span>alpha <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.01</span>
-</span></span><span style="display:flex;"><span>num_iters <span style="color:#f92672">=</span> <span style="color:#ae81ff">1000</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Init theta and run gradient descent</span>
-</span></span><span style="display:flex;"><span>theta <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros([<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>])
-</span></span><span style="display:flex;"><span>theta, J_history <span style="color:#f92672">=</span> gradientDescentMulti(X_norm, y, theta, alpha, num_iters)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Plot the convergence graph</span>
-</span></span><span style="display:flex;"><span>fig1, ax1 <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>subplots()
-</span></span><span style="display:flex;"><span>ax1<span style="color:#f92672">.</span>plot(np<span style="color:#f92672">.</span>arange(num_iters), J_history, <span style="color:#e6db74">&#39;b&#39;</span>)
-</span></span><span style="display:flex;"><span>ax1<span style="color:#f92672">.</span>set_xlabel(<span style="color:#e6db74">&#39;Iterations&#39;</span>)
-</span></span><span style="display:flex;"><span>ax1<span style="color:#f92672">.</span>set_ylabel(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;$J(\theta)$&#39;</span>)
-</span></span><span style="display:flex;"><span>ax1<span style="color:#f92672">.</span>set_title(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;Convergence of $J(\theta)$&#39;</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Display gradient descent&#39;s result</span>
-</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;Theta computed from gradient descent: </span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>, theta)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;&#34;&#34; Part 3: Normal Equations &#34;&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Solving with normal equations ... &#39;</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Add intercept term to X</span>
-</span></span><span style="display:flex;"><span>X <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>c_[np<span style="color:#f92672">.</span>ones([m, <span style="color:#ae81ff">1</span>]), X]
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Calculate the parameters from the normal equation</span>
-</span></span><span style="display:flex;"><span>theta1 <span style="color:#f92672">=</span> normalEqn(X, y)
-</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;Theta computed from normal equations: </span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>, theta1)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34; Part 0: Basic Function &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">computeCost</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">theta</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;&#39;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">    Compute cost for linear regression
+</span></span></span><span class="line"><span class="cl"><span class="s1">    :param X: input variables
+</span></span></span><span class="line"><span class="cl"><span class="s1">    :param y: output variables
+</span></span></span><span class="line"><span class="cl"><span class="s1">    :param theta: parameters
+</span></span></span><span class="line"><span class="cl"><span class="s1">    :return: Cost function
+</span></span></span><span class="line"><span class="cl"><span class="s1">    &#39;&#39;&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">m</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">J</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="o">-</span> <span class="n">y</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">m</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">J</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">gradientDescentMulti</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">num_iters</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;&#39;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">    updates theta by taking num_iters gradient steps with learning rate alpha
+</span></span></span><span class="line"><span class="cl"><span class="s1">    :param X: input variables
+</span></span></span><span class="line"><span class="cl"><span class="s1">    :param y: output variables
+</span></span></span><span class="line"><span class="cl"><span class="s1">    :param theta: parameters
+</span></span></span><span class="line"><span class="cl"><span class="s1">    :param alpha: learning rate
+</span></span></span><span class="line"><span class="cl"><span class="s1">    :param num_iters: times of iteration
+</span></span></span><span class="line"><span class="cl"><span class="s1">    :return: [theta, J_history]
+</span></span></span><span class="line"><span class="cl"><span class="s1">    &#39;&#39;&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># Initialize some useful values</span>
+</span></span><span class="line"><span class="cl">    <span class="n">m</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">J_history</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">num_iters</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_iters</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">temp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">theta</span><span class="p">)</span> <span class="o">-</span> <span class="n">y</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">theta</span> <span class="o">=</span> <span class="n">theta</span> <span class="o">-</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">temp</span><span class="o">.</span><span class="n">T</span> <span class="o">/</span> <span class="n">m</span>
+</span></span><span class="line"><span class="cl">        <span class="n">J_history</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">computeCost</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">theta</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">theta</span><span class="p">,</span> <span class="n">J_history</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">featureNormalize</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;&#39;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">    Normalize the features in X
+</span></span></span><span class="line"><span class="cl"><span class="s1">    :param X: features
+</span></span></span><span class="line"><span class="cl"><span class="s1">    :return: X_norm: normalized X; mean: mean value; sigma: standard deviation
+</span></span></span><span class="line"><span class="cl"><span class="s1">    &#39;&#39;&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sigma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">X_norm</span> <span class="o">=</span> <span class="p">(</span><span class="n">X</span> <span class="o">-</span> <span class="n">mean</span><span class="p">)</span> <span class="o">/</span> <span class="n">sigma</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">X_norm</span><span class="p">,</span> <span class="n">mean</span><span class="p">,</span> <span class="n">sigma</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">normalEqn</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;&#39;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">    Computes the closed-form solution to linear regression
+</span></span></span><span class="line"><span class="cl"><span class="s1">    :param X: input variables
+</span></span></span><span class="line"><span class="cl"><span class="s1">    :param y: output variables
+</span></span></span><span class="line"><span class="cl"><span class="s1">    :return: parameters
+</span></span></span><span class="line"><span class="cl"><span class="s1">    &#39;&#39;&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">T</span><span class="nd">@X</span><span class="p">)</span><span class="nd">@X</span><span class="o">.</span><span class="n">T</span><span class="nd">@y</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">theta</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34; Part 1: Feature Normalization &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Load data</span>
+</span></span><span class="line"><span class="cl"><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s1">&#39;ex1data2.txt&#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">X</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">m</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Scale features and set them to zero mean</span>
+</span></span><span class="line"><span class="cl"><span class="n">X_norm</span><span class="p">,</span> <span class="n">mean</span><span class="p">,</span> <span class="n">sigma</span> <span class="o">=</span> <span class="n">featureNormalize</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">y_norm</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">featureNormalize</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Add intercept term to X</span>
+</span></span><span class="line"><span class="cl"><span class="n">X_norm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">([</span><span class="n">m</span><span class="p">,</span> <span class="mi">1</span><span class="p">]),</span> <span class="n">X_norm</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34; Part 2: Gradient Descent &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Running gradient descent ... &#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Choose some alpha value</span>
+</span></span><span class="line"><span class="cl"><span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.01</span>
+</span></span><span class="line"><span class="cl"><span class="n">num_iters</span> <span class="o">=</span> <span class="mi">1000</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Init theta and run gradient descent</span>
+</span></span><span class="line"><span class="cl"><span class="n">theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">theta</span><span class="p">,</span> <span class="n">J_history</span> <span class="o">=</span> <span class="n">gradientDescentMulti</span><span class="p">(</span><span class="n">X_norm</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">num_iters</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Plot the convergence graph</span>
+</span></span><span class="line"><span class="cl"><span class="n">fig1</span><span class="p">,</span> <span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">num_iters</span><span class="p">),</span> <span class="n">J_history</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Iterations&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$J(\theta)$&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Convergence of $J(\theta)$&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Display gradient descent&#39;s result</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Theta computed from gradient descent: </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">theta</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34; Part 3: Normal Equations &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Solving with normal equations ... &#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Add intercept term to X</span>
+</span></span><span class="line"><span class="cl"><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">([</span><span class="n">m</span><span class="p">,</span> <span class="mi">1</span><span class="p">]),</span> <span class="n">X</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Calculate the parameters from the normal equation</span>
+</span></span><span class="line"><span class="cl"><span class="n">theta1</span> <span class="o">=</span> <span class="n">normalEqn</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Theta computed from normal equations: </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">theta1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </span></span></code></pre></div><p><strong>Output:</strong></p>
 <ul>
 <li>Console (There is some differences between the two results)</li>
@@ -627,12 +691,71 @@ In this part, you will implement linear regression with multiple variables to pr
       <li><a href="https://fang-lansheng.github.io/tags/course-learning/">Course Learning</a></li>
       <li><a href="https://fang-lansheng.github.io/tags/python/">Python</a></li>
     </ul>
+<nav class="paginav">
+  <a class="prev" href="https://fang-lansheng.github.io/posts/2020-03-04-ml-ng-3/">
+    <span class="title">« Prev Page</span>
+    <br>
+    <span>机器学习-吴恩达：学习笔记及总结（3）</span>
+  </a>
+  <a class="next" href="https://fang-lansheng.github.io/posts/2020-02-26-ml-ng-1/">
+    <span class="title">Next Page »</span>
+    <br>
+    <span>机器学习-吴恩达：学习笔记及总结（1）</span>
+  </a>
+</nav>
+
+
+<div class="share-buttons">
+    <a target="_blank" rel="noopener noreferrer" aria-label="share 机器学习-吴恩达：学习笔记及总结（2） on twitter"
+        href="https://twitter.com/intent/tweet/?text=%e6%9c%ba%e5%99%a8%e5%ad%a6%e4%b9%a0-%e5%90%b4%e6%81%a9%e8%be%be%ef%bc%9a%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%e5%8f%8a%e6%80%bb%e7%bb%93%ef%bc%882%ef%bc%89&amp;url=https%3a%2f%2ffang-lansheng.github.io%2fposts%2f2020-02-26-ml-ng-2%2f&amp;hashtags=ML%2fDL%2cCourseLearning%2cPython">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-253.927,424.544c135.939,0 210.268,-112.643 210.268,-210.268c0,-3.218 0,-6.437 -0.153,-9.502c14.406,-10.421 26.973,-23.448 36.935,-38.314c-13.18,5.824 -27.433,9.809 -42.452,11.648c15.326,-9.196 26.973,-23.602 32.49,-40.92c-14.252,8.429 -30.038,14.56 -46.896,17.931c-13.487,-14.406 -32.644,-23.295 -53.946,-23.295c-40.767,0 -73.87,33.104 -73.87,73.87c0,5.824 0.613,11.494 1.992,16.858c-61.456,-3.065 -115.862,-32.49 -152.337,-77.241c-6.284,10.881 -9.962,23.601 -9.962,37.088c0,25.594 13.027,48.276 32.95,61.456c-12.107,-0.307 -23.448,-3.678 -33.41,-9.196l0,0.92c0,35.862 25.441,65.594 59.311,72.49c-6.13,1.686 -12.72,2.606 -19.464,2.606c-4.751,0 -9.348,-0.46 -13.946,-1.38c9.349,29.426 36.628,50.728 68.965,51.341c-25.287,19.771 -57.164,31.571 -91.8,31.571c-5.977,0 -11.801,-0.306 -17.625,-1.073c32.337,21.15 71.264,33.41 112.95,33.41Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share 机器学习-吴恩达：学习笔记及总结（2） on linkedin"
+        href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2ffang-lansheng.github.io%2fposts%2f2020-02-26-ml-ng-2%2f&amp;title=%e6%9c%ba%e5%99%a8%e5%ad%a6%e4%b9%a0-%e5%90%b4%e6%81%a9%e8%be%be%ef%bc%9a%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%e5%8f%8a%e6%80%bb%e7%bb%93%ef%bc%882%ef%bc%89&amp;summary=%e6%9c%ba%e5%99%a8%e5%ad%a6%e4%b9%a0-%e5%90%b4%e6%81%a9%e8%be%be%ef%bc%9a%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%e5%8f%8a%e6%80%bb%e7%bb%93%ef%bc%882%ef%bc%89&amp;source=https%3a%2f%2ffang-lansheng.github.io%2fposts%2f2020-02-26-ml-ng-2%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-288.985,423.278l0,-225.717l-75.04,0l0,225.717l75.04,0Zm270.539,0l0,-129.439c0,-69.333 -37.018,-101.586 -86.381,-101.586c-39.804,0 -57.634,21.891 -67.617,37.266l0,-31.958l-75.021,0c0.995,21.181 0,225.717 0,225.717l75.02,0l0,-126.056c0,-6.748 0.486,-13.492 2.474,-18.315c5.414,-13.475 17.767,-27.434 38.494,-27.434c27.135,0 38.007,20.707 38.007,51.037l0,120.768l75.024,0Zm-307.552,-334.556c-25.674,0 -42.448,16.879 -42.448,39.002c0,21.658 16.264,39.002 41.455,39.002l0.484,0c26.165,0 42.452,-17.344 42.452,-39.002c-0.485,-22.092 -16.241,-38.954 -41.943,-39.002Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share 机器学习-吴恩达：学习笔记及总结（2） on reddit"
+        href="https://reddit.com/submit?url=https%3a%2f%2ffang-lansheng.github.io%2fposts%2f2020-02-26-ml-ng-2%2f&title=%e6%9c%ba%e5%99%a8%e5%ad%a6%e4%b9%a0-%e5%90%b4%e6%81%a9%e8%be%be%ef%bc%9a%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%e5%8f%8a%e6%80%bb%e7%bb%93%ef%bc%882%ef%bc%89">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-3.446,265.638c0,-22.964 -18.616,-41.58 -41.58,-41.58c-11.211,0 -21.361,4.457 -28.841,11.666c-28.424,-20.508 -67.586,-33.757 -111.204,-35.278l18.941,-89.121l61.884,13.157c0.756,15.734 13.642,28.29 29.56,28.29c16.407,0 29.706,-13.299 29.706,-29.701c0,-16.403 -13.299,-29.702 -29.706,-29.702c-11.666,0 -21.657,6.792 -26.515,16.578l-69.105,-14.69c-1.922,-0.418 -3.939,-0.042 -5.585,1.036c-1.658,1.073 -2.811,2.761 -3.224,4.686l-21.152,99.438c-44.258,1.228 -84.046,14.494 -112.837,35.232c-7.468,-7.164 -17.589,-11.591 -28.757,-11.591c-22.965,0 -41.585,18.616 -41.585,41.58c0,16.896 10.095,31.41 24.568,37.918c-0.639,4.135 -0.99,8.328 -0.99,12.576c0,63.977 74.469,115.836 166.33,115.836c91.861,0 166.334,-51.859 166.334,-115.836c0,-4.218 -0.347,-8.387 -0.977,-12.493c14.564,-6.47 24.735,-21.034 24.735,-38.001Zm-119.474,108.193c-20.27,20.241 -59.115,21.816 -70.534,21.816c-11.428,0 -50.277,-1.575 -70.522,-21.82c-3.007,-3.008 -3.007,-7.882 0,-10.889c3.003,-2.999 7.882,-3.003 10.885,0c12.777,12.781 40.11,17.317 59.637,17.317c19.522,0 46.86,-4.536 59.657,-17.321c3.016,-2.999 7.886,-2.995 10.885,0.008c3.008,3.011 3.003,7.882 -0.008,10.889Zm-5.23,-48.781c-16.373,0 -29.701,-13.324 -29.701,-29.698c0,-16.381 13.328,-29.714 29.701,-29.714c16.378,0 29.706,13.333 29.706,29.714c0,16.374 -13.328,29.698 -29.706,29.698Zm-160.386,-29.702c0,-16.381 13.328,-29.71 29.714,-29.71c16.369,0 29.689,13.329 29.689,29.71c0,16.373 -13.32,29.693 -29.689,29.693c-16.386,0 -29.714,-13.32 -29.714,-29.693Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share 机器学习-吴恩达：学习笔记及总结（2） on facebook"
+        href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2ffang-lansheng.github.io%2fposts%2f2020-02-26-ml-ng-2%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-106.468,0l0,-192.915l66.6,0l12.672,-82.621l-79.272,0l0,-53.617c0,-22.603 11.073,-44.636 46.58,-44.636l36.042,0l0,-70.34c0,0 -32.71,-5.582 -63.982,-5.582c-65.288,0 -107.96,39.569 -107.96,111.204l0,62.971l-72.573,0l0,82.621l72.573,0l0,192.915l-191.104,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share 机器学习-吴恩达：学习笔记及总结（2） on whatsapp"
+        href="https://api.whatsapp.com/send?text=%e6%9c%ba%e5%99%a8%e5%ad%a6%e4%b9%a0-%e5%90%b4%e6%81%a9%e8%be%be%ef%bc%9a%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%e5%8f%8a%e6%80%bb%e7%bb%93%ef%bc%882%ef%bc%89%20-%20https%3a%2f%2ffang-lansheng.github.io%2fposts%2f2020-02-26-ml-ng-2%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-58.673,127.703c-33.842,-33.881 -78.847,-52.548 -126.798,-52.568c-98.799,0 -179.21,80.405 -179.249,179.234c-0.013,31.593 8.241,62.428 23.927,89.612l-25.429,92.884l95.021,-24.925c26.181,14.28 55.659,21.807 85.658,21.816l0.074,0c98.789,0 179.206,-80.413 179.247,-179.243c0.018,-47.895 -18.61,-92.93 -52.451,-126.81Zm-126.797,275.782l-0.06,0c-26.734,-0.01 -52.954,-7.193 -75.828,-20.767l-5.441,-3.229l-56.386,14.792l15.05,-54.977l-3.542,-5.637c-14.913,-23.72 -22.791,-51.136 -22.779,-79.287c0.033,-82.142 66.867,-148.971 149.046,-148.971c39.793,0.014 77.199,15.531 105.329,43.692c28.128,28.16 43.609,65.592 43.594,105.4c-0.034,82.149 -66.866,148.983 -148.983,148.984Zm81.721,-111.581c-4.479,-2.242 -26.499,-13.075 -30.604,-14.571c-4.105,-1.495 -7.091,-2.241 -10.077,2.241c-2.986,4.483 -11.569,14.572 -14.182,17.562c-2.612,2.988 -5.225,3.364 -9.703,1.12c-4.479,-2.241 -18.91,-6.97 -36.017,-22.23c-13.314,-11.876 -22.304,-26.542 -24.916,-31.026c-2.612,-4.484 -0.279,-6.908 1.963,-9.14c2.016,-2.007 4.48,-5.232 6.719,-7.847c2.24,-2.615 2.986,-4.484 4.479,-7.472c1.493,-2.99 0.747,-5.604 -0.374,-7.846c-1.119,-2.241 -10.077,-24.288 -13.809,-33.256c-3.635,-8.733 -7.327,-7.55 -10.077,-7.688c-2.609,-0.13 -5.598,-0.158 -8.583,-0.158c-2.986,0 -7.839,1.121 -11.944,5.604c-4.105,4.484 -15.675,15.32 -15.675,37.364c0,22.046 16.048,43.342 18.287,46.332c2.24,2.99 31.582,48.227 76.511,67.627c10.685,4.615 19.028,7.371 25.533,9.434c10.728,3.41 20.492,2.929 28.209,1.775c8.605,-1.285 26.499,-10.833 30.231,-21.295c3.732,-10.464 3.732,-19.431 2.612,-21.298c-1.119,-1.869 -4.105,-2.99 -8.583,-5.232Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share 机器学习-吴恩达：学习笔记及总结（2） on telegram"
+        href="https://telegram.me/share/url?text=%e6%9c%ba%e5%99%a8%e5%ad%a6%e4%b9%a0-%e5%90%b4%e6%81%a9%e8%be%be%ef%bc%9a%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%e5%8f%8a%e6%80%bb%e7%bb%93%ef%bc%882%ef%bc%89&amp;url=https%3a%2f%2ffang-lansheng.github.io%2fposts%2f2020-02-26-ml-ng-2%2f">
+        <svg version="1.1" xml:space="preserve" viewBox="2 2 28 28">
+            <path
+                d="M26.49,29.86H5.5a3.37,3.37,0,0,1-2.47-1,3.35,3.35,0,0,1-1-2.47V5.48A3.36,3.36,0,0,1,3,3,3.37,3.37,0,0,1,5.5,2h21A3.38,3.38,0,0,1,29,3a3.36,3.36,0,0,1,1,2.46V26.37a3.35,3.35,0,0,1-1,2.47A3.38,3.38,0,0,1,26.49,29.86Zm-5.38-6.71a.79.79,0,0,0,.85-.66L24.73,9.24a.55.55,0,0,0-.18-.46.62.62,0,0,0-.41-.17q-.08,0-16.53,6.11a.59.59,0,0,0-.41.59.57.57,0,0,0,.43.52l4,1.24,1.61,4.83a.62.62,0,0,0,.63.43.56.56,0,0,0,.4-.17L16.54,20l4.09,3A.9.9,0,0,0,21.11,23.15ZM13.8,20.71l-1.21-4q8.72-5.55,8.78-5.55c.15,0,.23,0,.23.16a.18.18,0,0,1,0,.06s-2.51,2.3-7.52,6.8Z" />
+        </svg>
+    </a>
+</div>
+
   </footer>
 </article>
     </main>
     
 <footer class="footer">
-    <span>&copy; 2022 <a href="https://fang-lansheng.github.io">My-Thistledown</a></span>
+    <span>&copy; 2022 <a href="https://fang-lansheng.github.io">Jifan&#39;s Blog</a></span>
     <span>
         Powered by
         <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
@@ -698,6 +821,53 @@ In this part, you will implement linear regression with multiple variables to pr
         }
     })
 
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerText = 'copy';
+
+        function copyingDone() {
+            copybutton.innerText = 'copied!';
+            setTimeout(() => {
+                copybutton.innerText = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
 </script>
 </body>
 

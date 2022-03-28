@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:
+Sitemap: https://fang-lansheng.github.io/sitemap.xml

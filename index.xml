@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>My-Thistledown</title>
+    <title>Jifan&#39;s Blog</title>
     <link>https://fang-lansheng.github.io/</link>
-    <description>Recent content on My-Thistledown</description>
+    <description>Recent content on Jifan&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 02 Jul 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://fang-lansheng.github.io/index.xml" rel="self" type="application/rss+xml" />
@@ -242,9 +242,9 @@ PTA | 程序设计类实验辅助教学平台
 题目大意为：有 N（≤100） 个考场，每个考场有若干数量（K≤300）的考生。现给出各个考场中考生的准考证号与分数，要求将所有考生按分数从高到低排序，并按顺序输出所有考生的准考证号、排名、考场号及考场内排名。
 题目要求的信息（准考证号、分数等）可以用结构体 Student 来存放。对考生进行排序可以使用 C++ 标准库中的 sort() 函数，题目中指出结果应按照考生排名递增排序，相同分数的考生排名相同且按照准考证号递增排序。因此，我们需要准们编写一个符合题目条件的 cmp 函数，它应该满足如下规则：
  当分数不同时，按分数从大到小排序 否则，按准考证号从小到大排序。  也即：
-bool cmp(Student a, Student b) {  if (a.score != b.score)  return a.score &amp;gt; b.score; // 先按分数从高到低排序  else  return strcmp(a.id, b.id) &amp;lt; 0;	// 若分数相同，则按准考证号从小到大排序 } 算法本身分为三步：
+bool cmp(Student a, Student b) { if (a.score != b.score) return a.score &amp;gt; b.score; // 先按分数从高到低排序  else return strcmp(a.id, b.id) &amp;lt; 0;	// 若分数相同，则按准考证号从小到大排序 } 算法本身分为三步：
  按考场读入各考生的信息，并对当前读入考场的所有考生进行排序。之后将该考场的所有考生的排名写入其结构体中。 对所有考生进行排序 按照排序，一遍计算总排名，一遍输出信息  参考代码
-#include &amp;lt;cstdio&amp;gt;#include &amp;lt;cstring&amp;gt;#include &amp;lt;algorithm&amp;gt; using namespace std;  struct Student {  char id[15];	// 准考证号  int score;	// 分数  int location_number;	// 考场号  int local_rank;	// 考场内排名 }stu[30010];  bool cmp(Student a, Student b) { 	if (a.</description>
+#include &amp;lt;cstdio&amp;gt;#include &amp;lt;cstring&amp;gt;#include &amp;lt;algorithm&amp;gt; using namespace std; struct Student { char id[15];	// 准考证号  int score;	// 分数  int location_number;	// 考场号  int local_rank;	// 考场内排名 }stu[30010]; bool cmp(Student a, Student b) { if (a.</description>
     </item>
     
     <item>
@@ -271,7 +271,8 @@ PTA | 程序设计类实验辅助教学平台
  PAT B 1001 解题思路
 题目比较基础，利用循环语句和条件语句实现对目标整数的不断缩小，直至 n == 1，通过变量 step 来计算步数（砍了多少次）
 参考代码
-#include &amp;lt;stdio.h&amp;gt;int main(){  int n, step = 0;  scanf(&amp;#34;%d&amp;#34;, &amp;amp;n); // 输入题目给出的 n  while (n != 1) {  if (n % 2 == 0) n /= 2;  else n = (3 * n + 1) / 2;  step++;  }  printf(&amp;#34;%d\n&amp;#34;, step);  return 0; } PAT B 1002 解题思路</description>
+#include &amp;lt;stdio.h&amp;gt;int main(){ int n, step = 0; scanf(&amp;#34;%d&amp;#34;, &amp;amp;n); // 输入题目给出的 n  while (n != 1) { if (n % 2 == 0) n /= 2; else n = (3 * n + 1) / 2; step++; } printf(&amp;#34;%d\n&amp;#34;, step); return 0; } PAT B 1002 解题思路
+ 题目要求读入一个小于 10e100 的整数 （如，1234567890987654321123456789），它已经超出了 int (-2^31 ~ 2^31 - 1) 或者 long int (-2^63 ~ 2^63 - 1) 的范围，因此需要将其当做字符串读入。 将读入字符串的每一位“相加”即可得到 n 的各位数字之和 sum 用 / 和 % 方法获取 sum 的每一位  参考代码</description>
     </item>
     
     <item>
@@ -296,7 +297,7 @@ typedef wchar_t short int; 所以 wchar_t 实际上的空间是和 short int 一
       <guid>https://fang-lansheng.github.io/posts/2019-01-20-javascript-study-notes-3/</guid>
       <description>本篇学习笔记是在慕课网上学习JavaScript深入浅出时所做笔记，内容主要来自课程课件及老师讲解，同时穿插自己的一些理解和尝试。部分资料整理自 MDN Web Docs。
  数组是值的有序集合。每个值叫做元素，每个元素在数组中都有数字位置编号，也就是索引。JavaScript 中的数组是弱类型的，数组中可以含有不同类型的元素。数组元素甚至可以是对象或其他数组。
-// 例如 var arr = [1, true, null, undefined, {x: 1}, [1, 2, 3]]; arr[0];	// 1 arr[3];	// undefined arr[4].x;	// 1 arr[5][1];	// 2 5.1 创建数组 &amp;amp; 数组操作 创建数组 - 字面量 var BAT = [&amp;#39;Baidu&amp;#39;, &amp;#39;Alibaba&amp;#39;, &amp;#39;Tencent&amp;#39;]; var students = [{name: &amp;#39;Bosn&amp;#39;, age: 27}, {name: &amp;#39;Nunnly&amp;#39;, age: 3}]; var arr = [&amp;#39;Nunnly&amp;#39;, &amp;#39;is&amp;#39;, &amp;#39;big&amp;#39;, &amp;#39;keng&amp;#39;, &amp;#39;B&amp;#39;, 123, true, null];  var commasArr1 = [1, , 2];	// 1, undefined, 2 var commasArr2 = [,,];	// undefined * 2，不赞同这种定义方式 数组的大小是有限制的：size from 0 to 4,294,967,295 ($2^{23} - 1$)</description>
+// 例如 var arr = [1, true, null, undefined, {x: 1}, [1, 2, 3]]; arr[0];	// 1 arr[3];	// undefined arr[4].x;	// 1 arr[5][1];	// 2 5.1 创建数组 &amp;amp; 数组操作 创建数组 - 字面量 var BAT = [&amp;#39;Baidu&amp;#39;, &amp;#39;Alibaba&amp;#39;, &amp;#39;Tencent&amp;#39;]; var students = [{name: &amp;#39;Bosn&amp;#39;, age: 27}, {name: &amp;#39;Nunnly&amp;#39;, age: 3}]; var arr = [&amp;#39;Nunnly&amp;#39;, &amp;#39;is&amp;#39;, &amp;#39;big&amp;#39;, &amp;#39;keng&amp;#39;, &amp;#39;B&amp;#39;, 123, true, null]; var commasArr1 = [1, , 2];	// 1, undefined, 2 var commasArr2 = [,,];	// undefined * 2，不赞同这种定义方式 数组的大小是有限制的：size from 0 to 4,294,967,295 ($2^{23} - 1$)</description>
     </item>
     
     <item>
@@ -309,7 +310,7 @@ typedef wchar_t short int; 所以 wchar_t 实际上的空间是和 short int 一
  4.1 对象概述 对象中包含一系列属性，这些属性是无序的。每个属性都有一个字符串 key 和对应的 value。
 var obj_0 = { x : 1, y : 2 }; obj_0.x;	// 1 obj_0.y;	// 2  var obj = {}; obj[1] = 1; obj[&amp;#39;1&amp;#39;] = 2; obj; // Object {1: 2}  obj[{}] = true; obj[{x: 1}] = true; obj; // Object {1: 2, [object Object]: true} 函数 function、数组 Array 等都是对象。
 4.2 创建对象、原型链 1. 字面量
-var obj1 = { x : 1, y : 2 }; var obj2 = {  x: 1,  y: 2,  o: {	// 嵌套  z: 3,  n: 4  } }; 2.</description>
+var obj1 = { x : 1, y : 2 }; var obj2 = { x: 1, y: 2, o: {	// 嵌套  z: 3, n: 4 } }; 2.</description>
     </item>
     
     <item>
@@ -337,7 +338,7 @@ var obj1 = { x : 1, y : 2 }; var obj2 = {  x: 1,  y: 2,  o: {	// 嵌套  z: 3,  
 点击 Register application 后，就会得到你的 Client ID 和 Client Secret。
 在 Jekyll 中添加 Gitalk 在你需要添加评论系统的地方，一般是 _layout/ 目录下的 post.html：
 在 Post Header 中，引入 gitalk.css 和 gitalk.min.js ：
- &amp;lt;link rel=&amp;#34;stylesheet&amp;#34; href=&amp;#34;https://unpkg.</description>
+&amp;lt;link rel=&amp;#34;stylesheet&amp;#34; href=&amp;#34;https://unpkg.</description>
     </item>
     
     <item>
@@ -358,6 +359,8 @@ wget https://nodejs.org/dist/v8.12.0/node-v8.12.0-linux-x64.tar.xz xz -d node-v8
 -bash: xz: command not found 据了解，是 xz 这个解压工具尚未安装，解决步骤如下
 # 1.</description>
     </item>
+    
+    
     
   </channel>
 </rss>

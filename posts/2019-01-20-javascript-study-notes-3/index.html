@@ -5,11 +5,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>JavaScript 学习笔记（三）：数组、数组操作以及数组方法 | My-Thistledown</title>
+<title>JavaScript 学习笔记（三）：数组、数组操作以及数组方法 | Jifan&#39;s Blog</title>
 <meta name="keywords" content="JavaScript, Course Learning" />
 <meta name="description" content="本篇学习笔记是在慕课网上学习JavaScript深入浅出时所做笔记，内容主要来自课程课件及老师讲解，同时穿插自己的一些理解和尝试。部分资料整理自 MDN Web Docs。
  数组是值的有序集合。每个值叫做元素，每个元素在数组中都有数字位置编号，也就是索引。JavaScript 中的数组是弱类型的，数组中可以含有不同类型的元素。数组元素甚至可以是对象或其他数组。
-// 例如 var arr = [1, true, null, undefined, {x: 1}, [1, 2, 3]]; arr[0];	// 1 arr[3];	// undefined arr[4].x;	// 1 arr[5][1];	// 2 5.1 创建数组 &amp; 数组操作 创建数组 - 字面量 var BAT = [&#39;Baidu&#39;, &#39;Alibaba&#39;, &#39;Tencent&#39;]; var students = [{name: &#39;Bosn&#39;, age: 27}, {name: &#39;Nunnly&#39;, age: 3}]; var arr = [&#39;Nunnly&#39;, &#39;is&#39;, &#39;big&#39;, &#39;keng&#39;, &#39;B&#39;, 123, true, null];  var commasArr1 = [1, , 2];	// 1, undefined, 2 var commasArr2 = [,,];	// undefined * 2，不赞同这种定义方式 数组的大小是有限制的：size from 0 to 4,294,967,295 ($2^{23} - 1$)">
+// 例如 var arr = [1, true, null, undefined, {x: 1}, [1, 2, 3]]; arr[0];	// 1 arr[3];	// undefined arr[4].x;	// 1 arr[5][1];	// 2 5.1 创建数组 &amp; 数组操作 创建数组 - 字面量 var BAT = [&#39;Baidu&#39;, &#39;Alibaba&#39;, &#39;Tencent&#39;]; var students = [{name: &#39;Bosn&#39;, age: 27}, {name: &#39;Nunnly&#39;, age: 3}]; var arr = [&#39;Nunnly&#39;, &#39;is&#39;, &#39;big&#39;, &#39;keng&#39;, &#39;B&#39;, 123, true, null]; var commasArr1 = [1, , 2];	// 1, undefined, 2 var commasArr2 = [,,];	// undefined * 2，不赞同这种定义方式 数组的大小是有限制的：size from 0 to 4,294,967,295 ($2^{23} - 1$)">
 <meta name="author" content="Thistledown">
 <link rel="canonical" href="https://fang-lansheng.github.io/posts/2019-01-20-javascript-study-notes-3/" />
 <link crossorigin="anonymous" href="/assets/css/stylesheet.min.48a18943c2fc15c38a372b8dde1f5e5dc0bc64fa6cb90f5a817d2f8c76b7f3ae.css" integrity="sha256-SKGJQ8L8FcOKNyuN3h9eXcC8ZPpsuQ9agX0vjHa3864=" rel="preload stylesheet" as="style">
@@ -61,7 +61,7 @@
 </noscript><meta property="og:title" content="JavaScript 学习笔记（三）：数组、数组操作以及数组方法" />
 <meta property="og:description" content="本篇学习笔记是在慕课网上学习JavaScript深入浅出时所做笔记，内容主要来自课程课件及老师讲解，同时穿插自己的一些理解和尝试。部分资料整理自 MDN Web Docs。
  数组是值的有序集合。每个值叫做元素，每个元素在数组中都有数字位置编号，也就是索引。JavaScript 中的数组是弱类型的，数组中可以含有不同类型的元素。数组元素甚至可以是对象或其他数组。
-// 例如 var arr = [1, true, null, undefined, {x: 1}, [1, 2, 3]]; arr[0];	// 1 arr[3];	// undefined arr[4].x;	// 1 arr[5][1];	// 2 5.1 创建数组 &amp; 数组操作 创建数组 - 字面量 var BAT = [&#39;Baidu&#39;, &#39;Alibaba&#39;, &#39;Tencent&#39;]; var students = [{name: &#39;Bosn&#39;, age: 27}, {name: &#39;Nunnly&#39;, age: 3}]; var arr = [&#39;Nunnly&#39;, &#39;is&#39;, &#39;big&#39;, &#39;keng&#39;, &#39;B&#39;, 123, true, null];  var commasArr1 = [1, , 2];	// 1, undefined, 2 var commasArr2 = [,,];	// undefined * 2，不赞同这种定义方式 数组的大小是有限制的：size from 0 to 4,294,967,295 ($2^{23} - 1$)" />
+// 例如 var arr = [1, true, null, undefined, {x: 1}, [1, 2, 3]]; arr[0];	// 1 arr[3];	// undefined arr[4].x;	// 1 arr[5][1];	// 2 5.1 创建数组 &amp; 数组操作 创建数组 - 字面量 var BAT = [&#39;Baidu&#39;, &#39;Alibaba&#39;, &#39;Tencent&#39;]; var students = [{name: &#39;Bosn&#39;, age: 27}, {name: &#39;Nunnly&#39;, age: 3}]; var arr = [&#39;Nunnly&#39;, &#39;is&#39;, &#39;big&#39;, &#39;keng&#39;, &#39;B&#39;, 123, true, null]; var commasArr1 = [1, , 2];	// 1, undefined, 2 var commasArr2 = [,,];	// undefined * 2，不赞同这种定义方式 数组的大小是有限制的：size from 0 to 4,294,967,295 ($2^{23} - 1$)" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://fang-lansheng.github.io/posts/2019-01-20-javascript-study-notes-3/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2019-01-20T00:00:00&#43;00:00" />
@@ -71,7 +71,7 @@
 <meta name="twitter:title" content="JavaScript 学习笔记（三）：数组、数组操作以及数组方法"/>
 <meta name="twitter:description" content="本篇学习笔记是在慕课网上学习JavaScript深入浅出时所做笔记，内容主要来自课程课件及老师讲解，同时穿插自己的一些理解和尝试。部分资料整理自 MDN Web Docs。
  数组是值的有序集合。每个值叫做元素，每个元素在数组中都有数字位置编号，也就是索引。JavaScript 中的数组是弱类型的，数组中可以含有不同类型的元素。数组元素甚至可以是对象或其他数组。
-// 例如 var arr = [1, true, null, undefined, {x: 1}, [1, 2, 3]]; arr[0];	// 1 arr[3];	// undefined arr[4].x;	// 1 arr[5][1];	// 2 5.1 创建数组 &amp; 数组操作 创建数组 - 字面量 var BAT = [&#39;Baidu&#39;, &#39;Alibaba&#39;, &#39;Tencent&#39;]; var students = [{name: &#39;Bosn&#39;, age: 27}, {name: &#39;Nunnly&#39;, age: 3}]; var arr = [&#39;Nunnly&#39;, &#39;is&#39;, &#39;big&#39;, &#39;keng&#39;, &#39;B&#39;, 123, true, null];  var commasArr1 = [1, , 2];	// 1, undefined, 2 var commasArr2 = [,,];	// undefined * 2，不赞同这种定义方式 数组的大小是有限制的：size from 0 to 4,294,967,295 ($2^{23} - 1$)"/>
+// 例如 var arr = [1, true, null, undefined, {x: 1}, [1, 2, 3]]; arr[0];	// 1 arr[3];	// undefined arr[4].x;	// 1 arr[5][1];	// 2 5.1 创建数组 &amp; 数组操作 创建数组 - 字面量 var BAT = [&#39;Baidu&#39;, &#39;Alibaba&#39;, &#39;Tencent&#39;]; var students = [{name: &#39;Bosn&#39;, age: 27}, {name: &#39;Nunnly&#39;, age: 3}]; var arr = [&#39;Nunnly&#39;, &#39;is&#39;, &#39;big&#39;, &#39;keng&#39;, &#39;B&#39;, 123, true, null]; var commasArr1 = [1, , 2];	// 1, undefined, 2 var commasArr2 = [,,];	// undefined * 2，不赞同这种定义方式 数组的大小是有限制的：size from 0 to 4,294,967,295 ($2^{23} - 1$)"/>
 
 
 <script type="application/ld+json">
@@ -100,11 +100,11 @@
   "@type": "BlogPosting",
   "headline": "JavaScript 学习笔记（三）：数组、数组操作以及数组方法",
   "name": "JavaScript 学习笔记（三）：数组、数组操作以及数组方法",
-  "description": "本篇学习笔记是在慕课网上学习JavaScript深入浅出时所做笔记，内容主要来自课程课件及老师讲解，同时穿插自己的一些理解和尝试。部分资料整理自 MDN Web Docs。\n 数组是值的有序集合。每个值叫做元素，每个元素在数组中都有数字位置编号，也就是索引。JavaScript 中的数组是弱类型的，数组中可以含有不同类型的元素。数组元素甚至可以是对象或其他数组。\n// 例如 var arr = [1, true, null, undefined, {x: 1}, [1, 2, 3]]; arr[0];\t// 1 arr[3];\t// undefined arr[4].x;\t// 1 arr[5][1];\t// 2 5.1 创建数组 \u0026amp; 数组操作 创建数组 - 字面量 var BAT = [\u0026#39;Baidu\u0026#39;, \u0026#39;Alibaba\u0026#39;, \u0026#39;Tencent\u0026#39;]; var students = [{name: \u0026#39;Bosn\u0026#39;, age: 27}, {name: \u0026#39;Nunnly\u0026#39;, age: 3}]; var arr = [\u0026#39;Nunnly\u0026#39;, \u0026#39;is\u0026#39;, \u0026#39;big\u0026#39;, \u0026#39;keng\u0026#39;, \u0026#39;B\u0026#39;, 123, true, null];  var commasArr1 = [1, , 2];\t// 1, undefined, 2 var commasArr2 = [,,];\t// undefined * 2，不赞同这种定义方式 数组的大小是有限制的：size from 0 to 4,294,967,295 ($2^{23} - 1$)",
+  "description": "本篇学习笔记是在慕课网上学习JavaScript深入浅出时所做笔记，内容主要来自课程课件及老师讲解，同时穿插自己的一些理解和尝试。部分资料整理自 MDN Web Docs。\n 数组是值的有序集合。每个值叫做元素，每个元素在数组中都有数字位置编号，也就是索引。JavaScript 中的数组是弱类型的，数组中可以含有不同类型的元素。数组元素甚至可以是对象或其他数组。\n// 例如 var arr = [1, true, null, undefined, {x: 1}, [1, 2, 3]]; arr[0];\t// 1 arr[3];\t// undefined arr[4].x;\t// 1 arr[5][1];\t// 2 5.1 创建数组 \u0026amp; 数组操作 创建数组 - 字面量 var BAT = [\u0026#39;Baidu\u0026#39;, \u0026#39;Alibaba\u0026#39;, \u0026#39;Tencent\u0026#39;]; var students = [{name: \u0026#39;Bosn\u0026#39;, age: 27}, {name: \u0026#39;Nunnly\u0026#39;, age: 3}]; var arr = [\u0026#39;Nunnly\u0026#39;, \u0026#39;is\u0026#39;, \u0026#39;big\u0026#39;, \u0026#39;keng\u0026#39;, \u0026#39;B\u0026#39;, 123, true, null]; var commasArr1 = [1, , 2];\t// 1, undefined, 2 var commasArr2 = [,,];\t// undefined * 2，不赞同这种定义方式 数组的大小是有限制的：size from 0 to 4,294,967,295 ($2^{23} - 1$)",
   "keywords": [
     "JavaScript", "Course Learning"
   ],
-  "articleBody": " 本篇学习笔记是在慕课网上学习JavaScript深入浅出时所做笔记，内容主要来自课程课件及老师讲解，同时穿插自己的一些理解和尝试。部分资料整理自 MDN Web Docs。\n 数组是值的有序集合。每个值叫做元素，每个元素在数组中都有数字位置编号，也就是索引。JavaScript 中的数组是弱类型的，数组中可以含有不同类型的元素。数组元素甚至可以是对象或其他数组。\n// 例如 var arr = [1, true, null, undefined, {x: 1}, [1, 2, 3]]; arr[0];\t// 1 arr[3];\t// undefined arr[4].x;\t// 1 arr[5][1];\t// 2 5.1 创建数组 \u0026 数组操作 创建数组 - 字面量 var BAT = ['Baidu', 'Alibaba', 'Tencent']; var students = [{name: 'Bosn', age: 27}, {name: 'Nunnly', age: 3}]; var arr = ['Nunnly', 'is', 'big', 'keng', 'B', 123, true, null];  var commasArr1 = [1, , 2];\t// 1, undefined, 2 var commasArr2 = [,,];\t// undefined * 2，不赞同这种定义方式 数组的大小是有限制的：size from 0 to 4,294,967,295 ($2^{23} - 1$)\n创建数组 - new Array var arr = new Array(); var arrWithLength = new Array(100);\t// undefined * 100 var arrLikesLiteral = new Array(true, false, null, 1, 2, 'hi');\t// 等价于 [true, false, null, 1, 2, 'hi'] 注意：Array 的构造器如果不使用 new 也是等价的\n数组操作 - 数组元素读写 var arr = [1, 2, 3, 4, 5]; arr[1];\t// 2 arr.length;\t// 5  arr[5] = 6;\t// 动态添加数组元素 arr.length;\t// 6 delete arr[0]; arr[0];\t// undefined arr.length;\t// 6 数组操作 - 数组元素增删 JavaScript 中的数组是动态的，不需要指定大小。数组对象的 lenght 属性也会根据数组的情况更新。\nvar arr = []; arr[0] = 1; arr[1] = 2; arr.push(3); arr;\t// [1, 2, 3]  arr[arr.length] = 4;\t// equals to arr.push(4) arr;\t// [1, 2, 3, 4]  arr.unshift(0);\t// 将一个或多个元素添加到数组的开头，并返回该数组的新长度 arr;\t// [0, 1, 2, 3, 4]  delete arr[2]; arr;\t// [0, 1, undefined, 3, 4] arr.length;\t// 5 2 in arr;\t// false  arr.length -= 1; arr;\t// [0, 1, undefined, 3], 4 is removed  arr.pop();\t// 3 returned by pop arr;\t// [0, 1, undefined], 3 is removed  arr.shift;\t// 0 returned by shift arr;\t// [1, undefined] 数组操作 - 数组迭代 var i = 0, n = 10; var arr = [1, 2, 3, 4, 5]; for (; i  n; i++) {  console.log(arr[i]);\t// 1, 2, 3, 4, 5 }  for (i in arr) {  console.log(arr[i]);\t// 1, 2, 3, 4, 5 }  Array.prototype.x = 'inherited';\t// 在数组对象的原型中增加一个属性 x for (i in arr) {  console.log(arr[i]);\t// 1, 2, 3, 4, 5, inherited（顺序不确定） }  for (i in arr) {  if (arr.hasOwnProperty(i)) {\t// 过滤掉原型链上的属性  console.log(arr[i]);\t// 1, 2, 3, 4, 5（顺序不确定）  } } 5.2 二维数组 \u0026 稀疏数组 二维数组 JavaScript 中的数组的元素也可以是数组，可以定义一个数组，它的每一个元素又是一个数组，这样就形成了二维数组。\nvar arr = [[0, 1], [2, 3], [4, 5]]; var i = 0, j = 0; var row; for (; i  arr.length; i++) {  row = arr[i];  console.log('row ' + i);  for (j = 0; j  row.length; j++) {  console.log(row[j]);  } }  // RESULT: // row 0 // 0 // 1 // row 1 // 2 // 3 // row 2 // 4 // 5 稀疏数组 稀疏数组（sparse array）并不含有从 0 开始的连续索引。一般 length 属性值比实际元素个数大。在 Java，C++ 等中的数组是一段连续的存储空间，元素与元素之间没有空隙，但是在 JavaScript 中允许存在有空隙的数组。\nvar arr1 = [undefined]; var arr2 = new Array(1); 0 in arr1;\t// true 0 in arr2;\t// false 这是因为，如控制台所示（下图），数组 arr1 是有一个元素（值为 undefined）的；而数组 arr2 却是一个由 new Array 方法构造的一个长度为 1 的数组，第 0 元素的 key 是不存在的。\n我们继续对数组进行操作，控制台会出现以下结果：\narr1.length = 100; arr1[99] = 123; 99 in arr1;\t// true 98 in arr2;\t// false 类似地，也可以这样的方式创建稀疏数组：\nvar arr = [, ,]; 0 in arr;\t// false 稀疏数组在实际应用中并不常见。在遍历稀疏数组时，需要用 in 操作符或者“是否为 undefined”的方式作相应的判断。\n通过查阅相关资料，笔者了解到，JavaScript 实际上并没有常规的数组，所有的数组其实就是个对象，只不过会自动管理一些 “数字” 属性和 length 属性罢了。说的更直接一点，JavaScript 中的数组根本没有索引，因为索引应该是数字，而 JavaScript 中数组的索引其实是字符串。arr[1] 其实就是 arr[\"1\"]，若令 arr[\"1000\"] = 1，arr.length 也会自动变为 1001。这些表现的根本原因就是，JavaScript 中的对象就是字符串到任意值的键值对。注意键只能是字符串。\n5.3 数组方法 一般的对象都有一个原型，或者其原型链最终都指向 Object.prototype，因此我们才能使用 hasOwnProperty 等来自 Object.prototype 的方法。数组也是一样的，它的原型来自 Array.prototype。从 MDN 上，我们可以看到 Array.prototype 提供了大量的数组操作方法。\n接下来就针对其中一些方法进行了解。\nArray.isArray() Array.isArray() 用于确定传递的值是否是一个 Array。\nArray.isArray(obj);  参数：  obj：需要检测的值   返回值：如果对象是 Array，则为 true；否则返回 false  Array.isArray([]);\t// true  // 其他判断方式 [].instanceof Array;\t// true ({}).toString.apply([]) === '[object Array]';\t// true [].constructor === Array;\t// true Array.prototype.concat() concat() 方法用于合并两个或多个数组。该方法不会更改现有数组，而是返回一个新数组。\nvar new_array = old_array.concat([value1[, value2[, ...[, valueN]]]])  参数：  valueN ：用于连接到新数组的数组 / 值   返回值：一个新的 Array 实例 描述：  concat 方法创建一个新的数组，它由被调用的对象中的元素组成，每个参数的顺序依次是该参数的元素（如果参数是数组）或者参数本身（如果参数不是数组）。它不会递归到嵌套数组参数中 concat 方法不会改变 this 或任何作为参数提供的数组，而是返回一个浅拷贝（shallow copy），它包含与元是数组相结合的相同元素的副本。原始数组的元素将复制到新数组中，如下所示：  对象引用（而不是实际对象）：contac 将对象引用复制到新数组中。原始数组和新数组都引用相同的对象。也就是说，如果引用的对象被修改，则更改对于新数组和原始数组都是可见的。其中包括数组参数中那些也是数组的元素。 数据类型如字符串、数组和布尔（不是 String、Number 或 Boolean 对象）：concat 将字符串和数字的值复制到新数组中     数组 / 值在连接时保持不变。此外，对于新数组的任何操作（当且仅当元素不是对象引用时）都不会对原始数组产生影响，反之亦然  var arr = [1, 2, 3]; arr.concat(4, 5);\t// [1, 2, 3, 4, 5] arr;\t// [1, 2, 3]，原数组未被修改  arr.concat([10, 11], 13);\t// [1, 2, 3, 10, 11, 13]，“参数是数组” arr.concat([1, [2, 3]]);\t// [1, 2, 3, 1, [2, 3]]，“参数值数组” \u0026 “不会递归到嵌套数组参数中” Array.prototype.every() every() 检查数组的每个元素是否都通过了指定函数的测试。\narr.every(function callback(currentValue, index, array), thisArg);  参数：  callback：用来测试数组每个元素的函数。它接受三个参数：  currentValue：数组中当前正在处理的元素的值 index 可选 ：数组中当前正在处理的元素的索引 array 可选 ：调用了 every 的数组   thisArg 可选 ：执行 callback 函数时使用的 this 值   描述：  every 方法为数组中的每个元素执行一次 callback 函数，直到它找到一个使 callback 返回 false（表示可转换为布尔值 false 的值）的元素。如果发现了一个这样的元素，every 方法将会立即返回 false。否则，callback 为每一个元素返回 true，every 就会返回 true。callback 只会为那些已经被赋值的索引调用。不会为那些被删除或从来没被赋值的索引调用 callback 被调用时传入三个参数：元素值，元素的索引，原数组 如果为 every 提供一个 thisArg 参数，则该参数为调用 callback 时的 this 值。如果省略该参数，则 callback 被调用时的 this 值，在非严格模式下为全局对象，在严格模式下传入 undefined every 遍历的元素范围在第一次调用 callback 之前就已确定了。在调用 every 之后添加到数组中的元素不会被 callback 访问到。如果数组中存在的元素被更改，则他们传入 callback的值是 every 访问到他们那一刻的值。那些被删除的元素或从来未被赋值的元素将不会被访问到 every 和数学中的\"所有\"类似，当所有的元素都符合条件才返回 true。另外，空数组也是返回 true。（空数组中所有元素都符合给定的条件，注：因为空数组没有元素） every 不会改变原数组    var arr = [1, 2, 3, 4, 5]; arr.every(function(x){  return x  10; });\t// true arr.every(function(x){  return x  3; });\t// false Array.prototype.filter() filter() 方法检测数组元素，并返回符合条件的所有元素的数组。\nvar new_array = arr.filter(function callback(currentValue, index, arr), thisValue);  参数：  callback：用来测试数组每个元素的函数。返回 true 表示保留该元素（通过测试），为 false 则不保留。它接受三个参数：  currentValue：数组中当前正在处理的元素的值 index 可选 ：数组中当前正在处理的元素的索引 array 可选 ：调用了 filter 的数组   thisArg 可选 ：执行 callback 函数时使用的 this 值   返回值：一个新的通过测试的元素集合的数组，如果没有元素通过测试则返回空数组 描述：  filter 为数组中的每个元素调用一次 callback 函数，并利用所有使得 callback 返回 true 或 等价于 true 的值 的元素创建一个新数组。callback 只会在已经赋值的索引上被调用，对于那些已经被删除或者从未被赋值的索引不会被调用。那些没有通过 callback 测试的元素会被跳过，不会被包含在新数组中 callback 被调用时传入三个参数：元素的值，元素索引，以及被遍历的数组 如果为 filter 提供一个 thisArg 参数，则它会被作为 callback 被调用时的 this 值。否则，callback 的 this 值在非严格模式下将是全局对象，严格模式下为 undefined filter 遍历的元素范围在第一次调用 callback 之前就已经确定了。在调用 filter 之后被添加到数组中的元素不会被 filter 遍历到。如果已经存在的元素被改变了，则他们传入 callback 的值是 filter 遍历到它们那一刻的值。被删除或从来未被赋值的元素不会被遍历到 filter 不会改变原数组，它返回过滤后的新数组    var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; arr.filter(function(x, index){  return index % 3 === 0 || x = 8; });\t// returns [1, 4, 7, 8, 9, 10] arr;\t// [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] Array.prototype.forEach() forEach() 方法对数组的每个元素执行执行一次指定函数。可用于数组遍历。\narray.forEach(callback[, thisArg]);  array.forEach(callback(currentValue, index, array){ \t// do something }, this)  参数：  callback：为数组中每个元素执行的函数，该函数接收三个参数：  currentValue：数组中当前正在处理的元素的值 index 可选 ：数组中当前正在处理的元素的索引 array 可选 ：forEach() 方法正在操作的数组   thisArg 可选 ：执行回调函数时用作 this 的值（参考对象）   返回值：undefined 描述：  forEach 方法按升序为数组中含有有效值的每一项执行一次 callback 函数，那些已删除或者未初始化的项将被跳过（如，操作稀疏数组时） callback 函数会被依次传入三个参数：  数组当前项的值 数组当前项的索引 数组对象本身   如果给 forEach 传递了 thisArg 参数，当调用时，它将被传给 callback 函数，作为它的 this 值。否则，将会传入 undefined 作为它的 this 值。 forEach 遍历的范围在第一次调用 callback 前就会确定。调用 forEach 后添加到数组中的项不会被 callback 访问到。如果已经存在的值被改变，则传递给 callback 的值是 forEach 遍历到它们那一刻的值。已删除的项不会被遍历到。如果已访问的元素在迭代时被删除了，之后的元素将被跳过。 forEach() 为每个数组元素执行 callback 函数，不同于 map() 或 reduce()，它总是返回 undefined 值，并且不可链式调用    var arr = [1, 2, 3, 4, 5]; arr.forEach(function(x, index, a){  console.log(x + '|' + index + '|' + (a === arr)); }); // 1|0|true // 2|1|true // 3|2|true // 4|3|true // 5|4|true Array.prototype.indexOf() indexOf（） 方法返回在数组中可以找到一个给定元素的第一个索引，如果不存在，则返回 -1。\narr.indexOf(searchElement); arr.indexOf(searchElement[, fromIndex=0])  参数：  searchElement：要查找的元素 fromIndex：开始查找的位置  如果该索引值大于或等于数组长度，意味着不会在数组里查找，返回 -1 如果参数中提供的索引值是一个负值，则将其作为数组末尾的一个抵消，即 -1 表示从最后一个元素开始查找，-2 表示从倒数第二个元素开始查找 ，以此类推 注意：如果参数中提供的索引值是一个负值，并不改变其查找顺序，查找顺序仍然是从前向后查询数组。如果抵消后的索引值仍小于0，则整个数组都将会被查询。其默认值为0     返回值：首个被找到的元素在数组中的索引位置，若没有找到则返回 -1 描述：  indexOf 使用 strict equality（无论是 ===, 还是 triple-equals 操作符都基于同样的方法）进行判断 searchElement 与数组中包含的元素之间的关系    var arr = [1, 2, 3, 2, 1]; arr.indexOf(2);\t// 1 arr.indexOf(99);\t// -1 arr.indexOf(1, 1);\t// 4 arr.indexOf(1, -3);\t// 4 arr.indexOf(2, -1);\t// -1 Array.prototype.join() join() 方法将一个数组（或一个类数组对象）的所有元素连接成一个字符串并返回这个字符。\nstr = arr.join(); // 默认为 \",\"  str = arr.join(\"\"); // 分隔符 === 空字符串 \"\"  str = arr.join(separator); // 分隔符  参数：  separator：指定一个字符串来分割数组的每个元素  必要时，分隔符 separator 将被转换为字符串 如果省略 separator，数组数组元素用逗号分隔。默认为 , 如果 separator 是空字符串 (“”)，则所有元素将连接在一起，且它们之间没有任何字符     返回值：一个所有数组元素连接的字符串。  如果 arr.length 为 0，则返回空字符串   注意：该方法不会改变数组  Array.prototype.lastIndexOf() lastIndexOf() 方法返回指定元素（也即有效的 JavaScript 值或变量）在数组中的最后一个的索引，如果不存在则返回 -1。\narr.lastIndexOf(searchElement[, fromIndex])  参数：  searchElement：被查找的元素 fromIndex：从此位置开始，逆向查找  默认为数组长度减一 arr.length - 1，即整个数组都被查找 如果该值大于或等于数组的长度，则整个数组会被查找 如果为负值，将其视为从数组末尾向前的偏移。即使该值为负，数组仍然会被从后向前查找。如果该值为负，且其绝对值大于数组长度，则返回 -1，即数组不会被查找     返回值：数组中最后一个元素的索引，如未找到返回 -1 描述：lastIndexOf 使用严格相等（strict equality，即 ===）比较 searchElement 和数组中的元素  var arr = [1, 2, 3, 2, 1]; arr.lastIndexOf(2);\t// 3 arr.lastIndexOf(2, -2);\t// 3 arr.lastIndexOf(2, -3);\t// 1 Array.prototype.map() map() 方法通过指定函数处理数中的每个元素，并返回处理后的数组。\nvar new_array = array.map(function callback(currentValue, index, array), thisArg);  参数：  callback ：生成新数组元素的函数，使用三个参数：  currentValue：数组中当前正在处理的元素的值 index 可选 ：数组中当前正在处理的元素的索引 array 可选 ：map 方法被调用的数组   thisArg 可选 ：执行 callback 函数时使用的 this 值   返回值：一个新数组，每个元素都是回调函数的结果 描述：  map 方法会对原数组中的每个元素都按顺序调用一次 callback 函数。callback 每次执行后的返回值（包括 undefined）组合起来形成一个新数组。callback 函数只会在有值的索引上被调用，那些未被赋值或使用 delete 删除过的索引则不会调用 callback 函数传入三个参数：数组元素，元素索引，以及原数组本身 如果 thisArg 参数有值，则每次 callback 函数被调用的时候，this 都会指向 thisArg 参数上的这个对象。如果省略了 thisArg 参数，或者赋值为 null 或 undefined，则 this 指向全局对象 map() 本身不修改调用它的原数组（但是可以在 callback 执行时改变原数组） 使用 map() 方法处理数组时，数组元素的范围是在 callback 方法第一次调用之前就已经确定了的。在 map 方法执行的过程中，原数组中新增加的元素将不会被 callback 访问到；若已经存在的元素被改变了或删除了，则它们传递到 callback 的值是 map 方法遍历到它们那一刻的值；而被删除的元素将不会被访问到    var arr = [1, 2, 3]; arr.map(function(x){  return x + 10; });\t// [11, 12, 13] arr;\t// [1, 2, 3] Array.prototype.reduce() reduce() 方法对数组中的每个元素执行一个由您提供的 reducer 函数（升序执行），将其结果汇总为单个返回值。\narray.reduce(function callback(accumulator, currentValue, currentIndex, array), initialValue);  参数：  callback：为数组中每个元素执行的函数，包含四个参数：  accumulator：累计器累计回调的返回值。它是先前在回调中返回的累积值，或 initialValue currentValue：数组中当前正在处理的元素的值 currentIndex 可选：数组中当前正在处理的元素的索引 array 可选：调用了 reduce() 的数组   initialValue 可选：作为第一次调用 callback 函数时第一个参数的值。如果没有提供初始值，则将使用   返回值：函数累积处理的结果 描述：  reduce为数组中的每一个元素依次执行callback函数，不包括数组中被删除或从未被赋值的元素，接受四个参数：  accumulator 累计器 currentValue 当前值 currentIndex 当前索引 array 数组   回调函数第一次执行时，accumulator 和 currentValue的取值有两种情况：如果调用reduce() 时提供了 initialValue，accumulator 取值为 initialValue，currentValue 取数组中的第一个值；如果没有提供 initialValue，那么 accumulator 取数组中的第一个值，currentValue 取数组中的第二个值**注意：**如果没有提供initialValue，reduce 会从索引 1 开始执行 callback 方法，跳过第一个索引（索引 0）。如果提供 initialValue，则从索引 0 开始 如果数组为空且没有提供 initialValue，会抛出 TypeError 。如果数组仅有一个元素（无论位置如何）并且没有提供 initialValue， 或者有提供 initialValue 但是数组为空，那么此唯一值将被返回并且 callback 不会被执行 reduce 不会改变原数组    var arr = [1, 2, 3]; var sum = arr.reduce(function(x, y){  return x + y; }, 0);\t// 6 arr;\t// [1, 2, 3]  arr = [3, 9, 6]; var max = arr.reduce(function(x, y){  console.log(x + '|' + y);  return x  y ? x : y; }); // 3|9 // 9|6 max;\t// 9 Array.prototype.reduceRight() reduceRight() 方法类似于 reduce() 方法，不过是降序执行的（从右到左）。\narray.reduceRight(function callback(previousValue, currentValue, currentIndex, array), initialValue);  参数：  callback：为数组中每个元素执行的函数，包含四个参数：  previousValue：累计器累计回调的返回值。它是先前在回调中返回的累积值，或 initialValue currentValue：数组中当前正在处理的元素的值 currentIndex 可选：数组中当前正在处理的元素的索引 array 可选：调用了 reduce() 的数组   initialValue 可选：作为第一次调用 callback 函数时第一个参数的值。如果没有提供初始值，则将使用   返回值：函数累积处理的结果 描述：  reduceRight 为数组中每个元素调用一次 callback 回调函数，但是数组中被删除的索引或从未被赋值的索引会跳过。回调函数接受四个参数：初始值（或上次调用回调的返回值）、当前元素值、当前索引，以及调用 reduceRight 的数组。 回调函数第一次执行时，previousValue 和 currentValue的取值有两种情况：如果调用reduceRight() 时提供了 initialValue，则 previousValue 取值为 initialValue，currentValue 取数组中的最后一个元素的值；如果没有提供 initialValue，那么 previousValue 取数组中的最后一个值，currentValue 取数组中的倒数第二个值 如果数组为空且没有提供 initialValue，会抛出 TypeError 。如果数组仅有一个元素（无论位置如何）并且没有提供 initialValue， 或者有提供 initialValue 但是数组为空，那么此唯一值将被返回并且 callback 不会被执行 reduceRight 不会改变原数组    var arr = [3, 9, 6]; var max = arr.reduceRight(function(x, y){  console.log(x + '|' + y);  return x  y ? x : y; }); // 6|9 // 9|3 max;\t// 9 Array.prototype.reverse() reverse() 方法将数组中元素的位置颠倒\narr.reverse();  参数：无 描述：reverse() 方法颠倒数组中元素的位置，并返回该数组的引用  Array.prototype.slice() slice() 方法返回一个新的数组对象，这一对象是一个由 begin 和 end（不包括 end）决定的原始数组的浅拷贝。原始数组不会改变。\narr.slice();\t// [0, end]  arr.slice(begin);\t// [begin, end]  arr.slice(begin, end); // [begin, end)  参数：  begin 可选：从索引处开始提取原数组中的元素  如果该参数为复数，则表示从原数组中的倒数第几个元素开始提取。如：slice(-2) 表示提取原数组中的倒数第二个元素到最后一个元素（包含最后一个元素） 如果省略 begin，则 slice 从索引 0 开始   end 可选：在该索引处结束提取原数组元素  slice 会提取原数组中从 begin 到 end 的所有元素（包含 begin 但不包含 end） 如果该参数为负数，则他表示在原数组中的倒数第几个元素结束抽取。如：slice(-2, -1) 表示抽取了原数组中的倒数第二个元素到最后一个元素（不包含最后一个元素，即只有倒数第二个元素） 如果 end 被省略，则 slice 会一直提取到原数组末尾 如果 end 大于数组长度，slice 也会一直提取到原数组末尾     返回值：一个含有提取元素的新数组 描述：  slice 不修改原数组，只会返回一个浅复制了原数组中的元素的一个新数组。原数组中的元素会按照下述规则拷贝：  如果该元素是一个对象引用（不是实际的对象），slice 会拷贝这个对象引用到新的数组里。两个对象引用都引用了同一个对象。如果被引用的对象发生改变，则新的和原来的数组中这个元素也会发生改变 对于字符串、数字及布尔值来说（不是 String、Number 或 Boolean 对象），slice会拷贝这些值到新的数组里。在别的数组里修改这些字符串、数字或布尔值，不会影响另一个数组   向新数组中添加或删除元素，原数组不会受到影响，反之亦然    var arr = [1, 2, 3, 4, 5]; arr.slice(1, 3);\t// [2, 3] arr.slice(1);\t// [2, 3, 4, 5] arr.slice(1, -1);\t// [2, 3, 4] arr.slice(-4, -3);\t// [2] Array.prototype.some() some() 方法检测数组元素中是否有元素符合指定条件。\narray.some(function callback(currentValue, index, array), thisArg);  参数：  callback：用来测试每个元素的函数，接受三个参数：  element：数组中当前正在处理的元素的值 index 可选 ：数组中当前正在处理的元素的索引 array 可选 ：调用了 some() 的数组   thisArg 可选 ：执行 callback 函数时使用的 this 值   返回值：布尔值。如果数组中有元素满足条件返回 true，否则返回 false 描述：  some() 为数组中的每一个元素执行一次 callback 函数，直到找到一个使得 callback 返回一个“真值”（即可转换为布尔值 true 的值）。如果找到了这样一个值，some() 将会立即返回 true。否则，some() 返回 false。callback 只会在那些”有值“的索引上被调用，不会在那些被删除或从未被赋值的索引上调用 callback 被调用时传入三个参数：元素的值，元素的索引，被遍历的数组 如果为 every 提供一个 thisArg 参数，则该参数为调用 callback 时的 this 值。如果省略该参数，则 callback 被调用时的 this 值，在非严格模式下为全局对象，在严格模式下传入 undefined some() 遍历的元素的范围在第一次调用 callback. 时就已经确定了。在调用 some() 后被添加到数组中的值不会被 callback 访问到。如果数组中存在且还未被访问到的元素被 callback改变了，则其传递给 callback 的值是 some() 访问到它那一刻的值 some() 被调用时不会改变数组    var arr = [1, 2, 3, 4, 5]; arr.some(function(x){  return x === 3; });\t// true arr.some(function(x){  return x === 100; });\t// false Array.prototype.sort() sort() 方法用原地算法对数组的元素进行排序，并返回数组（原数组被修改）。\narr.sort(compareFunction);  参数：  compareFunction 可选：用于指定按某种顺序进行排列的函数。如果省略，则将每个元素转换为字符串，根据其 Unicode 位点值进行排序。   返回值：排序后的数组（数组已原地排序，并且不进行复制）。 注意：  如果没有指明 compareFunction ，那么元素会按照转换为的字符串的诸个字符的Unicode位点进行排序。例如 “Banana” 会被排列到 “cherry” 之前。当数字按由小到大排序时，9 出现在 80 之前，但因为（没有指明 compareFunction），比较的数字会先被转换为字符串，所以在Unicode顺序上 “80” 要比 “9” 要靠前 如果指明了 compareFunction ，则根据该函数的返回值对所有 “非 undefined” 的数组元素进行排序（所有的 undefined 元素都排到数组的末尾，且不调用 compareFunction）。如果 a 和 b 是两个被比较的元素，那么：  当 compareFunction(a, b) 返回值小于 0 时，a 排在 b 之前（a 的索引低于 b） 当 compareFunction(a, b) 返回值等于 0 时，a 和 b 相对位置不变 当 compareFunction(a, b) 返回值大于 0 时，a 排在 b 之后   sort() 方法取决于具体实现，因此无法保证排序的时间和空间复杂性    var arr = [13, 24, 51, 3]; arr.sort();\t// [13, 24, 3, 51] arr;\t// [13, 24, 3, 51]  arr.sort(function(a, b){  return a - b; });\t// [3, 13, 24, 51]  var arr1 = [{age: 25}, {age: 39}, {age: 99}]; arr.sort(function(a, b){  return a.age - b.age; }); arr.forEach(function(item){\t// forEach() 遍历  console.log('age', item.age); }); // RESULT: // age 25 // age 39 // age 99 Array.prototype.splice() splice() 方法通过删除现有元素 / 添加新元素来修改数组。并以数组形式返回原数组中被修改的内容\narray.splice(start[, deleteCount[, item1[, item2[, ...]]]])  参数：  start：指定修改的开始位置（从 0 计数）  如果超过了数组的长度，则从数组末尾开始添加内容 如果是负值，则表示从数组倒数第几个元素开始 如果负数的绝对值大于数组的长度，则表示开始位置为第 0 位   deleteCount 可选：整数，表示要移除的数组元素的个数  如果 deleteCount 是 0 或负数，则不移除元素。这种情况下，至少应（在 start 位之前）添加一个新元素 如果 deleteCount 大于 start 之后的元素的总数，则从 start 开始，之后的元素豆浆杯删除（含第 start 位） 如果省略 deleteCount，则其相当于 arr.length - start   item1, item2, ... 可选：要添加进数组的元素，从 start 的位置开始。如果未指定，则 splice() 将只删除数组元素   返回值：由被删除的元素组成的一个数组  如果只删除了一个元素，则返回只包含一个元素的数组 如果没有删除元素，则返回空数组   描述：  splice() 方法使用 deleteCount 参数来控制是删除还是添加元素 如果添加进数组的元素个数不等于被删除的元素个数，数组的长度会发生相应的改变    var arr = [1, 2, 3, 4, 5]; arr.splice(2);\t// returns [3, 4, 5] arr;\t// [1, 2]，原数组被修改   arr = [1, 2, 3, 4, 5]; arr.splice(2, 2);\t// returns [3, 4] arr;\t// [1, 2, 5]  arr = [1, 2, 3, 4, 5]; arr.splice(1, 1, 'b', 'c');\t// returns [2] arr;\t// [1, \"b\", \"c\", 3, 4, 5] arr.splice(1, 0, 'a');\t// returns [] arr;\t// [1, 'a', 'b', 'c', 3, 4, 5] 5.4 数组小结 数组 与 一般对象\n   相同 不同     都可以继承 数组自动更新 length   数组是对象，对象不一定是数组 按索引访问数组常常比访问一般对象属性明显迅速   都可以当做对象添加、删除属性 数组对象继承 Array.prototype 上的大量数组操作方法    ",
+  "articleBody": " 本篇学习笔记是在慕课网上学习JavaScript深入浅出时所做笔记，内容主要来自课程课件及老师讲解，同时穿插自己的一些理解和尝试。部分资料整理自 MDN Web Docs。\n 数组是值的有序集合。每个值叫做元素，每个元素在数组中都有数字位置编号，也就是索引。JavaScript 中的数组是弱类型的，数组中可以含有不同类型的元素。数组元素甚至可以是对象或其他数组。\n// 例如 var arr = [1, true, null, undefined, {x: 1}, [1, 2, 3]]; arr[0];\t// 1 arr[3];\t// undefined arr[4].x;\t// 1 arr[5][1];\t// 2 5.1 创建数组 \u0026 数组操作 创建数组 - 字面量 var BAT = ['Baidu', 'Alibaba', 'Tencent']; var students = [{name: 'Bosn', age: 27}, {name: 'Nunnly', age: 3}]; var arr = ['Nunnly', 'is', 'big', 'keng', 'B', 123, true, null]; var commasArr1 = [1, , 2];\t// 1, undefined, 2 var commasArr2 = [,,];\t// undefined * 2，不赞同这种定义方式 数组的大小是有限制的：size from 0 to 4,294,967,295 ($2^{23} - 1$)\n创建数组 - new Array var arr = new Array(); var arrWithLength = new Array(100);\t// undefined * 100 var arrLikesLiteral = new Array(true, false, null, 1, 2, 'hi');\t// 等价于 [true, false, null, 1, 2, 'hi'] 注意：Array 的构造器如果不使用 new 也是等价的\n数组操作 - 数组元素读写 var arr = [1, 2, 3, 4, 5]; arr[1];\t// 2 arr.length;\t// 5  arr[5] = 6;\t// 动态添加数组元素 arr.length;\t// 6 delete arr[0]; arr[0];\t// undefined arr.length;\t// 6 数组操作 - 数组元素增删 JavaScript 中的数组是动态的，不需要指定大小。数组对象的 lenght 属性也会根据数组的情况更新。\nvar arr = []; arr[0] = 1; arr[1] = 2; arr.push(3); arr;\t// [1, 2, 3]  arr[arr.length] = 4;\t// equals to arr.push(4) arr;\t// [1, 2, 3, 4]  arr.unshift(0);\t// 将一个或多个元素添加到数组的开头，并返回该数组的新长度 arr;\t// [0, 1, 2, 3, 4]  delete arr[2]; arr;\t// [0, 1, undefined, 3, 4] arr.length;\t// 5 2 in arr;\t// false  arr.length -= 1; arr;\t// [0, 1, undefined, 3], 4 is removed  arr.pop();\t// 3 returned by pop arr;\t// [0, 1, undefined], 3 is removed  arr.shift;\t// 0 returned by shift arr;\t// [1, undefined] 数组操作 - 数组迭代 var i = 0, n = 10; var arr = [1, 2, 3, 4, 5]; for (; i  n; i++) { console.log(arr[i]);\t// 1, 2, 3, 4, 5 } for (i in arr) { console.log(arr[i]);\t// 1, 2, 3, 4, 5 } Array.prototype.x = 'inherited';\t// 在数组对象的原型中增加一个属性 x for (i in arr) { console.log(arr[i]);\t// 1, 2, 3, 4, 5, inherited（顺序不确定） } for (i in arr) { if (arr.hasOwnProperty(i)) {\t// 过滤掉原型链上的属性  console.log(arr[i]);\t// 1, 2, 3, 4, 5（顺序不确定）  } } 5.2 二维数组 \u0026 稀疏数组 二维数组 JavaScript 中的数组的元素也可以是数组，可以定义一个数组，它的每一个元素又是一个数组，这样就形成了二维数组。\nvar arr = [[0, 1], [2, 3], [4, 5]]; var i = 0, j = 0; var row; for (; i  arr.length; i++) { row = arr[i]; console.log('row ' + i); for (j = 0; j  row.length; j++) { console.log(row[j]); } } // RESULT: // row 0 // 0 // 1 // row 1 // 2 // 3 // row 2 // 4 // 5 稀疏数组 稀疏数组（sparse array）并不含有从 0 开始的连续索引。一般 length 属性值比实际元素个数大。在 Java，C++ 等中的数组是一段连续的存储空间，元素与元素之间没有空隙，但是在 JavaScript 中允许存在有空隙的数组。\nvar arr1 = [undefined]; var arr2 = new Array(1); 0 in arr1;\t// true 0 in arr2;\t// false 这是因为，如控制台所示（下图），数组 arr1 是有一个元素（值为 undefined）的；而数组 arr2 却是一个由 new Array 方法构造的一个长度为 1 的数组，第 0 元素的 key 是不存在的。\n我们继续对数组进行操作，控制台会出现以下结果：\narr1.length = 100; arr1[99] = 123; 99 in arr1;\t// true 98 in arr2;\t// false 类似地，也可以这样的方式创建稀疏数组：\nvar arr = [, ,]; 0 in arr;\t// false 稀疏数组在实际应用中并不常见。在遍历稀疏数组时，需要用 in 操作符或者“是否为 undefined”的方式作相应的判断。\n通过查阅相关资料，笔者了解到，JavaScript 实际上并没有常规的数组，所有的数组其实就是个对象，只不过会自动管理一些 “数字” 属性和 length 属性罢了。说的更直接一点，JavaScript 中的数组根本没有索引，因为索引应该是数字，而 JavaScript 中数组的索引其实是字符串。arr[1] 其实就是 arr[\"1\"]，若令 arr[\"1000\"] = 1，arr.length 也会自动变为 1001。这些表现的根本原因就是，JavaScript 中的对象就是字符串到任意值的键值对。注意键只能是字符串。\n5.3 数组方法 一般的对象都有一个原型，或者其原型链最终都指向 Object.prototype，因此我们才能使用 hasOwnProperty 等来自 Object.prototype 的方法。数组也是一样的，它的原型来自 Array.prototype。从 MDN 上，我们可以看到 Array.prototype 提供了大量的数组操作方法。\n接下来就针对其中一些方法进行了解。\nArray.isArray() Array.isArray() 用于确定传递的值是否是一个 Array。\nArray.isArray(obj);  参数：  obj：需要检测的值   返回值：如果对象是 Array，则为 true；否则返回 false  Array.isArray([]);\t// true  // 其他判断方式 [].instanceof Array;\t// true ({}).toString.apply([]) === '[object Array]';\t// true [].constructor === Array;\t// true Array.prototype.concat() concat() 方法用于合并两个或多个数组。该方法不会更改现有数组，而是返回一个新数组。\nvar new_array = old_array.concat([value1[, value2[, ...[, valueN]]]])  参数：  valueN ：用于连接到新数组的数组 / 值   返回值：一个新的 Array 实例 描述：  concat 方法创建一个新的数组，它由被调用的对象中的元素组成，每个参数的顺序依次是该参数的元素（如果参数是数组）或者参数本身（如果参数不是数组）。它不会递归到嵌套数组参数中 concat 方法不会改变 this 或任何作为参数提供的数组，而是返回一个浅拷贝（shallow copy），它包含与元是数组相结合的相同元素的副本。原始数组的元素将复制到新数组中，如下所示：  对象引用（而不是实际对象）：contac 将对象引用复制到新数组中。原始数组和新数组都引用相同的对象。也就是说，如果引用的对象被修改，则更改对于新数组和原始数组都是可见的。其中包括数组参数中那些也是数组的元素。 数据类型如字符串、数组和布尔（不是 String、Number 或 Boolean 对象）：concat 将字符串和数字的值复制到新数组中     数组 / 值在连接时保持不变。此外，对于新数组的任何操作（当且仅当元素不是对象引用时）都不会对原始数组产生影响，反之亦然  var arr = [1, 2, 3]; arr.concat(4, 5);\t// [1, 2, 3, 4, 5] arr;\t// [1, 2, 3]，原数组未被修改  arr.concat([10, 11], 13);\t// [1, 2, 3, 10, 11, 13]，“参数是数组” arr.concat([1, [2, 3]]);\t// [1, 2, 3, 1, [2, 3]]，“参数值数组” \u0026 “不会递归到嵌套数组参数中” Array.prototype.every() every() 检查数组的每个元素是否都通过了指定函数的测试。\narr.every(function callback(currentValue, index, array), thisArg);  参数：  callback：用来测试数组每个元素的函数。它接受三个参数：  currentValue：数组中当前正在处理的元素的值 index 可选 ：数组中当前正在处理的元素的索引 array 可选 ：调用了 every 的数组   thisArg 可选 ：执行 callback 函数时使用的 this 值   描述：  every 方法为数组中的每个元素执行一次 callback 函数，直到它找到一个使 callback 返回 false（表示可转换为布尔值 false 的值）的元素。如果发现了一个这样的元素，every 方法将会立即返回 false。否则，callback 为每一个元素返回 true，every 就会返回 true。callback 只会为那些已经被赋值的索引调用。不会为那些被删除或从来没被赋值的索引调用 callback 被调用时传入三个参数：元素值，元素的索引，原数组 如果为 every 提供一个 thisArg 参数，则该参数为调用 callback 时的 this 值。如果省略该参数，则 callback 被调用时的 this 值，在非严格模式下为全局对象，在严格模式下传入 undefined every 遍历的元素范围在第一次调用 callback 之前就已确定了。在调用 every 之后添加到数组中的元素不会被 callback 访问到。如果数组中存在的元素被更改，则他们传入 callback的值是 every 访问到他们那一刻的值。那些被删除的元素或从来未被赋值的元素将不会被访问到 every 和数学中的\"所有\"类似，当所有的元素都符合条件才返回 true。另外，空数组也是返回 true。（空数组中所有元素都符合给定的条件，注：因为空数组没有元素） every 不会改变原数组    var arr = [1, 2, 3, 4, 5]; arr.every(function(x){ return x  10; });\t// true arr.every(function(x){ return x  3; });\t// false Array.prototype.filter() filter() 方法检测数组元素，并返回符合条件的所有元素的数组。\nvar new_array = arr.filter(function callback(currentValue, index, arr), thisValue);  参数：  callback：用来测试数组每个元素的函数。返回 true 表示保留该元素（通过测试），为 false 则不保留。它接受三个参数：  currentValue：数组中当前正在处理的元素的值 index 可选 ：数组中当前正在处理的元素的索引 array 可选 ：调用了 filter 的数组   thisArg 可选 ：执行 callback 函数时使用的 this 值   返回值：一个新的通过测试的元素集合的数组，如果没有元素通过测试则返回空数组 描述：  filter 为数组中的每个元素调用一次 callback 函数，并利用所有使得 callback 返回 true 或 等价于 true 的值 的元素创建一个新数组。callback 只会在已经赋值的索引上被调用，对于那些已经被删除或者从未被赋值的索引不会被调用。那些没有通过 callback 测试的元素会被跳过，不会被包含在新数组中 callback 被调用时传入三个参数：元素的值，元素索引，以及被遍历的数组 如果为 filter 提供一个 thisArg 参数，则它会被作为 callback 被调用时的 this 值。否则，callback 的 this 值在非严格模式下将是全局对象，严格模式下为 undefined filter 遍历的元素范围在第一次调用 callback 之前就已经确定了。在调用 filter 之后被添加到数组中的元素不会被 filter 遍历到。如果已经存在的元素被改变了，则他们传入 callback 的值是 filter 遍历到它们那一刻的值。被删除或从来未被赋值的元素不会被遍历到 filter 不会改变原数组，它返回过滤后的新数组    var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; arr.filter(function(x, index){ return index % 3 === 0 || x = 8; });\t// returns [1, 4, 7, 8, 9, 10] arr;\t// [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] Array.prototype.forEach() forEach() 方法对数组的每个元素执行执行一次指定函数。可用于数组遍历。\narray.forEach(callback[, thisArg]); array.forEach(callback(currentValue, index, array){ // do something }, this)  参数：  callback：为数组中每个元素执行的函数，该函数接收三个参数：  currentValue：数组中当前正在处理的元素的值 index 可选 ：数组中当前正在处理的元素的索引 array 可选 ：forEach() 方法正在操作的数组   thisArg 可选 ：执行回调函数时用作 this 的值（参考对象）   返回值：undefined 描述：  forEach 方法按升序为数组中含有有效值的每一项执行一次 callback 函数，那些已删除或者未初始化的项将被跳过（如，操作稀疏数组时） callback 函数会被依次传入三个参数：  数组当前项的值 数组当前项的索引 数组对象本身   如果给 forEach 传递了 thisArg 参数，当调用时，它将被传给 callback 函数，作为它的 this 值。否则，将会传入 undefined 作为它的 this 值。 forEach 遍历的范围在第一次调用 callback 前就会确定。调用 forEach 后添加到数组中的项不会被 callback 访问到。如果已经存在的值被改变，则传递给 callback 的值是 forEach 遍历到它们那一刻的值。已删除的项不会被遍历到。如果已访问的元素在迭代时被删除了，之后的元素将被跳过。 forEach() 为每个数组元素执行 callback 函数，不同于 map() 或 reduce()，它总是返回 undefined 值，并且不可链式调用    var arr = [1, 2, 3, 4, 5]; arr.forEach(function(x, index, a){ console.log(x + '|' + index + '|' + (a === arr)); }); // 1|0|true // 2|1|true // 3|2|true // 4|3|true // 5|4|true Array.prototype.indexOf() indexOf（） 方法返回在数组中可以找到一个给定元素的第一个索引，如果不存在，则返回 -1。\narr.indexOf(searchElement); arr.indexOf(searchElement[, fromIndex=0])  参数：  searchElement：要查找的元素 fromIndex：开始查找的位置  如果该索引值大于或等于数组长度，意味着不会在数组里查找，返回 -1 如果参数中提供的索引值是一个负值，则将其作为数组末尾的一个抵消，即 -1 表示从最后一个元素开始查找，-2 表示从倒数第二个元素开始查找 ，以此类推 注意：如果参数中提供的索引值是一个负值，并不改变其查找顺序，查找顺序仍然是从前向后查询数组。如果抵消后的索引值仍小于0，则整个数组都将会被查询。其默认值为0     返回值：首个被找到的元素在数组中的索引位置，若没有找到则返回 -1 描述：  indexOf 使用 strict equality（无论是 ===, 还是 triple-equals 操作符都基于同样的方法）进行判断 searchElement 与数组中包含的元素之间的关系    var arr = [1, 2, 3, 2, 1]; arr.indexOf(2);\t// 1 arr.indexOf(99);\t// -1 arr.indexOf(1, 1);\t// 4 arr.indexOf(1, -3);\t// 4 arr.indexOf(2, -1);\t// -1 Array.prototype.join() join() 方法将一个数组（或一个类数组对象）的所有元素连接成一个字符串并返回这个字符。\nstr = arr.join(); // 默认为 \",\"  str = arr.join(\"\"); // 分隔符 === 空字符串 \"\"  str = arr.join(separator); // 分隔符  参数：  separator：指定一个字符串来分割数组的每个元素  必要时，分隔符 separator 将被转换为字符串 如果省略 separator，数组数组元素用逗号分隔。默认为 , 如果 separator 是空字符串 (“”)，则所有元素将连接在一起，且它们之间没有任何字符     返回值：一个所有数组元素连接的字符串。  如果 arr.length 为 0，则返回空字符串   注意：该方法不会改变数组  Array.prototype.lastIndexOf() lastIndexOf() 方法返回指定元素（也即有效的 JavaScript 值或变量）在数组中的最后一个的索引，如果不存在则返回 -1。\narr.lastIndexOf(searchElement[, fromIndex])  参数：  searchElement：被查找的元素 fromIndex：从此位置开始，逆向查找  默认为数组长度减一 arr.length - 1，即整个数组都被查找 如果该值大于或等于数组的长度，则整个数组会被查找 如果为负值，将其视为从数组末尾向前的偏移。即使该值为负，数组仍然会被从后向前查找。如果该值为负，且其绝对值大于数组长度，则返回 -1，即数组不会被查找     返回值：数组中最后一个元素的索引，如未找到返回 -1 描述：lastIndexOf 使用严格相等（strict equality，即 ===）比较 searchElement 和数组中的元素  var arr = [1, 2, 3, 2, 1]; arr.lastIndexOf(2);\t// 3 arr.lastIndexOf(2, -2);\t// 3 arr.lastIndexOf(2, -3);\t// 1 Array.prototype.map() map() 方法通过指定函数处理数中的每个元素，并返回处理后的数组。\nvar new_array = array.map(function callback(currentValue, index, array), thisArg);  参数：  callback ：生成新数组元素的函数，使用三个参数：  currentValue：数组中当前正在处理的元素的值 index 可选 ：数组中当前正在处理的元素的索引 array 可选 ：map 方法被调用的数组   thisArg 可选 ：执行 callback 函数时使用的 this 值   返回值：一个新数组，每个元素都是回调函数的结果 描述：  map 方法会对原数组中的每个元素都按顺序调用一次 callback 函数。callback 每次执行后的返回值（包括 undefined）组合起来形成一个新数组。callback 函数只会在有值的索引上被调用，那些未被赋值或使用 delete 删除过的索引则不会调用 callback 函数传入三个参数：数组元素，元素索引，以及原数组本身 如果 thisArg 参数有值，则每次 callback 函数被调用的时候，this 都会指向 thisArg 参数上的这个对象。如果省略了 thisArg 参数，或者赋值为 null 或 undefined，则 this 指向全局对象 map() 本身不修改调用它的原数组（但是可以在 callback 执行时改变原数组） 使用 map() 方法处理数组时，数组元素的范围是在 callback 方法第一次调用之前就已经确定了的。在 map 方法执行的过程中，原数组中新增加的元素将不会被 callback 访问到；若已经存在的元素被改变了或删除了，则它们传递到 callback 的值是 map 方法遍历到它们那一刻的值；而被删除的元素将不会被访问到    var arr = [1, 2, 3]; arr.map(function(x){ return x + 10; });\t// [11, 12, 13] arr;\t// [1, 2, 3] Array.prototype.reduce() reduce() 方法对数组中的每个元素执行一个由您提供的 reducer 函数（升序执行），将其结果汇总为单个返回值。\narray.reduce(function callback(accumulator, currentValue, currentIndex, array), initialValue);  参数：  callback：为数组中每个元素执行的函数，包含四个参数：  accumulator：累计器累计回调的返回值。它是先前在回调中返回的累积值，或 initialValue currentValue：数组中当前正在处理的元素的值 currentIndex 可选：数组中当前正在处理的元素的索引 array 可选：调用了 reduce() 的数组   initialValue 可选：作为第一次调用 callback 函数时第一个参数的值。如果没有提供初始值，则将使用   返回值：函数累积处理的结果 描述：  reduce为数组中的每一个元素依次执行callback函数，不包括数组中被删除或从未被赋值的元素，接受四个参数：  accumulator 累计器 currentValue 当前值 currentIndex 当前索引 array 数组   回调函数第一次执行时，accumulator 和 currentValue的取值有两种情况：如果调用reduce() 时提供了 initialValue，accumulator 取值为 initialValue，currentValue 取数组中的第一个值；如果没有提供 initialValue，那么 accumulator 取数组中的第一个值，currentValue 取数组中的第二个值**注意：**如果没有提供initialValue，reduce 会从索引 1 开始执行 callback 方法，跳过第一个索引（索引 0）。如果提供 initialValue，则从索引 0 开始 如果数组为空且没有提供 initialValue，会抛出 TypeError 。如果数组仅有一个元素（无论位置如何）并且没有提供 initialValue， 或者有提供 initialValue 但是数组为空，那么此唯一值将被返回并且 callback 不会被执行 reduce 不会改变原数组    var arr = [1, 2, 3]; var sum = arr.reduce(function(x, y){ return x + y; }, 0);\t// 6 arr;\t// [1, 2, 3]  arr = [3, 9, 6]; var max = arr.reduce(function(x, y){ console.log(x + '|' + y); return x  y ? x : y; }); // 3|9 // 9|6 max;\t// 9 Array.prototype.reduceRight() reduceRight() 方法类似于 reduce() 方法，不过是降序执行的（从右到左）。\narray.reduceRight(function callback(previousValue, currentValue, currentIndex, array), initialValue);  参数：  callback：为数组中每个元素执行的函数，包含四个参数：  previousValue：累计器累计回调的返回值。它是先前在回调中返回的累积值，或 initialValue currentValue：数组中当前正在处理的元素的值 currentIndex 可选：数组中当前正在处理的元素的索引 array 可选：调用了 reduce() 的数组   initialValue 可选：作为第一次调用 callback 函数时第一个参数的值。如果没有提供初始值，则将使用   返回值：函数累积处理的结果 描述：  reduceRight 为数组中每个元素调用一次 callback 回调函数，但是数组中被删除的索引或从未被赋值的索引会跳过。回调函数接受四个参数：初始值（或上次调用回调的返回值）、当前元素值、当前索引，以及调用 reduceRight 的数组。 回调函数第一次执行时，previousValue 和 currentValue的取值有两种情况：如果调用reduceRight() 时提供了 initialValue，则 previousValue 取值为 initialValue，currentValue 取数组中的最后一个元素的值；如果没有提供 initialValue，那么 previousValue 取数组中的最后一个值，currentValue 取数组中的倒数第二个值 如果数组为空且没有提供 initialValue，会抛出 TypeError 。如果数组仅有一个元素（无论位置如何）并且没有提供 initialValue， 或者有提供 initialValue 但是数组为空，那么此唯一值将被返回并且 callback 不会被执行 reduceRight 不会改变原数组    var arr = [3, 9, 6]; var max = arr.reduceRight(function(x, y){ console.log(x + '|' + y); return x  y ? x : y; }); // 6|9 // 9|3 max;\t// 9 Array.prototype.reverse() reverse() 方法将数组中元素的位置颠倒\narr.reverse();  参数：无 描述：reverse() 方法颠倒数组中元素的位置，并返回该数组的引用  Array.prototype.slice() slice() 方法返回一个新的数组对象，这一对象是一个由 begin 和 end（不包括 end）决定的原始数组的浅拷贝。原始数组不会改变。\narr.slice();\t// [0, end]  arr.slice(begin);\t// [begin, end]  arr.slice(begin, end); // [begin, end)  参数：  begin 可选：从索引处开始提取原数组中的元素  如果该参数为复数，则表示从原数组中的倒数第几个元素开始提取。如：slice(-2) 表示提取原数组中的倒数第二个元素到最后一个元素（包含最后一个元素） 如果省略 begin，则 slice 从索引 0 开始   end 可选：在该索引处结束提取原数组元素  slice 会提取原数组中从 begin 到 end 的所有元素（包含 begin 但不包含 end） 如果该参数为负数，则他表示在原数组中的倒数第几个元素结束抽取。如：slice(-2, -1) 表示抽取了原数组中的倒数第二个元素到最后一个元素（不包含最后一个元素，即只有倒数第二个元素） 如果 end 被省略，则 slice 会一直提取到原数组末尾 如果 end 大于数组长度，slice 也会一直提取到原数组末尾     返回值：一个含有提取元素的新数组 描述：  slice 不修改原数组，只会返回一个浅复制了原数组中的元素的一个新数组。原数组中的元素会按照下述规则拷贝：  如果该元素是一个对象引用（不是实际的对象），slice 会拷贝这个对象引用到新的数组里。两个对象引用都引用了同一个对象。如果被引用的对象发生改变，则新的和原来的数组中这个元素也会发生改变 对于字符串、数字及布尔值来说（不是 String、Number 或 Boolean 对象），slice会拷贝这些值到新的数组里。在别的数组里修改这些字符串、数字或布尔值，不会影响另一个数组   向新数组中添加或删除元素，原数组不会受到影响，反之亦然    var arr = [1, 2, 3, 4, 5]; arr.slice(1, 3);\t// [2, 3] arr.slice(1);\t// [2, 3, 4, 5] arr.slice(1, -1);\t// [2, 3, 4] arr.slice(-4, -3);\t// [2] Array.prototype.some() some() 方法检测数组元素中是否有元素符合指定条件。\narray.some(function callback(currentValue, index, array), thisArg);  参数：  callback：用来测试每个元素的函数，接受三个参数：  element：数组中当前正在处理的元素的值 index 可选 ：数组中当前正在处理的元素的索引 array 可选 ：调用了 some() 的数组   thisArg 可选 ：执行 callback 函数时使用的 this 值   返回值：布尔值。如果数组中有元素满足条件返回 true，否则返回 false 描述：  some() 为数组中的每一个元素执行一次 callback 函数，直到找到一个使得 callback 返回一个“真值”（即可转换为布尔值 true 的值）。如果找到了这样一个值，some() 将会立即返回 true。否则，some() 返回 false。callback 只会在那些”有值“的索引上被调用，不会在那些被删除或从未被赋值的索引上调用 callback 被调用时传入三个参数：元素的值，元素的索引，被遍历的数组 如果为 every 提供一个 thisArg 参数，则该参数为调用 callback 时的 this 值。如果省略该参数，则 callback 被调用时的 this 值，在非严格模式下为全局对象，在严格模式下传入 undefined some() 遍历的元素的范围在第一次调用 callback. 时就已经确定了。在调用 some() 后被添加到数组中的值不会被 callback 访问到。如果数组中存在且还未被访问到的元素被 callback改变了，则其传递给 callback 的值是 some() 访问到它那一刻的值 some() 被调用时不会改变数组    var arr = [1, 2, 3, 4, 5]; arr.some(function(x){ return x === 3; });\t// true arr.some(function(x){ return x === 100; });\t// false Array.prototype.sort() sort() 方法用原地算法对数组的元素进行排序，并返回数组（原数组被修改）。\narr.sort(compareFunction);  参数：  compareFunction 可选：用于指定按某种顺序进行排列的函数。如果省略，则将每个元素转换为字符串，根据其 Unicode 位点值进行排序。   返回值：排序后的数组（数组已原地排序，并且不进行复制）。 注意：  如果没有指明 compareFunction ，那么元素会按照转换为的字符串的诸个字符的Unicode位点进行排序。例如 “Banana” 会被排列到 “cherry” 之前。当数字按由小到大排序时，9 出现在 80 之前，但因为（没有指明 compareFunction），比较的数字会先被转换为字符串，所以在Unicode顺序上 “80” 要比 “9” 要靠前 如果指明了 compareFunction ，则根据该函数的返回值对所有 “非 undefined” 的数组元素进行排序（所有的 undefined 元素都排到数组的末尾，且不调用 compareFunction）。如果 a 和 b 是两个被比较的元素，那么：  当 compareFunction(a, b) 返回值小于 0 时，a 排在 b 之前（a 的索引低于 b） 当 compareFunction(a, b) 返回值等于 0 时，a 和 b 相对位置不变 当 compareFunction(a, b) 返回值大于 0 时，a 排在 b 之后   sort() 方法取决于具体实现，因此无法保证排序的时间和空间复杂性    var arr = [13, 24, 51, 3]; arr.sort();\t// [13, 24, 3, 51] arr;\t// [13, 24, 3, 51]  arr.sort(function(a, b){ return a - b; });\t// [3, 13, 24, 51]  var arr1 = [{age: 25}, {age: 39}, {age: 99}]; arr.sort(function(a, b){ return a.age - b.age; }); arr.forEach(function(item){\t// forEach() 遍历  console.log('age', item.age); }); // RESULT: // age 25 // age 39 // age 99 Array.prototype.splice() splice() 方法通过删除现有元素 / 添加新元素来修改数组。并以数组形式返回原数组中被修改的内容\narray.splice(start[, deleteCount[, item1[, item2[, ...]]]])  参数：  start：指定修改的开始位置（从 0 计数）  如果超过了数组的长度，则从数组末尾开始添加内容 如果是负值，则表示从数组倒数第几个元素开始 如果负数的绝对值大于数组的长度，则表示开始位置为第 0 位   deleteCount 可选：整数，表示要移除的数组元素的个数  如果 deleteCount 是 0 或负数，则不移除元素。这种情况下，至少应（在 start 位之前）添加一个新元素 如果 deleteCount 大于 start 之后的元素的总数，则从 start 开始，之后的元素豆浆杯删除（含第 start 位） 如果省略 deleteCount，则其相当于 arr.length - start   item1, item2, ... 可选：要添加进数组的元素，从 start 的位置开始。如果未指定，则 splice() 将只删除数组元素   返回值：由被删除的元素组成的一个数组  如果只删除了一个元素，则返回只包含一个元素的数组 如果没有删除元素，则返回空数组   描述：  splice() 方法使用 deleteCount 参数来控制是删除还是添加元素 如果添加进数组的元素个数不等于被删除的元素个数，数组的长度会发生相应的改变    var arr = [1, 2, 3, 4, 5]; arr.splice(2);\t// returns [3, 4, 5] arr;\t// [1, 2]，原数组被修改  arr = [1, 2, 3, 4, 5]; arr.splice(2, 2);\t// returns [3, 4] arr;\t// [1, 2, 5]  arr = [1, 2, 3, 4, 5]; arr.splice(1, 1, 'b', 'c');\t// returns [2] arr;\t// [1, \"b\", \"c\", 3, 4, 5] arr.splice(1, 0, 'a');\t// returns [] arr;\t// [1, 'a', 'b', 'c', 3, 4, 5] 5.4 数组小结 数组 与 一般对象\n   相同 不同     都可以继承 数组自动更新 length   数组是对象，对象不一定是数组 按索引访问数组常常比访问一般对象属性明显迅速   都可以当做对象添加、删除属性 数组对象继承 Array.prototype 上的大量数组操作方法    ",
   "wordCount" : "1908",
   "inLanguage": "en",
   "datePublished": "2019-01-20T00:00:00Z",
@@ -119,7 +119,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "My-Thistledown",
+    "name": "Jifan's Blog",
     "logo": {
       "@type": "ImageObject",
       "url": "https://fang-lansheng.github.io/favicon.ico"
@@ -144,7 +144,7 @@
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="https://fang-lansheng.github.io" accesskey="h" title="My-Thistledown (Alt + H)">My-Thistledown</a>
+            <a href="https://fang-lansheng.github.io" accesskey="h" title="Jifan&#39;s Blog (Alt + H)">Jifan&#39;s Blog</a>
             <span class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -169,6 +169,21 @@
             </span>
         </div>
         <ul id="menu">
+            <li>
+                <a href="https://fang-lansheng.github.io/archives/" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://fang-lansheng.github.io/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://fang-lansheng.github.io/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
         </ul>
     </nav>
 </header>
@@ -183,132 +198,210 @@
     <div class="post-meta"><span title='2019-01-20 00:00:00 +0000 UTC'>January 20, 2019</span>&nbsp;·&nbsp;Thistledown
 
 </div>
-  </header> 
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#51-%e5%88%9b%e5%bb%ba%e6%95%b0%e7%bb%84--%e6%95%b0%e7%bb%84%e6%93%8d%e4%bd%9c" aria-label="5.1 创建数组 &amp;amp; 数组操作">5.1 创建数组 &amp; 数组操作</a><ul>
+                        <ul>
+                        
+                <li>
+                    <a href="#%e5%88%9b%e5%bb%ba%e6%95%b0%e7%bb%84---%e5%ad%97%e9%9d%a2%e9%87%8f" aria-label="创建数组 - 字面量">创建数组 - 字面量</a></li>
+                <li>
+                    <a href="#%e5%88%9b%e5%bb%ba%e6%95%b0%e7%bb%84---new-array" aria-label="创建数组 - new Array">创建数组 - new Array</a></li>
+                <li>
+                    <a href="#%e6%95%b0%e7%bb%84%e6%93%8d%e4%bd%9c---%e6%95%b0%e7%bb%84%e5%85%83%e7%b4%a0%e8%af%bb%e5%86%99" aria-label="数组操作 - 数组元素读写">数组操作 - 数组元素读写</a></li>
+                <li>
+                    <a href="#%e6%95%b0%e7%bb%84%e6%93%8d%e4%bd%9c---%e6%95%b0%e7%bb%84%e5%85%83%e7%b4%a0%e5%a2%9e%e5%88%a0" aria-label="数组操作 - 数组元素增删">数组操作 - 数组元素增删</a></li>
+                <li>
+                    <a href="#%e6%95%b0%e7%bb%84%e6%93%8d%e4%bd%9c---%e6%95%b0%e7%bb%84%e8%bf%ad%e4%bb%a3" aria-label="数组操作 - 数组迭代">数组操作 - 数组迭代</a></li></ul>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#52-%e4%ba%8c%e7%bb%b4%e6%95%b0%e7%bb%84--%e7%a8%80%e7%96%8f%e6%95%b0%e7%bb%84" aria-label="5.2 二维数组 &amp;amp; 稀疏数组">5.2 二维数组 &amp; 稀疏数组</a><ul>
+                        <ul>
+                        
+                <li>
+                    <a href="#%e4%ba%8c%e7%bb%b4%e6%95%b0%e7%bb%84" aria-label="二维数组">二维数组</a></li>
+                <li>
+                    <a href="#%e7%a8%80%e7%96%8f%e6%95%b0%e7%bb%84" aria-label="稀疏数组">稀疏数组</a></li></ul>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#53-%e6%95%b0%e7%bb%84%e6%96%b9%e6%b3%95" aria-label="5.3 数组方法">5.3 数组方法</a><ul>
+                        <ul>
+                        
+                <li>
+                    <a href="#arrayisarray" aria-label="Array.isArray()"><code>Array.isArray()</code></a></li>
+                <li>
+                    <a href="#arrayprototypeconcat" aria-label="Array.prototype.concat()"><code>Array.prototype.concat()</code></a></li>
+                <li>
+                    <a href="#arrayprototypeevery" aria-label="Array.prototype.every()"><code>Array.prototype.every()</code></a></li>
+                <li>
+                    <a href="#arrayprototypefilter" aria-label="Array.prototype.filter()"><code>Array.prototype.filter()</code></a></li>
+                <li>
+                    <a href="#arrayprototypeforeach" aria-label="Array.prototype.forEach()"><code>Array.prototype.forEach()</code></a></li>
+                <li>
+                    <a href="#arrayprototypeindexof" aria-label="Array.prototype.indexOf()"><code>Array.prototype.indexOf()</code></a></li>
+                <li>
+                    <a href="#arrayprototypejoin" aria-label="Array.prototype.join()"><code>Array.prototype.join()</code></a></li>
+                <li>
+                    <a href="#arrayprototypelastindexof" aria-label="Array.prototype.lastIndexOf()"><code>Array.prototype.lastIndexOf()</code></a></li>
+                <li>
+                    <a href="#arrayprototypemap" aria-label="Array.prototype.map()"><code>Array.prototype.map()</code></a></li>
+                <li>
+                    <a href="#arrayprototypereduce" aria-label="Array.prototype.reduce()"><code>Array.prototype.reduce()</code></a></li>
+                <li>
+                    <a href="#arrayprototypereduceright" aria-label="Array.prototype.reduceRight()"><code>Array.prototype.reduceRight()</code></a></li>
+                <li>
+                    <a href="#arrayprototypereverse" aria-label="Array.prototype.reverse()"><code>Array.prototype.reverse()</code></a></li>
+                <li>
+                    <a href="#arrayprototypeslice" aria-label="Array.prototype.slice()"><code>Array.prototype.slice()</code></a></li>
+                <li>
+                    <a href="#arrayprototypesome" aria-label="Array.prototype.some()"><code>Array.prototype.some()</code></a></li>
+                <li>
+                    <a href="#arrayprototypesort" aria-label="Array.prototype.sort()"><code>Array.prototype.sort()</code></a></li>
+                <li>
+                    <a href="#arrayprototypesplice" aria-label="Array.prototype.splice()"><code>Array.prototype.splice()</code></a></li></ul>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#54-%e6%95%b0%e7%bb%84%e5%b0%8f%e7%bb%93" aria-label="5.4 数组小结">5.4 数组小结</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
   <div class="post-content"><blockquote>
 <p>本篇学习笔记是在<a href="https://www.imooc.com/">慕课网</a>上学习<a href="https://www.imooc.com/learn/277">JavaScript深入浅出</a>时所做笔记，内容主要来自课程课件及老师讲解，同时穿插自己的一些理解和尝试。部分资料整理自 <a href="https://developer.mozilla.org/">MDN Web Docs</a>。</p>
 </blockquote>
 <p>数组是值的<strong>有序</strong>集合。每个值叫做元素，每个元素在数组中都有数字位置编号，也就是索引。JavaScript 中的数组是<strong>弱类型</strong>的，数组中可以含有不同类型的元素。数组元素甚至可以是对象或其他数组。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#75715e">// 例如
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">arr</span> <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>, <span style="color:#66d9ef">true</span>, <span style="color:#66d9ef">null</span>, <span style="color:#66d9ef">undefined</span>, {<span style="color:#a6e22e">x</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>}, [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>]];
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">arr</span>[<span style="color:#ae81ff">0</span>];	<span style="color:#75715e">// 1
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">arr</span>[<span style="color:#ae81ff">3</span>];	<span style="color:#75715e">// undefined
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">arr</span>[<span style="color:#ae81ff">4</span>].<span style="color:#a6e22e">x</span>;	<span style="color:#75715e">// 1
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">arr</span>[<span style="color:#ae81ff">5</span>][<span style="color:#ae81ff">1</span>];	<span style="color:#75715e">// 2
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="c1">// 例如
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="kc">undefined</span><span class="p">,</span> <span class="p">{</span><span class="nx">x</span><span class="o">:</span> <span class="mi">1</span><span class="p">},</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]];</span>
+</span></span><span class="line"><span class="cl"><span class="nx">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>	<span class="c1">// 1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">arr</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>	<span class="c1">// undefined
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">arr</span><span class="p">[</span><span class="mi">4</span><span class="p">].</span><span class="nx">x</span><span class="p">;</span>	<span class="c1">// 1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">arr</span><span class="p">[</span><span class="mi">5</span><span class="p">][</span><span class="mi">1</span><span class="p">];</span>	<span class="c1">// 2
 </span></span></span></code></pre></div><h2 id="51-创建数组--数组操作">5.1 创建数组 &amp; 数组操作<a hidden class="anchor" aria-hidden="true" href="#51-创建数组--数组操作">#</a></h2>
 <h4 id="创建数组---字面量">创建数组 - 字面量<a hidden class="anchor" aria-hidden="true" href="#创建数组---字面量">#</a></h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">BAT</span> <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;Baidu&#39;</span>, <span style="color:#e6db74">&#39;Alibaba&#39;</span>, <span style="color:#e6db74">&#39;Tencent&#39;</span>];
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">students</span> <span style="color:#f92672">=</span> [{<span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;Bosn&#39;</span>, <span style="color:#a6e22e">age</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">27</span>}, {<span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;Nunnly&#39;</span>, <span style="color:#a6e22e">age</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">3</span>}];
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">arr</span> <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;Nunnly&#39;</span>, <span style="color:#e6db74">&#39;is&#39;</span>, <span style="color:#e6db74">&#39;big&#39;</span>, <span style="color:#e6db74">&#39;keng&#39;</span>, <span style="color:#e6db74">&#39;B&#39;</span>, <span style="color:#ae81ff">123</span>, <span style="color:#66d9ef">true</span>, <span style="color:#66d9ef">null</span>];
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">commasArr1</span> <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>, , <span style="color:#ae81ff">2</span>];	<span style="color:#75715e">// 1, undefined, 2
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">commasArr2</span> <span style="color:#f92672">=</span> [,,];	<span style="color:#75715e">// undefined * 2，不赞同这种定义方式
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">BAT</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Baidu&#39;</span><span class="p">,</span> <span class="s1">&#39;Alibaba&#39;</span><span class="p">,</span> <span class="s1">&#39;Tencent&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">students</span> <span class="o">=</span> <span class="p">[{</span><span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Bosn&#39;</span><span class="p">,</span> <span class="nx">age</span><span class="o">:</span> <span class="mi">27</span><span class="p">},</span> <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Nunnly&#39;</span><span class="p">,</span> <span class="nx">age</span><span class="o">:</span> <span class="mi">3</span><span class="p">}];</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Nunnly&#39;</span><span class="p">,</span> <span class="s1">&#39;is&#39;</span><span class="p">,</span> <span class="s1">&#39;big&#39;</span><span class="p">,</span> <span class="s1">&#39;keng&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="mi">123</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="kc">null</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">commasArr1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">,</span> <span class="mi">2</span><span class="p">];</span>	<span class="c1">// 1, undefined, 2
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">var</span> <span class="nx">commasArr2</span> <span class="o">=</span> <span class="p">[,,];</span>	<span class="c1">// undefined * 2，不赞同这种定义方式
 </span></span></span></code></pre></div><p>数组的大小是有限制的：size from 0 to 4,294,967,295 ($2^{23} - 1$)</p>
 <h4 id="创建数组---new-array">创建数组 - new Array<a hidden class="anchor" aria-hidden="true" href="#创建数组---new-array">#</a></h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">arr</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Array();
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">arrWithLength</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Array(<span style="color:#ae81ff">100</span>);	<span style="color:#75715e">// undefined * 100
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">arrLikesLiteral</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Array(<span style="color:#66d9ef">true</span>, <span style="color:#66d9ef">false</span>, <span style="color:#66d9ef">null</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#e6db74">&#39;hi&#39;</span>);	<span style="color:#75715e">// 等价于 [true, false, null, 1, 2, &#39;hi&#39;]
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">arrWithLength</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>	<span class="c1">// undefined * 100
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">var</span> <span class="nx">arrLikesLiteral</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="kc">true</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;hi&#39;</span><span class="p">);</span>	<span class="c1">// 等价于 [true, false, null, 1, 2, &#39;hi&#39;]
 </span></span></span></code></pre></div><p>注意：<code>Array</code> 的构造器如果不使用 <code>new</code> 也是等价的</p>
 <h4 id="数组操作---数组元素读写">数组操作 - 数组元素读写<a hidden class="anchor" aria-hidden="true" href="#数组操作---数组元素读写">#</a></h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">arr</span> <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>];
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">arr</span>[<span style="color:#ae81ff">1</span>];	<span style="color:#75715e">// 2
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">length</span>;	<span style="color:#75715e">// 5
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">arr</span>[<span style="color:#ae81ff">5</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">6</span>;	<span style="color:#75715e">// 动态添加数组元素
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">length</span>;	<span style="color:#75715e">// 6
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">delete</span> <span style="color:#a6e22e">arr</span>[<span style="color:#ae81ff">0</span>];
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">arr</span>[<span style="color:#ae81ff">0</span>];	<span style="color:#75715e">// undefined
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">length</span>;	<span style="color:#75715e">// 6
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="nx">arr</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>	<span class="c1">// 2
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">arr</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>	<span class="c1">// 5
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="nx">arr</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="mi">6</span><span class="p">;</span>	<span class="c1">// 动态添加数组元素
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">arr</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>	<span class="c1">// 6
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">delete</span> <span class="nx">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="nx">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>	<span class="c1">// undefined
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">arr</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>	<span class="c1">// 6
 </span></span></span></code></pre></div><h4 id="数组操作---数组元素增删">数组操作 - 数组元素增删<a hidden class="anchor" aria-hidden="true" href="#数组操作---数组元素增删">#</a></h4>
 <p>JavaScript 中的数组是动态的，不需要指定大小。数组对象的 <code>lenght</code> 属性也会根据数组的情况更新。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">arr</span> <span style="color:#f92672">=</span> [];
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">arr</span>[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">arr</span>[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">push</span>(<span style="color:#ae81ff">3</span>);
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">arr</span>;	<span style="color:#75715e">// [1, 2, 3]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">length</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>;	<span style="color:#75715e">// equals to arr.push(4)
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">arr</span>;	<span style="color:#75715e">// [1, 2, 3, 4]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">unshift</span>(<span style="color:#ae81ff">0</span>);	<span style="color:#75715e">// 将一个或多个元素添加到数组的开头，并返回该数组的新长度
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">arr</span>;	<span style="color:#75715e">// [0, 1, 2, 3, 4]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">delete</span> <span style="color:#a6e22e">arr</span>[<span style="color:#ae81ff">2</span>];
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">arr</span>;	<span style="color:#75715e">// [0, 1, undefined, 3, 4]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">length</span>;	<span style="color:#75715e">// 5
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#ae81ff">2</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">arr</span>;	<span style="color:#75715e">// false
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">-=</span> <span style="color:#ae81ff">1</span>;
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">arr</span>;	<span style="color:#75715e">// [0, 1, undefined, 3], 4 is removed
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">pop</span>();	<span style="color:#75715e">// 3 returned by pop
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">arr</span>;	<span style="color:#75715e">// [0, 1, undefined], 3 is removed
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">shift</span>;	<span style="color:#75715e">// 0 returned by shift
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">arr</span>;	<span style="color:#75715e">// [1, undefined]
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[];</span>
+</span></span><span class="line"><span class="cl"><span class="nx">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">arr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">arr</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">arr</span><span class="p">;</span>	<span class="c1">// [1, 2, 3]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="nx">arr</span><span class="p">[</span><span class="nx">arr</span><span class="p">.</span><span class="nx">length</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>	<span class="c1">// equals to arr.push(4)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">arr</span><span class="p">;</span>	<span class="c1">// [1, 2, 3, 4]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="nx">arr</span><span class="p">.</span><span class="nx">unshift</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>	<span class="c1">// 将一个或多个元素添加到数组的开头，并返回该数组的新长度
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">arr</span><span class="p">;</span>	<span class="c1">// [0, 1, 2, 3, 4]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">delete</span> <span class="nx">arr</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="nx">arr</span><span class="p">;</span>	<span class="c1">// [0, 1, undefined, 3, 4]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">arr</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>	<span class="c1">// 5
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="mi">2</span> <span class="k">in</span> <span class="nx">arr</span><span class="p">;</span>	<span class="c1">// false
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="nx">arr</span><span class="p">.</span><span class="nx">length</span> <span class="o">-=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">arr</span><span class="p">;</span>	<span class="c1">// [0, 1, undefined, 3], 4 is removed
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="nx">arr</span><span class="p">.</span><span class="nx">pop</span><span class="p">();</span>	<span class="c1">// 3 returned by pop
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">arr</span><span class="p">;</span>	<span class="c1">// [0, 1, undefined], 3 is removed
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="nx">arr</span><span class="p">.</span><span class="nx">shift</span><span class="p">;</span>	<span class="c1">// 0 returned by shift
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">arr</span><span class="p">;</span>	<span class="c1">// [1, undefined]
 </span></span></span></code></pre></div><h4 id="数组操作---数组迭代">数组操作 - 数组迭代<a hidden class="anchor" aria-hidden="true" href="#数组操作---数组迭代">#</a></h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">n</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>;
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">arr</span> <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>];
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">n</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">i</span>]);	<span style="color:#75715e">// 1, 2, 3, 4, 5
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (<span style="color:#a6e22e">i</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">arr</span>) {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">i</span>]);	<span style="color:#75715e">// 1, 2, 3, 4, 5
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Array.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">x</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;inherited&#39;</span>;	<span style="color:#75715e">// 在数组对象的原型中增加一个属性 x
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">for</span> (<span style="color:#a6e22e">i</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">arr</span>) {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">i</span>]);	<span style="color:#75715e">// 1, 2, 3, 4, 5, inherited（顺序不确定）
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (<span style="color:#a6e22e">i</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">arr</span>) {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">hasOwnProperty</span>(<span style="color:#a6e22e">i</span>)) {	<span style="color:#75715e">// 过滤掉原型链上的属性
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">i</span>]);	<span style="color:#75715e">// 1, 2, 3, 4, 5（顺序不确定）
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
-</span></span><span style="display:flex;"><span>}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">n</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">arr</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>	<span class="c1">// 1, 2, 3, 4, 5
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="k">in</span> <span class="nx">arr</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">arr</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>	<span class="c1">// 1, 2, 3, 4, 5
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">x</span> <span class="o">=</span> <span class="s1">&#39;inherited&#39;</span><span class="p">;</span>	<span class="c1">// 在数组对象的原型中增加一个属性 x
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="k">in</span> <span class="nx">arr</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">arr</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>	<span class="c1">// 1, 2, 3, 4, 5, inherited（顺序不确定）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="k">in</span> <span class="nx">arr</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">arr</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="nx">i</span><span class="p">))</span> <span class="p">{</span>	<span class="c1">// 过滤掉原型链上的属性
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">arr</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>	<span class="c1">// 1, 2, 3, 4, 5（顺序不确定）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><h2 id="52-二维数组--稀疏数组">5.2 二维数组 &amp; 稀疏数组<a hidden class="anchor" aria-hidden="true" href="#52-二维数组--稀疏数组">#</a></h2>
 <h4 id="二维数组">二维数组<a hidden class="anchor" aria-hidden="true" href="#二维数组">#</a></h4>
 <p>JavaScript 中的数组的元素也可以是数组，可以定义一个数组，它的每一个元素又是一个数组，这样就形成了二维数组。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">arr</span> <span style="color:#f92672">=</span> [[<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>], [<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>], [<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>]];
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">j</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">row</span>;
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">length</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">row</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">i</span>];
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;row &#39;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">i</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#a6e22e">j</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">j</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">row</span>.<span style="color:#a6e22e">length</span>; <span style="color:#a6e22e">j</span><span style="color:#f92672">++</span>) {
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">row</span>[<span style="color:#a6e22e">j</span>]);
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// RESULT:
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// row 0
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 0
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 1
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// row 1
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 2
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 3
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// row 2
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 4
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 5
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]];</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">row</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">row</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;row &#39;</span> <span class="o">+</span> <span class="nx">i</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="nx">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="nx">row</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">row</span><span class="p">[</span><span class="nx">j</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// RESULT:
+</span></span></span><span class="line"><span class="cl"><span class="c1">// row 0
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 0
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 1
+</span></span></span><span class="line"><span class="cl"><span class="c1">// row 1
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 2
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 3
+</span></span></span><span class="line"><span class="cl"><span class="c1">// row 2
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 4
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 5
 </span></span></span></code></pre></div><h4 id="稀疏数组">稀疏数组<a hidden class="anchor" aria-hidden="true" href="#稀疏数组">#</a></h4>
 <p>稀疏数组（sparse array）并不含有从 0 开始的连续索引。一般 length 属性值比实际元素个数大。在 <code>Java</code>，<code>C++</code> 等中的数组是一段连续的存储空间，元素与元素之间没有空隙，但是在 <code>JavaScript</code> 中允许存在有空隙的数组。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">arr1</span> <span style="color:#f92672">=</span> [<span style="color:#66d9ef">undefined</span>];
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">arr2</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Array(<span style="color:#ae81ff">1</span>);
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">0</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">arr1</span>;	<span style="color:#75715e">// true
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#ae81ff">0</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">arr2</span>;	<span style="color:#75715e">// false
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">arr1</span> <span class="o">=</span> <span class="p">[</span><span class="kc">undefined</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">arr2</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="mi">0</span> <span class="k">in</span> <span class="nx">arr1</span><span class="p">;</span>	<span class="c1">// true
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="mi">0</span> <span class="k">in</span> <span class="nx">arr2</span><span class="p">;</span>	<span class="c1">// false
 </span></span></span></code></pre></div><p>这是因为，如控制台所示（下图），数组 <code>arr1</code> 是有一个元素（值为 <code>undefined</code>）的；而数组 <code>arr2</code> 却是一个由 <code>new Array</code> 方法构造的一个长度为 1 的数组，第 0 元素的 key 是不存在的。</p>
 <p><img loading="lazy" src="https://s2.ax1x.com/2019/01/19/kCnii4.png" alt="kCnii4.png"  />
 </p>
 <p>我们继续对数组进行操作，控制台会出现以下结果：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#a6e22e">arr1</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>;
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">arr1</span>[<span style="color:#ae81ff">99</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">123</span>;
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">99</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">arr1</span>;	<span style="color:#75715e">// true
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#ae81ff">98</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">arr2</span>;	<span style="color:#75715e">// false
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">arr1</span><span class="p">.</span><span class="nx">length</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">arr1</span><span class="p">[</span><span class="mi">99</span><span class="p">]</span> <span class="o">=</span> <span class="mi">123</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="mi">99</span> <span class="k">in</span> <span class="nx">arr1</span><span class="p">;</span>	<span class="c1">// true
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="mi">98</span> <span class="k">in</span> <span class="nx">arr2</span><span class="p">;</span>	<span class="c1">// false
 </span></span></span></code></pre></div><p><img loading="lazy" src="https://s2.ax1x.com/2019/01/19/kCnKoD.png" alt="kCnKoD.png"  />
 </p>
 <p>类似地，也可以这样的方式创建稀疏数组：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">arr</span> <span style="color:#f92672">=</span> [, ,];
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">0</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">arr</span>;	<span style="color:#75715e">// false
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[,</span> <span class="p">,];</span>
+</span></span><span class="line"><span class="cl"><span class="mi">0</span> <span class="k">in</span> <span class="nx">arr</span><span class="p">;</span>	<span class="c1">// false
 </span></span></span></code></pre></div><p>稀疏数组在实际应用中并不常见。在遍历稀疏数组时，需要用 <code>in</code> 操作符或者“是否为 <code>undefined</code>”的方式作相应的判断。</p>
 <p>通过查阅<a href="https://www.teakki.com/p/57dfbcbad3a7507f975efe60">相关资料</a>，笔者了解到，JavaScript 实际上并没有常规的数组，所有的数组其实就是个对象，只不过会自动管理一些 “数字” 属性和 length 属性罢了。说的更直接一点，JavaScript 中的数组根本没有索引，因为索引应该是数字，而 JavaScript 中数组的索引其实是字符串。<code>arr[1]</code> 其实就是 <code>arr[&quot;1&quot;]</code>，若令 <code>arr[&quot;1000&quot;] = 1</code>，<code>arr.length</code> 也会自动变为 1001。这些表现的根本原因就是，JavaScript 中的对象就是字符串到任意值的键值对。注意键只能是字符串。</p>
 <h2 id="53-数组方法">5.3 数组方法<a hidden class="anchor" aria-hidden="true" href="#53-数组方法">#</a></h2>
@@ -318,7 +411,7 @@
 <p>接下来就针对其中一些方法进行了解。</p>
 <h4 id="arrayisarray"><code>Array.isArray()</code><a hidden class="anchor" aria-hidden="true" href="#arrayisarray">#</a></h4>
 <p><code>Array.isArray()</code> 用于确定传递的值是否是一个 <code>Array</code>。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>Array.<span style="color:#a6e22e">isArray</span>(<span style="color:#a6e22e">obj</span>);
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">obj</span><span class="p">);</span>
 </span></span></code></pre></div><ul>
 <li>参数：
 <ul>
@@ -327,15 +420,15 @@
 </li>
 <li>返回值：如果对象是 <code>Array</code>，则为 <code>true</code>；否则返回 <code>false</code></li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>Array.<span style="color:#a6e22e">isArray</span>([]);	<span style="color:#75715e">// true
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// 其他判断方式
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>[].<span style="color:#66d9ef">instanceof</span> Array;	<span style="color:#75715e">// true
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>({}).<span style="color:#a6e22e">toString</span>.<span style="color:#a6e22e">apply</span>([]) <span style="color:#f92672">===</span> <span style="color:#e6db74">&#39;[object Array]&#39;</span>;	<span style="color:#75715e">// true
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>[].<span style="color:#a6e22e">constructor</span> <span style="color:#f92672">===</span> Array;	<span style="color:#75715e">// true
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span><span class="p">([]);</span>	<span class="c1">// true
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 其他判断方式
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">[].</span><span class="k">instanceof</span> <span class="nb">Array</span><span class="p">;</span>	<span class="c1">// true
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">({}).</span><span class="nx">toString</span><span class="p">.</span><span class="nx">apply</span><span class="p">([])</span> <span class="o">===</span> <span class="s1">&#39;[object Array]&#39;</span><span class="p">;</span>	<span class="c1">// true
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">[].</span><span class="nx">constructor</span> <span class="o">===</span> <span class="nb">Array</span><span class="p">;</span>	<span class="c1">// true
 </span></span></span></code></pre></div><h4 id="arrayprototypeconcat"><code>Array.prototype.concat()</code><a hidden class="anchor" aria-hidden="true" href="#arrayprototypeconcat">#</a></h4>
 <p><code>concat()</code> 方法用于合并两个或多个数组。该方法不会更改现有数组，而是返回一个新数组。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">new_array</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">old_array</span>.<span style="color:#a6e22e">concat</span>([<span style="color:#a6e22e">value1</span>[, <span style="color:#a6e22e">value2</span>[, ...[, <span style="color:#a6e22e">valueN</span>]]]])
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">new_array</span> <span class="o">=</span> <span class="nx">old_array</span><span class="p">.</span><span class="nx">concat</span><span class="p">([</span><span class="nx">value1</span><span class="p">[,</span> <span class="nx">value2</span><span class="p">[,</span> <span class="p">...[,</span> <span class="nx">valueN</span><span class="p">]]]])</span>
 </span></span></code></pre></div><ul>
 <li>参数：
 <ul>
@@ -356,15 +449,15 @@
 </li>
 <li>数组 / 值在连接时保持不变。此外，对于新数组的任何操作（当且仅当元素不是对象引用时）都不会对原始数组产生影响，反之亦然</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">arr</span> <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>];
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">concat</span>(<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>);	<span style="color:#75715e">// [1, 2, 3, 4, 5]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">arr</span>;	<span style="color:#75715e">// [1, 2, 3]，原数组未被修改
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">concat</span>([<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">11</span>], <span style="color:#ae81ff">13</span>);	<span style="color:#75715e">// [1, 2, 3, 10, 11, 13]，“参数是数组”
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">concat</span>([<span style="color:#ae81ff">1</span>, [<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>]]);	<span style="color:#75715e">// [1, 2, 3, 1, [2, 3]]，“参数值数组” &amp; “不会递归到嵌套数组参数中”
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="nx">arr</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span>	<span class="c1">// [1, 2, 3, 4, 5]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">arr</span><span class="p">;</span>	<span class="c1">// [1, 2, 3]，原数组未被修改
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="nx">arr</span><span class="p">.</span><span class="nx">concat</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">],</span> <span class="mi">13</span><span class="p">);</span>	<span class="c1">// [1, 2, 3, 10, 11, 13]，“参数是数组”
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">arr</span><span class="p">.</span><span class="nx">concat</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]]);</span>	<span class="c1">// [1, 2, 3, 1, [2, 3]]，“参数值数组” &amp; “不会递归到嵌套数组参数中”
 </span></span></span></code></pre></div><h4 id="arrayprototypeevery"><code>Array.prototype.every()</code><a hidden class="anchor" aria-hidden="true" href="#arrayprototypeevery">#</a></h4>
 <p><code>every()</code> 检查数组的每个元素是否都通过了指定函数的测试。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">every</span>(<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">callback</span>(<span style="color:#a6e22e">currentValue</span>, <span style="color:#a6e22e">index</span>, <span style="color:#a6e22e">array</span>), <span style="color:#a6e22e">thisArg</span>);
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">arr</span><span class="p">.</span><span class="nx">every</span><span class="p">(</span><span class="kd">function</span> <span class="nx">callback</span><span class="p">(</span><span class="nx">currentValue</span><span class="p">,</span> <span class="nx">index</span><span class="p">,</span> <span class="nx">array</span><span class="p">),</span> <span class="nx">thisArg</span><span class="p">);</span>
 </span></span></code></pre></div><ul>
 <li>参数：
 <ul>
@@ -389,16 +482,16 @@
 </ul>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">arr</span> <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>];
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">every</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">x</span>){
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">x</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">10</span>;
-</span></span><span style="display:flex;"><span>});	<span style="color:#75715e">// true
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">every</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">x</span>){
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">x</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">3</span>;
-</span></span><span style="display:flex;"><span>});	<span style="color:#75715e">// false
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="nx">arr</span><span class="p">.</span><span class="nx">every</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">x</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>	<span class="c1">// true
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">arr</span><span class="p">.</span><span class="nx">every</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">x</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>	<span class="c1">// false
 </span></span></span></code></pre></div><h4 id="arrayprototypefilter"><code>Array.prototype.filter()</code><a hidden class="anchor" aria-hidden="true" href="#arrayprototypefilter">#</a></h4>
 <p><code>filter()</code> 方法检测数组元素，并返回符合条件的所有元素的数组。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">new_array</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">filter</span>(<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">callback</span>(<span style="color:#a6e22e">currentValue</span>, <span style="color:#a6e22e">index</span>, <span style="color:#a6e22e">arr</span>), <span style="color:#a6e22e">thisValue</span>);
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">new_array</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="kd">function</span> <span class="nx">callback</span><span class="p">(</span><span class="nx">currentValue</span><span class="p">,</span> <span class="nx">index</span><span class="p">,</span> <span class="nx">arr</span><span class="p">),</span> <span class="nx">thisValue</span><span class="p">);</span>
 </span></span></code></pre></div><ul>
 <li>参数：
 <ul>
@@ -423,18 +516,18 @@
 </ul>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">arr</span> <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">10</span>];
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">filter</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">index</span>){
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">index</span> <span style="color:#f92672">%</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">===</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">x</span> <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">8</span>;
-</span></span><span style="display:flex;"><span>});	<span style="color:#75715e">// returns [1, 4, 7, 8, 9, 10]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">arr</span>;	<span style="color:#75715e">// [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="nx">arr</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">index</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">index</span> <span class="o">%</span> <span class="mi">3</span> <span class="o">===</span> <span class="mi">0</span> <span class="o">||</span> <span class="nx">x</span> <span class="o">&gt;=</span> <span class="mi">8</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>	<span class="c1">// returns [1, 4, 7, 8, 9, 10]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">arr</span><span class="p">;</span>	<span class="c1">// [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 </span></span></span></code></pre></div><h4 id="arrayprototypeforeach"><code>Array.prototype.forEach()</code><a hidden class="anchor" aria-hidden="true" href="#arrayprototypeforeach">#</a></h4>
 <p><code>forEach()</code> 方法对数组的每个元素执行执行一次指定函数。可用于数组遍历。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#a6e22e">array</span>.<span style="color:#a6e22e">forEach</span>(<span style="color:#a6e22e">callback</span>[, <span style="color:#a6e22e">thisArg</span>]);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">array</span>.<span style="color:#a6e22e">forEach</span>(<span style="color:#a6e22e">callback</span>(<span style="color:#a6e22e">currentValue</span>, <span style="color:#a6e22e">index</span>, <span style="color:#a6e22e">array</span>){
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// do something              
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}, <span style="color:#66d9ef">this</span>)
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">array</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">callback</span><span class="p">[,</span> <span class="nx">thisArg</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">array</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">callback</span><span class="p">(</span><span class="nx">currentValue</span><span class="p">,</span> <span class="nx">index</span><span class="p">,</span> <span class="nx">array</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// do something              
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">},</span> <span class="k">this</span><span class="p">)</span>
 </span></span></code></pre></div><ul>
 <li>参数：
 <ul>
@@ -465,19 +558,19 @@
 </ul>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">arr</span> <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>];
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">forEach</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">index</span>, <span style="color:#a6e22e">a</span>){
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">x</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;|&#39;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">index</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;|&#39;</span> <span style="color:#f92672">+</span> (<span style="color:#a6e22e">a</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">arr</span>));
-</span></span><span style="display:flex;"><span>});
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// 1|0|true
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 2|1|true
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 3|2|true
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 4|3|true
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 5|4|true
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="nx">arr</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">index</span><span class="p">,</span> <span class="nx">a</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">x</span> <span class="o">+</span> <span class="s1">&#39;|&#39;</span> <span class="o">+</span> <span class="nx">index</span> <span class="o">+</span> <span class="s1">&#39;|&#39;</span> <span class="o">+</span> <span class="p">(</span><span class="nx">a</span> <span class="o">===</span> <span class="nx">arr</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 1|0|true
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 2|1|true
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 3|2|true
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 4|3|true
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 5|4|true
 </span></span></span></code></pre></div><h4 id="arrayprototypeindexof"><code>Array.prototype.indexOf()</code><a hidden class="anchor" aria-hidden="true" href="#arrayprototypeindexof">#</a></h4>
 <p><code>indexOf（）</code> 方法返回在数组中可以找到一个给定元素的第一个索引，如果不存在，则返回 -1。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">indexOf</span>(<span style="color:#a6e22e">searchElement</span>);
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">indexOf</span>(<span style="color:#a6e22e">searchElement</span>[, <span style="color:#a6e22e">fromIndex</span><span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>])
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">arr</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">searchElement</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">arr</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">searchElement</span><span class="p">[,</span> <span class="nx">fromIndex</span><span class="o">=</span><span class="mi">0</span><span class="p">])</span>
 </span></span></code></pre></div><ul>
 <li>参数：
 <ul>
@@ -498,22 +591,22 @@
 </ul>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">arr</span> <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span>];
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">indexOf</span>(<span style="color:#ae81ff">2</span>);	<span style="color:#75715e">// 1
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">indexOf</span>(<span style="color:#ae81ff">99</span>);	<span style="color:#75715e">// -1
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">indexOf</span>(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>);	<span style="color:#75715e">// 4
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">indexOf</span>(<span style="color:#ae81ff">1</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">3</span>);	<span style="color:#75715e">// 4
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">indexOf</span>(<span style="color:#ae81ff">2</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>);	<span style="color:#75715e">// -1
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="nx">arr</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>	<span class="c1">// 1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">arr</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="mi">99</span><span class="p">);</span>	<span class="c1">// -1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">arr</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>	<span class="c1">// 4
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">arr</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">);</span>	<span class="c1">// 4
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">arr</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">);</span>	<span class="c1">// -1
 </span></span></span></code></pre></div><h4 id="arrayprototypejoin"><code>Array.prototype.join()</code><a hidden class="anchor" aria-hidden="true" href="#arrayprototypejoin">#</a></h4>
 <p><code>join()</code> 方法将一个数组（或一个类数组对象）的所有元素连接成一个字符串并返回这个字符。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#a6e22e">str</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">join</span>();
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// 默认为 &#34;,&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">str</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">join</span>(<span style="color:#e6db74">&#34;&#34;</span>);
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// 分隔符 === 空字符串 &#34;&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">str</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">join</span>(<span style="color:#a6e22e">separator</span>);
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// 分隔符
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">str</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">join</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 默认为 &#34;,&#34;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="nx">str</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s2">&#34;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 分隔符 === 空字符串 &#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="nx">str</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">separator</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 分隔符
 </span></span></span></code></pre></div><ul>
 <li>参数：
 <ul>
@@ -535,7 +628,7 @@
 </ul>
 <h4 id="arrayprototypelastindexof"><code>Array.prototype.lastIndexOf()</code><a hidden class="anchor" aria-hidden="true" href="#arrayprototypelastindexof">#</a></h4>
 <p><code>lastIndexOf()</code> 方法返回指定元素（也即有效的 JavaScript 值或变量）在数组中的最后一个的索引，如果不存在则返回 -1。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">lastIndexOf</span>(<span style="color:#a6e22e">searchElement</span>[, <span style="color:#a6e22e">fromIndex</span>])
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">arr</span><span class="p">.</span><span class="nx">lastIndexOf</span><span class="p">(</span><span class="nx">searchElement</span><span class="p">[,</span> <span class="nx">fromIndex</span><span class="p">])</span>
 </span></span></code></pre></div><ul>
 <li>参数：
 <ul>
@@ -552,13 +645,13 @@
 <li>返回值：数组中最后一个元素的索引，如未找到返回 -1</li>
 <li>描述：<code>lastIndexOf</code> 使用<strong>严格相等</strong>（strict equality，即 <code>===</code>）比较 <code>searchElement</code> 和数组中的元素</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">arr</span> <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span>];
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">lastIndexOf</span>(<span style="color:#ae81ff">2</span>);	<span style="color:#75715e">// 3
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">lastIndexOf</span>(<span style="color:#ae81ff">2</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>);	<span style="color:#75715e">// 3
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">lastIndexOf</span>(<span style="color:#ae81ff">2</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">3</span>);	<span style="color:#75715e">// 1
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="nx">arr</span><span class="p">.</span><span class="nx">lastIndexOf</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>	<span class="c1">// 3
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">arr</span><span class="p">.</span><span class="nx">lastIndexOf</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">);</span>	<span class="c1">// 3
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">arr</span><span class="p">.</span><span class="nx">lastIndexOf</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">);</span>	<span class="c1">// 1
 </span></span></span></code></pre></div><h4 id="arrayprototypemap"><code>Array.prototype.map()</code><a hidden class="anchor" aria-hidden="true" href="#arrayprototypemap">#</a></h4>
 <p><code>map()</code> 方法通过指定函数处理数中的每个元素，并返回处理后的数组。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">new_array</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">array</span>.<span style="color:#a6e22e">map</span>(<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">callback</span>(<span style="color:#a6e22e">currentValue</span>, <span style="color:#a6e22e">index</span>, <span style="color:#a6e22e">array</span>), <span style="color:#a6e22e">thisArg</span>);
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">new_array</span> <span class="o">=</span> <span class="nx">array</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span> <span class="nx">callback</span><span class="p">(</span><span class="nx">currentValue</span><span class="p">,</span> <span class="nx">index</span><span class="p">,</span> <span class="nx">array</span><span class="p">),</span> <span class="nx">thisArg</span><span class="p">);</span>
 </span></span></code></pre></div><ul>
 <li>参数：
 <ul>
@@ -583,14 +676,14 @@
 </ul>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">arr</span> <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>];
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">map</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">x</span>){
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">x</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">10</span>;
-</span></span><span style="display:flex;"><span>});	<span style="color:#75715e">// [11, 12, 13]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">arr</span>;	<span style="color:#75715e">// [1, 2, 3]
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="nx">arr</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">x</span> <span class="o">+</span> <span class="mi">10</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>	<span class="c1">// [11, 12, 13]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">arr</span><span class="p">;</span>	<span class="c1">// [1, 2, 3]
 </span></span></span></code></pre></div><h4 id="arrayprototypereduce"><code>Array.prototype.reduce()</code><a hidden class="anchor" aria-hidden="true" href="#arrayprototypereduce">#</a></h4>
 <p><code>reduce()</code> 方法对数组中的每个元素执行一个由您提供的 <strong>reducer</strong> 函数（升序执行），将其结果汇总为单个返回值。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#a6e22e">array</span>.<span style="color:#a6e22e">reduce</span>(<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">callback</span>(<span style="color:#a6e22e">accumulator</span>, <span style="color:#a6e22e">currentValue</span>, <span style="color:#a6e22e">currentIndex</span>, <span style="color:#a6e22e">array</span>), <span style="color:#a6e22e">initialValue</span>);
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">array</span><span class="p">.</span><span class="nx">reduce</span><span class="p">(</span><span class="kd">function</span> <span class="nx">callback</span><span class="p">(</span><span class="nx">accumulator</span><span class="p">,</span> <span class="nx">currentValue</span><span class="p">,</span> <span class="nx">currentIndex</span><span class="p">,</span> <span class="nx">array</span><span class="p">),</span> <span class="nx">initialValue</span><span class="p">);</span>
 </span></span></code></pre></div><ul>
 <li>参数：
 <ul>
@@ -622,23 +715,23 @@
 </ul>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">arr</span> <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>];
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">sum</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">reduce</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span>){
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">x</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">y</span>;
-</span></span><span style="display:flex;"><span>}, <span style="color:#ae81ff">0</span>);	<span style="color:#75715e">// 6
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">arr</span>;	<span style="color:#75715e">// [1, 2, 3]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">arr</span> <span style="color:#f92672">=</span> [<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">6</span>];
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">max</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">reduce</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span>){
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">x</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;|&#39;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">y</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">x</span> <span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">y</span> <span style="color:#f92672">?</span> <span style="color:#a6e22e">x</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">y</span>;
-</span></span><span style="display:flex;"><span>});
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// 3|9
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 9|6
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">max</span>;	<span style="color:#75715e">// 9
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">sum</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">reduce</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">y</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">},</span> <span class="mi">0</span><span class="p">);</span>	<span class="c1">// 6
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">arr</span><span class="p">;</span>	<span class="c1">// [1, 2, 3]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">6</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">reduce</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">x</span> <span class="o">+</span> <span class="s1">&#39;|&#39;</span> <span class="o">+</span> <span class="nx">y</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">x</span> <span class="o">&gt;</span> <span class="nx">y</span> <span class="o">?</span> <span class="nx">x</span> <span class="o">:</span> <span class="nx">y</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 3|9
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 9|6
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">max</span><span class="p">;</span>	<span class="c1">// 9
 </span></span></span></code></pre></div><h4 id="arrayprototypereduceright"><code>Array.prototype.reduceRight()</code><a hidden class="anchor" aria-hidden="true" href="#arrayprototypereduceright">#</a></h4>
 <p><code>reduceRight()</code> 方法类似于 <code>reduce()</code> 方法，不过是降序执行的（从右到左）。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#a6e22e">array</span>.<span style="color:#a6e22e">reduceRight</span>(<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">callback</span>(<span style="color:#a6e22e">previousValue</span>, <span style="color:#a6e22e">currentValue</span>, <span style="color:#a6e22e">currentIndex</span>, <span style="color:#a6e22e">array</span>), <span style="color:#a6e22e">initialValue</span>);
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">array</span><span class="p">.</span><span class="nx">reduceRight</span><span class="p">(</span><span class="kd">function</span> <span class="nx">callback</span><span class="p">(</span><span class="nx">previousValue</span><span class="p">,</span> <span class="nx">currentValue</span><span class="p">,</span> <span class="nx">currentIndex</span><span class="p">,</span> <span class="nx">array</span><span class="p">),</span> <span class="nx">initialValue</span><span class="p">);</span>
 </span></span></code></pre></div><ul>
 <li>参数：
 <ul>
@@ -663,31 +756,31 @@
 </ul>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">arr</span> <span style="color:#f92672">=</span> [<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">6</span>];
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">max</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">reduceRight</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span>){
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">x</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;|&#39;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">y</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">x</span> <span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">y</span> <span style="color:#f92672">?</span> <span style="color:#a6e22e">x</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">y</span>;
-</span></span><span style="display:flex;"><span>});
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// 6|9
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 9|3
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">max</span>;	<span style="color:#75715e">// 9
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">6</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">reduceRight</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">x</span> <span class="o">+</span> <span class="s1">&#39;|&#39;</span> <span class="o">+</span> <span class="nx">y</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">x</span> <span class="o">&gt;</span> <span class="nx">y</span> <span class="o">?</span> <span class="nx">x</span> <span class="o">:</span> <span class="nx">y</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 6|9
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 9|3
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">max</span><span class="p">;</span>	<span class="c1">// 9
 </span></span></span></code></pre></div><h4 id="arrayprototypereverse"><code>Array.prototype.reverse()</code><a hidden class="anchor" aria-hidden="true" href="#arrayprototypereverse">#</a></h4>
 <p><code>reverse()</code> 方法将数组中元素的位置颠倒</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">reverse</span>();
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">arr</span><span class="p">.</span><span class="nx">reverse</span><span class="p">();</span>
 </span></span></code></pre></div><ul>
 <li>参数：无</li>
 <li>描述：<code>reverse()</code> 方法颠倒数组中元素的位置，并返回该数组的引用</li>
 </ul>
 <h4 id="arrayprototypeslice"><code>Array.prototype.slice()</code><a hidden class="anchor" aria-hidden="true" href="#arrayprototypeslice">#</a></h4>
 <p><code>slice()</code> 方法返回一个新的数组对象，这一对象是一个由 <code>begin</code> 和 <code>end</code>（不包括 <code>end</code>）决定的原始数组的<strong>浅拷贝</strong>。原始数组不会改变。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">slice</span>();	
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// [0, end]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">slice</span>(<span style="color:#a6e22e">begin</span>);	
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// [begin, end]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">slice</span>(<span style="color:#a6e22e">begin</span>, <span style="color:#a6e22e">end</span>);
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// [begin, end)
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">arr</span><span class="p">.</span><span class="nx">slice</span><span class="p">();</span>	
+</span></span><span class="line"><span class="cl"><span class="c1">// [0, end]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="nx">arr</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="nx">begin</span><span class="p">);</span>	
+</span></span><span class="line"><span class="cl"><span class="c1">// [begin, end]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="nx">arr</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="nx">begin</span><span class="p">,</span> <span class="nx">end</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// [begin, end)
 </span></span></span></code></pre></div><ul>
 <li>参数：
 <ul>
@@ -720,14 +813,14 @@
 </ul>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">arr</span> <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>];
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">slice</span>(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">3</span>);	<span style="color:#75715e">// [2, 3]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">slice</span>(<span style="color:#ae81ff">1</span>);	<span style="color:#75715e">// [2, 3, 4, 5]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">slice</span>(<span style="color:#ae81ff">1</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>);	<span style="color:#75715e">// [2, 3, 4]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">slice</span>(<span style="color:#f92672">-</span><span style="color:#ae81ff">4</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">3</span>);	<span style="color:#75715e">// [2]
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="nx">arr</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>	<span class="c1">// [2, 3]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">arr</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>	<span class="c1">// [2, 3, 4, 5]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">arr</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">);</span>	<span class="c1">// [2, 3, 4]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">arr</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">);</span>	<span class="c1">// [2]
 </span></span></span></code></pre></div><h4 id="arrayprototypesome"><code>Array.prototype.some()</code><a hidden class="anchor" aria-hidden="true" href="#arrayprototypesome">#</a></h4>
 <p><code>some()</code> 方法检测数组元素中是否有元素符合指定条件。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#a6e22e">array</span>.<span style="color:#a6e22e">some</span>(<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">callback</span>(<span style="color:#a6e22e">currentValue</span>, <span style="color:#a6e22e">index</span>, <span style="color:#a6e22e">array</span>), <span style="color:#a6e22e">thisArg</span>);
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">array</span><span class="p">.</span><span class="nx">some</span><span class="p">(</span><span class="kd">function</span> <span class="nx">callback</span><span class="p">(</span><span class="nx">currentValue</span><span class="p">,</span> <span class="nx">index</span><span class="p">,</span> <span class="nx">array</span><span class="p">),</span> <span class="nx">thisArg</span><span class="p">);</span>
 </span></span></code></pre></div><ul>
 <li>参数：
 <ul>
@@ -752,16 +845,16 @@
 </ul>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">arr</span> <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>];
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">some</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">x</span>){
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">x</span> <span style="color:#f92672">===</span> <span style="color:#ae81ff">3</span>;
-</span></span><span style="display:flex;"><span>});	<span style="color:#75715e">// true
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">some</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">x</span>){
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">x</span> <span style="color:#f92672">===</span> <span style="color:#ae81ff">100</span>;
-</span></span><span style="display:flex;"><span>});	<span style="color:#75715e">// false
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="nx">arr</span><span class="p">.</span><span class="nx">some</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">x</span> <span class="o">===</span> <span class="mi">3</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>	<span class="c1">// true
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">arr</span><span class="p">.</span><span class="nx">some</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">x</span> <span class="o">===</span> <span class="mi">100</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>	<span class="c1">// false
 </span></span></span></code></pre></div><h4 id="arrayprototypesort"><code>Array.prototype.sort()</code><a hidden class="anchor" aria-hidden="true" href="#arrayprototypesort">#</a></h4>
 <p><code>sort()</code> 方法用<a href="https://en.wikipedia.org/wiki/In-place_algorithm">原地算法</a>对数组的元素进行排序，并返回数组（原数组被修改）。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">sort</span>(<span style="color:#a6e22e">compareFunction</span>);
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">arr</span><span class="p">.</span><span class="nx">sort</span><span class="p">(</span><span class="nx">compareFunction</span><span class="p">);</span>
 </span></span></code></pre></div><ul>
 <li>参数：
 <ul>
@@ -783,28 +876,28 @@
 </ul>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">arr</span> <span style="color:#f92672">=</span> [<span style="color:#ae81ff">13</span>, <span style="color:#ae81ff">24</span>, <span style="color:#ae81ff">51</span>, <span style="color:#ae81ff">3</span>];
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">sort</span>();	<span style="color:#75715e">// [13, 24, 3, 51]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">arr</span>;	<span style="color:#75715e">// [13, 24, 3, 51]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">sort</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span>){
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">b</span>;
-</span></span><span style="display:flex;"><span>});	<span style="color:#75715e">// [3, 13, 24, 51]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">arr1</span> <span style="color:#f92672">=</span> [{<span style="color:#a6e22e">age</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">25</span>}, {<span style="color:#a6e22e">age</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">39</span>}, {<span style="color:#a6e22e">age</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">99</span>}];
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">sort</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span>){
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">age</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">age</span>;
-</span></span><span style="display:flex;"><span>});
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">forEach</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">item</span>){	<span style="color:#75715e">// forEach() 遍历
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;age&#39;</span>, <span style="color:#a6e22e">item</span>.<span style="color:#a6e22e">age</span>);
-</span></span><span style="display:flex;"><span>});
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// RESULT:
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// age 25
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// age 39
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// age 99
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">13</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">51</span><span class="p">,</span> <span class="mi">3</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="nx">arr</span><span class="p">.</span><span class="nx">sort</span><span class="p">();</span>	<span class="c1">// [13, 24, 3, 51]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">arr</span><span class="p">;</span>	<span class="c1">// [13, 24, 3, 51]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="nx">arr</span><span class="p">.</span><span class="nx">sort</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">a</span> <span class="o">-</span> <span class="nx">b</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>	<span class="c1">// [3, 13, 24, 51]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">arr1</span> <span class="o">=</span> <span class="p">[{</span><span class="nx">age</span><span class="o">:</span> <span class="mi">25</span><span class="p">},</span> <span class="p">{</span><span class="nx">age</span><span class="o">:</span> <span class="mi">39</span><span class="p">},</span> <span class="p">{</span><span class="nx">age</span><span class="o">:</span> <span class="mi">99</span><span class="p">}];</span>
+</span></span><span class="line"><span class="cl"><span class="nx">arr</span><span class="p">.</span><span class="nx">sort</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">a</span><span class="p">.</span><span class="nx">age</span> <span class="o">-</span> <span class="nx">b</span><span class="p">.</span><span class="nx">age</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="nx">arr</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">item</span><span class="p">){</span>	<span class="c1">// forEach() 遍历
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="nx">item</span><span class="p">.</span><span class="nx">age</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// RESULT:
+</span></span></span><span class="line"><span class="cl"><span class="c1">// age 25
+</span></span></span><span class="line"><span class="cl"><span class="c1">// age 39
+</span></span></span><span class="line"><span class="cl"><span class="c1">// age 99
 </span></span></span></code></pre></div><h4 id="arrayprototypesplice"><code>Array.prototype.splice()</code><a hidden class="anchor" aria-hidden="true" href="#arrayprototypesplice">#</a></h4>
 <p><code>splice()</code> 方法通过删除现有元素 / 添加新元素来修改数组。并以数组形式返回原数组中被修改的内容</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#a6e22e">array</span>.<span style="color:#a6e22e">splice</span>(<span style="color:#a6e22e">start</span>[, <span style="color:#a6e22e">deleteCount</span>[, <span style="color:#a6e22e">item1</span>[, <span style="color:#a6e22e">item2</span>[, ...]]]])
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">array</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="nx">start</span><span class="p">[,</span> <span class="nx">deleteCount</span><span class="p">[,</span> <span class="nx">item1</span><span class="p">[,</span> <span class="nx">item2</span><span class="p">[,</span> <span class="p">...]]]])</span>
 </span></span></code></pre></div><ul>
 <li>参数：
 <ul>
@@ -838,20 +931,20 @@
 </ul>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">arr</span> <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>];
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">splice</span>(<span style="color:#ae81ff">2</span>);	<span style="color:#75715e">// returns [3, 4, 5]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">arr</span>;	<span style="color:#75715e">// [1, 2]，原数组被修改
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">arr</span> <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>];
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">splice</span>(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>);	<span style="color:#75715e">// returns [3, 4]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">arr</span>;	<span style="color:#75715e">// [1, 2, 5]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">arr</span> <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>];
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">splice</span>(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>, <span style="color:#e6db74">&#39;b&#39;</span>, <span style="color:#e6db74">&#39;c&#39;</span>);	<span style="color:#75715e">// returns [2]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">arr</span>;	<span style="color:#75715e">// [1, &#34;b&#34;, &#34;c&#34;, 3, 4, 5]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">splice</span>(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>, <span style="color:#e6db74">&#39;a&#39;</span>);	<span style="color:#75715e">// returns []
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">arr</span>;	<span style="color:#75715e">// [1, &#39;a&#39;, &#39;b&#39;, &#39;c&#39;, 3, 4, 5]
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="nx">arr</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>	<span class="c1">// returns [3, 4, 5]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">arr</span><span class="p">;</span>	<span class="c1">// [1, 2]，原数组被修改
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="nx">arr</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>	<span class="c1">// returns [3, 4]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">arr</span><span class="p">;</span>	<span class="c1">// [1, 2, 5]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="nx">arr</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">);</span>	<span class="c1">// returns [2]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">arr</span><span class="p">;</span>	<span class="c1">// [1, &#34;b&#34;, &#34;c&#34;, 3, 4, 5]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">arr</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">);</span>	<span class="c1">// returns []
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">arr</span><span class="p">;</span>	<span class="c1">// [1, &#39;a&#39;, &#39;b&#39;, &#39;c&#39;, 3, 4, 5]
 </span></span></span></code></pre></div><h2 id="54-数组小结">5.4 数组小结<a hidden class="anchor" aria-hidden="true" href="#54-数组小结">#</a></h2>
 <p><code>数组</code> 与 <code>一般对象</code></p>
 <table>
@@ -885,12 +978,71 @@
       <li><a href="https://fang-lansheng.github.io/tags/javascript/">JavaScript</a></li>
       <li><a href="https://fang-lansheng.github.io/tags/course-learning/">Course Learning</a></li>
     </ul>
+<nav class="paginav">
+  <a class="prev" href="https://fang-lansheng.github.io/posts/2019-02-27-cpp-study-notes-1/">
+    <span class="title">« Prev Page</span>
+    <br>
+    <span>C&#43;&#43; 学习笔记（一）：初学者的小窍门</span>
+  </a>
+  <a class="next" href="https://fang-lansheng.github.io/posts/2019-01-10-javascript-study-notes-2/">
+    <span class="title">Next Page »</span>
+    <br>
+    <span>JavaScript 学习笔记（二）：对象、对象的属性以及对象的方法</span>
+  </a>
+</nav>
+
+
+<div class="share-buttons">
+    <a target="_blank" rel="noopener noreferrer" aria-label="share JavaScript 学习笔记（三）：数组、数组操作以及数组方法 on twitter"
+        href="https://twitter.com/intent/tweet/?text=JavaScript%20%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%ef%bc%88%e4%b8%89%ef%bc%89%ef%bc%9a%e6%95%b0%e7%bb%84%e3%80%81%e6%95%b0%e7%bb%84%e6%93%8d%e4%bd%9c%e4%bb%a5%e5%8f%8a%e6%95%b0%e7%bb%84%e6%96%b9%e6%b3%95&amp;url=https%3a%2f%2ffang-lansheng.github.io%2fposts%2f2019-01-20-javascript-study-notes-3%2f&amp;hashtags=JavaScript%2cCourseLearning">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-253.927,424.544c135.939,0 210.268,-112.643 210.268,-210.268c0,-3.218 0,-6.437 -0.153,-9.502c14.406,-10.421 26.973,-23.448 36.935,-38.314c-13.18,5.824 -27.433,9.809 -42.452,11.648c15.326,-9.196 26.973,-23.602 32.49,-40.92c-14.252,8.429 -30.038,14.56 -46.896,17.931c-13.487,-14.406 -32.644,-23.295 -53.946,-23.295c-40.767,0 -73.87,33.104 -73.87,73.87c0,5.824 0.613,11.494 1.992,16.858c-61.456,-3.065 -115.862,-32.49 -152.337,-77.241c-6.284,10.881 -9.962,23.601 -9.962,37.088c0,25.594 13.027,48.276 32.95,61.456c-12.107,-0.307 -23.448,-3.678 -33.41,-9.196l0,0.92c0,35.862 25.441,65.594 59.311,72.49c-6.13,1.686 -12.72,2.606 -19.464,2.606c-4.751,0 -9.348,-0.46 -13.946,-1.38c9.349,29.426 36.628,50.728 68.965,51.341c-25.287,19.771 -57.164,31.571 -91.8,31.571c-5.977,0 -11.801,-0.306 -17.625,-1.073c32.337,21.15 71.264,33.41 112.95,33.41Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share JavaScript 学习笔记（三）：数组、数组操作以及数组方法 on linkedin"
+        href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2ffang-lansheng.github.io%2fposts%2f2019-01-20-javascript-study-notes-3%2f&amp;title=JavaScript%20%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%ef%bc%88%e4%b8%89%ef%bc%89%ef%bc%9a%e6%95%b0%e7%bb%84%e3%80%81%e6%95%b0%e7%bb%84%e6%93%8d%e4%bd%9c%e4%bb%a5%e5%8f%8a%e6%95%b0%e7%bb%84%e6%96%b9%e6%b3%95&amp;summary=JavaScript%20%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%ef%bc%88%e4%b8%89%ef%bc%89%ef%bc%9a%e6%95%b0%e7%bb%84%e3%80%81%e6%95%b0%e7%bb%84%e6%93%8d%e4%bd%9c%e4%bb%a5%e5%8f%8a%e6%95%b0%e7%bb%84%e6%96%b9%e6%b3%95&amp;source=https%3a%2f%2ffang-lansheng.github.io%2fposts%2f2019-01-20-javascript-study-notes-3%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-288.985,423.278l0,-225.717l-75.04,0l0,225.717l75.04,0Zm270.539,0l0,-129.439c0,-69.333 -37.018,-101.586 -86.381,-101.586c-39.804,0 -57.634,21.891 -67.617,37.266l0,-31.958l-75.021,0c0.995,21.181 0,225.717 0,225.717l75.02,0l0,-126.056c0,-6.748 0.486,-13.492 2.474,-18.315c5.414,-13.475 17.767,-27.434 38.494,-27.434c27.135,0 38.007,20.707 38.007,51.037l0,120.768l75.024,0Zm-307.552,-334.556c-25.674,0 -42.448,16.879 -42.448,39.002c0,21.658 16.264,39.002 41.455,39.002l0.484,0c26.165,0 42.452,-17.344 42.452,-39.002c-0.485,-22.092 -16.241,-38.954 -41.943,-39.002Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share JavaScript 学习笔记（三）：数组、数组操作以及数组方法 on reddit"
+        href="https://reddit.com/submit?url=https%3a%2f%2ffang-lansheng.github.io%2fposts%2f2019-01-20-javascript-study-notes-3%2f&title=JavaScript%20%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%ef%bc%88%e4%b8%89%ef%bc%89%ef%bc%9a%e6%95%b0%e7%bb%84%e3%80%81%e6%95%b0%e7%bb%84%e6%93%8d%e4%bd%9c%e4%bb%a5%e5%8f%8a%e6%95%b0%e7%bb%84%e6%96%b9%e6%b3%95">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-3.446,265.638c0,-22.964 -18.616,-41.58 -41.58,-41.58c-11.211,0 -21.361,4.457 -28.841,11.666c-28.424,-20.508 -67.586,-33.757 -111.204,-35.278l18.941,-89.121l61.884,13.157c0.756,15.734 13.642,28.29 29.56,28.29c16.407,0 29.706,-13.299 29.706,-29.701c0,-16.403 -13.299,-29.702 -29.706,-29.702c-11.666,0 -21.657,6.792 -26.515,16.578l-69.105,-14.69c-1.922,-0.418 -3.939,-0.042 -5.585,1.036c-1.658,1.073 -2.811,2.761 -3.224,4.686l-21.152,99.438c-44.258,1.228 -84.046,14.494 -112.837,35.232c-7.468,-7.164 -17.589,-11.591 -28.757,-11.591c-22.965,0 -41.585,18.616 -41.585,41.58c0,16.896 10.095,31.41 24.568,37.918c-0.639,4.135 -0.99,8.328 -0.99,12.576c0,63.977 74.469,115.836 166.33,115.836c91.861,0 166.334,-51.859 166.334,-115.836c0,-4.218 -0.347,-8.387 -0.977,-12.493c14.564,-6.47 24.735,-21.034 24.735,-38.001Zm-119.474,108.193c-20.27,20.241 -59.115,21.816 -70.534,21.816c-11.428,0 -50.277,-1.575 -70.522,-21.82c-3.007,-3.008 -3.007,-7.882 0,-10.889c3.003,-2.999 7.882,-3.003 10.885,0c12.777,12.781 40.11,17.317 59.637,17.317c19.522,0 46.86,-4.536 59.657,-17.321c3.016,-2.999 7.886,-2.995 10.885,0.008c3.008,3.011 3.003,7.882 -0.008,10.889Zm-5.23,-48.781c-16.373,0 -29.701,-13.324 -29.701,-29.698c0,-16.381 13.328,-29.714 29.701,-29.714c16.378,0 29.706,13.333 29.706,29.714c0,16.374 -13.328,29.698 -29.706,29.698Zm-160.386,-29.702c0,-16.381 13.328,-29.71 29.714,-29.71c16.369,0 29.689,13.329 29.689,29.71c0,16.373 -13.32,29.693 -29.689,29.693c-16.386,0 -29.714,-13.32 -29.714,-29.693Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share JavaScript 学习笔记（三）：数组、数组操作以及数组方法 on facebook"
+        href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2ffang-lansheng.github.io%2fposts%2f2019-01-20-javascript-study-notes-3%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-106.468,0l0,-192.915l66.6,0l12.672,-82.621l-79.272,0l0,-53.617c0,-22.603 11.073,-44.636 46.58,-44.636l36.042,0l0,-70.34c0,0 -32.71,-5.582 -63.982,-5.582c-65.288,0 -107.96,39.569 -107.96,111.204l0,62.971l-72.573,0l0,82.621l72.573,0l0,192.915l-191.104,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share JavaScript 学习笔记（三）：数组、数组操作以及数组方法 on whatsapp"
+        href="https://api.whatsapp.com/send?text=JavaScript%20%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%ef%bc%88%e4%b8%89%ef%bc%89%ef%bc%9a%e6%95%b0%e7%bb%84%e3%80%81%e6%95%b0%e7%bb%84%e6%93%8d%e4%bd%9c%e4%bb%a5%e5%8f%8a%e6%95%b0%e7%bb%84%e6%96%b9%e6%b3%95%20-%20https%3a%2f%2ffang-lansheng.github.io%2fposts%2f2019-01-20-javascript-study-notes-3%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-58.673,127.703c-33.842,-33.881 -78.847,-52.548 -126.798,-52.568c-98.799,0 -179.21,80.405 -179.249,179.234c-0.013,31.593 8.241,62.428 23.927,89.612l-25.429,92.884l95.021,-24.925c26.181,14.28 55.659,21.807 85.658,21.816l0.074,0c98.789,0 179.206,-80.413 179.247,-179.243c0.018,-47.895 -18.61,-92.93 -52.451,-126.81Zm-126.797,275.782l-0.06,0c-26.734,-0.01 -52.954,-7.193 -75.828,-20.767l-5.441,-3.229l-56.386,14.792l15.05,-54.977l-3.542,-5.637c-14.913,-23.72 -22.791,-51.136 -22.779,-79.287c0.033,-82.142 66.867,-148.971 149.046,-148.971c39.793,0.014 77.199,15.531 105.329,43.692c28.128,28.16 43.609,65.592 43.594,105.4c-0.034,82.149 -66.866,148.983 -148.983,148.984Zm81.721,-111.581c-4.479,-2.242 -26.499,-13.075 -30.604,-14.571c-4.105,-1.495 -7.091,-2.241 -10.077,2.241c-2.986,4.483 -11.569,14.572 -14.182,17.562c-2.612,2.988 -5.225,3.364 -9.703,1.12c-4.479,-2.241 -18.91,-6.97 -36.017,-22.23c-13.314,-11.876 -22.304,-26.542 -24.916,-31.026c-2.612,-4.484 -0.279,-6.908 1.963,-9.14c2.016,-2.007 4.48,-5.232 6.719,-7.847c2.24,-2.615 2.986,-4.484 4.479,-7.472c1.493,-2.99 0.747,-5.604 -0.374,-7.846c-1.119,-2.241 -10.077,-24.288 -13.809,-33.256c-3.635,-8.733 -7.327,-7.55 -10.077,-7.688c-2.609,-0.13 -5.598,-0.158 -8.583,-0.158c-2.986,0 -7.839,1.121 -11.944,5.604c-4.105,4.484 -15.675,15.32 -15.675,37.364c0,22.046 16.048,43.342 18.287,46.332c2.24,2.99 31.582,48.227 76.511,67.627c10.685,4.615 19.028,7.371 25.533,9.434c10.728,3.41 20.492,2.929 28.209,1.775c8.605,-1.285 26.499,-10.833 30.231,-21.295c3.732,-10.464 3.732,-19.431 2.612,-21.298c-1.119,-1.869 -4.105,-2.99 -8.583,-5.232Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share JavaScript 学习笔记（三）：数组、数组操作以及数组方法 on telegram"
+        href="https://telegram.me/share/url?text=JavaScript%20%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%ef%bc%88%e4%b8%89%ef%bc%89%ef%bc%9a%e6%95%b0%e7%bb%84%e3%80%81%e6%95%b0%e7%bb%84%e6%93%8d%e4%bd%9c%e4%bb%a5%e5%8f%8a%e6%95%b0%e7%bb%84%e6%96%b9%e6%b3%95&amp;url=https%3a%2f%2ffang-lansheng.github.io%2fposts%2f2019-01-20-javascript-study-notes-3%2f">
+        <svg version="1.1" xml:space="preserve" viewBox="2 2 28 28">
+            <path
+                d="M26.49,29.86H5.5a3.37,3.37,0,0,1-2.47-1,3.35,3.35,0,0,1-1-2.47V5.48A3.36,3.36,0,0,1,3,3,3.37,3.37,0,0,1,5.5,2h21A3.38,3.38,0,0,1,29,3a3.36,3.36,0,0,1,1,2.46V26.37a3.35,3.35,0,0,1-1,2.47A3.38,3.38,0,0,1,26.49,29.86Zm-5.38-6.71a.79.79,0,0,0,.85-.66L24.73,9.24a.55.55,0,0,0-.18-.46.62.62,0,0,0-.41-.17q-.08,0-16.53,6.11a.59.59,0,0,0-.41.59.57.57,0,0,0,.43.52l4,1.24,1.61,4.83a.62.62,0,0,0,.63.43.56.56,0,0,0,.4-.17L16.54,20l4.09,3A.9.9,0,0,0,21.11,23.15ZM13.8,20.71l-1.21-4q8.72-5.55,8.78-5.55c.15,0,.23,0,.23.16a.18.18,0,0,1,0,.06s-2.51,2.3-7.52,6.8Z" />
+        </svg>
+    </a>
+</div>
+
   </footer>
 </article>
     </main>
     
 <footer class="footer">
-    <span>&copy; 2022 <a href="https://fang-lansheng.github.io">My-Thistledown</a></span>
+    <span>&copy; 2022 <a href="https://fang-lansheng.github.io">Jifan&#39;s Blog</a></span>
     <span>
         Powered by
         <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
@@ -956,6 +1108,53 @@
         }
     })
 
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerText = 'copy';
+
+        function copyingDone() {
+            copybutton.innerText = 'copied!';
+            setTimeout(() => {
+                copybutton.innerText = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
 </script>
 </body>
 

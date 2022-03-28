@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Jekyll on My-Thistledown</title>
+    <title>Jekyll on Jifan&#39;s Blog</title>
     <link>https://fang-lansheng.github.io/tags/jekyll/</link>
-    <description>Recent content in Jekyll on My-Thistledown</description>
+    <description>Recent content in Jekyll on Jifan&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 06 Jan 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://fang-lansheng.github.io/tags/jekyll/index.xml" rel="self" type="application/rss+xml" />
@@ -20,7 +20,7 @@
 点击 Register application 后，就会得到你的 Client ID 和 Client Secret。
 在 Jekyll 中添加 Gitalk 在你需要添加评论系统的地方，一般是 _layout/ 目录下的 post.html：
 在 Post Header 中，引入 gitalk.css 和 gitalk.min.js ：
- &amp;lt;link rel=&amp;#34;stylesheet&amp;#34; href=&amp;#34;https://unpkg.</description>
+&amp;lt;link rel=&amp;#34;stylesheet&amp;#34; href=&amp;#34;https://unpkg.</description>
     </item>
     
     <item>
