@@ -16,7 +16,7 @@ PTA | 程序设计类实验辅助教学平台
 bool cmp(Student a, Student b) { if (a.score != b.score) return a.score &gt; b.score; // 先按分数从高到低排序  else return strcmp(a.id, b.id) &lt; 0;	// 若分数相同，则按准考证号从小到大排序 } 算法本身分为三步：
  按考场读入各考生的信息，并对当前读入考场的所有考生进行排序。之后将该考场的所有考生的排名写入其结构体中。 对所有考生进行排序 按照排序，一遍计算总排名，一遍输出信息  参考代码
 #include &lt;cstdio&gt;#include &lt;cstring&gt;#include &lt;algorithm&gt; using namespace std; struct Student { char id[15];	// 准考证号  int score;	// 分数  int location_number;	// 考场号  int local_rank;	// 考场内排名 }stu[30010]; bool cmp(Student a, Student b) { if (a.">
-<meta name="author" content="Thistledown">
+<meta name="author" content="jifan">
 <link rel="canonical" href="https://jifan.tech/posts/2019-03-16-pat-a-1/" />
 <link crossorigin="anonymous" href="/assets/css/stylesheet.min.48a18943c2fc15c38a372b8dde1f5e5dc0bc64fa6cb90f5a817d2f8c76b7f3ae.css" integrity="sha256-SKGJQ8L8FcOKNyuN3h9eXcC8ZPpsuQ9agX0vjHa3864=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.min.4dcb3c4f38462f66c6b6137227726f5543cb934cca9788f041c087e374491df2.js" integrity="sha256-Tcs8TzhGL2bGthNyJ3JvVUPLk0zKl4jwQcCH43RJHfI="
@@ -129,7 +129,7 @@ bool cmp(Student a, Student b) { if (a.score != b.score) return a.score &gt; b.s
   "dateModified": "2019-03-16T00:00:00Z",
   "author":{
     "@type": "Person",
-    "name": "Thistledown"
+    "name": "jifan"
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
@@ -213,7 +213,7 @@ bool cmp(Student a, Student b) { if (a.score != b.score) return a.score &gt; b.s
     <h1 class="post-title">
       PAT Advanced Level Practice (I)
     </h1>
-    <div class="post-meta"><span title='2019-03-16 00:00:00 +0000 UTC'>March 16, 2019</span>&nbsp;·&nbsp;Thistledown
+    <div class="post-meta"><span title='2019-03-16 00:00:00 +0000 UTC'>March 16, 2019</span>&nbsp;·&nbsp;jifan
 
 </div>
   </header> <div class="toc">

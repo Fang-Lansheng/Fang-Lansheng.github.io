@@ -145,7 +145,7 @@ bool cmp(Student a, Student b) { if (a.score != b.score) return a.score &gt; b.s
  按考场读入各考生的信息，并对当前读入考场的所有考生进行排序。之后将该考场的所有考生的排名写入其结构体中。 对所有考生进行排序 按照排序，一遍计算总排名，一遍输出信息  参考代码
 #include &lt;cstdio&gt;#include &lt;cstring&gt;#include &lt;algorithm&gt; using namespace std; struct Student { char id[15];	// 准考证号  int score;	// 分数  int location_number;	// 考场号  int local_rank;	// 考场内排名 }stu[30010]; bool cmp(Student a, Student b) { if (a....</p>
   </section>
-  <footer class="entry-footer"><span title='2019-03-16 00:00:00 +0000 UTC'>March 16, 2019</span>&nbsp;·&nbsp;Thistledown</footer>
+  <footer class="entry-footer"><span title='2019-03-16 00:00:00 +0000 UTC'>March 16, 2019</span>&nbsp;·&nbsp;jifan</footer>
   <a class="entry-link" aria-label="post link to PAT Advanced Level Practice (I)" href="https://jifan.tech/posts/2019-03-16-pat-a-1/"></a>
 </article>
 
@@ -163,7 +163,7 @@ PTA | 程序设计类实验辅助教学平台
 #include &lt;stdio.h&gt;int main(){ int n, step = 0; scanf(&#34;%d&#34;, &amp;n); // 输入题目给出的 n  while (n != 1) { if (n % 2 == 0) n /= 2; else n = (3 * n &#43; 1) / 2; step&#43;&#43;; } printf(&#34;%d\n&#34;, step); return 0; } PAT B 1002 解题思路
  题目要求读入一个小于 10e100 的整数 （如，1234567890987654321123456789），它已经超出了 int (-2^31 ~ 2^31 - 1) 或者 long int (-2^63 ~ 2^63 - 1) 的范围，因此需要将其当做字符串读入。 将读入字符串的每一位“相加”即可得到 n 的各位数字之和 sum 用 / 和 % 方法获取 sum 的每一位  参考代码...</p>
   </section>
-  <footer class="entry-footer"><span title='2019-02-28 00:00:00 +0000 UTC'>February 28, 2019</span>&nbsp;·&nbsp;Thistledown</footer>
+  <footer class="entry-footer"><span title='2019-02-28 00:00:00 +0000 UTC'>February 28, 2019</span>&nbsp;·&nbsp;jifan</footer>
   <a class="entry-link" aria-label="post link to PAT Basic Level Practice (I)" href="https://jifan.tech/posts/2019-02-28-pat-basic-level-practice-1/"></a>
 </article>
     </main>

@@ -12,7 +12,7 @@
  尺度空间极值探测 (scale-space extrema detection)：通过高斯差分函数搜索所有尺度和图像位置，以识别对于尺度和方向不变的潜在兴趣点。 关键点精确定位 (keypoint localization)：精确确定每个候选点的尺度与亚像素级位置，根据其稳定性阈值选择关键点。 方向分配 (orientation assignment)：基于图像的局部梯度方向，为每个特性点分配一个或多个方向角度。所有后续的操作都是相对于所确定下来的特征点的角度、尺度和位置的基础上进行的，因此特征点具有角度、尺度和位置的不变性。 关键点描述符 (keypoint descriptor)：在所选定的尺度空间内，测量特征点邻域区域的局部图像梯度，将这些梯度转换成一种允许局部较大程度的形状变形和亮度变化的描述符形式。  下面将对其进行详细阐释：
 1. 尺度空间极值探测 关键点检测的第一阶段是识别可以在同一对象的不同视图下重复分配的位置和尺度。通过在素有可能的尺度进行搜索，可以检测出对图像尺度不变的稳定特征。这一过程中使用到的是被称为尺度空间 (scale space) 的尺度连续函数^[1]。
 Koenderink (The structure of images, 1984) 和 Lindeberg (Detecting salient blob-like image structures and their scales with a scale-space primal sketch: A method for focus-of-attention, 1993) 已经证明，唯一可能的尺度空间核是高斯函数。因此，图像的尺度空间被定义为函数 $L(x, y, \sigma)$，它是由可变尺度高斯函数 $G(x, y, \sigma)$ 与输入图像 $I(x,y)$ 卷积得到的：">
-<meta name="author" content="Thistledown">
+<meta name="author" content="jifan">
 <link rel="canonical" href="https://jifan.tech/posts/2019-05-10-opencv-4/" />
 <link crossorigin="anonymous" href="/assets/css/stylesheet.min.48a18943c2fc15c38a372b8dde1f5e5dc0bc64fa6cb90f5a817d2f8c76b7f3ae.css" integrity="sha256-SKGJQ8L8FcOKNyuN3h9eXcC8ZPpsuQ9agX0vjHa3864=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.min.4dcb3c4f38462f66c6b6137227726f5543cb934cca9788f041c087e374491df2.js" integrity="sha256-Tcs8TzhGL2bGthNyJ3JvVUPLk0zKl4jwQcCH43RJHfI="
@@ -117,7 +117,7 @@ Koenderink (The structure of images, 1984) 和 Lindeberg (Detecting salient blob
   "dateModified": "2019-05-10T00:00:00Z",
   "author":{
     "@type": "Person",
-    "name": "Thistledown"
+    "name": "jifan"
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
@@ -201,7 +201,7 @@ Koenderink (The structure of images, 1984) 和 Lindeberg (Detecting salient blob
     <h1 class="post-title">
       OpenCV——SIFT 算法及源码分析（1）：原理简介
     </h1>
-    <div class="post-meta"><span title='2019-05-10 00:00:00 +0000 UTC'>May 10, 2019</span>&nbsp;·&nbsp;Thistledown
+    <div class="post-meta"><span title='2019-05-10 00:00:00 +0000 UTC'>May 10, 2019</span>&nbsp;·&nbsp;jifan
 
 </div>
   </header> <div class="toc">
