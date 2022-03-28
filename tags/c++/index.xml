@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Jifan&#39;s Blog</title>
-    <link>https://jifan.tech/</link>
-    <description>Recent content on Jifan&#39;s Blog</description>
+    <title>C&#43;&#43; on Jifan&#39;s Blog</title>
+    <link>https://jifan.tech/tags/c&#43;&#43;/</link>
+    <description>Recent content in C&#43;&#43; on Jifan&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 10 May 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://jifan.tech/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 10 May 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://jifan.tech/tags/c++/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>OpenCV 源码分析：SIFT 算法及原理简介</title>
       <link>https://jifan.tech/posts/2019-05-10/opencv-4/</link>
@@ -37,21 +37,6 @@ $$ x=x&amp;rsquo;-x_0, \quad y=y&amp;rsquo;-y_0 \ r^2 = x^2 + y^2 $$
 $$ distortion_coeffients = (\begin{matrix}k_1&amp;amp;k_2&amp;amp;p_1&amp;amp;p_2&amp;amp;k_3\end{matrix}) $$
 对于影像坐标和物空间坐标的转换关系为：
 $$ \begin{bmatrix}x\y\f\end{bmatrix}= K \begin{bmatrix}X\Y\Z\end{bmatrix}= \begin{bmatrix}f_x&amp;amp;0&amp;amp;c_x\0&amp;amp;f_y&amp;amp;c_y\0&amp;amp;0&amp;amp;1\end{bmatrix} \begin{bmatrix}X\Y\Z\end{bmatrix} $$</description>
-    </item>
-    
-    <item>
-      <title>线性代数：特征值分解、奇异值分解与 RQ 分解</title>
-      <link>https://jifan.tech/posts/2019-04-12/linear-algebra-1/</link>
-      <pubDate>Fri, 12 Apr 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://jifan.tech/posts/2019-04-12/linear-algebra-1/</guid>
-      <description>特征值分解 1. 特征值与特征向量 在线性代数中，对于 $n$ 阶方阵 $A$，如果存在某个数 $\lambda$ 及某个 $n$ 维非零列向量 $v$，使得
-$$ Av = \lambda v $$
-则称 $\lambda$ 是方阵 $A$ 的一个特征值，$v$ 是方阵 $A$ 的属于特征值 $\lambda$ 的一个特征向量。
-对上式进行变换：
-$$ \begin{align} Av-\lambda v &amp;amp;= \overrightarrow{0} \ Av-\lambda I v &amp;amp;= \overrightarrow{0} \ (A - \lambda I)v &amp;amp;= \overrightarrow{0} \ (\lambda I - A)v &amp;amp;= \overrightarrow{0} \end{align} $$
-则称
- $\lambda E - A$ 为 $A$ 的特征矩阵 行列式 $f(\lambda) = |\lambda E- A|$ 为 $A$ 的特征多项式 $|\lambda E - A| = 0$ 是 $A$ 的特征方程 $(\lambda E - A)v = \overrightarrow{0}$ 是 $A$ 关于该特征值 $\lambda$ 的齐次线性方程组  $A$ 的主对角线上元素之和称为矩阵的迹（trace），记为 $tr(A)$，即</description>
     </item>
     
     <item>
@@ -108,26 +93,6 @@ $$ \begin{cases} V_1 &amp;amp;=&amp;amp; \sum_{i = -k}^{k-1}(g_{c+i,r}-g_{c+i+1,
 typedef wchar_t short int; 所以 wchar_t 实际上的空间和 short int 一样。 一些基本类型可以使用一个或多个类型修饰符进行修饰：
  signed unsigned short long  2.</description>
     </item>
-    
-    <item>
-      <title>About</title>
-      <link>https://jifan.tech/about/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://jifan.tech/about/</guid>
-      <description>about</description>
-    </item>
-    
-    
-    <item>
-      <title>Projects</title>
-      <link>https://jifan.tech/projects/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://jifan.tech/projects/</guid>
-      <description>projects</description>
-    </item>
-    
     
   </channel>
 </rss>
