@@ -11,7 +11,7 @@
 在 OpenCV 中可用于边缘检测的算子主要有：
  Canny 算子 Sobel 算子 Laplace 算子  Canny 算子 理论 Canny 算法是由 John F. Canny 于 1987 年在 A computational approach to edge detection 一文提出来的，它旨在满足三个主要标准：
  低错误率 (Low error rate)：意味着只检测实际存在的边缘。 高定位性 (Good localization)：将检测到的边缘像素与实际边缘像素之间的距离最小化。 最小响应 (Minimal response)：每个边缘只有一个检测器响应。  Canny 算子的步骤如下：
- 滤掉任何噪声。这一过程将使用高斯滤波器。例如，一个 5×5 的高斯内核如下所示：  $$ K = \dfrac{1}{159}\begin{bmatrix} 2 &amp; 4 &amp; 5 &amp; 4 &amp; 2 \ 4 &amp; 9 &amp; 12 &amp; 9 &amp; 4 \ 5 &amp; 12 &amp; 15 &amp; 12 &amp; 5 \ 4 &amp; 9 &amp; 12 &amp; 9 &amp; 4 \ 2 &amp; 4 &amp; 5 &amp; 4 &amp; 2 \end{bmatrix} $$">
+ 滤掉任何噪声。这一过程将使用高斯滤波器。例如，一个 5×5 的高斯内核如下所示：  $$ K = \dfrac{1}{159} \begin{bmatrix} 2 &amp; 4 &amp; 5 &amp; 4 &amp; 2 \cr 4 &amp; 9 &amp; 12 &amp; 9 &amp; 4 \cr 5 &amp; 12 &amp; 15 &amp; 12 &amp; 5 \cr 4 &amp; 9 &amp; 12 &amp; 9 &amp; 4 \cr 2 &amp; 4 &amp; 5 &amp; 4 &amp; 2 \end{bmatrix} $$">
 <meta name="author" content="Jifan">
 <link rel="canonical" href="https://jifan.tech/posts/2019-03-19/opencv-1/" />
 <link crossorigin="anonymous" href="/assets/css/stylesheet.min.48a18943c2fc15c38a372b8dde1f5e5dc0bc64fa6cb90f5a817d2f8c76b7f3ae.css" integrity="sha256-SKGJQ8L8FcOKNyuN3h9eXcC8ZPpsuQ9agX0vjHa3864=" rel="preload stylesheet" as="style">
@@ -65,7 +65,7 @@
 在 OpenCV 中可用于边缘检测的算子主要有：
  Canny 算子 Sobel 算子 Laplace 算子  Canny 算子 理论 Canny 算法是由 John F. Canny 于 1987 年在 A computational approach to edge detection 一文提出来的，它旨在满足三个主要标准：
  低错误率 (Low error rate)：意味着只检测实际存在的边缘。 高定位性 (Good localization)：将检测到的边缘像素与实际边缘像素之间的距离最小化。 最小响应 (Minimal response)：每个边缘只有一个检测器响应。  Canny 算子的步骤如下：
- 滤掉任何噪声。这一过程将使用高斯滤波器。例如，一个 5×5 的高斯内核如下所示：  $$ K = \dfrac{1}{159}\begin{bmatrix} 2 &amp; 4 &amp; 5 &amp; 4 &amp; 2 \ 4 &amp; 9 &amp; 12 &amp; 9 &amp; 4 \ 5 &amp; 12 &amp; 15 &amp; 12 &amp; 5 \ 4 &amp; 9 &amp; 12 &amp; 9 &amp; 4 \ 2 &amp; 4 &amp; 5 &amp; 4 &amp; 2 \end{bmatrix} $$" />
+ 滤掉任何噪声。这一过程将使用高斯滤波器。例如，一个 5×5 的高斯内核如下所示：  $$ K = \dfrac{1}{159} \begin{bmatrix} 2 &amp; 4 &amp; 5 &amp; 4 &amp; 2 \cr 4 &amp; 9 &amp; 12 &amp; 9 &amp; 4 \cr 5 &amp; 12 &amp; 15 &amp; 12 &amp; 5 \cr 4 &amp; 9 &amp; 12 &amp; 9 &amp; 4 \cr 2 &amp; 4 &amp; 5 &amp; 4 &amp; 2 \end{bmatrix} $$" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://jifan.tech/posts/2019-03-19/opencv-1/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2019-03-19T00:00:00&#43;00:00" />
@@ -77,7 +77,7 @@
 在 OpenCV 中可用于边缘检测的算子主要有：
  Canny 算子 Sobel 算子 Laplace 算子  Canny 算子 理论 Canny 算法是由 John F. Canny 于 1987 年在 A computational approach to edge detection 一文提出来的，它旨在满足三个主要标准：
  低错误率 (Low error rate)：意味着只检测实际存在的边缘。 高定位性 (Good localization)：将检测到的边缘像素与实际边缘像素之间的距离最小化。 最小响应 (Minimal response)：每个边缘只有一个检测器响应。  Canny 算子的步骤如下：
- 滤掉任何噪声。这一过程将使用高斯滤波器。例如，一个 5×5 的高斯内核如下所示：  $$ K = \dfrac{1}{159}\begin{bmatrix} 2 &amp; 4 &amp; 5 &amp; 4 &amp; 2 \ 4 &amp; 9 &amp; 12 &amp; 9 &amp; 4 \ 5 &amp; 12 &amp; 15 &amp; 12 &amp; 5 \ 4 &amp; 9 &amp; 12 &amp; 9 &amp; 4 \ 2 &amp; 4 &amp; 5 &amp; 4 &amp; 2 \end{bmatrix} $$"/>
+ 滤掉任何噪声。这一过程将使用高斯滤波器。例如，一个 5×5 的高斯内核如下所示：  $$ K = \dfrac{1}{159} \begin{bmatrix} 2 &amp; 4 &amp; 5 &amp; 4 &amp; 2 \cr 4 &amp; 9 &amp; 12 &amp; 9 &amp; 4 \cr 5 &amp; 12 &amp; 15 &amp; 12 &amp; 5 \cr 4 &amp; 9 &amp; 12 &amp; 9 &amp; 4 \cr 2 &amp; 4 &amp; 5 &amp; 4 &amp; 2 \end{bmatrix} $$"/>
 
 
 <script type="application/ld+json">
@@ -106,12 +106,12 @@
   "@type": "BlogPosting",
   "headline": "OpenCV 内置边缘检测算子：Canny，Sobel 与 Laplace",
   "name": "OpenCV 内置边缘检测算子：Canny，Sobel 与 Laplace",
-  "description": "边缘检测（Edge Detection）是图像处理的基础内容。本文中，我从OpenCV官网上下载了最新版本的 OpenCV 4.0.1（2018-12-22），借助官方文档和网络教程完成了环境配置与测试，具体步骤不再赘述。\n在 OpenCV 中可用于边缘检测的算子主要有：\n Canny 算子 Sobel 算子 Laplace 算子  Canny 算子 理论 Canny 算法是由 John F. Canny 于 1987 年在 A computational approach to edge detection 一文提出来的，它旨在满足三个主要标准：\n 低错误率 (Low error rate)：意味着只检测实际存在的边缘。 高定位性 (Good localization)：将检测到的边缘像素与实际边缘像素之间的距离最小化。 最小响应 (Minimal response)：每个边缘只有一个检测器响应。  Canny 算子的步骤如下：\n 滤掉任何噪声。这一过程将使用高斯滤波器。例如，一个 5×5 的高斯内核如下所示：  $$ K = \\dfrac{1}{159}\\begin{bmatrix} 2 \u0026amp; 4 \u0026amp; 5 \u0026amp; 4 \u0026amp; 2 \\ 4 \u0026amp; 9 \u0026amp; 12 \u0026amp; 9 \u0026amp; 4 \\ 5 \u0026amp; 12 \u0026amp; 15 \u0026amp; 12 \u0026amp; 5 \\ 4 \u0026amp; 9 \u0026amp; 12 \u0026amp; 9 \u0026amp; 4 \\ 2 \u0026amp; 4 \u0026amp; 5 \u0026amp; 4 \u0026amp; 2 \\end{bmatrix} $$",
+  "description": "边缘检测（Edge Detection）是图像处理的基础内容。本文中，我从OpenCV官网上下载了最新版本的 OpenCV 4.0.1（2018-12-22），借助官方文档和网络教程完成了环境配置与测试，具体步骤不再赘述。\n在 OpenCV 中可用于边缘检测的算子主要有：\n Canny 算子 Sobel 算子 Laplace 算子  Canny 算子 理论 Canny 算法是由 John F. Canny 于 1987 年在 A computational approach to edge detection 一文提出来的，它旨在满足三个主要标准：\n 低错误率 (Low error rate)：意味着只检测实际存在的边缘。 高定位性 (Good localization)：将检测到的边缘像素与实际边缘像素之间的距离最小化。 最小响应 (Minimal response)：每个边缘只有一个检测器响应。  Canny 算子的步骤如下：\n 滤掉任何噪声。这一过程将使用高斯滤波器。例如，一个 5×5 的高斯内核如下所示：  $$ K = \\dfrac{1}{159} \\begin{bmatrix} 2 \u0026amp; 4 \u0026amp; 5 \u0026amp; 4 \u0026amp; 2 \\cr 4 \u0026amp; 9 \u0026amp; 12 \u0026amp; 9 \u0026amp; 4 \\cr 5 \u0026amp; 12 \u0026amp; 15 \u0026amp; 12 \u0026amp; 5 \\cr 4 \u0026amp; 9 \u0026amp; 12 \u0026amp; 9 \u0026amp; 4 \\cr 2 \u0026amp; 4 \u0026amp; 5 \u0026amp; 4 \u0026amp; 2 \\end{bmatrix} $$",
   "keywords": [
     "OpenCV", "C++"
   ],
-  "articleBody": "边缘检测（Edge Detection）是图像处理的基础内容。本文中，我从OpenCV官网上下载了最新版本的 OpenCV 4.0.1（2018-12-22），借助官方文档和网络教程完成了环境配置与测试，具体步骤不再赘述。\n在 OpenCV 中可用于边缘检测的算子主要有：\n Canny 算子 Sobel 算子 Laplace 算子  Canny 算子 理论 Canny 算法是由 John F. Canny 于 1987 年在 A computational approach to edge detection 一文提出来的，它旨在满足三个主要标准：\n 低错误率 (Low error rate)：意味着只检测实际存在的边缘。 高定位性 (Good localization)：将检测到的边缘像素与实际边缘像素之间的距离最小化。 最小响应 (Minimal response)：每个边缘只有一个检测器响应。  Canny 算子的步骤如下：\n 滤掉任何噪声。这一过程将使用高斯滤波器。例如，一个 5×5 的高斯内核如下所示：  $$ K = \\dfrac{1}{159}\\begin{bmatrix} 2 \u0026 4 \u0026 5 \u0026 4 \u0026 2 \\ 4 \u0026 9 \u0026 12 \u0026 9 \u0026 4 \\ 5 \u0026 12 \u0026 15 \u0026 12 \u0026 5 \\ 4 \u0026 9 \u0026 12 \u0026 9 \u0026 4 \\ 2 \u0026 4 \u0026 5 \u0026 4 \u0026 2 \\end{bmatrix} $$\n 计算图像的强度梯度。为此，我们遵循类似于 Sobel 算子的方法：\n  在 $x$ 和 $y$ 方向应用一维卷积掩模：\n$$ G_{x} = \\begin{bmatrix} -1 \u0026 0 \u0026 +1 \\ -2 \u0026 0 \u0026 +2 \\ -1 \u0026 0 \u0026 +1 \\end{bmatrix} $$\n$$ G_{y} = \\begin{bmatrix} -1 \u0026 -2 \u0026 -1 \\ 0 \u0026 0 \u0026 0 \\ +1 \u0026 +2 \u0026 +1 \\end{bmatrix} $$\n  找到梯度强度和方向：\n$$ \\begin{array}{l} G = \\sqrt{ G_{x}^{2} + G_{y}^{2} } \\ \\theta = \\arctan(\\dfrac{ G_{y} }{ G_{x} }) \\end{array} $$\n将梯度方向四舍五入为四个可能的角度之一（即 0°，45°，90° 或 135°）。\n    非极大值抑制。删除非边缘部分的像素，仅保留作为候选边缘的细线。\n  滞后阈值（Hysteresis）。应用两个阈值（上限 upper 和下限 lower ）：\n 如果像素梯度高于上限，则将其视为边缘 如果像素梯度低于下限，则舍弃 如果像素梯度在两个阈值之间，则仅当它连接到高于上阈值的像素时才将其作为边缘   建议的阈值：$2:1 \\leq upper : lower \\leq 3:1​$\n   应用 OpenCV 中 Canny 函数的用法为：\nvoid cv::Canny(\tinputArray\timage, OutputArray\tedges, double\tthreshold1, double\tthreshold2, int\tapertureSize = 3, bool\tL2gradient = false )  image：输入图像，即源图像，Mat 类单通道8位图像。 edges：输出的边缘图，需要和源图片有一样的尺寸和类型。 threshold1：第一个滞后性阈值。 threshold2：第二个滞后性阈值。 apertureSize：表示应用 Sobel 算子的孔径大小，其有默认值 3。 L2gradient：一个计算图像梯度幅值的标识，有默认值 false。  具体实现：\n#include #include #include  using namespace cv; int main() { Mat src, src_gray; src = imread(\"lenna.tif\"); // 读取图像 \tif( src.empty() ) { printf(\"Error: can not open the image.\\n\"); return 1; } cvtColor(src, src_gray, COLOR_BGR2GRAY); // Canny 算子 \tMat dst_canny = src.clone(); // 创建图像副本 \tCanny(src, dst_canny, 150, 100); Mat dst_canny_2, edges_canny; dst_canny_2.create(src.size(), src.type()); blur(src_gray, edges_canny, Size(3, 3)); // 用 3×3 内核降噪 \tCanny(edges_canny, edges_canny, 3, 3 * 3, 3); // 运行 Canny 算子 \tdst_canny_2 = Scalar::all(0); // 使用 Canny 算子输出的边缘图 edges_canny 作为掩码， \t// 来将原图 src 拷贝到输出图像 dst_canny_2 中 \tsrc.copyTo(dst_canny_2, edges_canny); imshow(\"边缘提取-原图\", src); waitKey(2); imshow(\"边缘提取-Canny算子\", dst_canny); waitKey(1); imshow(\"边缘提取-Canny算子【高级实现】\", dst_canny_2); waitKey(0); return 0; } 结果如下：\nSobel 算子 理论  Sobel 算子是一个离散微分算子。它计算图像强度函数的梯度的近似值。 Sobel 算子结合了高斯平滑和差分。  假设要操作的图像为 $I$：\n  分别计算两个方向的导数：\n  **水平变化：**将 $I$ 与一个奇数大小（size）的内核 $G_x$ 进行卷积。比如，当内核大小为 3 时，$G_x$ 为：\n$$ G_{x} = \\begin{bmatrix} -1 \u0026 0 \u0026 +1 \\ -2 \u0026 0 \u0026 +2 \\ -1 \u0026 0 \u0026 +1 \\end{bmatrix} * I $$\n  **垂直变化：**将 $I$ 与一个奇数大小（size）的内核 $G_y$ 进行卷积。比如，当内核大小为 3 时，$G_y$ 为：\n$$ G_{y} = \\begin{bmatrix} -1 \u0026 -2 \u0026 -1 \\ 0 \u0026 0 \u0026 0 \\ +1 \u0026 +2 \u0026 +1 \\end{bmatrix} * I $$\n    在图像的每个点，我们通过组合上面的两个结果来计算该点梯度的近似值：\n$$ G = \\sqrt{ G_{x}^{2} + G_{y}^{2} } $$\n虽然有时会使用以下更简单的公式：\n$$ G = |G_{x}| + |G_{y}| $$\n   注意：\n当内核的大小（size）为 3 时，上述 Sobel 内核可能会有很明显的误差（毕竟 Sobel 算子只是计算导数的近似值）。OpenCV 通过使用 Scharr() 函数解决了大小为 3 的内核存在的这种误差。这比标准 Sobel 函数更快但更准确。具体内核如下：\n$$ G_{x} = \\begin{bmatrix} -3 \u0026 0 \u0026 +3 \\ -10 \u0026 0 \u0026 +10 \\ -3 \u0026 0 \u0026 +3 \\end{bmatrix} $$\n$$ G_{y} = \\begin{bmatrix} -3 \u0026 -10 \u0026 -3 \\ 0 \u0026 0 \u0026 0 \\ +3 \u0026 +10 \u0026 +3 \\end{bmatrix} $$\n 应用 OpenCV 中 Sobel 函数的用法为：\nvoid cv::Sobel( InputArray src, OutputArray dst, int ddepth, int dx, int dy, int ksize = 3, double scale = 1, double delta = 0, int borderType = BORDER_DEFAULT )\t  src：输入图像\n  dst：与 src 具有相同大小和相同通道数的输出图像\n  ddepth：输出图像的深度，支持如下 src.depth() 和 ddepth 的组合：\n   Input depth (src.depth()) Output depth (ddepth)     CV_8U -1/CV_16S/CV_32F/CV_64F   CV_16U / CV_16S -1/CV_32F/CV_64F   CV_32F -1/CV_32F/CV_64F   CV_64F -1/CV_64F      dx：x 方向上的差分阶数。\n  dy：y 方向上的差分阶数。\n  ksize：Sobel 内核的大小；必须取 1，3，5 或 7。\n  scale：计算导数值时可选的缩放因子，默认值是1，表示默认情况下是没有应用缩放的。\n  delta：表示在结果存入 dst 之前可选的 delta 值。\n  borderType：边界模式，默认值为BORDER_DEFAULT。详见 BorderTypes。\n  因为 Sobel 算子结合了高斯平滑和差分，因此会具有更多的抗噪性。\n具体实现：\n#include #include #include  using namespace cv; int main() { Mat src = imread(\"lenna.tif\");\t// 读取图像 \tif( src.empty() ) { printf(\"Error: can not open the image.\\n\"); return 1; } Mat src_blur, src_blur_gray, dst_sobel; // 高斯滤波器去噪（kernel size = 3） \tGaussianBlur(src, src_blur, Size(3, 3), 0, 0, BORDER_DEFAULT); // 将图像转换为灰度图像 \tcvtColor(src_blur, src_blur_gray, COLOR_BGR2GRAY); Mat grad_x, grad_y; Mat abs_grad_x, abs_grad_y; // 分别求 X、Y 方向梯度 \tSobel(src_blur_gray, grad_x, CV_16S, 1, 0, 3, 1, 1, BORDER_DEFAULT);\tSobel(src_blur_gray, grad_y, CV_16S, 0, 1, 3, 1, 1, BORDER_DEFAULT); // 转换回 CV_8U \tconvertScaleAbs(grad_x, abs_grad_x); convertScaleAbs(grad_y, abs_grad_y); // 合并梯度 \taddWeighted(abs_grad_x, 0.5, abs_grad_y, 0.5, 0, dst_sobel); imshow(\"边缘提取-原图\", src); waitKey(3); imshow(\"边缘提取-Sobel算子-X方向\", abs_grad_x); waitKey(2); imshow(\"边缘提取-Sobel算子-Y方向\", abs_grad_y); waitKey(1); imshow(\"边缘提取-Sobel算子-整体方向\", dst_sobel); waitKey(0); return 0; } Laplace 算子 理论   根据数字图像处理相关知识，我们知道二阶导数可用于检测边缘。由于图像是二维（2D）的，我们需要在两个方向上进行求导。\n  Laplace 算子定义为：\n$$ Laplace(f) = \\dfrac{\\partial^{2} f}{\\partial x^{2}} + \\dfrac{\\partial^{2} f}{\\partial y^{2}} $$\n  在 OpenCV 中，Laplace 算子通过函数 Laplacian() 实现。实际上，由于拉普拉斯算子利用了图像的梯度，因此它在内部调用 Sobel 算子来执行其运算，\n  应用 OpenCV 中 Laplacian() 函数的用法为：\nvoid cv::Laplacian( InputArray src, OutputArray dst, int ddepth, int ksize = 1, double scale = 1, double delta = 0, int borderType = BORDER_DEFAULT )\t src：输入图像 dst：与 src 具有相同大小和相同通道数的输出图像 ddepth：输出图像的深度。 ksize：用于计算二阶导数的滤波器的孔径尺寸；它可以是 FILTER_SCHARR、1、3、5 或 7。 scale：计算拉普拉斯值时可选的比例因子，默认值是1，表示默认情况下是没有应用缩放的。 delta：表示在结果存入 dst 之前可选的 delta 值。 borderType：边界模式，默认值为BORDER_DEFAULT。详见 BorderTypes。  Laplacian() 函数主要利用 Sobel 算子进行运算。它通过加上 Sobel 算子运算出的图像 $x$ 方向和 $y$ 方向上的导数，来得到输入图像的拉普拉斯变换结果。当 ksize == 1 时，拉普拉斯函数的滤波窗口为：\n$$ \\begin{bmatrix} 0 \u0026 1 \u0026 0 \\ 1 \u0026 -4 \u0026 1 \\ 0 \u0026 1 \u0026 0 \\end{bmatrix} $$\n具体实现：\n#include #include #include  using namespace cv; int main() { // 读取图像 \tMat src = imread(\"lenna.tif\");\tif( src.empty() ) { printf(\"Error: can not open the image.\\n\"); return 1; } // Laplace 算子 \tMat src_blur, src_blur_gray; Mat dst_laplace, abs_dst_laplace; // 高斯滤波器去噪（kernel size = 3） \tGaussianBlur(src, src_blur, Size(3, 3), 0, 0, BORDER_DEFAULT); // 将图像转换为灰度图像 \tcvtColor(src_blur, src_blur_gray, COLOR_BGR2GRAY); // 应用 Laplace 算子 \tLaplacian(src_blur_gray, dst_laplace, CV_16S, 3, 1, 0, BORDER_DEFAULT); // 计算绝对值，将结果转换为 8 位 \tconvertScaleAbs(dst_laplace, abs_dst_laplace); imshow(\"边缘提取-原图\", src); waitKey(1); imshow(\"边缘检测-Laplace算子\", abs_dst_laplace); waitKey(0); return 0; }  参考：\n 【OpenCV入门教程之十二】OpenCV边缘检测 - 毛星云（浅墨）的专栏 - CSDN博客 OpenCV: Image Filtering OpenCV: Image Processing (imgproc module) OpenCV: Canny Edge Detector OpenCV: Sobel Derivatives OpenCV: Laplace Operator   ",
-  "wordCount" : "888",
+  "articleBody": "边缘检测（Edge Detection）是图像处理的基础内容。本文中，我从OpenCV官网上下载了最新版本的 OpenCV 4.0.1（2018-12-22），借助官方文档和网络教程完成了环境配置与测试，具体步骤不再赘述。\n在 OpenCV 中可用于边缘检测的算子主要有：\n Canny 算子 Sobel 算子 Laplace 算子  Canny 算子 理论 Canny 算法是由 John F. Canny 于 1987 年在 A computational approach to edge detection 一文提出来的，它旨在满足三个主要标准：\n 低错误率 (Low error rate)：意味着只检测实际存在的边缘。 高定位性 (Good localization)：将检测到的边缘像素与实际边缘像素之间的距离最小化。 最小响应 (Minimal response)：每个边缘只有一个检测器响应。  Canny 算子的步骤如下：\n 滤掉任何噪声。这一过程将使用高斯滤波器。例如，一个 5×5 的高斯内核如下所示：  $$ K = \\dfrac{1}{159} \\begin{bmatrix} 2 \u0026 4 \u0026 5 \u0026 4 \u0026 2 \\cr 4 \u0026 9 \u0026 12 \u0026 9 \u0026 4 \\cr 5 \u0026 12 \u0026 15 \u0026 12 \u0026 5 \\cr 4 \u0026 9 \u0026 12 \u0026 9 \u0026 4 \\cr 2 \u0026 4 \u0026 5 \u0026 4 \u0026 2 \\end{bmatrix} $$\n 计算图像的强度梯度。为此，我们遵循类似于 Sobel 算子的方法：\n  在 $x$ 和 $y$ 方向应用一维卷积掩模：\n$$ G_{x} = \\begin{bmatrix} -1 \u0026 0 \u0026 +1 \\cr -2 \u0026 0 \u0026 +2 \\cr -1 \u0026 0 \u0026 +1 \\end{bmatrix} $$\n$$ G_{y} = \\begin{bmatrix} -1 \u0026 -2 \u0026 -1 \\cr 0 \u0026 0 \u0026 0 \\cr +1 \u0026 +2 \u0026 +1 \\end{bmatrix} $$\n  找到梯度强度和方向：\n$$ \\begin{array}{l} G = \\sqrt{ G_{x}^{2} + G_{y}^{2} } \\cr \\theta = \\arctan\\left(\\dfrac{ G_{y} }{ G_{x} }\\right) \\end{array} $$\n将梯度方向四舍五入为四个可能的角度之一（即 0°，45°，90° 或 135°）。\n    非极大值抑制。删除非边缘部分的像素，仅保留作为候选边缘的细线。\n  滞后阈值（Hysteresis）。应用两个阈值（上限 upper 和下限 lower ）：\n 如果像素梯度高于上限，则将其视为边缘 如果像素梯度低于下限，则舍弃 如果像素梯度在两个阈值之间，则仅当它连接到高于上阈值的像素时才将其作为边缘   建议的阈值：$2:1 \\leq upper : lower \\leq 3:1​$\n   应用 OpenCV 中 Canny 函数的用法为：\nvoid cv::Canny(\tinputArray\timage, OutputArray\tedges, double\tthreshold1, double\tthreshold2, int\tapertureSize = 3, bool\tL2gradient = false )  image：输入图像，即源图像，Mat 类单通道8位图像。 edges：输出的边缘图，需要和源图片有一样的尺寸和类型。 threshold1：第一个滞后性阈值。 threshold2：第二个滞后性阈值。 apertureSize：表示应用 Sobel 算子的孔径大小，其有默认值 3。 L2gradient：一个计算图像梯度幅值的标识，有默认值 false。  具体实现：\n#include #include #include  using namespace cv; int main() { Mat src, src_gray; src = imread(\"lenna.tif\"); // 读取图像 \tif( src.empty() ) { printf(\"Error: can not open the image.\\n\"); return 1; } cvtColor(src, src_gray, COLOR_BGR2GRAY); // Canny 算子 \tMat dst_canny = src.clone(); // 创建图像副本 \tCanny(src, dst_canny, 150, 100); Mat dst_canny_2, edges_canny; dst_canny_2.create(src.size(), src.type()); blur(src_gray, edges_canny, Size(3, 3)); // 用 3×3 内核降噪 \tCanny(edges_canny, edges_canny, 3, 3 * 3, 3); // 运行 Canny 算子 \tdst_canny_2 = Scalar::all(0); // 使用 Canny 算子输出的边缘图 edges_canny 作为掩码， \t// 来将原图 src 拷贝到输出图像 dst_canny_2 中 \tsrc.copyTo(dst_canny_2, edges_canny); imshow(\"边缘提取-原图\", src); waitKey(2); imshow(\"边缘提取-Canny算子\", dst_canny); waitKey(1); imshow(\"边缘提取-Canny算子【高级实现】\", dst_canny_2); waitKey(0); return 0; } 结果如下：  图 1 Canny 算子输出结果\n  Sobel 算子 理论  Sobel 算子是一个离散微分算子。它计算图像强度函数的梯度的近似值。 Sobel 算子结合了高斯平滑和差分。  假设要操作的图像为 $I$：\n  分别计算两个方向的导数：\n  水平变化：将 $I$ 与一个奇数大小（size）的内核 $G_x$ 进行卷积。比如，当内核大小为 3 时，$G_x$ 为：\n$$ G_{x} = \\begin{bmatrix} -1 \u0026 0 \u0026 1 \\cr -2 \u0026 0 \u0026 2 \\cr -1 \u0026 0 \u0026 1 \\end{bmatrix} * I $$\n  垂直变化：将 $I$ 与一个奇数大小（size）的内核 $G_y$ 进行卷积。比如，当内核大小为 3 时，$G_y$ 为：\n$$ G_{y} = \\begin{bmatrix} -1 \u0026 -2 \u0026 -1 \\cr 0 \u0026 0 \u0026 0 \\cr 1 \u0026 2 \u0026 1 \\end{bmatrix} * I $$\n    在图像的每个点，我们通过组合上面的两个结果来计算该点梯度的近似值：\n$$ G = \\sqrt{ G_{x}^{2} + G_{y}^{2} } $$\n虽然有时会使用以下更简单的公式：\n$$ G = \\left|G_{x}\\right| + \\left|G_{y}\\right| $$\n   注意：\n当内核的大小（size）为 3 时，上述 Sobel 内核可能会有很明显的误差（毕竟 Sobel 算子只是计算导数的近似值）。OpenCV 通过使用 Scharr() 函数解决了大小为 3 的内核存在的这种误差。这比标准 Sobel 函数更快且更准确。具体内核如下：\n$$ G_{x} = \\begin{bmatrix} -3 \u0026 0 \u0026 +3 \\cr -10 \u0026 0 \u0026 +10 \\cr -3 \u0026 0 \u0026 +3 \\end{bmatrix} $$\n$$ G_{y} = \\begin{bmatrix} -3 \u0026 -10 \u0026 -3 \\cr 0 \u0026 0 \u0026 0 \\cr +3 \u0026 +10 \u0026 +3 \\end{bmatrix} $$\n 应用 OpenCV 中 Sobel 函数的用法为：\nvoid cv::Sobel( InputArray src, OutputArray dst, int ddepth, int dx, int dy, int ksize = 3, double scale = 1, double delta = 0, int borderType = BORDER_DEFAULT )\t  src：输入图像\n  dst：与 src 具有相同大小和相同通道数的输出图像\n  ddepth：输出图像的深度，支持如下 src.depth() 和 ddepth 的组合：\n   Input depth (src.depth()) Output depth (ddepth)     CV_8U -1 / CV_16S / CV_32F / CV_64F   CV_16U / CV_16S -1 / CV_32F / CV_64F   CV_32F -1 / CV_32F / CV_64F   CV_64F -1 / CV_64F      dx：x 方向上的差分阶数。\n  dy：y 方向上的差分阶数。\n  ksize：Sobel 内核的大小；必须取 1，3，5 或 7。\n  scale：计算导数值时可选的缩放因子，默认值是1，表示默认情况下是没有应用缩放的。\n  delta：表示在结果存入 dst 之前可选的 delta 值。\n  borderType：边界模式，默认值为BORDER_DEFAULT。详见 BorderTypes。\n  因为 Sobel 算子结合了高斯平滑和差分，因此会具有更多的抗噪性。\n具体实现：\n#include #include #include  using namespace cv; int main() { Mat src = imread(\"lenna.tif\");\t// 读取图像 \tif( src.empty() ) { printf(\"Error: can not open the image.\\n\"); return 1; } Mat src_blur, src_blur_gray, dst_sobel; // 高斯滤波器去噪（kernel size = 3） \tGaussianBlur(src, src_blur, Size(3, 3), 0, 0, BORDER_DEFAULT); // 将图像转换为灰度图像 \tcvtColor(src_blur, src_blur_gray, COLOR_BGR2GRAY); Mat grad_x, grad_y; Mat abs_grad_x, abs_grad_y; // 分别求 X、Y 方向梯度 \tSobel(src_blur_gray, grad_x, CV_16S, 1, 0, 3, 1, 1, BORDER_DEFAULT);\tSobel(src_blur_gray, grad_y, CV_16S, 0, 1, 3, 1, 1, BORDER_DEFAULT); // 转换回 CV_8U \tconvertScaleAbs(grad_x, abs_grad_x); convertScaleAbs(grad_y, abs_grad_y); // 合并梯度 \taddWeighted(abs_grad_x, 0.5, abs_grad_y, 0.5, 0, dst_sobel); imshow(\"边缘提取-原图\", src); waitKey(3); imshow(\"边缘提取-Sobel算子-X方向\", abs_grad_x); waitKey(2); imshow(\"边缘提取-Sobel算子-Y方向\", abs_grad_y); waitKey(1); imshow(\"边缘提取-Sobel算子-整体方向\", dst_sobel); waitKey(0); return 0; }  图 2 Sobel 算子输出结果\n  Laplace 算子 理论   根据数字图像处理相关知识，我们知道二阶导数可用于检测边缘。由于图像是二维（2D）的，我们需要在两个方向上进行求导。\n  Laplace 算子定义为：\n$$ Laplace(f) = \\dfrac{\\partial^{2} f}{\\partial x^{2}} + \\dfrac{\\partial^{2} f}{\\partial y^{2}} $$\n  在 OpenCV 中，Laplace 算子通过函数 Laplacian() 实现。实际上，由于拉普拉斯算子利用了图像的梯度，因此它在内部调用 Sobel 算子来执行其运算，\n  应用 OpenCV 中 Laplacian() 函数的用法为：\nvoid cv::Laplacian( InputArray src, OutputArray dst, int ddepth, int ksize = 1, double scale = 1, double delta = 0, int borderType = BORDER_DEFAULT )\t src：输入图像 dst：与 src 具有相同大小和相同通道数的输出图像 ddepth：输出图像的深度。 ksize：用于计算二阶导数的滤波器的孔径尺寸；它可以是 FILTER_SCHARR、1、3、5 或 7。 scale：计算拉普拉斯值时可选的比例因子，默认值是1，表示默认情况下是没有应用缩放的。 delta：表示在结果存入 dst 之前可选的 delta 值。 borderType：边界模式，默认值为BORDER_DEFAULT。详见 BorderTypes。  Laplacian() 函数主要利用 Sobel 算子进行运算。它通过加上 Sobel 算子运算出的图像 $x$ 方向和 $y$ 方向上的导数，来得到输入图像的拉普拉斯变换结果。当 ksize == 1 时，拉普拉斯函数的滤波窗口为：\n$$ \\begin{bmatrix} 0 \u0026 1 \u0026 0 \\cr 1 \u0026 -4 \u0026 1 \\cr 0 \u0026 1 \u0026 0 \\end{bmatrix} $$\n具体实现：\n#include #include #include  using namespace cv; int main() { // 读取图像 \tMat src = imread(\"lenna.tif\");\tif( src.empty() ) { printf(\"Error: can not open the image.\\n\"); return 1; } // Laplace 算子 \tMat src_blur, src_blur_gray; Mat dst_laplace, abs_dst_laplace; // 高斯滤波器去噪（kernel size = 3） \tGaussianBlur(src, src_blur, Size(3, 3), 0, 0, BORDER_DEFAULT); // 将图像转换为灰度图像 \tcvtColor(src_blur, src_blur_gray, COLOR_BGR2GRAY); // 应用 Laplace 算子 \tLaplacian(src_blur_gray, dst_laplace, CV_16S, 3, 1, 0, BORDER_DEFAULT); // 计算绝对值，将结果转换为 8 位 \tconvertScaleAbs(dst_laplace, abs_dst_laplace); imshow(\"边缘提取-原图\", src); waitKey(1); imshow(\"边缘检测-Laplace算子\", abs_dst_laplace); waitKey(0); return 0; }  图 3 Laplace 算子输出结果\n   参考：\n 【OpenCV入门教程之十二】OpenCV边缘检测 - 毛星云（浅墨）的专栏 - CSDN博客 OpenCV: Image Filtering OpenCV: Image Processing (imgproc module) OpenCV: Canny Edge Detector OpenCV: Sobel Derivatives OpenCV: Laplace Operator   ",
+  "wordCount" : "917",
   "inLanguage": "en",
   "datePublished": "2019-03-19T00:00:00Z",
   "dateModified": "2019-03-19T00:00:00Z",
@@ -267,7 +267,14 @@
 <li>滤掉任何噪声。这一过程将使用高斯滤波器。例如，一个 5×5 的高斯内核如下所示：</li>
 </ol>
 <p>$$
-K = \dfrac{1}{159}\begin{bmatrix} 2 &amp; 4 &amp; 5 &amp; 4 &amp; 2 \ 4 &amp; 9 &amp; 12 &amp; 9 &amp; 4 \ 5 &amp; 12 &amp; 15 &amp; 12 &amp; 5 \ 4 &amp; 9 &amp; 12 &amp; 9 &amp; 4 \ 2 &amp; 4 &amp; 5 &amp; 4 &amp; 2 \end{bmatrix}
+K = \dfrac{1}{159}
+\begin{bmatrix}
+2 &amp; 4  &amp; 5  &amp; 4  &amp; 2 \cr
+4 &amp; 9  &amp; 12 &amp; 9  &amp; 4 \cr
+5 &amp; 12 &amp; 15 &amp; 12 &amp; 5 \cr
+4 &amp; 9  &amp; 12 &amp; 9  &amp; 4 \cr
+2 &amp; 4  &amp; 5  &amp; 4  &amp; 2
+\end{bmatrix}
 $$</p>
 <ol start="2">
 <li>
@@ -276,16 +283,19 @@ $$</p>
 <li>
 <p>在 $x$ 和 $y$ 方向应用一维卷积掩模：</p>
 <p>$$
-G_{x} = \begin{bmatrix} -1 &amp; 0 &amp; +1 \ -2 &amp; 0 &amp; +2 \ -1 &amp; 0 &amp; +1 \end{bmatrix}
+G_{x} = \begin{bmatrix} -1 &amp; 0 &amp; +1 \cr -2 &amp; 0 &amp; +2 \cr -1 &amp; 0 &amp; +1 \end{bmatrix}
 $$</p>
 <p>$$
-G_{y} = \begin{bmatrix} -1 &amp; -2 &amp; -1 \ 0 &amp; 0 &amp; 0 \ +1 &amp; +2 &amp; +1 \end{bmatrix}
+G_{y} = \begin{bmatrix} -1 &amp; -2 &amp; -1 \cr 0 &amp; 0 &amp; 0 \cr +1 &amp; +2 &amp; +1 \end{bmatrix}
 $$</p>
 </li>
 <li>
 <p>找到梯度强度和方向：</p>
 <p>$$
-\begin{array}{l} G = \sqrt{ G_{x}^{2} + G_{y}^{2} } \ \theta = \arctan(\dfrac{ G_{y} }{ G_{x} }) \end{array}
+\begin{array}{l}
+G = \sqrt{ G_{x}^{2} + G_{y}^{2} } \cr
+\theta = \arctan\left(\dfrac{ G_{y} }{ G_{x} }\right)
+\end{array}
 $$</p>
 <p>将梯度方向四舍五入为四个可能的角度之一（即 0°，45°，90° 或 135°）。</p>
 </li>
@@ -364,8 +374,13 @@ $$</p>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>结果如下：</p>
-<p><img loading="lazy" src="canny_output.png" alt=""  />
+</span></span></code></pre></div><p>结果如下：
+<figure class="align-center ">
+    <img loading="lazy" src="https://s2.loli.net/2022/03/29/NpSw4mhEkfWqn1a.png#center"
+         alt="图 1 Canny 算子输出结果" width="100%"/> <figcaption>
+            <p>图 1 Canny 算子输出结果</p>
+        </figcaption>
+</figure>
 </p>
 <h1 id="sobel-算子"><em>Sobel</em> 算子<a hidden class="anchor" aria-hidden="true" href="#sobel-算子">#</a></h1>
 <h2 id="理论-1">理论<a hidden class="anchor" aria-hidden="true" href="#理论-1">#</a></h2>
@@ -379,15 +394,15 @@ $$</p>
 <p>分别计算两个方向的导数：</p>
 <ul>
 <li>
-<p>**水平变化：**将 $I$ 与一个奇数大小（<em>size</em>）的内核 $G_x$ 进行卷积。比如，当内核大小为 3 时，$G_x$ 为：</p>
+<p><strong>水平变化</strong>：将 $I$ 与一个奇数大小（<em>size</em>）的内核 $G_x$ 进行卷积。比如，当内核大小为 3 时，$G_x$ 为：</p>
 <p>$$
-G_{x} = \begin{bmatrix} -1 &amp; 0 &amp; +1 \ -2 &amp; 0 &amp; +2 \ -1 &amp; 0 &amp; +1 \end{bmatrix} * I
+G_{x} = \begin{bmatrix} -1 &amp; 0 &amp; 1 \cr -2 &amp; 0 &amp; 2 \cr -1 &amp; 0 &amp; 1 \end{bmatrix} * I
 $$</p>
 </li>
 <li>
-<p>**垂直变化：**将 $I$ 与一个奇数大小（<em>size</em>）的内核 $G_y$ 进行卷积。比如，当内核大小为 3 时，$G_y$ 为：</p>
+<p><strong>垂直变化</strong>：将 $I$ 与一个奇数大小（<em>size</em>）的内核 $G_y$ 进行卷积。比如，当内核大小为 3 时，$G_y$ 为：</p>
 <p>$$
-G_{y} = \begin{bmatrix} -1 &amp; -2 &amp; -1 \ 0 &amp; 0 &amp; 0 \ +1 &amp; +2 &amp; +1 \end{bmatrix} * I
+G_{y} = \begin{bmatrix} -1 &amp; -2 &amp; -1 \cr 0 &amp; 0 &amp; 0 \cr 1 &amp; 2 &amp; 1 \end{bmatrix} * I
 $$</p>
 </li>
 </ul>
@@ -399,18 +414,18 @@ G = \sqrt{ G_{x}^{2} + G_{y}^{2} }
 $$</p>
 <p>虽然有时会使用以下更简单的公式：</p>
 <p>$$
-G = |G_{x}| + |G_{y}|
+G = \left|G_{x}\right| + \left|G_{y}\right|
 $$</p>
 </li>
 </ol>
 <blockquote>
-<p><strong>注意：</strong></p>
-<p>当内核的大小（<em>size</em>）为 3 时，上述 Sobel 内核可能会有很明显的误差（毕竟 Sobel 算子只是计算导数的近似值）。OpenCV 通过使用 <code>Scharr()</code> 函数解决了大小为 3 的内核存在的这种误差。这比标准 Sobel 函数更快但更准确。具体内核如下：</p>
+<p><strong>注意</strong>：</p>
+<p>当内核的大小（<em>size</em>）为 3 时，上述 Sobel 内核可能会有很明显的误差（毕竟 Sobel 算子只是计算导数的近似值）。OpenCV 通过使用 <code>Scharr()</code> 函数解决了大小为 3 的内核存在的这种误差。这比标准 Sobel 函数更快且更准确。具体内核如下：</p>
 <p>$$
-G_{x} = \begin{bmatrix} -3 &amp; 0 &amp; +3 \ -10 &amp; 0 &amp; +10 \ -3 &amp; 0 &amp; +3 \end{bmatrix}
+G_{x} = \begin{bmatrix} -3 &amp; 0 &amp; +3 \cr -10 &amp; 0 &amp; +10 \cr -3 &amp; 0 &amp; +3 \end{bmatrix}
 $$</p>
 <p>$$
-G_{y} = \begin{bmatrix} -3 &amp; -10 &amp; -3 \ 0 &amp; 0 &amp; 0 \ +3 &amp; +10 &amp; +3 \end{bmatrix}
+G_{y} = \begin{bmatrix} -3 &amp; -10 &amp; -3 \cr 0 &amp; 0 &amp; 0 \cr +3 &amp; +10 &amp; +3 \end{bmatrix}
 $$</p>
 </blockquote>
 <h2 id="应用-1">应用<a hidden class="anchor" aria-hidden="true" href="#应用-1">#</a></h2>
@@ -444,19 +459,19 @@ $$</p>
 <tbody>
 <tr>
 <td>CV_8U</td>
-<td>-1/CV_16S/CV_32F/CV_64F</td>
+<td>-1 / CV_16S / CV_32F / CV_64F</td>
 </tr>
 <tr>
 <td>CV_16U / CV_16S</td>
-<td>-1/CV_32F/CV_64F</td>
+<td>-1 / CV_32F / CV_64F</td>
 </tr>
 <tr>
 <td>CV_32F</td>
-<td>-1/CV_32F/CV_64F</td>
+<td>-1 / CV_32F / CV_64F</td>
 </tr>
 <tr>
 <td>CV_64F</td>
-<td>-1/CV_64F</td>
+<td>-1 / CV_64F</td>
 </tr>
 </tbody>
 </table>
@@ -531,8 +546,14 @@ $$</p>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p><img loading="lazy" src="https://i.loli.net/2019/03/19/5c90cbc238932.jpg" alt=""  />
-</p>
+</span></span></code></pre></div><!-- raw HTML omitted -->
+<figure class="align-center ">
+    <img loading="lazy" src="https://i.loli.net/2019/03/19/5c90cbc238932.jpg#center"
+         alt="图 2 Sobel 算子输出结果" width="100%"/> <figcaption>
+            <p>图 2 Sobel 算子输出结果</p>
+        </figcaption>
+</figure>
+
 <h1 id="laplace-算子"><em>Laplace</em> 算子<a hidden class="anchor" aria-hidden="true" href="#laplace-算子">#</a></h1>
 <h2 id="理论-2">理论<a hidden class="anchor" aria-hidden="true" href="#理论-2">#</a></h2>
 <ol>
@@ -570,7 +591,7 @@ $$</p>
 </ul>
 <p><code>Laplacian()</code> 函数主要利用 Sobel 算子进行运算。它通过加上 Sobel 算子运算出的图像 $x$ 方向和 $y$ 方向上的导数，来得到输入图像的拉普拉斯变换结果。当 <code>ksize == 1</code> 时，拉普拉斯函数的滤波窗口为：</p>
 <p>$$
-\begin{bmatrix} 0 &amp; 1 &amp; 0 \ 1 &amp; -4 &amp; 1 \ 0 &amp; 1 &amp; 0 \end{bmatrix}
+\begin{bmatrix} 0 &amp; 1 &amp; 0 \cr 1 &amp; -4 &amp; 1 \cr 0 &amp; 1 &amp; 0 \end{bmatrix}
 $$</p>
 <p><strong>具体实现：</strong></p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
@@ -611,8 +632,14 @@ $$</p>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p><img loading="lazy" src="https://i.loli.net/2019/03/19/5c90d1506fb2a.jpg" alt=""  />
-</p>
+</span></span></code></pre></div><!-- raw HTML omitted -->
+<figure class="align-center ">
+    <img loading="lazy" src="https://i.loli.net/2019/03/19/5c90d1506fb2a.jpg#center"
+         alt="图 3 Laplace 算子输出结果" width="100%"/> <figcaption>
+            <p>图 3 Laplace 算子输出结果</p>
+        </figcaption>
+</figure>
+
 <blockquote>
 <p><strong>参考：</strong></p>
 <ol>
@@ -663,6 +690,27 @@ $$</p>
         <path d="M12 6H0l6-6z" />
     </svg>
 </a>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css" integrity="sha384-KiWOvVjnN8qwAZbuQyWDIbfCLFhLXNETzBQjA/92pIowpC0d2O3nppDGQVgwd2nB" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js" integrity="sha384-0fdwu/T/EQMsQlrHCCHoH10pkPLlKA1jL5dFyUOvB3lfeT2540/2g6YgSi2BL14p" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            
+            
+            delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '$', right: '$', display: false},
+                {left: '\\(', right: '\\)', display: false},
+                {left: '\\[', right: '\\]', display: true}
+            ],
+            
+            throwOnError : false
+        });
+    });
+</script>
+
 
 <script>
     let menu = document.getElementById('menu')

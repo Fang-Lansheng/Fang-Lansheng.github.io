@@ -8,7 +8,7 @@
     <language>en-us</language>
     <lastBuildDate>Fri, 10 May 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://jifan.tech/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>OpenCV 源码分析：SIFT 算法及原理简介</title>
+      <title>OpenCV 源码分析：SIFT 算法原理与实现</title>
       <link>https://jifan.tech/posts/2019-05-10/opencv-4/</link>
       <pubDate>Fri, 10 May 2019 00:00:00 +0000</pubDate>
       
@@ -27,16 +27,15 @@ Koenderink (The structure of images, 1984) 和 Lindeberg (Detecting salient blob
       
       <guid>https://jifan.tech/posts/2019-04-18/opencv-3/</guid>
       <description>本文主要参考自 OpenCV 官方教程 OpenCV: Camera calibration With OpenCV，大部分内容是对原文的直接翻译。
- 1. 前言 利用手机相机对棋盘图拍摄得到的图像如下（左边为原图，右边为二值化处理后的图像）：
-如下所示，将其与原始棋盘图对比（左侧为原始图像，右侧为手机相机拍摄影像）。可以明显地看出出现了一定程度的畸变。
-2. 相机检校原理 目前常用的相机检校方法是附加参数法，其关键在于通过一组额外参数拟合镜头畸变，主要是径向畸变和切向畸变：
-$$ \begin{align} dx &amp;amp;= x(k_1r^2+k_2r^4+k_3r^6) + p_1(r^2+2x^2) + p_2xy \ dy &amp;amp;= \underbrace{y(k_1r^2+k_2r^4+k_3r^6)}\text{radial distortion} + \underbrace{p_2(r^2+2y^2) + p_1xy}\text{tangential distortion} \end{align} $$
+ 1. 前言 利用手机相机对棋盘图拍摄得到的图像如下所示：
+ 图 1 手机相机拍摄图像（左）及其二值化处理后的结果（右）
+  将其与原始棋盘图对比，可以明显地看出，手机拍摄图像出现了一定程度的畸变。
+ 图 2 原始图像（左）与二值化处理后的手机拍摄图像（右）对比
+  2. 相机检校原理 目前常用的相机检校方法是附加参数法，其关键在于通过一组额外参数拟合镜头畸变，主要是径向畸变和切向畸变：
+$$ \begin{align*} dx &amp;amp; = \overbrace{x(k_1r^2+k_2r^4+k_3r^6)}^{\text{radial distortion}} + p_1(r^2+2x^2) + p_2xy \cr dy &amp;amp; = y(k_1r^2+k_2r^4+k_3r^6) + \underbrace{p_2(r^2+2y^2) + p_1 xy}_{\text{tangential distortion}} \end{align*} $$
 式中，
-$$ x=x&amp;rsquo;-x_0, \quad y=y&amp;rsquo;-y_0 \ r^2 = x^2 + y^2 $$
-其中 $(x&amp;rsquo;,y&amp;rsquo;)$ 为像片坐标的原始量测值，$k_i,(i=1,2,3)$ 为径向畸变参数，$p_j, (j=1,2)$ 为切向畸变参数。所以 5 个畸变参数构成的矩阵为：
-$$ distortion_coeffients = (\begin{matrix}k_1&amp;amp;k_2&amp;amp;p_1&amp;amp;p_2&amp;amp;k_3\end{matrix}) $$
-对于影像坐标和物空间坐标的转换关系为：
-$$ \begin{bmatrix}x\y\f\end{bmatrix}= K \begin{bmatrix}X\Y\Z\end{bmatrix}= \begin{bmatrix}f_x&amp;amp;0&amp;amp;c_x\0&amp;amp;f_y&amp;amp;c_y\0&amp;amp;0&amp;amp;1\end{bmatrix} \begin{bmatrix}X\Y\Z\end{bmatrix} $$</description>
+$$ x=x&amp;rsquo;-x_0, \newline y=y&amp;rsquo;-y_0, \newline r^2 = x^2 + y^2 $$
+其中 $(x&amp;rsquo;,y&amp;rsquo;)$ 为像片坐标的原始量测值，$k_i,(i=1,2,3)$ 为径向畸变参数，$p_j, (j=1,2)$ 为切向畸变参数。所以 5 个畸变参数构成的矩阵为：</description>
     </item>
     
     <item>
@@ -49,9 +48,9 @@ $$ \begin{bmatrix}x\y\f\end{bmatrix}= K \begin{bmatrix}X\Y\Z\end{bmatrix}= \begi
 $$ Av = \lambda v $$
 则称 $\lambda$ 是方阵 $A$ 的一个特征值，$v$ 是方阵 $A$ 的属于特征值 $\lambda$ 的一个特征向量。
 对上式进行变换：
-$$ \begin{align} Av-\lambda v &amp;amp;= \overrightarrow{0} \ Av-\lambda I v &amp;amp;= \overrightarrow{0} \ (A - \lambda I)v &amp;amp;= \overrightarrow{0} \ (\lambda I - A)v &amp;amp;= \overrightarrow{0} \end{align} $$
+$$ \begin{align*} Av-\lambda v &amp;amp;= \overrightarrow{0} \cr Av-\lambda I v &amp;amp;= \overrightarrow{0} \cr (A - \lambda I)v &amp;amp;= \overrightarrow{0} \cr (\lambda I - A)v &amp;amp;= \overrightarrow{0} \end{align*} $$
 则称
- $\lambda E - A$ 为 $A$ 的特征矩阵 行列式 $f(\lambda) = |\lambda E- A|$ 为 $A$ 的特征多项式 $|\lambda E - A| = 0$ 是 $A$ 的特征方程 $(\lambda E - A)v = \overrightarrow{0}$ 是 $A$ 关于该特征值 $\lambda$ 的齐次线性方程组  $A$ 的主对角线上元素之和称为矩阵的迹（trace），记为 $tr(A)$，即</description>
+ $\lambda E - A$ 为 $A$ 的特征矩阵 行列式 $f(\lambda) = |\lambda E- A|$ 为 $A$ 的特征多项式 $|\lambda E - A| = 0$ 是 $A$ 的特征方程 $(\lambda E - A)v = \overrightarrow{0}$ 是 $A$ 关于该特征值 $\lambda$ 的齐次线性方程组  $A$ 的主对角线上元素之和称为矩阵的迹（trace），记为 $\text{tr}(A)$，即</description>
     </item>
     
     <item>
@@ -63,10 +62,11 @@ $$ \begin{align} Av-\lambda v &amp;amp;= \overrightarrow{0} \ Av-\lambda I v &am
       <description>在计算机视觉（Computer Vision）与摄影测量（Photogrammetry）中，我们在不同影像之间找到相匹配的特征，已建立两幅影像之间的联系，提取出我们所需要的信息。这些特征主要分为：
  边缘（Edges） 角点（Corners） 兴趣区域 ROI（Regions of Interest）  其中，提取点特征的算子称为兴趣算子或有利算子（Interest Operator），即运用某种算法从影像种提取我们感兴趣的、有利于某种目的的点。
 人眼对角点的识别通常是在一个局部的小区域或小窗口内完成的。如果在各个方向上移动这个特征的小窗口，窗口内区域的灰度发生了较大的变化，那么就认为在窗口内遇到了角点。如果这个特定的窗口在图像各个方面移动时，窗口内图像的灰度没有发生变化，那么窗口内就不存在角点；如果窗口在某一个方向移动时，窗口内图像的灰度发生了较大的变化，而在另一些方向上没有发生变化，那么窗口内的图像可能只是一条直线的线段。
-角点的特殊之处在于，它是两条边的交点，所以它代表这两条边的方向发生变化的点。因此，图像在该点的梯度（在各个方向上）具有明显的变化。利用这一点，前人提出了一系列算法，其中比较经典的有 Moravec 算子、Forstner 算子以及 Harris 算子等。
+ 图 1 角点
+  角点的特殊之处在于，它是两条边的交点，所以它代表这两条边的方向发生变化的点。因此，图像在该点的梯度（在各个方向上）具有明显的变化。利用这一点，前人提出了一系列算法，其中比较经典的有 Moravec 算子、Forstner 算子以及 Harris 算子等。
 Moravec 算子 基本原理 Moravec 于 1977 年提出利用灰度方差提取点特征的算子，其步骤为：
 1. 计算各像元的兴趣值 $IV$（Interest Value）。 在以像素 $(c, r)$ 为中心的 $w \times w$ 的窗口中（如 $5 \times 5$ 的窗口），计算四个方向相邻像素灰度差的平方和：
-$$ \begin{cases} V_1 &amp;amp;=&amp;amp; \sum_{i = -k}^{k-1}(g_{c+i,r}-g_{c+i+1, r})^2 \[2ex] V_2 &amp;amp;=&amp;amp; \sum_{i = -k}^{k-1}(g_{c+i,r+i}-g_{c+i+1, r+i+1})^2 \[2ex] V_3 &amp;amp;=&amp;amp; \sum_{i = -k}^{k-1}(g_{c,r+i}-g_{c+i+1, r+i+1})^2 \[2ex] V_4 &amp;amp;=&amp;amp; \sum_{i = -k}^{k-1}(g_{c+i,r-i}-g_{c+i+1, r-i-1})^2 \end{cases} $$</description>
+$$ \begin{cases} V_1 = \sum_{i = -k}^{k-1}(g_{c+i,r}-g_{c+i+1, r})^2 \cr V_2 = \sum_{i = -k}^{k-1}(g_{c+i,r+i}-g_{c+i+1, r+i+1})^2 \cr V_3 = \sum_{i = -k}^{k-1}(g_{c,r+i}-g_{c+i+1, r+i+1})^2 \cr V_4 = \sum_{i = -k}^{k-1}(g_{c+i,r-i}-g_{c+i+1, r-i-1})^2 \end{cases} $$</description>
     </item>
     
     <item>
@@ -79,7 +79,7 @@ $$ \begin{cases} V_1 &amp;amp;=&amp;amp; \sum_{i = -k}^{k-1}(g_{c+i,r}-g_{c+i+1,
 在 OpenCV 中可用于边缘检测的算子主要有：
  Canny 算子 Sobel 算子 Laplace 算子  Canny 算子 理论 Canny 算法是由 John F. Canny 于 1987 年在 A computational approach to edge detection 一文提出来的，它旨在满足三个主要标准：
  低错误率 (Low error rate)：意味着只检测实际存在的边缘。 高定位性 (Good localization)：将检测到的边缘像素与实际边缘像素之间的距离最小化。 最小响应 (Minimal response)：每个边缘只有一个检测器响应。  Canny 算子的步骤如下：
- 滤掉任何噪声。这一过程将使用高斯滤波器。例如，一个 5×5 的高斯内核如下所示：  $$ K = \dfrac{1}{159}\begin{bmatrix} 2 &amp;amp; 4 &amp;amp; 5 &amp;amp; 4 &amp;amp; 2 \ 4 &amp;amp; 9 &amp;amp; 12 &amp;amp; 9 &amp;amp; 4 \ 5 &amp;amp; 12 &amp;amp; 15 &amp;amp; 12 &amp;amp; 5 \ 4 &amp;amp; 9 &amp;amp; 12 &amp;amp; 9 &amp;amp; 4 \ 2 &amp;amp; 4 &amp;amp; 5 &amp;amp; 4 &amp;amp; 2 \end{bmatrix} $$</description>
+ 滤掉任何噪声。这一过程将使用高斯滤波器。例如，一个 5×5 的高斯内核如下所示：  $$ K = \dfrac{1}{159} \begin{bmatrix} 2 &amp;amp; 4 &amp;amp; 5 &amp;amp; 4 &amp;amp; 2 \cr 4 &amp;amp; 9 &amp;amp; 12 &amp;amp; 9 &amp;amp; 4 \cr 5 &amp;amp; 12 &amp;amp; 15 &amp;amp; 12 &amp;amp; 5 \cr 4 &amp;amp; 9 &amp;amp; 12 &amp;amp; 9 &amp;amp; 4 \cr 2 &amp;amp; 4 &amp;amp; 5 &amp;amp; 4 &amp;amp; 2 \end{bmatrix} $$</description>
     </item>
     
     <item>
@@ -89,10 +89,13 @@ $$ \begin{cases} V_1 &amp;amp;=&amp;amp; \sum_{i = -k}^{k-1}(g_{c+i,r}-g_{c+i+1,
       
       <guid>https://jifan.tech/posts/2019-03-01/ds-notes-1/</guid>
       <description>斐波那契数列 斐波那契数列（Fibonacci Sequence）是一串数字：
-\[ (0,) 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, &amp;hellip; \] 很容易看出，每一个数（除第 1、2 个）都等于它之前的两个数之和。因此，用公式可归纳为： \[ F_n = \begin{cases} 0, &amp;amp; n=0 \\ 1, &amp;amp; n=1 \\ F_{n-1} + F_{n-2}, &amp;amp; n&amp;gt;1 \end{cases} \]
+\[ (0,)\ 1,\ 1,\ 2,\ 3,\ 5,\ 8,\ 13,\ 21,\ 34,\ 55,\ 89,\ 144,\ &amp;hellip; \] 很容易看出，每一个数（除第 1、2 个）都等于它之前的两个数之和。因此，用公式可归纳为： \[ F_n = \begin{cases} 0, &amp;amp; n=0 \\ 1, &amp;amp; n=1 \\ F_{n-1} + F_{n-2}, &amp;amp; n&amp;gt;1 \end{cases} \]
 计算复杂性理论 在将斐波那契数列用 C++ 代码实现并计算时间、空间复杂度之前，先要了解一下什么是所谓的“复杂度”
 时间复杂度  在计算机科学中， 算法的时间复杂度（Time Complexity）是一个函数，它定性描述算法的运行时间。这是一个代表算法输入值的字符串的长度的函数。
- 一个语句的频度是指该语句在算法中被重复执行的次数。算法中所有语句的频度之和即为 $T(n)$，它是该算法问题规模 $n$ 的函数，时间复杂度主要分析 $T(n)$ 的数量级。 算法的基本运算（最深层循环内的语句）的频度与 $T(n)$ 同数量级。因此通常采用算法中基本运算的频度 $f(n)$ 来分析算法的时间复杂度。因此，算法的时间复杂度记为： \[ T(n) = O(f(n)) \] 式中，$O$ 的含义是 $T(n)$ 的数量级，其严格的数学定义是：若 $T(n)$ 和 $f(n)$ 是定义在正整数集合上的两个函数，则存在正常数 $C$ 和 $n_0$，使得当 $n \geq n_0$ 时，都满足 $0 \leq T(n) \leq Cf(n)$。</description>
+引自：Wikipedia，时间复杂度
+ 一个语句的频度是指该语句在算法中被重复执行的次数。算法中所有语句的频度之和即为 $T(n)$，它是该算法问题规模 $n$ 的函数，时间复杂度主要分析 $T(n)$ 的数量级。 算法的基本运算（最深层循环内的语句）的频度与 $T(n)$ 同数量级。因此通常采用算法中基本运算的频度 $f(n)$ 来分析算法的时间复杂度。因此，算法的时间复杂度记为：
+\[ T(n) = O(f(n)) \]
+式中，$O$ 的含义是 $T(n)$ 的数量级，其严格的数学定义是：若 $T(n)$ 和 $f(n)$ 是定义在正整数集合上的两个函数，则存在正常数 $C$ 和 $n_0$，使得当 $n \geq n_0$ 时，都满足 $0 \leq T(n) \leq Cf(n)$。</description>
     </item>
     
     <item>

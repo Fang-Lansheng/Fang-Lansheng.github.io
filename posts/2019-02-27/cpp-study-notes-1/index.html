@@ -113,8 +113,8 @@ typedef wchar_t short int; 所以 wchar_t 实际上的空间和 short int 一样
   "keywords": [
     "C++"
   ],
-  "articleBody": " 再一次地、从头开始学习C/C++。\n C++ 数据类型及其表示范围 这一部分是基础，不过我之前都没有系统性的搞清楚，所以现在还是先把这些知识点列出来，该部分参考C++ 数据类型 - 菜鸟教程。\n1. 基本的内置类型 C++ 为程序员提供了种类丰富的内置数据类型和用户自定义的数据类型。下表列出了七种基本的 C++ 数据类型：\n   类型 关键字     布尔型 bool   字符型 char   整型 int   浮点型 float   双浮点型 double   无类型 void   宽字符型 wchar_t    其中，wchar_t 实际上是：\ntypedef wchar_t short int; 所以 wchar_t 实际上的空间和 short int 一样。 一些基本类型可以使用一个或多个类型修饰符进行修饰：\n signed unsigned short long  2. 各种变量类型的大小    数据类型 字节数 表示范围     char 1 $-128 \\sim 127 \\ ||\\ 0 \\sim 255$   unsigned char 1 $0 \\sim 255$   signed char 1 $-128 \\sim 127$   int 4 $-2^{31} \\sim 2^{31}-1$   unsigned int 4 $0 \\sim 2^{32} - 1$   signed int 4 $-2^{31} \\sim 2^{31}-1$   short int 2 $-2^{15} \\sim 2^{15}-1$   unsigned short int 2 $0 \\sim 2^{16} - 1$   signed short int 2 $-2^{15} \\sim 2^{15}-1$   long int 8 $-2^{63} \\sim 2^{63} - 1$   unsigned long int 8 $0 \\sim 2^{64} - 1$   signed long int 8 $-2^{63} \\sim 2^{63} - 1$   float 4 $-3.40 \\times 10^{38} \\sim 3.40 \\times 10^{38}$   double 8 $-1.79\\times10^{308} \\sim 1.79 \\times 10^{308}$    注：不同系统可能会有所差异。\n浮点数的比较  在学习《算法笔记》一书时，作者介绍了“极小数”用以修正浮点数在计算机中存储与计算产生的误差。这一点是我在之前学习中所没有意识到的，于是在此归纳一下相关的内容。\n 由于计算机中采用有限位的二进制编码，因此浮点数在计算机中的存储并不总是精确的。例如在经过大量运算后，一个浮点型的数 3.14 在计算机中就可能存储成 3.1400000000001，也有可能存储成 3.1399999999999，这种情况下会对比较操作带来极大的干扰（因为C/C++中的 == 操作是完全相同才能判定为 true）。于是在文中，作者引入了一个极小数 eps 来对这种误差进行修正。\n经验表明，eps 取 $1e-8$（$10^{-8}$） 在大多数情况下既不会漏判，也不会误判。因此可将 eps 定义为常量 $1e-8$：\nconst double eps = 1e-8; 1. 等于运算符 == 下图为等于区间示意图：\n如图所示，如果一个数 a 落在了 $[b - eps, b + eps]$ 的区间中，就判断 a == b 成立。为了使比较更为方便，把比较操作写成宏定义的形式：\n#include #define Equ(a, b) ((fabs((a) - (b))) - (eps)) // 括号是为防止宏定义可能带来的错误 2. 大于运算符  下图为大于区间示意图：\n如图所示，如果一个数 a 要大于 b，那么就必须在误差 eps 扰动范围之外大于 b，因此只有大于 b + eps 的数才能判定为大于 b（也即 $a - b  eps$）。\n#define More(a, b) (((a) - (b))  (eps)) 3. 小于运算符  下图为小于区间示意图：\n如图所示，如果一个数 a 要小于 b，那么就必须在误差 eps 扰动范围之外小于 b，因此只有小于 b - eps 的数才能判定为小于 b（也即 $a - b #define Less(a, b) (((a) - (b)) 4. 大于等于运算符 = 下图为大于等于区间示意图：\n如图所示，由于大于等于运算符可以理解为大于运算符和等于运算符的结合，于是需要让一个数 a 在误差扰动范围内大于或者等于 b，因此大于 b - eps 的数都应当判定为大于等于 b（也即 $a - b  -eps$）。\n#define MoreEqu(a, b) (((a) - (b))  (-eps)) 5. 小于等于运算符  下图为小于等于区间示意图：\n如图所示，由于小于等于运算符可以理解为小于运算符和等于运算符的结合，于是需要让一个数 a 在误差扰动范围内小于或者等于 b，因此小于 b + eps 的数都应当判定为小于等于 b（也即 $a - b #define LessEqu(a, b) (((a) - (b)) 6. 圆周率 π 圆周率 π 可由 $arccos(-1)$ 计算得到：\n#include const double PI = acos(-1.0); 汇总结果为如下代码：\n#include const double eps = 1e-8; const double PI = acos(-1.0); #define Equ(a, b) ((fabs((a) - (b))) - (eps)) #define More(a, b) (((a) - (b))  (eps)) #define Less(a, b) (((a) - (b)) #define MoreEqu(a, b) (((a) - (b))  (-eps)) #define LessEqu(a, b) (((a) - (b)) 读取“大数” 有的时候，我需要读入一个很大的整数（例如，1234567890987654321123456789），并计算出它的各位数字之和。用 int ($-2^{31} \\sim 2^{31} - 1$) 或者 long int ($-2^{63} \\sim 2^{63} - 1$) 都不满足要求。这时可以将这样一个“大数”作为字符串（或是字符数组）读入。\n 字符串实际上是使用 null 字符 '\\0' 终止的一维字符数组。因此，一个以 null 结尾的字符串，包含了组成字符串的字符。\n 我们可以使用 getchar() 函数，将该数字的每一位作为字符读入到我们的字符串数组中。\n C 库函数 int getchar(void) 从标准输入 stdin 获取一个字符（一个无符号字符）。这等同于 getc 带有 stdin 作为参数。\n 用程序可以简单地表示为：\n#include  int main() { char n[100]; int i = 0; printf(\"Input: \"); while ((n[i] = getchar()) != '\\n') { // 逐位读入数字  i++; } printf(\"Output: \"); for (int k = 0; k  i; k++) { printf(\"%c\", n[k]); // 逐位输出数字  } printf(\"\\n\\n\"); return 0; } 当我们输入数字 1234567890987654321123456789，也会得到相应的输出：\n此时，存储字符的数组 n 为：\n",
-  "wordCount" : "475",
+  "articleBody": " 再一次地、从头开始学习C/C++。\n C++ 数据类型及其表示范围 这一部分是基础，不过我之前都没有系统性的搞清楚，所以现在还是先把这些知识点列出来，该部分参考C++ 数据类型 - 菜鸟教程。\n1. 基本的内置类型 C++ 为程序员提供了种类丰富的内置数据类型和用户自定义的数据类型。下表列出了七种基本的 C++ 数据类型：\n   类型 关键字     布尔型 bool   字符型 char   整型 int   浮点型 float   双浮点型 double   无类型 void   宽字符型 wchar_t    其中，wchar_t 实际上是：\ntypedef wchar_t short int; 所以 wchar_t 实际上的空间和 short int 一样。 一些基本类型可以使用一个或多个类型修饰符进行修饰：\n signed unsigned short long  2. 各种变量类型的大小    数据类型 字节数 表示范围     char 1 $-128 \\sim 127 \\ ||\\ 0 \\sim 255$   unsigned char 1 $0 \\sim 255$   signed char 1 $-128 \\sim 127$   int 4 $-2^{31} \\sim 2^{31}-1$   unsigned int 4 $0 \\sim 2^{32} - 1$   signed int 4 $-2^{31} \\sim 2^{31}-1$   short int 2 $-2^{15} \\sim 2^{15}-1$   unsigned short int 2 $0 \\sim 2^{16} - 1$   signed short int 2 $-2^{15} \\sim 2^{15}-1$   long int 8 $-2^{63} \\sim 2^{63} - 1$   unsigned long int 8 $0 \\sim 2^{64} - 1$   signed long int 8 $-2^{63} \\sim 2^{63} - 1$   float 4 $-3.40 \\times 10^{38} \\sim 3.40 \\times 10^{38}$   double 8 $-1.79\\times10^{308} \\sim 1.79 \\times 10^{308}$    注：不同系统可能会有所差异。\n浮点数的比较  在学习《算法笔记》一书时，作者介绍了“极小数”用以修正浮点数在计算机中存储与计算产生的误差。这一点是我在之前学习中所没有意识到的，于是在此归纳一下相关的内容。\n 由于计算机中采用有限位的二进制编码，因此浮点数在计算机中的存储并不总是精确的。例如在经过大量运算后，一个浮点型的数 3.14 在计算机中就可能存储成 3.1400000000001，也有可能存储成 3.1399999999999，这种情况下会对比较操作带来极大的干扰（因为C/C++中的 == 操作是完全相同才能判定为 true）。于是在文中，作者引入了一个极小数 eps 来对这种误差进行修正。\n经验表明，eps 取 $1e-8$（$10^{-8}$） 在大多数情况下既不会漏判，也不会误判。因此可将 eps 定义为常量 $1e-8$：\nconst double eps = 1e-8; 1. 等于运算符 == 下图为等于区间示意图：\n 图 1 等于区间示意图\n  如图所示，如果一个数 a 落在了 $[b - eps, b + eps]$ 的区间中，就判断 a == b 成立。为了使比较更为方便，把比较操作写成宏定义的形式：\n#include #define Equ(a, b) ((fabs((a) - (b))) - (eps)) // 括号是为防止宏定义可能带来的错误 2. 大于运算符  下图为大于区间示意图：\n 图 2 大于区间示意图\n  如图所示，如果一个数 a 要大于 b，那么就必须在误差 eps 扰动范围之外大于 b，因此只有大于 b + eps 的数才能判定为大于 b（也即 $a - b  eps$）。\n#define More(a, b) (((a) - (b))  (eps)) 3. 小于运算符  下图为小于区间示意图：\n 图 3 小于区间示意图\n  如图所示，如果一个数 a 要小于 b，那么就必须在误差 eps 扰动范围之外小于 b，因此只有小于 b - eps 的数才能判定为小于 b（也即 $a - b #define Less(a, b) (((a) - (b)) 4. 大于等于运算符 = 下图为大于等于区间示意图：\n 图 4 大于等于区间示意图\n  如图所示，由于大于等于运算符可以理解为大于运算符和等于运算符的结合，于是需要让一个数 a 在误差扰动范围内大于或者等于 b，因此大于 b - eps 的数都应当判定为大于等于 b（也即 $a - b  -eps$）。\n#define MoreEqu(a, b) (((a) - (b))  (-eps)) 5. 小于等于运算符  下图为小于等于区间示意图：\n 图 5 小于等于区间示意图\n  如图所示，由于小于等于运算符可以理解为小于运算符和等于运算符的结合，于是需要让一个数 a 在误差扰动范围内小于或者等于 b，因此小于 b + eps 的数都应当判定为小于等于 b（也即 $a - b #define LessEqu(a, b) (((a) - (b)) 6. 圆周率 π 圆周率 π 可由 $arccos(-1)$ 计算得到：\n#include const double PI = acos(-1.0); 汇总结果为如下代码：\n#include const double eps = 1e-8; const double PI = acos(-1.0); #define Equ(a, b) ((fabs((a) - (b))) - (eps)) #define More(a, b) (((a) - (b))  (eps)) #define Less(a, b) (((a) - (b)) #define MoreEqu(a, b) (((a) - (b))  (-eps)) #define LessEqu(a, b) (((a) - (b)) 读取“大数” 有的时候，我需要读入一个很大的整数（例如，1234567890987654321123456789），并计算出它的各位数字之和。用 int ($-2^{31} \\sim 2^{31} - 1$) 或者 long int ($-2^{63} \\sim 2^{63} - 1$) 都不满足要求。这时可以将这样一个“大数”作为字符串（或是字符数组）读入。\n 字符串实际上是使用 null 字符 '\\0' 终止的一维字符数组。因此，一个以 null 结尾的字符串，包含了组成字符串的字符。\n 我们可以使用 getchar() 函数，将该数字的每一位作为字符读入到我们的字符串数组中。\n C 库函数 int getchar(void) 从标准输入 stdin 获取一个字符（一个无符号字符）。这等同于 getc 带有 stdin 作为参数。\n 用程序可以简单地表示为：\n#include  int main() { char n[100]; int i = 0; printf(\"Input: \"); while ((n[i] = getchar()) != '\\n') { // 逐位读入数字  i++; } printf(\"Output: \"); for (int k = 0; k  i; k++) { printf(\"%c\", n[k]); // 逐位输出数字  } printf(\"\\n\\n\"); return 0; } 当我们输入数字 1234567890987654321123456789，也会得到相应的输出：\n 图 6 输出结果\n  此时，存储字符的数组 n 为：\n 图 7 字符数组在内存中的值\n  ",
+  "wordCount" : "496",
   "inLanguage": "en",
   "datePublished": "2019-02-27T00:00:00Z",
   "dateModified": "2019-02-27T00:00:00Z",
@@ -398,33 +398,63 @@ typedef wchar_t short int; 所以 wchar_t 实际上的空间和 short int 一样
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">double</span> <span class="n">eps</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">;</span>
 </span></span></code></pre></div><h2 id="1-等于运算符-">1. 等于运算符 <code>==</code><a hidden class="anchor" aria-hidden="true" href="#1-等于运算符-">#</a></h2>
 <p>下图为<em>等于区间示意图</em>：</p>
-<p><img loading="lazy" src="https://i.loli.net/2019/03/01/5c78f16aaa41d.jpg" alt="等于区间示意图"  />
-</p>
+<!-- raw HTML omitted -->
+<figure class="align-center ">
+    <img loading="lazy" src="https://i.loli.net/2019/03/01/5c78f16aaa41d.jpg#center"
+         alt="图 1 等于区间示意图" width="50%"/> <figcaption>
+            <p>图 1 等于区间示意图</p>
+        </figcaption>
+</figure>
+
 <p>如图所示，如果一个数 a 落在了 $[b - eps, b + eps]$ 的区间中，就判断 <code>a == b</code> 成立。为了使<strong>比较</strong>更为方便，把比较操作写成宏定义的形式：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;math.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#define Equ(a, b) ((fabs((a) - (b))) - (eps)) </span><span class="c1">// 括号是为防止宏定义可能带来的错误
 </span></span></span></code></pre></div><h2 id="2-大于运算符-">2. 大于运算符 <code>&gt;</code><a hidden class="anchor" aria-hidden="true" href="#2-大于运算符-">#</a></h2>
 <p>下图为<em>大于区间示意图</em>：</p>
-<p><img loading="lazy" src="https://i.loli.net/2019/03/01/5c78f185dcf6b.jpg" alt="大于区间示意图"  />
-</p>
+<!-- raw HTML omitted -->
+<figure class="align-center ">
+    <img loading="lazy" src="https://i.loli.net/2019/03/01/5c78f185dcf6b.jpg#center"
+         alt="图 2 大于区间示意图" width="50%"/> <figcaption>
+            <p>图 2 大于区间示意图</p>
+        </figcaption>
+</figure>
+
 <p>如图所示，如果一个数 a 要大于 b，那么就必须在误差 eps 扰动范围之外大于 b，因此只有大于 b + eps 的数才能判定为大于 b（也即 $a - b &gt; eps$）。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#define More(a, b) (((a) - (b)) &gt; (eps))
 </span></span></span></code></pre></div><h2 id="3-小于运算符-">3. 小于运算符 <code>&lt;</code><a hidden class="anchor" aria-hidden="true" href="#3-小于运算符-">#</a></h2>
 <p>下图为<em>小于区间示意图</em>：</p>
-<p><img loading="lazy" src="https://i.loli.net/2019/03/01/5c78f199ef6ff.jpg" alt="小于区间示意图"  />
-</p>
+<!-- raw HTML omitted -->
+<figure class="align-center ">
+    <img loading="lazy" src="https://i.loli.net/2019/03/01/5c78f199ef6ff.jpg#center"
+         alt="图 3 小于区间示意图" width="50%"/> <figcaption>
+            <p>图 3 小于区间示意图</p>
+        </figcaption>
+</figure>
+
 <p>如图所示，如果一个数 a 要小于 b，那么就必须在误差 eps 扰动范围之外小于 b，因此只有小于 b - eps 的数才能判定为小于 b（也即 $a - b &lt; -eps$）。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#define Less(a, b) (((a) - (b)) &lt; (-eps))
 </span></span></span></code></pre></div><h2 id="4-大于等于运算符-">4. 大于等于运算符 <code>&gt;=</code><a hidden class="anchor" aria-hidden="true" href="#4-大于等于运算符-">#</a></h2>
 <p>下图为<em>大于等于区间示意图</em>：</p>
-<p><img loading="lazy" src="https://i.loli.net/2019/03/01/5c78f2115c572.jpg" alt="大于等于区间示意图"  />
-</p>
+<!-- raw HTML omitted -->
+<figure class="align-center ">
+    <img loading="lazy" src="https://i.loli.net/2019/03/01/5c78f2115c572.jpg#center"
+         alt="图 4 大于等于区间示意图" width="50%"/> <figcaption>
+            <p>图 4 大于等于区间示意图</p>
+        </figcaption>
+</figure>
+
 <p>如图所示，由于大于等于运算符可以理解为大于运算符和等于运算符的结合，于是需要让一个数 a 在误差扰动范围内大于或者等于 b，因此大于 b - eps 的数都应当判定为大于等于 b（也即 $a - b &gt; -eps$）。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#define MoreEqu(a, b) (((a) - (b)) &gt; (-eps))
 </span></span></span></code></pre></div><h2 id="5-小于等于运算符-">5. 小于等于运算符 <code>&lt;=</code><a hidden class="anchor" aria-hidden="true" href="#5-小于等于运算符-">#</a></h2>
 <p>下图为<em>小于等于区间示意图</em>：</p>
-<p><img loading="lazy" src="https://i.loli.net/2019/03/01/5c78f220aa95f.jpg" alt="小于等于区间示意图"  />
-</p>
+<!-- raw HTML omitted -->
+<figure class="align-center ">
+    <img loading="lazy" src="https://i.loli.net/2019/03/01/5c78f220aa95f.jpg#center"
+         alt="图 5 小于等于区间示意图" width="50%"/> <figcaption>
+            <p>图 5 小于等于区间示意图</p>
+        </figcaption>
+</figure>
+
 <p>如图所示，由于小于等于运算符可以理解为小于运算符和等于运算符的结合，于是需要让一个数 a 在误差扰动范围内小于或者等于 b，因此小于 b + eps 的数都应当判定为小于等于 b（也即 $a - b &lt; eps$）。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#define LessEqu(a, b) (((a) - (b)) &lt; (eps))
 </span></span></span></code></pre></div><h2 id="6-圆周率-π">6. 圆周率 <code>π</code><a hidden class="anchor" aria-hidden="true" href="#6-圆周率-π">#</a></h2>
@@ -448,7 +478,7 @@ typedef wchar_t short int; 所以 wchar_t 实际上的空间和 short int 一样
 </blockquote>
 <p>我们可以使用 <code>getchar()</code> 函数，将该数字的每一位作为字符读入到我们的字符串数组中。</p>
 <blockquote>
-<p>C 库函数 int getchar(void) 从标准输入 stdin 获取一个字符（一个无符号字符）。这等同于 getc 带有 stdin 作为参数。</p>
+<p>C 库函数 <code>int getchar(void)</code> 从标准输入 <code>stdin</code> 获取一个字符（一个无符号字符）。这等同于 <code>getc</code> 带有 <code>stdin</code> 作为参数。</p>
 </blockquote>
 <p>用程序可以简单地表示为：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
@@ -470,11 +500,23 @@ typedef wchar_t short int; 所以 wchar_t 实际上的空间和 short int 一样
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>当我们输入数字 1234567890987654321123456789，也会得到相应的输出：</p>
-<p><img loading="lazy" src="https://i.loli.net/2019/03/01/5c78f230b9bca.jpg" alt="I&amp;amp;O"  />
-</p>
+<!-- raw HTML omitted -->
+<figure class="align-center ">
+    <img loading="lazy" src="https://i.loli.net/2019/03/01/5c78f230b9bca.jpg#center"
+         alt="图 6 输出结果" width="70%"/> <figcaption>
+            <p>图 6 输出结果</p>
+        </figcaption>
+</figure>
+
 <p>此时，存储字符的数组 <code>n</code> 为：</p>
-<p><img loading="lazy" src="https://i.loli.net/2019/03/01/5c78f23e60f77.jpg" alt="Array_n"  />
-</p>
+<!-- raw HTML omitted -->
+<figure class="align-center ">
+    <img loading="lazy" src="https://i.loli.net/2019/03/01/5c78f23e60f77.jpg#center"
+         alt="图 7 字符数组在内存中的值" width="30%"/> <figcaption>
+            <p>图 7 字符数组在内存中的值</p>
+        </figcaption>
+</figure>
+
 
 
   </div>
@@ -508,6 +550,27 @@ typedef wchar_t short int; 所以 wchar_t 实际上的空间和 short int 一样
         <path d="M12 6H0l6-6z" />
     </svg>
 </a>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css" integrity="sha384-KiWOvVjnN8qwAZbuQyWDIbfCLFhLXNETzBQjA/92pIowpC0d2O3nppDGQVgwd2nB" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js" integrity="sha384-0fdwu/T/EQMsQlrHCCHoH10pkPLlKA1jL5dFyUOvB3lfeT2540/2g6YgSi2BL14p" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            
+            
+            delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '$', right: '$', display: false},
+                {left: '\\(', right: '\\)', display: false},
+                {left: '\\[', right: '\\]', display: true}
+            ],
+            
+            throwOnError : false
+        });
+    });
+</script>
+
 
 <script>
     let menu = document.getElementById('menu')

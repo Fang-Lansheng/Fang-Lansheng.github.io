@@ -8,16 +8,15 @@
 <title>OpenCV 相机检校：原理及简单实现 | Jifan&#39;s Blog</title>
 <meta name="keywords" content="OpenCV, C&#43;&#43;" />
 <meta name="description" content="本文主要参考自 OpenCV 官方教程 OpenCV: Camera calibration With OpenCV，大部分内容是对原文的直接翻译。
- 1. 前言 利用手机相机对棋盘图拍摄得到的图像如下（左边为原图，右边为二值化处理后的图像）：
-如下所示，将其与原始棋盘图对比（左侧为原始图像，右侧为手机相机拍摄影像）。可以明显地看出出现了一定程度的畸变。
-2. 相机检校原理 目前常用的相机检校方法是附加参数法，其关键在于通过一组额外参数拟合镜头畸变，主要是径向畸变和切向畸变：
-$$ \begin{align} dx &amp;= x(k_1r^2&#43;k_2r^4&#43;k_3r^6) &#43; p_1(r^2&#43;2x^2) &#43; p_2xy \ dy &amp;= \underbrace{y(k_1r^2&#43;k_2r^4&#43;k_3r^6)}\text{radial distortion} &#43; \underbrace{p_2(r^2&#43;2y^2) &#43; p_1xy}\text{tangential distortion} \end{align} $$
+ 1. 前言 利用手机相机对棋盘图拍摄得到的图像如下所示：
+ 图 1 手机相机拍摄图像（左）及其二值化处理后的结果（右）
+  将其与原始棋盘图对比，可以明显地看出，手机拍摄图像出现了一定程度的畸变。
+ 图 2 原始图像（左）与二值化处理后的手机拍摄图像（右）对比
+  2. 相机检校原理 目前常用的相机检校方法是附加参数法，其关键在于通过一组额外参数拟合镜头畸变，主要是径向畸变和切向畸变：
+$$ \begin{align*} dx &amp; = \overbrace{x(k_1r^2&#43;k_2r^4&#43;k_3r^6)}^{\text{radial distortion}} &#43; p_1(r^2&#43;2x^2) &#43; p_2xy \cr dy &amp; = y(k_1r^2&#43;k_2r^4&#43;k_3r^6) &#43; \underbrace{p_2(r^2&#43;2y^2) &#43; p_1 xy}_{\text{tangential distortion}} \end{align*} $$
 式中，
-$$ x=x&rsquo;-x_0, \quad y=y&rsquo;-y_0 \ r^2 = x^2 &#43; y^2 $$
-其中 $(x&rsquo;,y&rsquo;)$ 为像片坐标的原始量测值，$k_i,(i=1,2,3)$ 为径向畸变参数，$p_j, (j=1,2)$ 为切向畸变参数。所以 5 个畸变参数构成的矩阵为：
-$$ distortion_coeffients = (\begin{matrix}k_1&amp;k_2&amp;p_1&amp;p_2&amp;k_3\end{matrix}) $$
-对于影像坐标和物空间坐标的转换关系为：
-$$ \begin{bmatrix}x\y\f\end{bmatrix}= K \begin{bmatrix}X\Y\Z\end{bmatrix}= \begin{bmatrix}f_x&amp;0&amp;c_x\0&amp;f_y&amp;c_y\0&amp;0&amp;1\end{bmatrix} \begin{bmatrix}X\Y\Z\end{bmatrix} $$">
+$$ x=x&rsquo;-x_0, \newline y=y&rsquo;-y_0, \newline r^2 = x^2 &#43; y^2 $$
+其中 $(x&rsquo;,y&rsquo;)$ 为像片坐标的原始量测值，$k_i,(i=1,2,3)$ 为径向畸变参数，$p_j, (j=1,2)$ 为切向畸变参数。所以 5 个畸变参数构成的矩阵为：">
 <meta name="author" content="Jifan">
 <link rel="canonical" href="https://jifan.tech/posts/2019-04-18/opencv-3/" />
 <link crossorigin="anonymous" href="/assets/css/stylesheet.min.48a18943c2fc15c38a372b8dde1f5e5dc0bc64fa6cb90f5a817d2f8c76b7f3ae.css" integrity="sha256-SKGJQ8L8FcOKNyuN3h9eXcC8ZPpsuQ9agX0vjHa3864=" rel="preload stylesheet" as="style">
@@ -68,16 +67,15 @@ $$ \begin{bmatrix}x\y\f\end{bmatrix}= K \begin{bmatrix}X\Y\Z\end{bmatrix}= \begi
     </style>
 </noscript><meta property="og:title" content="OpenCV 相机检校：原理及简单实现" />
 <meta property="og:description" content="本文主要参考自 OpenCV 官方教程 OpenCV: Camera calibration With OpenCV，大部分内容是对原文的直接翻译。
- 1. 前言 利用手机相机对棋盘图拍摄得到的图像如下（左边为原图，右边为二值化处理后的图像）：
-如下所示，将其与原始棋盘图对比（左侧为原始图像，右侧为手机相机拍摄影像）。可以明显地看出出现了一定程度的畸变。
-2. 相机检校原理 目前常用的相机检校方法是附加参数法，其关键在于通过一组额外参数拟合镜头畸变，主要是径向畸变和切向畸变：
-$$ \begin{align} dx &amp;= x(k_1r^2&#43;k_2r^4&#43;k_3r^6) &#43; p_1(r^2&#43;2x^2) &#43; p_2xy \ dy &amp;= \underbrace{y(k_1r^2&#43;k_2r^4&#43;k_3r^6)}\text{radial distortion} &#43; \underbrace{p_2(r^2&#43;2y^2) &#43; p_1xy}\text{tangential distortion} \end{align} $$
+ 1. 前言 利用手机相机对棋盘图拍摄得到的图像如下所示：
+ 图 1 手机相机拍摄图像（左）及其二值化处理后的结果（右）
+  将其与原始棋盘图对比，可以明显地看出，手机拍摄图像出现了一定程度的畸变。
+ 图 2 原始图像（左）与二值化处理后的手机拍摄图像（右）对比
+  2. 相机检校原理 目前常用的相机检校方法是附加参数法，其关键在于通过一组额外参数拟合镜头畸变，主要是径向畸变和切向畸变：
+$$ \begin{align*} dx &amp; = \overbrace{x(k_1r^2&#43;k_2r^4&#43;k_3r^6)}^{\text{radial distortion}} &#43; p_1(r^2&#43;2x^2) &#43; p_2xy \cr dy &amp; = y(k_1r^2&#43;k_2r^4&#43;k_3r^6) &#43; \underbrace{p_2(r^2&#43;2y^2) &#43; p_1 xy}_{\text{tangential distortion}} \end{align*} $$
 式中，
-$$ x=x&rsquo;-x_0, \quad y=y&rsquo;-y_0 \ r^2 = x^2 &#43; y^2 $$
-其中 $(x&rsquo;,y&rsquo;)$ 为像片坐标的原始量测值，$k_i,(i=1,2,3)$ 为径向畸变参数，$p_j, (j=1,2)$ 为切向畸变参数。所以 5 个畸变参数构成的矩阵为：
-$$ distortion_coeffients = (\begin{matrix}k_1&amp;k_2&amp;p_1&amp;p_2&amp;k_3\end{matrix}) $$
-对于影像坐标和物空间坐标的转换关系为：
-$$ \begin{bmatrix}x\y\f\end{bmatrix}= K \begin{bmatrix}X\Y\Z\end{bmatrix}= \begin{bmatrix}f_x&amp;0&amp;c_x\0&amp;f_y&amp;c_y\0&amp;0&amp;1\end{bmatrix} \begin{bmatrix}X\Y\Z\end{bmatrix} $$" />
+$$ x=x&rsquo;-x_0, \newline y=y&rsquo;-y_0, \newline r^2 = x^2 &#43; y^2 $$
+其中 $(x&rsquo;,y&rsquo;)$ 为像片坐标的原始量测值，$k_i,(i=1,2,3)$ 为径向畸变参数，$p_j, (j=1,2)$ 为切向畸变参数。所以 5 个畸变参数构成的矩阵为：" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://jifan.tech/posts/2019-04-18/opencv-3/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2019-04-18T00:00:00&#43;00:00" />
@@ -86,16 +84,15 @@ $$ \begin{bmatrix}x\y\f\end{bmatrix}= K \begin{bmatrix}X\Y\Z\end{bmatrix}= \begi
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="OpenCV 相机检校：原理及简单实现"/>
 <meta name="twitter:description" content="本文主要参考自 OpenCV 官方教程 OpenCV: Camera calibration With OpenCV，大部分内容是对原文的直接翻译。
- 1. 前言 利用手机相机对棋盘图拍摄得到的图像如下（左边为原图，右边为二值化处理后的图像）：
-如下所示，将其与原始棋盘图对比（左侧为原始图像，右侧为手机相机拍摄影像）。可以明显地看出出现了一定程度的畸变。
-2. 相机检校原理 目前常用的相机检校方法是附加参数法，其关键在于通过一组额外参数拟合镜头畸变，主要是径向畸变和切向畸变：
-$$ \begin{align} dx &amp;= x(k_1r^2&#43;k_2r^4&#43;k_3r^6) &#43; p_1(r^2&#43;2x^2) &#43; p_2xy \ dy &amp;= \underbrace{y(k_1r^2&#43;k_2r^4&#43;k_3r^6)}\text{radial distortion} &#43; \underbrace{p_2(r^2&#43;2y^2) &#43; p_1xy}\text{tangential distortion} \end{align} $$
+ 1. 前言 利用手机相机对棋盘图拍摄得到的图像如下所示：
+ 图 1 手机相机拍摄图像（左）及其二值化处理后的结果（右）
+  将其与原始棋盘图对比，可以明显地看出，手机拍摄图像出现了一定程度的畸变。
+ 图 2 原始图像（左）与二值化处理后的手机拍摄图像（右）对比
+  2. 相机检校原理 目前常用的相机检校方法是附加参数法，其关键在于通过一组额外参数拟合镜头畸变，主要是径向畸变和切向畸变：
+$$ \begin{align*} dx &amp; = \overbrace{x(k_1r^2&#43;k_2r^4&#43;k_3r^6)}^{\text{radial distortion}} &#43; p_1(r^2&#43;2x^2) &#43; p_2xy \cr dy &amp; = y(k_1r^2&#43;k_2r^4&#43;k_3r^6) &#43; \underbrace{p_2(r^2&#43;2y^2) &#43; p_1 xy}_{\text{tangential distortion}} \end{align*} $$
 式中，
-$$ x=x&rsquo;-x_0, \quad y=y&rsquo;-y_0 \ r^2 = x^2 &#43; y^2 $$
-其中 $(x&rsquo;,y&rsquo;)$ 为像片坐标的原始量测值，$k_i,(i=1,2,3)$ 为径向畸变参数，$p_j, (j=1,2)$ 为切向畸变参数。所以 5 个畸变参数构成的矩阵为：
-$$ distortion_coeffients = (\begin{matrix}k_1&amp;k_2&amp;p_1&amp;p_2&amp;k_3\end{matrix}) $$
-对于影像坐标和物空间坐标的转换关系为：
-$$ \begin{bmatrix}x\y\f\end{bmatrix}= K \begin{bmatrix}X\Y\Z\end{bmatrix}= \begin{bmatrix}f_x&amp;0&amp;c_x\0&amp;f_y&amp;c_y\0&amp;0&amp;1\end{bmatrix} \begin{bmatrix}X\Y\Z\end{bmatrix} $$"/>
+$$ x=x&rsquo;-x_0, \newline y=y&rsquo;-y_0, \newline r^2 = x^2 &#43; y^2 $$
+其中 $(x&rsquo;,y&rsquo;)$ 为像片坐标的原始量测值，$k_i,(i=1,2,3)$ 为径向畸变参数，$p_j, (j=1,2)$ 为切向畸变参数。所以 5 个畸变参数构成的矩阵为："/>
 
 
 <script type="application/ld+json">
@@ -124,12 +121,12 @@ $$ \begin{bmatrix}x\y\f\end{bmatrix}= K \begin{bmatrix}X\Y\Z\end{bmatrix}= \begi
   "@type": "BlogPosting",
   "headline": "OpenCV 相机检校：原理及简单实现",
   "name": "OpenCV 相机检校：原理及简单实现",
-  "description": "本文主要参考自 OpenCV 官方教程 OpenCV: Camera calibration With OpenCV，大部分内容是对原文的直接翻译。\n 1. 前言 利用手机相机对棋盘图拍摄得到的图像如下（左边为原图，右边为二值化处理后的图像）：\n如下所示，将其与原始棋盘图对比（左侧为原始图像，右侧为手机相机拍摄影像）。可以明显地看出出现了一定程度的畸变。\n2. 相机检校原理 目前常用的相机检校方法是附加参数法，其关键在于通过一组额外参数拟合镜头畸变，主要是径向畸变和切向畸变：\n$$ \\begin{align} dx \u0026amp;= x(k_1r^2+k_2r^4+k_3r^6) + p_1(r^2+2x^2) + p_2xy \\ dy \u0026amp;= \\underbrace{y(k_1r^2+k_2r^4+k_3r^6)}\\text{radial distortion} + \\underbrace{p_2(r^2+2y^2) + p_1xy}\\text{tangential distortion} \\end{align} $$\n式中，\n$$ x=x\u0026rsquo;-x_0, \\quad y=y\u0026rsquo;-y_0 \\ r^2 = x^2 + y^2 $$\n其中 $(x\u0026rsquo;,y\u0026rsquo;)$ 为像片坐标的原始量测值，$k_i,(i=1,2,3)$ 为径向畸变参数，$p_j, (j=1,2)$ 为切向畸变参数。所以 5 个畸变参数构成的矩阵为：\n$$ distortion_coeffients = (\\begin{matrix}k_1\u0026amp;k_2\u0026amp;p_1\u0026amp;p_2\u0026amp;k_3\\end{matrix}) $$\n对于影像坐标和物空间坐标的转换关系为：\n$$ \\begin{bmatrix}x\\y\\f\\end{bmatrix}= K \\begin{bmatrix}X\\Y\\Z\\end{bmatrix}= \\begin{bmatrix}f_x\u0026amp;0\u0026amp;c_x\\0\u0026amp;f_y\u0026amp;c_y\\0\u0026amp;0\u0026amp;1\\end{bmatrix} \\begin{bmatrix}X\\Y\\Z\\end{bmatrix} $$",
+  "description": "本文主要参考自 OpenCV 官方教程 OpenCV: Camera calibration With OpenCV，大部分内容是对原文的直接翻译。\n 1. 前言 利用手机相机对棋盘图拍摄得到的图像如下所示：\n 图 1 手机相机拍摄图像（左）及其二值化处理后的结果（右）\n  将其与原始棋盘图对比，可以明显地看出，手机拍摄图像出现了一定程度的畸变。\n 图 2 原始图像（左）与二值化处理后的手机拍摄图像（右）对比\n  2. 相机检校原理 目前常用的相机检校方法是附加参数法，其关键在于通过一组额外参数拟合镜头畸变，主要是径向畸变和切向畸变：\n$$ \\begin{align*} dx \u0026amp; = \\overbrace{x(k_1r^2+k_2r^4+k_3r^6)}^{\\text{radial distortion}} + p_1(r^2+2x^2) + p_2xy \\cr dy \u0026amp; = y(k_1r^2+k_2r^4+k_3r^6) + \\underbrace{p_2(r^2+2y^2) + p_1 xy}_{\\text{tangential distortion}} \\end{align*} $$\n式中，\n$$ x=x\u0026rsquo;-x_0, \\newline y=y\u0026rsquo;-y_0, \\newline r^2 = x^2 + y^2 $$\n其中 $(x\u0026rsquo;,y\u0026rsquo;)$ 为像片坐标的原始量测值，$k_i,(i=1,2,3)$ 为径向畸变参数，$p_j, (j=1,2)$ 为切向畸变参数。所以 5 个畸变参数构成的矩阵为：",
   "keywords": [
     "OpenCV", "C++"
   ],
-  "articleBody": " 本文主要参考自 OpenCV 官方教程 OpenCV: Camera calibration With OpenCV，大部分内容是对原文的直接翻译。\n 1. 前言 利用手机相机对棋盘图拍摄得到的图像如下（左边为原图，右边为二值化处理后的图像）：\n如下所示，将其与原始棋盘图对比（左侧为原始图像，右侧为手机相机拍摄影像）。可以明显地看出出现了一定程度的畸变。\n2. 相机检校原理 目前常用的相机检校方法是附加参数法，其关键在于通过一组额外参数拟合镜头畸变，主要是径向畸变和切向畸变：\n$$ \\begin{align} dx \u0026= x(k_1r^2+k_2r^4+k_3r^6) + p_1(r^2+2x^2) + p_2xy \\ dy \u0026= \\underbrace{y(k_1r^2+k_2r^4+k_3r^6)}\\text{radial distortion} + \\underbrace{p_2(r^2+2y^2) + p_1xy}\\text{tangential distortion} \\end{align} $$\n式中，\n$$ x=x’-x_0, \\quad y=y’-y_0 \\ r^2 = x^2 + y^2 $$\n其中 $(x’,y’)$ 为像片坐标的原始量测值，$k_i,(i=1,2,3)$ 为径向畸变参数，$p_j, (j=1,2)$ 为切向畸变参数。所以 5 个畸变参数构成的矩阵为：\n$$ distortion_coeffients = (\\begin{matrix}k_1\u0026k_2\u0026p_1\u0026p_2\u0026k_3\\end{matrix}) $$\n对于影像坐标和物空间坐标的转换关系为：\n$$ \\begin{bmatrix}x\\y\\f\\end{bmatrix}= K \\begin{bmatrix}X\\Y\\Z\\end{bmatrix}= \\begin{bmatrix}f_x\u00260\u0026c_x\\0\u0026f_y\u0026c_y\\0\u00260\u00261\\end{bmatrix} \\begin{bmatrix}X\\Y\\Z\\end{bmatrix} $$\n其中，$(x, y, w)$ 是像点坐标在齐次坐标系下的表示（$w=Z$），$(X,Y,Z)$ 为该点对应的物方坐标。该式有 4 个未知数，$f_x$，$f_y$ 为相机焦距。$c_x$，$c_y$ 为像主点坐标。包含这 4 个参数的矩阵 $K$ 被称为相机矩阵。\n相机检校的过程即是求解相机矩阵和畸变矩阵的过程。这些参数可以通过一些基本的几何方程进行解算，其中使用的公式取决于选择的校准对象，本文所参考的 OpenCV 相机检校方法支持三种类型的校准对象：\n 经典的黑白棋盘图案 对称的圆圈图案 不对称的圆圈图案  为了提高精度、忽略噪声的影像，我们往往需要拍摄多张照片以便进行整体解算。而本回使用的黑白棋盘图案理论上所需的相片数量最多，为此，我一共在不同位置拍摄了 10 张相片（见下图）。\n3. 检校过程 通过再实现 OpenCV 的相机检校样例，我们主要完成了以下过程：\n 确定畸变矩阵 确定相机矩阵 批量获取影像数据 从 .XML/YAML 文件中读取配置 保存结果到 .XML/YAML 中 计算投影误差  其中，输入的配置文件 input.XML 部分内容如下：\n     9 6  \"CHESSBOARD\"  \"inputImages.xml\"  \"out_camera_data.xml\"   用于检校的输入图像（即上文中的十张相片）通过 inputImages.xml 确定：\n   imgs/IMG_01.jpg imgs/IMG_02.jpg imgs/IMG_03.jpg imgs/IMG_04.jpg imgs/IMG_05.jpg imgs/IMG_06.jpg imgs/IMG_07.jpg imgs/IMG_08.jpg imgs/IMG_09.jpg imgs/IMG_10.jpg   运行代码，OpenCV 通过 findChessboardCorners() 函数找到每张相片中指定数目的棋盘点 $(9\\times6)$，比如：\n不过可能是由于光照等因素影响，第八张相片中的点并未成功识别出。程序将尝试在所有输入图像中找到并绘出这些棋盘点：\n最终我们通过 imwrite() 函数，输出校正变形后的图像：\n在输出的 out_camera_data.xml 文件中，我们可以得到相机检校过程中的所有参数，包括相机矩阵、畸变参数矩阵和检测点的坐标等。\n  \"Fri Apr 19 14:12:13 2019\" 9 900\t 1200\t 9 6 50. 1. 6158 0  type_id=\"opencv-matrix\"\t 3 3 d  1.1462822465241961e+03 0. 450. 0. 1.1462822465241961e+03 600. 0. 0.1.    type_id=\"opencv-matrix\"\t 5 1 d  5.2379099530930096e-01 -4.0406900157339871e+00 0. 0.8.8954798029406810e+00   6.1070913167798235e-01  type_id=\"opencv-matrix\" 9 1 f  7.01961458e-01 6.66437447e-01 5.47557890e-01 5.58410525e-01 4.83857125e-01 5.62040746e-01 6.58297598e-01 6.49597406e-01 6.34681106e-01    type_id=\"opencv-matrix\" 9 6 d    type_id=\"opencv-matrix\" 9 54 \"2f\"     相机矩阵：\n$$ \\begin{align} Camera_Matrix \u0026= \\begin{bmatrix}f_x\u00260\u0026c_x\\0\u0026f_y\u0026c_y\\0\u00260\u00261\\end{bmatrix}\\ \u0026=\\begin{bmatrix}1146.282\u0026 0 \u0026450 \\0\u0026 1146.282\u0026 600\\ 0\u00260\u00261\\end{bmatrix} \\end{align} $$\n其中，相机焦距的精确值为 $f_x=f_y=1.1462822465241961e+03$，且 $c_x=450$，$c_y=600$，鉴于输入图像的尺寸为 $900\\times1200$，可见程序直接将图像中心作为像主点。\n畸变矩阵：\n$$ \\begin{align} distortion_coeffients \u0026= \\begin{bmatrix}k_1\u0026k_2\u0026p_1\u0026p_2\u0026k_3\\end{bmatrix}\\ \u0026= \\begin{bmatrix}0.52379 \u0026 -4.04069 \u0026 0 \u0026 0 \u0026 8.89548\\end{bmatrix} \\end{align} $$\n 径向畸变参数的精确值为：  $k_1 = 5.2379099530930096e-01$ $k_2 = -4.0406900157339871e+00$ $k_3 = 8.8954798029406810e+00$   切向畸变参数： $p_1 = p _ 2 = 0$  ",
-  "wordCount" : "318",
+  "articleBody": " 本文主要参考自 OpenCV 官方教程 OpenCV: Camera calibration With OpenCV，大部分内容是对原文的直接翻译。\n 1. 前言 利用手机相机对棋盘图拍摄得到的图像如下所示：\n 图 1 手机相机拍摄图像（左）及其二值化处理后的结果（右）\n  将其与原始棋盘图对比，可以明显地看出，手机拍摄图像出现了一定程度的畸变。\n 图 2 原始图像（左）与二值化处理后的手机拍摄图像（右）对比\n  2. 相机检校原理 目前常用的相机检校方法是附加参数法，其关键在于通过一组额外参数拟合镜头畸变，主要是径向畸变和切向畸变：\n$$ \\begin{align*} dx \u0026 = \\overbrace{x(k_1r^2+k_2r^4+k_3r^6)}^{\\text{radial distortion}} + p_1(r^2+2x^2) + p_2xy \\cr dy \u0026 = y(k_1r^2+k_2r^4+k_3r^6) + \\underbrace{p_2(r^2+2y^2) + p_1 xy}_{\\text{tangential distortion}} \\end{align*} $$\n式中，\n$$ x=x’-x_0, \\newline y=y’-y_0, \\newline r^2 = x^2 + y^2 $$\n其中 $(x’,y’)$ 为像片坐标的原始量测值，$k_i,(i=1,2,3)$ 为径向畸变参数，$p_j, (j=1,2)$ 为切向畸变参数。所以 5 个畸变参数构成的矩阵为：\n$$ \\text{distortion coeffients} = (\\begin{matrix}k_1\u0026k_2\u0026p_1\u0026p_2\u0026k_3\\end{matrix}) $$\n对于影像坐标和物空间坐标的转换关系为：\n$$ \\begin{bmatrix}x \\cr y \\cr f \\end{bmatrix}= K \\begin{bmatrix}X \\cr Y \\cr Z \\end{bmatrix}= \\begin{bmatrix}f_x \u0026 0 \u0026 c_x \\cr 0 \u0026 f_y \u0026 c_y \\cr 0 \u0026 0 \u0026 1 \\end{bmatrix} \\begin{bmatrix}X \\cr Y \\cr Z \\end{bmatrix} $$\n其中，$(x, y, w)$ 是像点坐标在齐次坐标系下的表示（$w=Z$），$(X,Y,Z)$ 为该点对应的物方坐标。该式有 4 个未知数，$f_x$，$f_y$ 为相机焦距。$c_x$，$c_y$ 为像主点坐标。包含这 4 个参数的矩阵 $K$ 被称为相机矩阵。\n相机检校的过程即是求解相机矩阵和畸变矩阵的过程。这些参数可以通过一些基本的几何方程进行解算，其中使用的公式取决于选择的校准对象，本文所参考的 OpenCV 相机检校方法支持三种类型的校准对象：\n 经典的黑白棋盘图案 对称的圆圈图案 不对称的圆圈图案  为了提高精度、忽略噪声的影像，我们往往需要拍摄多张照片以便进行整体解算。而本回使用的黑白棋盘图案理论上所需的相片数量最多，为此，我一共在不同位置拍摄了 10 张相片（见下图）。\n 图 3 手机相机在不同角度、位置摄影得到 10 张图像\n  3. 检校过程 通过再实现 OpenCV 的相机检校样例，我们主要完成了以下过程：\n 确定畸变矩阵 确定相机矩阵 批量获取影像数据 从 .XML/YAML 文件中读取配置 保存结果到 .XML/YAML 中 计算投影误差  其中，输入的配置文件 input.XML 部分内容如下：\n     9 6  \"CHESSBOARD\"  \"inputImages.xml\"  \"out_camera_data.xml\"   用于检校的输入图像（即上文中的十张相片）通过 inputImages.xml 确定：\n   imgs/IMG_01.jpg imgs/IMG_02.jpg imgs/IMG_03.jpg imgs/IMG_04.jpg imgs/IMG_05.jpg imgs/IMG_06.jpg imgs/IMG_07.jpg imgs/IMG_08.jpg imgs/IMG_09.jpg imgs/IMG_10.jpg   运行代码，OpenCV 通过 findChessboardCorners() 函数找到每张相片中指定数目的棋盘点 $(9\\times6)$，比如：\n 图 4 findChessboardCorners() 函数在单张相片上的计算结果\n  不过可能是由于光照等因素影响，第八张相片中的点并未成功识别出。程序将尝试在所有输入图像中找到并绘出这些棋盘点：\n 图 5 全部棋盘点识别结果\n  最终我们通过 imwrite() 函数，输出校正变形后的图像：\n 图 6 对相机畸变进行校正后的结果\n  在输出的 out_camera_data.xml 文件中，我们可以得到相机检校过程中的所有参数，包括相机矩阵、畸变参数矩阵和检测点的坐标等。\n  \"Fri Apr 19 14:12:13 2019\" 9 900\t 1200\t 9 6 50. 1. 6158 0  type_id=\"opencv-matrix\"\t 3 3 d  1.1462822465241961e+03 0. 450. 0. 1.1462822465241961e+03 600. 0. 0.1.    type_id=\"opencv-matrix\"\t 5 1 d  5.2379099530930096e-01 -4.0406900157339871e+00 0. 0.8.8954798029406810e+00   6.1070913167798235e-01  type_id=\"opencv-matrix\" 9 1 f  7.01961458e-01 6.66437447e-01 5.47557890e-01 5.58410525e-01 4.83857125e-01 5.62040746e-01 6.58297598e-01 6.49597406e-01 6.34681106e-01    type_id=\"opencv-matrix\" 9 6 d    type_id=\"opencv-matrix\" 9 54 \"2f\"     相机矩阵：\n$$ \\begin{align*} \\text{Camera Matrix} \u0026= \\begin{bmatrix} f_x \u0026 0 \u0026 c_x \\cr 0 \u0026 f_y \u0026 c_y \\cr 0 \u0026 0 \u0026 1 \\end{bmatrix} \\cr \u0026= \\begin{bmatrix} 1146.282 \u0026 0 \u0026 450 \\cr 0 \u0026 1146.282 \u0026 600 \\cr 0 \u0026 0 \u0026 1 \\end{bmatrix} \\end{align*} $$\n其中，相机焦距的精确值为 $f_x=f_y=1.1462822465241961e+03$，且 $c_x=450$，$c_y=600$，鉴于输入图像的尺寸为 $900\\times1200$，可以推断出程序直接将图像中心作为像主点。\n畸变矩阵：\n$$ \\begin{align*} \\text{distortion coeffients} \u0026= \\begin{bmatrix}k_1\u0026k_2\u0026p_1\u0026p_2\u0026k_3\\end{bmatrix} \\cr \u0026= \\begin{bmatrix}0.52379 \u0026 -4.04069 \u0026 0 \u0026 0 \u0026 8.89548\\end{bmatrix} \\end{align*} $$\n 径向畸变参数的精确值为：  $k_1 = 5.2379099530930096e-01$ $k_2 = -4.0406900157339871e+00$ $k_3 = 8.8954798029406810e+00$   切向畸变参数： $p_1 = p _ 2 = 0$  ",
+  "wordCount" : "410",
   "inLanguage": "en",
   "datePublished": "2019-04-18T00:00:00Z",
   "dateModified": "2019-04-18T00:00:00Z",
@@ -250,37 +247,51 @@ $$ \begin{bmatrix}x\y\f\end{bmatrix}= K \begin{bmatrix}X\Y\Z\end{bmatrix}= \begi
 <p>本文主要参考自 OpenCV 官方教程 <a href="https://docs.opencv.org/master/d4/d94/tutorial_camera_calibration.html">OpenCV: Camera calibration With OpenCV</a>，大部分内容是对原文的直接翻译。</p>
 </blockquote>
 <h1 id="1-前言">1. 前言<a hidden class="anchor" aria-hidden="true" href="#1-前言">#</a></h1>
-<p>利用手机相机对棋盘图拍摄得到的图像如下（左边为原图，右边为二值化处理后的图像）：</p>
-<p><img loading="lazy" src="https://i.loli.net/2019/04/18/5cb838359bf08.jpg" alt=""  />
-</p>
-<p>如下所示，将其与原始棋盘图对比（左侧为原始图像，右侧为手机相机拍摄影像）。可以明显地看出出现了一定程度的畸变。</p>
-<p><img loading="lazy" src="https://i.loli.net/2019/04/18/5cb8385ce3115.jpg" alt=""  />
-</p>
+<p>利用手机相机对棋盘图拍摄得到的图像如下所示：</p>
+<!-- raw HTML omitted -->
+<figure class="align-center ">
+    <img loading="lazy" src="https://i.loli.net/2019/04/18/5cb838359bf08.jpg#center"
+         alt="图 1 手机相机拍摄图像（左）及其二值化处理后的结果（右）"/> <figcaption>
+            <p>图 1 手机相机拍摄图像（左）及其二值化处理后的结果（右）</p>
+        </figcaption>
+</figure>
+
+<p>将其与原始棋盘图对比，可以明显地看出，手机拍摄图像出现了一定程度的畸变。</p>
+<!-- raw HTML omitted -->
+<figure class="align-center ">
+    <img loading="lazy" src="https://i.loli.net/2019/04/18/5cb8385ce3115.jpg#center"
+         alt="图 2 原始图像（左）与二值化处理后的手机拍摄图像（右）对比"/> <figcaption>
+            <p>图 2 原始图像（左）与二值化处理后的手机拍摄图像（右）对比</p>
+        </figcaption>
+</figure>
+
 <h1 id="2-相机检校原理">2. 相机检校原理<a hidden class="anchor" aria-hidden="true" href="#2-相机检校原理">#</a></h1>
 <p>目前常用的相机检校方法是附加参数法，其关键在于通过一组额外参数拟合镜头畸变，主要是径向畸变和切向畸变：</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
 <p>$$
-\begin{align}
-dx &amp;= x(k_1r^2+k_2r^4+k_3r^6) + p_1(r^2+2x^2) + p_2xy \
-dy &amp;= \underbrace{y(k_1r^2+k_2r^4+k_3r^6)}<em>\text{radial distortion} + \underbrace{p_2(r^2+2y^2) + p_1xy}</em>\text{tangential distortion}
-\end{align}
+\begin{align*}
+dx &amp; = \overbrace{x(k_1r^2+k_2r^4+k_3r^6)}^{\text{radial distortion}} + p_1(r^2+2x^2) + p_2xy \cr
+dy &amp; = y(k_1r^2+k_2r^4+k_3r^6) + \underbrace{p_2(r^2+2y^2) + p_1 xy}_{\text{tangential distortion}}
+\end{align*}
 $$</p>
 <p>式中，</p>
 <p>$$
-x=x&rsquo;-x_0, \quad
-y=y&rsquo;-y_0 \
+x=x&rsquo;-x_0, \newline
+y=y&rsquo;-y_0, \newline
 r^2 = x^2 + y^2
 $$</p>
 <p>其中 $(x&rsquo;,y&rsquo;)$ 为像片坐标的原始量测值，$k_i,(i=1,2,3)$ 为径向畸变参数，$p_j, (j=1,2)$ 为切向畸变参数。所以 5 个畸变参数构成的矩阵为：</p>
 <p>$$
-distortion_coeffients = (\begin{matrix}k_1&amp;k_2&amp;p_1&amp;p_2&amp;k_3\end{matrix})
+\text{distortion coeffients} = (\begin{matrix}k_1&amp;k_2&amp;p_1&amp;p_2&amp;k_3\end{matrix})
 $$</p>
 <p>对于影像坐标和物空间坐标的转换关系为：</p>
 <p>$$
-\begin{bmatrix}x\y\f\end{bmatrix}=
+\begin{bmatrix}x \cr y \cr f \end{bmatrix}=
 K
-\begin{bmatrix}X\Y\Z\end{bmatrix}=
-\begin{bmatrix}f_x&amp;0&amp;c_x\0&amp;f_y&amp;c_y\0&amp;0&amp;1\end{bmatrix}
-\begin{bmatrix}X\Y\Z\end{bmatrix}
+\begin{bmatrix}X \cr Y \cr Z \end{bmatrix}=
+\begin{bmatrix}f_x &amp; 0 &amp; c_x \cr 0 &amp; f_y &amp; c_y \cr 0 &amp; 0 &amp; 1 \end{bmatrix}
+\begin{bmatrix}X \cr Y \cr Z \end{bmatrix}
 $$</p>
 <p>其中，$(x, y, w)$ 是像点坐标在齐次坐标系下的表示（$w=Z$），$(X,Y,Z)$ 为该点对应的物方坐标。该式有 4 个未知数，$f_x$，$f_y$ 为相机焦距。$c_x$，$c_y$ 为像主点坐标。包含这 4 个参数的矩阵 $K$ 被称为相机矩阵。</p>
 <p>相机检校的过程即是求解相机矩阵和畸变矩阵的过程。这些参数可以通过一些基本的几何方程进行解算，其中使用的公式取决于选择的校准对象，本文所参考的 OpenCV 相机检校方法支持三种类型的校准对象：</p>
@@ -290,8 +301,14 @@ $$</p>
 <li>不对称的圆圈图案</li>
 </ul>
 <p>为了提高精度、忽略噪声的影像，我们往往需要拍摄多张照片以便进行整体解算。而本回使用的黑白棋盘图案理论上所需的相片数量最多，为此，我一共在不同位置拍摄了 10 张相片（见下图）。</p>
-<p><img loading="lazy" src="https://s2.ax1x.com/2019/04/19/EpoSpR.jpg" alt="EpoSpR.jpg"  />
-</p>
+<!-- raw HTML omitted -->
+<figure class="align-center ">
+    <img loading="lazy" src="https://s2.ax1x.com/2019/04/19/EpoSpR.jpg#center"
+         alt="图 3 手机相机在不同角度、位置摄影得到 10 张图像"/> <figcaption>
+            <p>图 3 手机相机在不同角度、位置摄影得到 10 张图像</p>
+        </figcaption>
+</figure>
+
 <h1 id="3-检校过程">3. 检校过程<a hidden class="anchor" aria-hidden="true" href="#3-检校过程">#</a></h1>
 <p>通过再实现 OpenCV 的相机检校样例，我们主要完成了以下过程：</p>
 <ul>
@@ -334,14 +351,32 @@ $$</p>
 </span></span><span class="line"><span class="cl"><span class="nt">&lt;/images&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="nt">&lt;/opencv_storage&gt;</span>
 </span></span></code></pre></div><p>运行代码，OpenCV 通过  <code>findChessboardCorners()</code> 函数找到每张相片中指定数目的棋盘点 $(9\times6)$，比如：</p>
-<p><img loading="lazy" src="https://i.loli.net/2019/04/19/5cb96a01bdea5.jpg" alt=""  />
-</p>
+<!-- raw HTML omitted -->
+<figure class="align-center ">
+    <img loading="lazy" src="https://i.loli.net/2019/04/19/5cb96a01bdea5.jpg#center"
+         alt="图 4 findChessboardCorners() 函数在单张相片上的计算结果"/> <figcaption>
+            <p>图 4 <code>findChessboardCorners()</code> 函数在单张相片上的计算结果</p>
+        </figcaption>
+</figure>
+
 <p>不过可能是由于光照等因素影响，第八张相片中的点并未成功识别出。程序将尝试在所有输入图像中找到并绘出这些棋盘点：</p>
-<p><img loading="lazy" src="https://i.loli.net/2019/04/19/5cb96b20950d2.jpg" alt="DRAW_ALL.jpg"  />
-</p>
+<!-- raw HTML omitted -->
+<figure class="align-center ">
+    <img loading="lazy" src="https://i.loli.net/2019/04/19/5cb96b20950d2.jpg#center"
+         alt="图 5 全部棋盘点识别结果"/> <figcaption>
+            <p>图 5 全部棋盘点识别结果</p>
+        </figcaption>
+</figure>
+
 <p>最终我们通过 <code>imwrite()</code> 函数，输出校正变形后的图像：</p>
-<p><img loading="lazy" src="https://s2.ax1x.com/2019/04/19/EpTKPJ.png" alt="EpTKPJ.png"  />
-</p>
+<!-- raw HTML omitted -->
+<figure class="align-center ">
+    <img loading="lazy" src="https://s2.ax1x.com/2019/04/19/EpTKPJ.png#center"
+         alt="图 6 对相机畸变进行校正后的结果"/> <figcaption>
+            <p>图 6 对相机畸变进行校正后的结果</p>
+        </figcaption>
+</figure>
+
 <p>在输出的 <code>out_camera_data.xml</code> 文件中，我们可以得到相机检校过程中的所有参数，包括相机矩阵、畸变参数矩阵和检测点的坐标等。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34;?&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="nt">&lt;opencv_storage&gt;</span>
@@ -400,19 +435,23 @@ $$</p>
 </span></span><span class="line"><span class="cl"><span class="nt">&lt;/opencv_storage&gt;</span>
 </span></span></code></pre></div><p><strong>相机矩阵：</strong></p>
 <p>$$
-\begin{align}
-Camera_Matrix &amp;=
-\begin{bmatrix}f_x&amp;0&amp;c_x\0&amp;f_y&amp;c_y\0&amp;0&amp;1\end{bmatrix}\
-&amp;=\begin{bmatrix}1146.282&amp; 0 &amp;450 \0&amp; 1146.282&amp; 600\ 0&amp;0&amp;1\end{bmatrix}
-\end{align}
+\begin{align*}
+\text{Camera Matrix}
+&amp;= \begin{bmatrix} f_x &amp; 0   &amp; c_x \cr
+0   &amp; f_y &amp; c_y \cr
+0   &amp; 0   &amp; 1   \end{bmatrix} \cr
+&amp;= \begin{bmatrix} 1146.282 &amp; 0        &amp; 450 \cr
+0        &amp; 1146.282 &amp; 600 \cr
+0        &amp; 0        &amp; 1   \end{bmatrix}
+\end{align*}
 $$</p>
-<p>其中，相机焦距的精确值为 $f_x=f_y=1.1462822465241961e+03$，且 $c_x=450$，$c_y=600$，鉴于输入图像的尺寸为 $900\times1200$，可见程序直接将图像中心作为像主点。</p>
+<p>其中，相机焦距的精确值为 $f_x=f_y=1.1462822465241961e+03$，且 $c_x=450$，$c_y=600$，鉴于输入图像的尺寸为 $900\times1200$，可以推断出程序直接将图像中心作为像主点。</p>
 <p><strong>畸变矩阵：</strong></p>
 <p>$$
-\begin{align}
-distortion_coeffients &amp;= \begin{bmatrix}k_1&amp;k_2&amp;p_1&amp;p_2&amp;k_3\end{bmatrix}\
+\begin{align*}
+\text{distortion coeffients} &amp;= \begin{bmatrix}k_1&amp;k_2&amp;p_1&amp;p_2&amp;k_3\end{bmatrix} \cr
 &amp;= \begin{bmatrix}0.52379 &amp; -4.04069 &amp; 0 &amp; 0 &amp; 8.89548\end{bmatrix}
-\end{align}
+\end{align*}
 $$</p>
 <ul>
 <li><strong>径向畸变参数</strong>的精确值为：
@@ -437,7 +476,7 @@ $$</p>
   <a class="prev" href="https://jifan.tech/posts/2019-05-10/opencv-4/">
     <span class="title">« Prev Page</span>
     <br>
-    <span>OpenCV 源码分析：SIFT 算法及原理简介</span>
+    <span>OpenCV 源码分析：SIFT 算法原理与实现</span>
   </a>
   <a class="next" href="https://jifan.tech/posts/2019-04-12/linear-algebra-1/">
     <span class="title">Next Page »</span>
@@ -463,6 +502,27 @@ $$</p>
         <path d="M12 6H0l6-6z" />
     </svg>
 </a>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css" integrity="sha384-KiWOvVjnN8qwAZbuQyWDIbfCLFhLXNETzBQjA/92pIowpC0d2O3nppDGQVgwd2nB" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js" integrity="sha384-0fdwu/T/EQMsQlrHCCHoH10pkPLlKA1jL5dFyUOvB3lfeT2540/2g6YgSi2BL14p" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            
+            
+            delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '$', right: '$', display: false},
+                {left: '\\(', right: '\\)', display: false},
+                {left: '\\[', right: '\\]', display: true}
+            ],
+            
+            throwOnError : false
+        });
+    });
+</script>
+
 
 <script>
     let menu = document.getElementById('menu')
