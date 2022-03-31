@@ -9,10 +9,10 @@
     <lastBuildDate>Fri, 10 May 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://jifan.tech/tags/c++/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>OpenCV 源码分析：SIFT 算法原理与实现</title>
-      <link>https://jifan.tech/posts/2019-05-10/opencv-4/</link>
+      <link>https://jifan.tech/posts/2019-05-10-opencv-4/</link>
       <pubDate>Fri, 10 May 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://jifan.tech/posts/2019-05-10/opencv-4/</guid>
+      <guid>https://jifan.tech/posts/2019-05-10-opencv-4/</guid>
       <description>本文及接下来几篇同系列文章是学习 SIFT 算法和 OpenCV SIFT 源码时的学习笔记，整合自参考文献及博客。强烈建议阅读 论文原文、GitHub上的源码 以及 @赵春江 的 opencv 2.4.9 源码分析。
  1. SIFT 算法原理 Lowe 在 2004 年提出了尺度不变特征变换 (Scale Invariant Feature Transform, SIFT) 算法。 SIFT 主要由关键点探测器 (detector) 和描述符 (descriptor) 组成，它的实现分为以下四步:
  尺度空间极值探测 (scale-space extrema detection)：通过高斯差分函数搜索所有尺度和图像位置，以识别对于尺度和方向不变的潜在兴趣点。 关键点精确定位 (keypoint localization)：精确确定每个候选点的尺度与亚像素级位置，根据其稳定性阈值选择关键点。 方向分配 (orientation assignment)：基于图像的局部梯度方向，为每个特性点分配一个或多个方向角度。所有后续的操作都是相对于所确定下来的特征点的角度、尺度和位置的基础上进行的，因此特征点具有角度、尺度和位置的不变性。 关键点描述符 (keypoint descriptor)：在所选定的尺度空间内，测量特征点邻域区域的局部图像梯度，将这些梯度转换成一种允许局部较大程度的形状变形和亮度变化的描述符形式。  下面将对其进行详细阐释：
@@ -22,10 +22,10 @@ Koenderink (The structure of images, 1984) 和 Lindeberg (Detecting salient blob
     
     <item>
       <title>OpenCV 相机检校：原理及简单实现</title>
-      <link>https://jifan.tech/posts/2019-04-18/opencv-3/</link>
+      <link>https://jifan.tech/posts/2019-04-18-opencv-3/</link>
       <pubDate>Thu, 18 Apr 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://jifan.tech/posts/2019-04-18/opencv-3/</guid>
+      <guid>https://jifan.tech/posts/2019-04-18-opencv-3/</guid>
       <description>本文主要参考自 OpenCV 官方教程 OpenCV: Camera calibration With OpenCV，大部分内容是对原文的直接翻译。
  1. 前言 利用手机相机对棋盘图拍摄得到的图像如下所示：
  图 1 手机相机拍摄图像（左）及其二值化处理后的结果（右）
@@ -40,10 +40,10 @@ $$ x=x&amp;rsquo;-x_0, \newline y=y&amp;rsquo;-y_0, \newline r^2 = x^2 + y^2 $$
     
     <item>
       <title>OpenCV 点特征提取算子：Moravec，Forstner 与 Harris</title>
-      <link>https://jifan.tech/posts/2019-04-02/opencv-2/</link>
+      <link>https://jifan.tech/posts/2019-04-02-opencv-2/</link>
       <pubDate>Tue, 02 Apr 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://jifan.tech/posts/2019-04-02/opencv-2/</guid>
+      <guid>https://jifan.tech/posts/2019-04-02-opencv-2/</guid>
       <description>在计算机视觉（Computer Vision）与摄影测量（Photogrammetry）中，我们在不同影像之间找到相匹配的特征，已建立两幅影像之间的联系，提取出我们所需要的信息。这些特征主要分为：
  边缘（Edges） 角点（Corners） 兴趣区域 ROI（Regions of Interest）  其中，提取点特征的算子称为兴趣算子或有利算子（Interest Operator），即运用某种算法从影像种提取我们感兴趣的、有利于某种目的的点。
 人眼对角点的识别通常是在一个局部的小区域或小窗口内完成的。如果在各个方向上移动这个特征的小窗口，窗口内区域的灰度发生了较大的变化，那么就认为在窗口内遇到了角点。如果这个特定的窗口在图像各个方面移动时，窗口内图像的灰度没有发生变化，那么窗口内就不存在角点；如果窗口在某一个方向移动时，窗口内图像的灰度发生了较大的变化，而在另一些方向上没有发生变化，那么窗口内的图像可能只是一条直线的线段。
@@ -56,10 +56,10 @@ $$ \begin{cases} V_1 = \sum_{i = -k}^{k-1}(g_{c+i,r}-g_{c+i+1, r})^2 \cr V_2 = \
     
     <item>
       <title>OpenCV 内置边缘检测算子：Canny，Sobel 与 Laplace</title>
-      <link>https://jifan.tech/posts/2019-03-19/opencv-1/</link>
+      <link>https://jifan.tech/posts/2019-03-19-opencv-1/</link>
       <pubDate>Tue, 19 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://jifan.tech/posts/2019-03-19/opencv-1/</guid>
+      <guid>https://jifan.tech/posts/2019-03-19-opencv-1/</guid>
       <description>边缘检测（Edge Detection）是图像处理的基础内容。本文中，我从OpenCV官网上下载了最新版本的 OpenCV 4.0.1（2018-12-22），借助官方文档和网络教程完成了环境配置与测试，具体步骤不再赘述。
 在 OpenCV 中可用于边缘检测的算子主要有：
  Canny 算子 Sobel 算子 Laplace 算子  Canny 算子 理论 Canny 算法是由 John F. Canny 于 1987 年在 A computational approach to edge detection 一文提出来的，它旨在满足三个主要标准：
@@ -69,10 +69,10 @@ $$ \begin{cases} V_1 = \sum_{i = -k}^{k-1}(g_{c+i,r}-g_{c+i+1, r})^2 \cr V_2 = \
     
     <item>
       <title>数据结构笔记：求解斐波那契数列算法的复杂度</title>
-      <link>https://jifan.tech/posts/2019-03-01/ds-notes-1/</link>
+      <link>https://jifan.tech/posts/2019-03-01-ds-notes-1/</link>
       <pubDate>Fri, 01 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://jifan.tech/posts/2019-03-01/ds-notes-1/</guid>
+      <guid>https://jifan.tech/posts/2019-03-01-ds-notes-1/</guid>
       <description>斐波那契数列 斐波那契数列（Fibonacci Sequence）是一串数字：
 \[ (0,)\ 1,\ 1,\ 2,\ 3,\ 5,\ 8,\ 13,\ 21,\ 34,\ 55,\ 89,\ 144,\ &amp;hellip; \] 很容易看出，每一个数（除第 1、2 个）都等于它之前的两个数之和。因此，用公式可归纳为： \[ F_n = \begin{cases} 0, &amp;amp; n=0 \\ 1, &amp;amp; n=1 \\ F_{n-1} + F_{n-2}, &amp;amp; n&amp;gt;1 \end{cases} \]
 计算复杂性理论 在将斐波那契数列用 C++ 代码实现并计算时间、空间复杂度之前，先要了解一下什么是所谓的“复杂度”
@@ -85,10 +85,10 @@ $$ \begin{cases} V_1 = \sum_{i = -k}^{k-1}(g_{c+i,r}-g_{c+i+1, r})^2 \cr V_2 = \
     
     <item>
       <title>C&#43;&#43; 学习笔记：数据类型、浮点数的比较以及“大数”的读取</title>
-      <link>https://jifan.tech/posts/2019-02-27/cpp-study-notes-1/</link>
+      <link>https://jifan.tech/posts/2019-02-27-cpp-study-notes-1/</link>
       <pubDate>Wed, 27 Feb 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://jifan.tech/posts/2019-02-27/cpp-study-notes-1/</guid>
+      <guid>https://jifan.tech/posts/2019-02-27-cpp-study-notes-1/</guid>
       <description>再一次地、从头开始学习C/C++。
  C++ 数据类型及其表示范围 这一部分是基础，不过我之前都没有系统性的搞清楚，所以现在还是先把这些知识点列出来，该部分参考C++ 数据类型 - 菜鸟教程。
 1. 基本的内置类型 C++ 为程序员提供了种类丰富的内置数据类型和用户自定义的数据类型。下表列出了七种基本的 C++ 数据类型：

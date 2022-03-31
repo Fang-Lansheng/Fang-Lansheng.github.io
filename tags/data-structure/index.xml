@@ -9,10 +9,10 @@
     <lastBuildDate>Fri, 01 Mar 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://jifan.tech/tags/data-structure/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>数据结构笔记：求解斐波那契数列算法的复杂度</title>
-      <link>https://jifan.tech/posts/2019-03-01/ds-notes-1/</link>
+      <link>https://jifan.tech/posts/2019-03-01-ds-notes-1/</link>
       <pubDate>Fri, 01 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://jifan.tech/posts/2019-03-01/ds-notes-1/</guid>
+      <guid>https://jifan.tech/posts/2019-03-01-ds-notes-1/</guid>
       <description>斐波那契数列 斐波那契数列（Fibonacci Sequence）是一串数字：
 \[ (0,)\ 1,\ 1,\ 2,\ 3,\ 5,\ 8,\ 13,\ 21,\ 34,\ 55,\ 89,\ 144,\ &amp;hellip; \] 很容易看出，每一个数（除第 1、2 个）都等于它之前的两个数之和。因此，用公式可归纳为： \[ F_n = \begin{cases} 0, &amp;amp; n=0 \\ 1, &amp;amp; n=1 \\ F_{n-1} + F_{n-2}, &amp;amp; n&amp;gt;1 \end{cases} \]
 计算复杂性理论 在将斐波那契数列用 C++ 代码实现并计算时间、空间复杂度之前，先要了解一下什么是所谓的“复杂度”

@@ -9,10 +9,10 @@
     <lastBuildDate>Fri, 12 Apr 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://jifan.tech/tags/math/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>线性代数：特征值分解、奇异值分解与 RQ 分解</title>
-      <link>https://jifan.tech/posts/2019-04-12/linear-algebra-1/</link>
+      <link>https://jifan.tech/posts/2019-04-12-linear-algebra-1/</link>
       <pubDate>Fri, 12 Apr 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://jifan.tech/posts/2019-04-12/linear-algebra-1/</guid>
+      <guid>https://jifan.tech/posts/2019-04-12-linear-algebra-1/</guid>
       <description>特征值分解 1. 特征值与特征向量 在线性代数中，对于 $n$ 阶方阵 $A$，如果存在某个数 $\lambda$ 及某个 $n$ 维非零列向量 $v$，使得
 $$ Av = \lambda v $$
 则称 $\lambda$ 是方阵 $A$ 的一个特征值，$v$ 是方阵 $A$ 的属于特征值 $\lambda$ 的一个特征向量。

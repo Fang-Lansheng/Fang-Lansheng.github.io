@@ -16,7 +16,7 @@ Moravec 算子 基本原理 Moravec 于 1977 年提出利用灰度方差提取�
 1. 计算各像元的兴趣值 $IV$（Interest Value）。 在以像素 $(c, r)$ 为中心的 $w \times w$ 的窗口中（如 $5 \times 5$ 的窗口），计算四个方向相邻像素灰度差的平方和：
 $$ \begin{cases} V_1 = \sum_{i = -k}^{k-1}(g_{c&#43;i,r}-g_{c&#43;i&#43;1, r})^2 \cr V_2 = \sum_{i = -k}^{k-1}(g_{c&#43;i,r&#43;i}-g_{c&#43;i&#43;1, r&#43;i&#43;1})^2 \cr V_3 = \sum_{i = -k}^{k-1}(g_{c,r&#43;i}-g_{c&#43;i&#43;1, r&#43;i&#43;1})^2 \cr V_4 = \sum_{i = -k}^{k-1}(g_{c&#43;i,r-i}-g_{c&#43;i&#43;1, r-i-1})^2 \end{cases} $$">
 <meta name="author" content="Jifan">
-<link rel="canonical" href="https://jifan.tech/posts/2019-04-02/opencv-2/" />
+<link rel="canonical" href="https://jifan.tech/posts/2019-04-02-opencv-2/" />
 <link crossorigin="anonymous" href="/assets/css/stylesheet.min.48a18943c2fc15c38a372b8dde1f5e5dc0bc64fa6cb90f5a817d2f8c76b7f3ae.css" integrity="sha256-SKGJQ8L8FcOKNyuN3h9eXcC8ZPpsuQ9agX0vjHa3864=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.min.4dcb3c4f38462f66c6b6137227726f5543cb934cca9788f041c087e374491df2.js" integrity="sha256-Tcs8TzhGL2bGthNyJ3JvVUPLk0zKl4jwQcCH43RJHfI="
     onload="hljs.initHighlightingOnLoad();"></script>
@@ -73,7 +73,7 @@ Moravec 算子 基本原理 Moravec 于 1977 年提出利用灰度方差提取�
 1. 计算各像元的兴趣值 $IV$（Interest Value）。 在以像素 $(c, r)$ 为中心的 $w \times w$ 的窗口中（如 $5 \times 5$ 的窗口），计算四个方向相邻像素灰度差的平方和：
 $$ \begin{cases} V_1 = \sum_{i = -k}^{k-1}(g_{c&#43;i,r}-g_{c&#43;i&#43;1, r})^2 \cr V_2 = \sum_{i = -k}^{k-1}(g_{c&#43;i,r&#43;i}-g_{c&#43;i&#43;1, r&#43;i&#43;1})^2 \cr V_3 = \sum_{i = -k}^{k-1}(g_{c,r&#43;i}-g_{c&#43;i&#43;1, r&#43;i&#43;1})^2 \cr V_4 = \sum_{i = -k}^{k-1}(g_{c&#43;i,r-i}-g_{c&#43;i&#43;1, r-i-1})^2 \end{cases} $$" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://jifan.tech/posts/2019-04-02/opencv-2/" /><meta property="article:section" content="posts" />
+<meta property="og:url" content="https://jifan.tech/posts/2019-04-02-opencv-2/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2019-04-02T00:00:00&#43;00:00" />
 <meta property="article:modified_time" content="2019-04-02T00:00:00&#43;00:00" />
 
@@ -104,7 +104,7 @@ $$ \begin{cases} V_1 = \sum_{i = -k}^{k-1}(g_{c&#43;i,r}-g_{c&#43;i&#43;1, r})^2
       "@type": "ListItem",
       "position":  3 ,
       "name": "OpenCV 点特征提取算子：Moravec，Forstner 与 Harris",
-      "item": "https://jifan.tech/posts/2019-04-02/opencv-2/"
+      "item": "https://jifan.tech/posts/2019-04-02-opencv-2/"
     }
   ]
 }
@@ -130,7 +130,7 @@ $$ \begin{cases} V_1 = \sum_{i = -k}^{k-1}(g_{c&#43;i,r}-g_{c&#43;i&#43;1, r})^2
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https://jifan.tech/posts/2019-04-02/opencv-2/"
+    "@id": "https://jifan.tech/posts/2019-04-02-opencv-2/"
   },
   "publisher": {
     "@type": "Organization",
@@ -190,7 +190,7 @@ $$ \begin{cases} V_1 = \sum_{i = -k}^{k-1}(g_{c&#43;i,r}-g_{c&#43;i&#43;1, r})^2
                 </a>
             </li>
             <li>
-                <a href="https://jifan.tech/archives/" title="Posts">
+                <a href="https://jifan.tech/posts/" title="Posts">
                     <span>Posts</span>
                 </a>
             </li>
@@ -722,12 +722,12 @@ $4$. <a href="https://www.cnblogs.com/ronny/p/4009425.html">Harris角点 - ☆Ro
       <li><a href="https://jifan.tech/tags/c&#43;&#43;/">C&#43;&#43;</a></li>
     </ul>
 <nav class="paginav">
-  <a class="prev" href="https://jifan.tech/posts/2019-04-12/linear-algebra-1/">
+  <a class="prev" href="https://jifan.tech/posts/2019-04-12-linear-algebra-1/">
     <span class="title">« Prev Page</span>
     <br>
     <span>线性代数：特征值分解、奇异值分解与 RQ 分解</span>
   </a>
-  <a class="next" href="https://jifan.tech/posts/2019-03-19/opencv-1/">
+  <a class="next" href="https://jifan.tech/posts/2019-03-19-opencv-1/">
     <span class="title">Next Page »</span>
     <br>
     <span>OpenCV 内置边缘检测算子：Canny，Sobel 与 Laplace</span>
