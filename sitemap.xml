@@ -3,31 +3,19 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://jifan.tech/</loc>
-    <lastmod>2022-03-31T00:00:00+00:00</lastmod>
+    <lastmod>2022-04-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://jifan.tech/projects/</loc>
+    <lastmod>2022-04-03T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://jifan.tech/projects/project_1/</loc>
-    <lastmod>2022-03-31T00:00:00+00:00</lastmod>
+    <lastmod>2022-04-03T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://jifan.tech/projects/project_2/</loc>
     <lastmod>2022-03-31T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://jifan.tech/projects/</loc>
-    <lastmod>2022-03-31T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://jifan.tech/tags/</loc>
-    <lastmod>2022-03-31T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://jifan.tech/tags/web/</loc>
-    <lastmod>2022-03-31T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://jifan.tech/projects/blog/</loc>
     <lastmod>2022-03-25T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://jifan.tech/tags/c&#43;&#43;/</loc>
-    <lastmod>2019-05-10T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://jifan.tech/tags/opencv/</loc>
-    <lastmod>2019-05-10T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://jifan.tech/posts/2019-05-10-opencv-4/</loc>
     <lastmod>2019-05-10T00:00:00+00:00</lastmod>
@@ -38,12 +26,6 @@
     <loc>https://jifan.tech/posts/2019-04-18-opencv-3/</loc>
     <lastmod>2019-04-18T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://jifan.tech/tags/linear-algebra/</loc>
-    <lastmod>2019-04-12T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://jifan.tech/tags/math/</loc>
-    <lastmod>2019-04-12T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://jifan.tech/posts/2019-04-12-linear-algebra-1/</loc>
     <lastmod>2019-04-12T00:00:00+00:00</lastmod>
   </url><url>
@@ -53,9 +35,6 @@
     <loc>https://jifan.tech/posts/2019-03-19-opencv-1/</loc>
     <lastmod>2019-03-19T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://jifan.tech/tags/data-structure/</loc>
-    <lastmod>2019-03-01T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://jifan.tech/posts/2019-03-01-ds-notes-1/</loc>
     <lastmod>2019-03-01T00:00:00+00:00</lastmod>
   </url><url>
@@ -63,8 +42,6 @@
     <lastmod>2019-02-27T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://jifan.tech/about/</loc>
-  </url><url>
-    <loc>https://jifan.tech/categories/</loc>
   </url><url>
     <loc>https://jifan.tech/archives/</loc>
   </url><url>

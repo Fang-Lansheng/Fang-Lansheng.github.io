@@ -7,14 +7,10 @@
 <meta name="robots" content="index, follow">
 <title>OpenCV 内置边缘检测算子：Canny，Sobel 与 Laplace | Jifan&#39;s Blog</title>
 <meta name="keywords" content="OpenCV, C&#43;&#43;" />
-<meta name="description" content="边缘检测（Edge Detection）是图像处理的基础内容。本文中，我从OpenCV官网上下载了最新版本的 OpenCV 4.0.1（2018-12-22），借助官方文档和网络教程完成了环境配置与测试，具体步骤不再赘述。
-在 OpenCV 中可用于边缘检测的算子主要有：
- Canny 算子 Sobel 算子 Laplace 算子  Canny 算子 理论 Canny 算法是由 John F. Canny 于 1987 年在 A computational approach to edge detection 一文提出来的，它旨在满足三个主要标准：
- 低错误率 (Low error rate)：意味着只检测实际存在的边缘。 高定位性 (Good localization)：将检测到的边缘像素与实际边缘像素之间的距离最小化。 最小响应 (Minimal response)：每个边缘只有一个检测器响应。  Canny 算子的步骤如下：
- 滤掉任何噪声。这一过程将使用高斯滤波器。例如，一个 5×5 的高斯内核如下所示：  $$ K = \dfrac{1}{159} \begin{bmatrix} 2 &amp; 4 &amp; 5 &amp; 4 &amp; 2 \cr 4 &amp; 9 &amp; 12 &amp; 9 &amp; 4 \cr 5 &amp; 12 &amp; 15 &amp; 12 &amp; 5 \cr 4 &amp; 9 &amp; 12 &amp; 9 &amp; 4 \cr 2 &amp; 4 &amp; 5 &amp; 4 &amp; 2 \end{bmatrix} $$">
+<meta name="description" content="边缘检测（Edge Detection）是图像处理的基础内容。本文中，我从OpenCV官网上下载了最新版本的 OpenCV 4.0.1（2018-12-22">
 <meta name="author" content="Jifan">
 <link rel="canonical" href="https://jifan.tech/posts/2019-03-19-opencv-1/" />
-<link crossorigin="anonymous" href="/assets/css/stylesheet.min.decb6c16edc4efccbc94f7f2212c77f8a426b111b6ac04cb9983f27180b463a3.css" integrity="sha256-3stsFu3E78y8lPfyISx3&#43;KQmsRG2rATLmYPycYC0Y6M=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.81520709f453b725ce938b33a8e7f7c8a0577a1dab8557808d5e291f303f2100.css" integrity="sha256-gVIHCfRTtyXOk4szqOf3yKBXeh2rhVeAjV4pHzA/IQA=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.min.4dcb3c4f38462f66c6b6137227726f5543cb934cca9788f041c087e374491df2.js" integrity="sha256-Tcs8TzhGL2bGthNyJ3JvVUPLk0zKl4jwQcCH43RJHfI="
     onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://jifan.tech/imgs/favicon.ico">
@@ -61,11 +57,7 @@
 
     </style>
 </noscript><meta property="og:title" content="OpenCV 内置边缘检测算子：Canny，Sobel 与 Laplace" />
-<meta property="og:description" content="边缘检测（Edge Detection）是图像处理的基础内容。本文中，我从OpenCV官网上下载了最新版本的 OpenCV 4.0.1（2018-12-22），借助官方文档和网络教程完成了环境配置与测试，具体步骤不再赘述。
-在 OpenCV 中可用于边缘检测的算子主要有：
- Canny 算子 Sobel 算子 Laplace 算子  Canny 算子 理论 Canny 算法是由 John F. Canny 于 1987 年在 A computational approach to edge detection 一文提出来的，它旨在满足三个主要标准：
- 低错误率 (Low error rate)：意味着只检测实际存在的边缘。 高定位性 (Good localization)：将检测到的边缘像素与实际边缘像素之间的距离最小化。 最小响应 (Minimal response)：每个边缘只有一个检测器响应。  Canny 算子的步骤如下：
- 滤掉任何噪声。这一过程将使用高斯滤波器。例如，一个 5×5 的高斯内核如下所示：  $$ K = \dfrac{1}{159} \begin{bmatrix} 2 &amp; 4 &amp; 5 &amp; 4 &amp; 2 \cr 4 &amp; 9 &amp; 12 &amp; 9 &amp; 4 \cr 5 &amp; 12 &amp; 15 &amp; 12 &amp; 5 \cr 4 &amp; 9 &amp; 12 &amp; 9 &amp; 4 \cr 2 &amp; 4 &amp; 5 &amp; 4 &amp; 2 \end{bmatrix} $$" />
+<meta property="og:description" content="边缘检测（Edge Detection）是图像处理的基础内容。本文中，我从OpenCV官网上下载了最新版本的 OpenCV 4.0.1（2018-12-22" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://jifan.tech/posts/2019-03-19-opencv-1/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2019-03-19T00:00:00&#43;00:00" />
@@ -73,11 +65,7 @@
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="OpenCV 内置边缘检测算子：Canny，Sobel 与 Laplace"/>
-<meta name="twitter:description" content="边缘检测（Edge Detection）是图像处理的基础内容。本文中，我从OpenCV官网上下载了最新版本的 OpenCV 4.0.1（2018-12-22），借助官方文档和网络教程完成了环境配置与测试，具体步骤不再赘述。
-在 OpenCV 中可用于边缘检测的算子主要有：
- Canny 算子 Sobel 算子 Laplace 算子  Canny 算子 理论 Canny 算法是由 John F. Canny 于 1987 年在 A computational approach to edge detection 一文提出来的，它旨在满足三个主要标准：
- 低错误率 (Low error rate)：意味着只检测实际存在的边缘。 高定位性 (Good localization)：将检测到的边缘像素与实际边缘像素之间的距离最小化。 最小响应 (Minimal response)：每个边缘只有一个检测器响应。  Canny 算子的步骤如下：
- 滤掉任何噪声。这一过程将使用高斯滤波器。例如，一个 5×5 的高斯内核如下所示：  $$ K = \dfrac{1}{159} \begin{bmatrix} 2 &amp; 4 &amp; 5 &amp; 4 &amp; 2 \cr 4 &amp; 9 &amp; 12 &amp; 9 &amp; 4 \cr 5 &amp; 12 &amp; 15 &amp; 12 &amp; 5 \cr 4 &amp; 9 &amp; 12 &amp; 9 &amp; 4 \cr 2 &amp; 4 &amp; 5 &amp; 4 &amp; 2 \end{bmatrix} $$"/>
+<meta name="twitter:description" content="边缘检测（Edge Detection）是图像处理的基础内容。本文中，我从OpenCV官网上下载了最新版本的 OpenCV 4.0.1（2018-12-22"/>
 
 
 <script type="application/ld+json">
@@ -106,12 +94,12 @@
   "@type": "BlogPosting",
   "headline": "OpenCV 内置边缘检测算子：Canny，Sobel 与 Laplace",
   "name": "OpenCV 内置边缘检测算子：Canny，Sobel 与 Laplace",
-  "description": "边缘检测（Edge Detection）是图像处理的基础内容。本文中，我从OpenCV官网上下载了最新版本的 OpenCV 4.0.1（2018-12-22），借助官方文档和网络教程完成了环境配置与测试，具体步骤不再赘述。\n在 OpenCV 中可用于边缘检测的算子主要有：\n Canny 算子 Sobel 算子 Laplace 算子  Canny 算子 理论 Canny 算法是由 John F. Canny 于 1987 年在 A computational approach to edge detection 一文提出来的，它旨在满足三个主要标准：\n 低错误率 (Low error rate)：意味着只检测实际存在的边缘。 高定位性 (Good localization)：将检测到的边缘像素与实际边缘像素之间的距离最小化。 最小响应 (Minimal response)：每个边缘只有一个检测器响应。  Canny 算子的步骤如下：\n 滤掉任何噪声。这一过程将使用高斯滤波器。例如，一个 5×5 的高斯内核如下所示：  $$ K = \\dfrac{1}{159} \\begin{bmatrix} 2 \u0026amp; 4 \u0026amp; 5 \u0026amp; 4 \u0026amp; 2 \\cr 4 \u0026amp; 9 \u0026amp; 12 \u0026amp; 9 \u0026amp; 4 \\cr 5 \u0026amp; 12 \u0026amp; 15 \u0026amp; 12 \u0026amp; 5 \\cr 4 \u0026amp; 9 \u0026amp; 12 \u0026amp; 9 \u0026amp; 4 \\cr 2 \u0026amp; 4 \u0026amp; 5 \u0026amp; 4 \u0026amp; 2 \\end{bmatrix} $$",
+  "description": "边缘检测（Edge Detection）是图像处理的基础内容。本文中，我从OpenCV官网上下载了最新版本的 OpenCV 4.0.1（2018-12-22",
   "keywords": [
     "OpenCV", "C++"
   ],
   "articleBody": "边缘检测（Edge Detection）是图像处理的基础内容。本文中，我从OpenCV官网上下载了最新版本的 OpenCV 4.0.1（2018-12-22），借助官方文档和网络教程完成了环境配置与测试，具体步骤不再赘述。\n在 OpenCV 中可用于边缘检测的算子主要有：\n Canny 算子 Sobel 算子 Laplace 算子  Canny 算子 理论 Canny 算法是由 John F. Canny 于 1987 年在 A computational approach to edge detection 一文提出来的，它旨在满足三个主要标准：\n 低错误率 (Low error rate)：意味着只检测实际存在的边缘。 高定位性 (Good localization)：将检测到的边缘像素与实际边缘像素之间的距离最小化。 最小响应 (Minimal response)：每个边缘只有一个检测器响应。  Canny 算子的步骤如下：\n 滤掉任何噪声。这一过程将使用高斯滤波器。例如，一个 5×5 的高斯内核如下所示：  $$ K = \\dfrac{1}{159} \\begin{bmatrix} 2 \u0026 4 \u0026 5 \u0026 4 \u0026 2 \\cr 4 \u0026 9 \u0026 12 \u0026 9 \u0026 4 \\cr 5 \u0026 12 \u0026 15 \u0026 12 \u0026 5 \\cr 4 \u0026 9 \u0026 12 \u0026 9 \u0026 4 \\cr 2 \u0026 4 \u0026 5 \u0026 4 \u0026 2 \\end{bmatrix} $$\n 计算图像的强度梯度。为此，我们遵循类似于 Sobel 算子的方法：\n  在 $x$ 和 $y$ 方向应用一维卷积掩模：\n$$ G_{x} = \\begin{bmatrix} -1 \u0026 0 \u0026 +1 \\cr -2 \u0026 0 \u0026 +2 \\cr -1 \u0026 0 \u0026 +1 \\end{bmatrix} $$\n$$ G_{y} = \\begin{bmatrix} -1 \u0026 -2 \u0026 -1 \\cr 0 \u0026 0 \u0026 0 \\cr +1 \u0026 +2 \u0026 +1 \\end{bmatrix} $$\n  找到梯度强度和方向：\n$$ \\begin{array}{l} G = \\sqrt{ G_{x}^{2} + G_{y}^{2} } \\cr \\theta = \\arctan\\left(\\dfrac{ G_{y} }{ G_{x} }\\right) \\end{array} $$\n将梯度方向四舍五入为四个可能的角度之一（即 0°，45°，90° 或 135°）。\n    非极大值抑制。删除非边缘部分的像素，仅保留作为候选边缘的细线。\n  滞后阈值（Hysteresis）。应用两个阈值（上限 upper 和下限 lower ）：\n 如果像素梯度高于上限，则将其视为边缘 如果像素梯度低于下限，则舍弃 如果像素梯度在两个阈值之间，则仅当它连接到高于上阈值的像素时才将其作为边缘   建议的阈值：$2:1 \\leq upper : lower \\leq 3:1​$\n   应用 OpenCV 中 Canny 函数的用法为：\nvoid cv::Canny(\tinputArray\timage, OutputArray\tedges, double\tthreshold1, double\tthreshold2, int\tapertureSize = 3, bool\tL2gradient = false )  image：输入图像，即源图像，Mat 类单通道8位图像。 edges：输出的边缘图，需要和源图片有一样的尺寸和类型。 threshold1：第一个滞后性阈值。 threshold2：第二个滞后性阈值。 apertureSize：表示应用 Sobel 算子的孔径大小，其有默认值 3。 L2gradient：一个计算图像梯度幅值的标识，有默认值 false。  具体实现：\n#include #include #include  using namespace cv; int main() { Mat src, src_gray; src = imread(\"lenna.tif\"); // 读取图像 \tif( src.empty() ) { printf(\"Error: can not open the image.\\n\"); return 1; } cvtColor(src, src_gray, COLOR_BGR2GRAY); // Canny 算子 \tMat dst_canny = src.clone(); // 创建图像副本 \tCanny(src, dst_canny, 150, 100); Mat dst_canny_2, edges_canny; dst_canny_2.create(src.size(), src.type()); blur(src_gray, edges_canny, Size(3, 3)); // 用 3×3 内核降噪 \tCanny(edges_canny, edges_canny, 3, 3 * 3, 3); // 运行 Canny 算子 \tdst_canny_2 = Scalar::all(0); // 使用 Canny 算子输出的边缘图 edges_canny 作为掩码， \t// 来将原图 src 拷贝到输出图像 dst_canny_2 中 \tsrc.copyTo(dst_canny_2, edges_canny); imshow(\"边缘提取-原图\", src); waitKey(2); imshow(\"边缘提取-Canny算子\", dst_canny); waitKey(1); imshow(\"边缘提取-Canny算子【高级实现】\", dst_canny_2); waitKey(0); return 0; } 结果如下：  图 1 Canny 算子输出结果\n  Sobel 算子 理论  Sobel 算子是一个离散微分算子。它计算图像强度函数的梯度的近似值。 Sobel 算子结合了高斯平滑和差分。  假设要操作的图像为 $I$：\n  分别计算两个方向的导数：\n  水平变化：将 $I$ 与一个奇数大小（size）的内核 $G_x$ 进行卷积。比如，当内核大小为 3 时，$G_x$ 为：\n$$ G_{x} = \\begin{bmatrix} -1 \u0026 0 \u0026 1 \\cr -2 \u0026 0 \u0026 2 \\cr -1 \u0026 0 \u0026 1 \\end{bmatrix} * I $$\n  垂直变化：将 $I$ 与一个奇数大小（size）的内核 $G_y$ 进行卷积。比如，当内核大小为 3 时，$G_y$ 为：\n$$ G_{y} = \\begin{bmatrix} -1 \u0026 -2 \u0026 -1 \\cr 0 \u0026 0 \u0026 0 \\cr 1 \u0026 2 \u0026 1 \\end{bmatrix} * I $$\n    在图像的每个点，我们通过组合上面的两个结果来计算该点梯度的近似值：\n$$ G = \\sqrt{ G_{x}^{2} + G_{y}^{2} } $$\n虽然有时会使用以下更简单的公式：\n$$ G = \\left|G_{x}\\right| + \\left|G_{y}\\right| $$\n   注意：\n当内核的大小（size）为 3 时，上述 Sobel 内核可能会有很明显的误差（毕竟 Sobel 算子只是计算导数的近似值）。OpenCV 通过使用 Scharr() 函数解决了大小为 3 的内核存在的这种误差。这比标准 Sobel 函数更快且更准确。具体内核如下：\n$$ G_{x} = \\begin{bmatrix} -3 \u0026 0 \u0026 +3 \\cr -10 \u0026 0 \u0026 +10 \\cr -3 \u0026 0 \u0026 +3 \\end{bmatrix} $$\n$$ G_{y} = \\begin{bmatrix} -3 \u0026 -10 \u0026 -3 \\cr 0 \u0026 0 \u0026 0 \\cr +3 \u0026 +10 \u0026 +3 \\end{bmatrix} $$\n 应用 OpenCV 中 Sobel 函数的用法为：\nvoid cv::Sobel( InputArray src, OutputArray dst, int ddepth, int dx, int dy, int ksize = 3, double scale = 1, double delta = 0, int borderType = BORDER_DEFAULT )\t  src：输入图像\n  dst：与 src 具有相同大小和相同通道数的输出图像\n  ddepth：输出图像的深度，支持如下 src.depth() 和 ddepth 的组合：\n   Input depth (src.depth()) Output depth (ddepth)     CV_8U -1 / CV_16S / CV_32F / CV_64F   CV_16U / CV_16S -1 / CV_32F / CV_64F   CV_32F -1 / CV_32F / CV_64F   CV_64F -1 / CV_64F      dx：x 方向上的差分阶数。\n  dy：y 方向上的差分阶数。\n  ksize：Sobel 内核的大小；必须取 1，3，5 或 7。\n  scale：计算导数值时可选的缩放因子，默认值是1，表示默认情况下是没有应用缩放的。\n  delta：表示在结果存入 dst 之前可选的 delta 值。\n  borderType：边界模式，默认值为BORDER_DEFAULT。详见 BorderTypes。\n  因为 Sobel 算子结合了高斯平滑和差分，因此会具有更多的抗噪性。\n具体实现：\n#include #include #include  using namespace cv; int main() { Mat src = imread(\"lenna.tif\");\t// 读取图像 \tif( src.empty() ) { printf(\"Error: can not open the image.\\n\"); return 1; } Mat src_blur, src_blur_gray, dst_sobel; // 高斯滤波器去噪（kernel size = 3） \tGaussianBlur(src, src_blur, Size(3, 3), 0, 0, BORDER_DEFAULT); // 将图像转换为灰度图像 \tcvtColor(src_blur, src_blur_gray, COLOR_BGR2GRAY); Mat grad_x, grad_y; Mat abs_grad_x, abs_grad_y; // 分别求 X、Y 方向梯度 \tSobel(src_blur_gray, grad_x, CV_16S, 1, 0, 3, 1, 1, BORDER_DEFAULT);\tSobel(src_blur_gray, grad_y, CV_16S, 0, 1, 3, 1, 1, BORDER_DEFAULT); // 转换回 CV_8U \tconvertScaleAbs(grad_x, abs_grad_x); convertScaleAbs(grad_y, abs_grad_y); // 合并梯度 \taddWeighted(abs_grad_x, 0.5, abs_grad_y, 0.5, 0, dst_sobel); imshow(\"边缘提取-原图\", src); waitKey(3); imshow(\"边缘提取-Sobel算子-X方向\", abs_grad_x); waitKey(2); imshow(\"边缘提取-Sobel算子-Y方向\", abs_grad_y); waitKey(1); imshow(\"边缘提取-Sobel算子-整体方向\", dst_sobel); waitKey(0); return 0; }  图 2 Sobel 算子输出结果\n  Laplace 算子 理论   根据数字图像处理相关知识，我们知道二阶导数可用于检测边缘。由于图像是二维（2D）的，我们需要在两个方向上进行求导。\n  Laplace 算子定义为：\n$$ Laplace(f) = \\dfrac{\\partial^{2} f}{\\partial x^{2}} + \\dfrac{\\partial^{2} f}{\\partial y^{2}} $$\n  在 OpenCV 中，Laplace 算子通过函数 Laplacian() 实现。实际上，由于拉普拉斯算子利用了图像的梯度，因此它在内部调用 Sobel 算子来执行其运算，\n  应用 OpenCV 中 Laplacian() 函数的用法为：\nvoid cv::Laplacian( InputArray src, OutputArray dst, int ddepth, int ksize = 1, double scale = 1, double delta = 0, int borderType = BORDER_DEFAULT )\t src：输入图像 dst：与 src 具有相同大小和相同通道数的输出图像 ddepth：输出图像的深度。 ksize：用于计算二阶导数的滤波器的孔径尺寸；它可以是 FILTER_SCHARR、1、3、5 或 7。 scale：计算拉普拉斯值时可选的比例因子，默认值是1，表示默认情况下是没有应用缩放的。 delta：表示在结果存入 dst 之前可选的 delta 值。 borderType：边界模式，默认值为BORDER_DEFAULT。详见 BorderTypes。  Laplacian() 函数主要利用 Sobel 算子进行运算。它通过加上 Sobel 算子运算出的图像 $x$ 方向和 $y$ 方向上的导数，来得到输入图像的拉普拉斯变换结果。当 ksize == 1 时，拉普拉斯函数的滤波窗口为：\n$$ \\begin{bmatrix} 0 \u0026 1 \u0026 0 \\cr 1 \u0026 -4 \u0026 1 \\cr 0 \u0026 1 \u0026 0 \\end{bmatrix} $$\n具体实现：\n#include #include #include  using namespace cv; int main() { // 读取图像 \tMat src = imread(\"lenna.tif\");\tif( src.empty() ) { printf(\"Error: can not open the image.\\n\"); return 1; } // Laplace 算子 \tMat src_blur, src_blur_gray; Mat dst_laplace, abs_dst_laplace; // 高斯滤波器去噪（kernel size = 3） \tGaussianBlur(src, src_blur, Size(3, 3), 0, 0, BORDER_DEFAULT); // 将图像转换为灰度图像 \tcvtColor(src_blur, src_blur_gray, COLOR_BGR2GRAY); // 应用 Laplace 算子 \tLaplacian(src_blur_gray, dst_laplace, CV_16S, 3, 1, 0, BORDER_DEFAULT); // 计算绝对值，将结果转换为 8 位 \tconvertScaleAbs(dst_laplace, abs_dst_laplace); imshow(\"边缘提取-原图\", src); waitKey(1); imshow(\"边缘检测-Laplace算子\", abs_dst_laplace); waitKey(0); return 0; }  图 3 Laplace 算子输出结果\n   参考：\n 【OpenCV入门教程之十二】OpenCV边缘检测 - 毛星云（浅墨）的专栏 - CSDN博客 OpenCV: Image Filtering OpenCV: Image Processing (imgproc module) OpenCV: Canny Edge Detector OpenCV: Sobel Derivatives OpenCV: Laplace Operator   ",
-  "wordCount" : "917",
+  "wordCount" : "2905",
   "inLanguage": "en",
   "datePublished": "2019-03-19T00:00:00Z",
   "dateModified": "2019-03-19T00:00:00Z",
@@ -657,8 +645,6 @@ $$</p>
 
   <footer class="post-footer">
     <ul class="post-tags">
-      <li><a href="https://jifan.tech/tags/opencv/">OpenCV</a></li>
-      <li><a href="https://jifan.tech/tags/c&#43;&#43;/">C&#43;&#43;</a></li>
     </ul>
 <nav class="paginav">
   <a class="prev" href="https://jifan.tech/posts/2019-04-02-opencv-2/">
