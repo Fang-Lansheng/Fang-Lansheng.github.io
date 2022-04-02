@@ -5,11 +5,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>Project 1 | Jifan&#39;s Blog</title>
+<title>Blog | Jifan&#39;s Blog</title>
 <meta name="keywords" content="web" />
-<meta name="description" content="Description about project 1.">
+<meta name="description" content="Why and how to build this blog.">
 <meta name="author" content="jifan">
-<link rel="canonical" href="https://jifan.tech/projects/project_1/" />
+<link rel="canonical" href="https://jifan.tech/projects/blog/" />
 <link crossorigin="anonymous" href="/assets/css/stylesheet.min.fde654b260e1f519b54075caf2e98b3aa4c2feaaa6d43a82b19a4867c5bc423e.css" integrity="sha256-/eZUsmDh9Rm1QHXK8umLOqTC/qqm1DqCsZpIZ8W8Qj4=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.min.4dcb3c4f38462f66c6b6137227726f5543cb934cca9788f041c087e374491df2.js" integrity="sha256-Tcs8TzhGL2bGthNyJ3JvVUPLk0zKl4jwQcCH43RJHfI="
     onload="hljs.initHighlightingOnLoad();"></script>
@@ -56,16 +56,18 @@
         }
 
     </style>
-</noscript><meta property="og:title" content="Project 1" />
-<meta property="og:description" content="Description about project 1." />
+</noscript><meta property="og:title" content="Blog" />
+<meta property="og:description" content="Why and how to build this blog." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://jifan.tech/projects/project_1/" /><meta property="article:section" content="projects" />
-<meta property="article:published_time" content="2022-03-31T00:00:00&#43;00:00" />
-<meta property="article:modified_time" content="2022-03-31T00:00:00&#43;00:00" />
+<meta property="og:url" content="https://jifan.tech/projects/blog/" />
+<meta property="og:image" content="https://jifan.tech/projects/blog/projects/blog/assets/cover.jpg" /><meta property="article:section" content="projects" />
+<meta property="article:published_time" content="2022-03-25T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2022-03-25T00:00:00&#43;00:00" />
 
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Project 1"/>
-<meta name="twitter:description" content="Description about project 1."/>
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://jifan.tech/projects/blog/projects/blog/assets/cover.jpg" />
+<meta name="twitter:title" content="Blog"/>
+<meta name="twitter:description" content="Why and how to build this blog."/>
 
 
 <script type="application/ld+json">
@@ -82,8 +84,8 @@
     {
       "@type": "ListItem",
       "position":  3 ,
-      "name": "Project 1",
-      "item": "https://jifan.tech/projects/project_1/"
+      "name": "Blog",
+      "item": "https://jifan.tech/projects/blog/"
     }
   ]
 }
@@ -92,24 +94,24 @@
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "Project 1",
-  "name": "Project 1",
-  "description": "Description about project 1.",
+  "headline": "Blog",
+  "name": "Blog",
+  "description": "Why and how to build this blog.",
   "keywords": [
     "web"
   ],
-  "articleBody": " Link：Blank\n  Figure 1.\n  ",
-  "wordCount" : "3",
+  "articleBody": "Yes, indeed. This is not my first blog. You may find that there are some posts publised in quite a few years ago, followed by a long gap. That’s when I’m busing …\n1. My Previous Blogs 1.1 A taste of WordPress WordPress was, and probably still is, the most popular blog hosting platform in the world. It’s almost entirely code-free to start a blog with WordPress. Unfortunately, I wasn’t an enthusiastic blogger then, so this product of a whim was left unused as soon as it was built.\n Figure 1. My first but empty blog\n  1.2 Blogging with Jekyll on a NGINX Server By the time I rediscovered my passion for blogging, Jekyll, as a static site generator, has already caught on. Detailed documentation, rich themes, and an active community were my reasons for choosing it.\n Figure 2. My second blog\n  After installing the prerequisites, the entire setup process can be divided into 3 poarts.\n Server setting:  Nginx installation, configuration and deployment. Open specified ports (80, 443) and resolve my domain name to the server IP address.   Jekyll site building:  Create a new Jekyll site and add some posts. Build the site and output a static site to the nginx server’s root directory (in may case, /usr/share/nginx/html), located by the nginx configuration file.   Automated deployment:  Webhooks allow me to subscribe to certain events on GitHub.com. Every time I write a post or modify the blog locally and synchronize with the remote repository via git push, a HTTP POST payload will be sent to the webhook’s configured URL. With the help of github-webhook-handler, I can receive and verifying webhook requests from GitHub and execute the local script to pull the remote repositry and rebuild the site.    2. This New Hugo-based Blog As it claims, Hugo makes building websites fun and fast. Similarly, the website building process is divided into the following stages:\n Hugo site building:  Install hugo, create a new site and add a theme, with a blistering speed💨. Add my old posts. I was impressed by the built-in LiveReload, which saved me from repeatedly refreshing the page during development to see content changes, as I did with Jekyll.   GitHub Pages deployment:  Compared to my last site, I have to admit that GitHub Pages is a more time- and money-saving way to host a personal blog. Configuring a custom domain for my GitHub Pages site.   Add my own content:  Custom some CSS styles of the original theme. Add content and front matther to page templates.    3. More The process of rebooting my blog not only helped me pick up some of the front-end knowledge I had forgotten, but also provided me with a new window of expression.\nToday, building such a site is no longer a complex project. From WordPress to Jekyll and now Hugo. I’m happy to embrace these new technologies that help us implement our ideas faster and more easily.\n",
+  "wordCount" : "482",
   "inLanguage": "en",
-  "datePublished": "2022-03-31T00:00:00Z",
-  "dateModified": "2022-03-31T00:00:00Z",
+  "image":"https://jifan.tech/projects/blog/projects/blog/assets/cover.jpg","datePublished": "2022-03-25T00:00:00Z",
+  "dateModified": "2022-03-25T00:00:00Z",
   "author":{
     "@type": "Person",
     "name": "jifan"
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https://jifan.tech/projects/project_1/"
+    "@id": "https://jifan.tech/projects/blog/"
   },
   "publisher": {
     "@type": "Organization",
@@ -193,23 +195,106 @@
   <header class="post-header">
     
     <h1 class="post-title">
-      Project 1
+      Blog
     </h1>
-    <div class="post-meta"><span title='2022-03-31 00:00:00 +0000 UTC'>March 31, 2022</span>&nbsp;·&nbsp;jifan
+    <div class="post-description">
+      Why and how to build this blog.
+    </div>
+    <div class="post-meta"><span title='2022-03-25 00:00:00 +0000 UTC'>March 25, 2022</span>&nbsp;·&nbsp;jifan
 
 </div>
-  </header> 
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
 
-  <div class="post-content"><blockquote>
-<p>Link：<a href="">Blank</a></p>
-</blockquote>
+        <div class="inner"><ul>
+                <li>
+                    <a href="#1-my-previous-blogs" aria-label="1. My Previous Blogs">1. My Previous Blogs</a><ul>
+                        
+                <li>
+                    <a href="#11-a-taste-of-wordpress" aria-label="1.1 A taste of WordPress">1.1 A taste of <strong>WordPress</strong></a></li>
+                <li>
+                    <a href="#12-blogging-with-jekyll-on-a-nginx-server" aria-label="1.2 Blogging with Jekyll on a NGINX Server">1.2 Blogging with <strong>Jekyll</strong> on a <strong>NGINX</strong> Server</a></li></ul>
+                </li>
+                <li>
+                    <a href="#2-this-new-hugo-based-blog" aria-label="2. This New Hugo-based Blog">2. This New <strong>Hugo</strong>-based Blog</a></li>
+                <li>
+                    <a href="#3-more" aria-label="3. More">3. More</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><p>Yes, indeed. This is not my first blog. You may find that there are some posts publised in quite a few years ago, followed by a long gap. That&rsquo;s when I&rsquo;m busing …</p>
+<h1 id="1-my-previous-blogs">1. My Previous Blogs<a hidden class="anchor" aria-hidden="true" href="#1-my-previous-blogs">#</a></h1>
+<h2 id="11-a-taste-of-wordpress">1.1 A taste of <strong>WordPress</strong><a hidden class="anchor" aria-hidden="true" href="#11-a-taste-of-wordpress">#</a></h2>
+<p><a href="https://wordpress.com/">WordPress</a> was, and probably still is, the most popular blog hosting platform in the world. It&rsquo;s almost entirely code-free to start a blog with WordPress. Unfortunately, I wasn&rsquo;t an enthusiastic blogger then, so <a href="https://mythistledown.wordpress.com/">this product of a whim</a> was left unused as soon as it was built.</p>
 <figure class="align-center ">
-    <img loading="lazy" src="https://i.stack.imgur.com/mwFzF.png#center"
-         alt="Figure 1." width="50%"/> <figcaption>
-            <p>Figure 1.</p>
+    <img loading="lazy" src="./assets/my_first_empty_blog.png#center"
+         alt="Figure 1. My first but empty blog" width="70%"/> <figcaption>
+            <p>Figure 1. My first but empty blog</p>
         </figcaption>
 </figure>
 
+<h2 id="12-blogging-with-jekyll-on-a-nginx-server">1.2 Blogging with <strong>Jekyll</strong> on a <strong>NGINX</strong> Server<a hidden class="anchor" aria-hidden="true" href="#12-blogging-with-jekyll-on-a-nginx-server">#</a></h2>
+<p>By the time I rediscovered my passion for blogging, <a href="https://jekyllrb.com/">Jekyll</a>, as a static site generator, has already caught on. Detailed documentation, rich themes, and an active community were my reasons for choosing it.</p>
+<figure class="align-center ">
+    <img loading="lazy" src="./assets/my_second_blog.png#center"
+         alt="Figure 2. My second blog" width="70%"/> <figcaption>
+            <p>Figure 2. My second blog</p>
+        </figcaption>
+</figure>
+
+<p>After installing the prerequisites, the entire setup process can be divided into 3 poarts.</p>
+<ul>
+<li><strong>Server setting</strong>:
+<ul>
+<li>Nginx installation, configuration and deployment.</li>
+<li>Open specified ports (80, 443) and resolve my domain name to the server IP address.</li>
+</ul>
+</li>
+<li><strong>Jekyll site building</strong>:
+<ul>
+<li>Create a new Jekyll site and add some posts.</li>
+<li>Build the site and output a static site to the nginx server&rsquo;s root directory (in may case, <code>/usr/share/nginx/html</code>), located by the nginx configuration file.</li>
+</ul>
+</li>
+<li><strong>Automated deployment</strong>:
+<ul>
+<li><strong>Webhooks</strong> allow me to subscribe to certain events on GitHub.com.</li>
+<li>Every time I write a post or modify the blog locally and synchronize with the remote repository via <code>git push</code>, a HTTP POST payload will be sent to the webhook&rsquo;s configured URL.</li>
+<li>With the help of <a href="https://github.com/rvagg/github-webhook-handler">github-webhook-handler</a>, I can receive and verifying webhook requests from GitHub and execute the local script to pull the remote repositry and rebuild the site.</li>
+</ul>
+</li>
+</ul>
+<h1 id="2-this-new-hugo-based-blog">2. This New <strong>Hugo</strong>-based Blog<a hidden class="anchor" aria-hidden="true" href="#2-this-new-hugo-based-blog">#</a></h1>
+<p>As it claims, <a href="https://gohugo.io/">Hugo</a> makes building websites fun and fast. Similarly, the website building process is divided into the following stages:</p>
+<ul>
+<li><strong>Hugo site building</strong>:
+<ul>
+<li>Install hugo, create a new site and add a theme, with a blistering speed💨.</li>
+<li>Add my old posts. I was impressed by the built-in <a href="https://github.com/livereload/livereload-js">LiveReload</a>, which saved me from repeatedly refreshing the page during development to see content changes, as I did with Jekyll.</li>
+</ul>
+</li>
+<li><strong>GitHub Pages deployment</strong>:
+<ul>
+<li>Compared to my last site, I have to admit that <a href="https://pages.github.com/">GitHub Pages</a> is a more time- and money-saving way to host a personal blog.</li>
+<li>Configuring a custom domain for my GitHub Pages site.</li>
+</ul>
+</li>
+<li><strong>Add my own content</strong>:
+<ul>
+<li>Custom some CSS styles of the original theme.</li>
+<li>Add content and front matther to page templates.</li>
+</ul>
+</li>
+</ul>
+<h1 id="3-more">3. More<a hidden class="anchor" aria-hidden="true" href="#3-more">#</a></h1>
+<p>The process of rebooting my blog not only helped me pick up some of the front-end knowledge I had forgotten, but also provided me with a new window of expression.</p>
+<p>Today, building such a site is no longer a complex project. From WordPress to Jekyll and now Hugo. I&rsquo;m happy to embrace these new technologies that help us implement our ideas faster and more easily.</p>
 
 
   </div>

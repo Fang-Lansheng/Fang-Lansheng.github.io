@@ -26,6 +26,15 @@
     </item>
     
     <item>
+      <title>Blog</title>
+      <link>https://jifan.tech/projects/blog/</link>
+      <pubDate>Fri, 25 Mar 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://jifan.tech/projects/blog/</guid>
+      <description>Why and how to build this blog.</description>
+    </item>
+    
+    <item>
       <title>OpenCV 源码分析：SIFT 算法原理与实现</title>
       <link>https://jifan.tech/posts/2019-05-10-opencv-4/</link>
       <pubDate>Fri, 10 May 2019 00:00:00 +0000</pubDate>
