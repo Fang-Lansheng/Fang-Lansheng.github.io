@@ -5,12 +5,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>Data Structure | Jifan&#39;s Blog</title>
-<meta name="keywords" content="" />
-<meta name="description" content="Jifan&#39;s Blog - https://jifan.tech">
+<title>Tiny Web Server | Jifan&#39;s Blog</title>
+<meta name="keywords" content="C&#43;&#43;, Web" />
+<meta name="description" content="A C&#43;&#43; lightweight web server based on Linux epoll.">
 <meta name="author" content="Jifan">
-<link rel="canonical" href="https://jifan.tech/tags/data-structure/" />
-<link crossorigin="anonymous" href="/assets/css/stylesheet.min.decb6c16edc4efccbc94f7f2212c77f8a426b111b6ac04cb9983f27180b463a3.css" integrity="sha256-3stsFu3E78y8lPfyISx3&#43;KQmsRG2rATLmYPycYC0Y6M=" rel="preload stylesheet" as="style">
+<link rel="canonical" href="https://jifan.tech/projects/tiny-web-server/" />
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.a90c1ba88c165723df2c6aec9614dfa920df0803a277b345e0d077f16dc1fd75.css" integrity="sha256-qQwbqIwWVyPfLGrslhTfqSDfCAOid7NF4NB38W3B/XU=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://jifan.tech/imgs/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://jifan.tech/imgs/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://jifan.tech/imgs/favicon-32x32.png">
@@ -18,7 +18,7 @@
 <link rel="mask-icon" href="https://jifan.tech/imgs/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" type="application/rss+xml" href="https://jifan.tech/tags/data-structure/index.xml">
+<link rel="alternate" type="application/rss+xml" href="https://jifan.tech/projects/tiny-web-server/index.xml">
 <noscript>
     <style>
         #theme-toggle,
@@ -55,15 +55,38 @@
         }
 
     </style>
-</noscript><meta property="og:title" content="Data Structure" />
-<meta property="og:description" content="Jifan&#39;s Blog - https://jifan.tech" />
+</noscript><meta property="og:title" content="Tiny Web Server" />
+<meta property="og:description" content="A C&#43;&#43; lightweight web server based on Linux epoll." />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://jifan.tech/tags/data-structure/" />
+<meta property="og:url" content="https://jifan.tech/projects/tiny-web-server/" />
+<meta property="og:image" content="https://jifan.tech/projects/tiny-web-server/https:/universalwebserver.com/wp-content/uploads/2021/08/web-server-vs-application-server-facebook.jpg" />
 
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Data Structure"/>
-<meta name="twitter:description" content="Jifan&#39;s Blog - https://jifan.tech"/>
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://jifan.tech/projects/tiny-web-server/https:/universalwebserver.com/wp-content/uploads/2021/08/web-server-vs-application-server-facebook.jpg" />
+<meta name="twitter:title" content="Tiny Web Server"/>
+<meta name="twitter:description" content="A C&#43;&#43; lightweight web server based on Linux epoll."/>
 
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Projects",
+      "item": "https://jifan.tech/projects/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "Tiny Web Server",
+      "item": "https://jifan.tech/projects/tiny-web-server/"
+    }
+  ]
+}
+</script>
 </head>
 
 <body class="list" id="top">
@@ -129,29 +152,91 @@
         </ul>
     </nav>
 </header>
-<main class="main"> 
-<header class="page-header">
-  <h1>Data Structure</h1>
-</header>
+<main class="main">
 
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2>数据结构笔记：求解斐波那契数列算法的复杂度
-    </h2>
-  </header>
-  <section class="entry-content">
-    <p>斐波那契数列 斐波那契数列（Fibonacci Sequence）是一串数字：
-\[ (0,)\ 1,\ 1,\ 2,\ 3,\ 5,\ 8,\ 13,\ 21,\ 34,\ 55,\ 89,\ 144,\ … \] 很容易看出，每一个数（除第 1、2 个）都等于它之前的两个数之和。因此，用公式可归纳为： \[ F_n = \begin{cases} 0, &amp; n=0 \\ 1, &amp; n=1 \\ F_{n-1} &#43; F_{n-2}, &amp; n&gt;1 \end{cases} \]
-计算复杂性理论 在将斐波那契数列用 C&#43;&#43; 代码实现并计算时间、空间复杂度之前，先要了解一下什么是所谓的“复杂度”
-时间复杂度  在计算机科学中， 算法的时间复杂度（Time Complexity）是一个函数，它定性描述算法的运行时间。这是一个代表算法输入值的字符串的长度的函数。
-引自：Wikipedia，时间复杂度
- 一个语句的频度是指该语句在算法中被重复执行的次数。算法中所有语句的频度之和即为 $T(n)$，它是该算法问题规模 $n$ 的函数，时间复杂度主要分析 $T(n)$ 的数量级。 算法的基本运算（最深层循环内的语句）的频度与 $T(n)$ 同数量级。因此通常采用算法中基本运算的频度 $f(n)$ 来分析算法的时间复杂度。因此，算法的时间复杂度记为：
-\[ T(n) = O(f(n)) \]
-式中，$O$ 的含义是 $T(n)$ 的数量级，其严格的数学定义是：若 $T(n)$ 和 $f(n)$ 是定义在正整数集合上的两个函数，则存在正常数 $C$ 和 $n_0$，使得当 $n \geq n_0$ 时，都满足 $0 \leq T(n) \leq Cf(n)$。...</p>
-  </section>
-  <footer class="entry-footer"><span title='2019-03-01 00:00:00 +0000 UTC'>March 1, 2019</span>&nbsp;·&nbsp;Jifan</footer>
-  <a class="entry-link" aria-label="post link to 数据结构笔记：求解斐波那契数列算法的复杂度" href="https://jifan.tech/posts/2019-03-01-ds-notes-1/"></a>
+
+
+
+
+
+
+
+
+
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://jifan.tech">Home</a>&nbsp;»&nbsp;<a href="https://jifan.tech/projects/">Projects</a></div>
+    <h1 class="post-title">
+      Tiny Web Server
+    </h1>
+    <div class="post-description">
+      A C&#43;&#43; lightweight web server based on Linux epoll.
+    </div>
+    <div class="post-meta"><span title='2022-04-03 00:00:00 +0000 UTC'>April 3, 2022</span>&nbsp;·&nbsp;Jifan
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#1-overview" aria-label="1. Overview">1. Overview</a><ul>
+                        
+                <li>
+                    <a href="#11-features--functions" aria-label="1.1 Features &amp;amp; Functions">1.1 Features &amp; Functions</a></li></ul>
+                </li>
+                <li>
+                    <a href="#2" aria-label="2.">2.</a></li>
+                <li>
+                    <a href="#3-stress-test" aria-label="3. Stress Test">3. Stress Test</a></li>
+                <li>
+                    <a href="#4-errors--bugs" aria-label="4. Errors &amp;amp; bugs🐞">4. Errors &amp; bugs🐞</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><blockquote>
+<p>GitHub repository: <a href="https://github.com/Fang-Lansheng/TinyWebServer">https://github.com/Fang-Lansheng/TinyWebServer</a>.</p>
+</blockquote>
+<!-- raw HTML omitted -->
+<h1 id="1-overview">1. Overview<a hidden class="anchor" aria-hidden="true" href="#1-overview">#</a></h1>
+<h2 id="11-features--functions">1.1 Features &amp; Functions<a hidden class="anchor" aria-hidden="true" href="#11-features--functions">#</a></h2>
+<ul>
+<li>
+<p>C++</p>
+</li>
+<li>
+<p>Client-Server model</p>
+</li>
+<li>
+<p><a href="../../posts/2022-04-02-web-server/">link</a></p>
+</li>
+</ul>
+<h1 id="2">2.<a hidden class="anchor" aria-hidden="true" href="#2">#</a></h1>
+<h1 id="3-stress-test">3. Stress Test<a hidden class="anchor" aria-hidden="true" href="#3-stress-test">#</a></h1>
+<h1 id="4-errors--bugs">4. Errors &amp; bugs🐞<a hidden class="anchor" aria-hidden="true" href="#4-errors--bugs">#</a></h1>
+<p>Probelms encountered when building and implementing this project. See <a href="./problems">this page</a> for details.</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+
+  </footer>
 </article>
+<style>
+  .list {
+    background: white;
+  }
+</style>
     </main>
     
 <footer class="footer">
@@ -167,7 +252,26 @@
         <path d="M12 6H0l6-6z" />
     </svg>
 </a>
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css" integrity="sha384-KiWOvVjnN8qwAZbuQyWDIbfCLFhLXNETzBQjA/92pIowpC0d2O3nppDGQVgwd2nB" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js" integrity="sha384-0fdwu/T/EQMsQlrHCCHoH10pkPLlKA1jL5dFyUOvB3lfeT2540/2g6YgSi2BL14p" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            
+            
+            delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '$', right: '$', display: false},
+                {left: '\\(', right: '\\)', display: false},
+                {left: '\\[', right: '\\]', display: true}
+            ],
+            
+            throwOnError : false
+        });
+    });
+</script>
 
 
 <script>

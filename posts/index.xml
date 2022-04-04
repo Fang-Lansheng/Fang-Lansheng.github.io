@@ -6,7 +6,18 @@
     <description>Recent content in Posts on Jifan&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 10 May 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://jifan.tech/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 02 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://jifan.tech/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>A Primer on Web Server</title>
+      <link>https://jifan.tech/posts/2022-04-02-web-server/</link>
+      <pubDate>Sat, 02 Apr 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://jifan.tech/posts/2022-04-02-web-server/</guid>
+      <description>When studing project TinyWebServer, …
+ 1. What is a web server? The term web server can refer to software or underlying hardware.
+ On the hardware side, a web server is a computer that:  stores web server software and a website&amp;rsquo;s component files (e.g., HTML documents, images, CSS stylesheets and JavaScript files). connects to the Internet and supports physical data interchange with other devices connected to the web.</description>
+    </item>
+    
     <item>
       <title>OpenCV 源码分析：SIFT 算法原理与实现</title>
       <link>https://jifan.tech/posts/2019-05-10-opencv-4/</link>
