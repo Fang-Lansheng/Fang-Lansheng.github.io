@@ -14,7 +14,8 @@
       
       <guid>https://jifan.tech/projects/tiny-web-server/problems/</guid>
       <description>1. MySQL Error in log file Server stopped immediately after running ./server in shell, and output an error MySQL Error in log file.
- Find the source of the error: Although the error log is fairly vague, it&amp;rsquo;s not difficult to find out that it was thrown by the function connection_pool::init in the file CGImysql/sql_connection_pool.cpp.  mysql_init(): return an initialized MYSQL* handler (i.e. a MYSQL object suitable for mysql_real_connect()), or NULL in case of insufficient memory.</description>
+  Find the source of the error: Although the error log is fairly vague, it&amp;rsquo;s not difficult to find out that it was thrown by the function connection_pool::init in the file CGImysql/sql_connection_pool.cpp.
+ mysql_init(): return an initialized MYSQL* handler (i.e. a MYSQL object suitable for mysql_real_connect()), or NULL in case of insufficient memory.</description>
     </item>
     
   </channel>
