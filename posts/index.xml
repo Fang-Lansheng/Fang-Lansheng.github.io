@@ -13,9 +13,9 @@
       <pubDate>Sat, 02 Apr 2022 00:00:00 +0000</pubDate>
       
       <guid>https://jifan.tech/posts/2022-04-02-web-server/</guid>
-      <description>When studing project TinyWebServer, …
+      <description>Before starting the TinyWebServer project, I took a quick look at what a web server is. This article is a general summary of it, based on my current basic understanding.
  1. What is a web server? The term web server can refer to software or underlying hardware.
- On the hardware side, a web server is a computer that:  stores web server software and a website&amp;rsquo;s component files (e.g., HTML documents, images, CSS stylesheets and JavaScript files). connects to the Internet and supports physical data interchange with other devices connected to the web.</description>
+ On the hardware side, a web server is a computer that:  stores web server software and a website&amp;rsquo;s component files (e.</description>
     </item>
     
     <item>
