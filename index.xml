@@ -30,12 +30,12 @@
     </item>
     
     <item>
-      <title>Blog</title>
-      <link>https://jifan.tech/projects/blog/</link>
-      <pubDate>Fri, 25 Mar 2022 00:00:00 +0000</pubDate>
+      <title>EasyCounting</title>
+      <link>https://jifan.tech/projects/easy-counting/</link>
+      <pubDate>Sun, 21 Nov 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://jifan.tech/projects/blog/</guid>
-      <description>Why and how to build this blog.</description>
+      <guid>https://jifan.tech/projects/easy-counting/</guid>
+      <description>An open source crowd/vehicle counting toolbox based on PyTorch.</description>
     </item>
     
     <item>
@@ -108,6 +108,15 @@
       
       <guid>https://jifan.tech/about/</guid>
       <description>about</description>
+    </item>
+    
+    <item>
+      <title>Blog</title>
+      <link>https://jifan.tech/projects/blog/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://jifan.tech/projects/blog/</guid>
+      <description>Why and how did I build this blog.</description>
     </item>
     
     
