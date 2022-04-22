@@ -5,24 +5,19 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>C&#43;&#43; 学习笔记（一）：初学者的小窍门 | My-Thistledown</title>
+<title>C&#43;&#43; 学习笔记：数据类型、浮点数的比较以及“大数”的读取 | Jifan&#39;s Blog</title>
 <meta name="keywords" content="C&#43;&#43;" />
-<meta name="description" content="一个多月以来，确定好了考研的计划。现在开始准备刷题学习一些算法的基础，也是从头开始学习C/C&#43;&#43;，当然在学习过程中踩了不少坑，在这里进行一些总结。
- C&#43;&#43; 数据类型及其表示范围 这一部分是基础，不过我之前都没有系统性的搞清楚，所以现在还是先把这些知识点列出来，该部分参考C&#43;&#43; 数据类型 - 菜鸟教程。
-1. 基本的内置类型 C&#43;&#43; 为程序员提供了种类丰富的内置数据类型和用户自定义的数据类型。下表列出了七种基本的 C&#43;&#43; 数据类型：
-   类型 关键字     布尔型 bool   字符型 char   整型 int   浮点型 float   双浮点型 double   无类型 void   宽字符型 wchar_t    其中，wchar_t 实际上是：
-typedef wchar_t short int; 所以 wchar_t 实际上的空间是和 short int 一样。 一些基本类型可以使用一个或多个类型修饰符进行修饰：
- signed unsigned short long  2.">
-<meta name="author" content="Thistledown">
-<link rel="canonical" href="https://fang-lansheng.github.io/posts/2019-02-27-cpp-study-notes-1/" />
-<link crossorigin="anonymous" href="/assets/css/stylesheet.min.48a18943c2fc15c38a372b8dde1f5e5dc0bc64fa6cb90f5a817d2f8c76b7f3ae.css" integrity="sha256-SKGJQ8L8FcOKNyuN3h9eXcC8ZPpsuQ9agX0vjHa3864=" rel="preload stylesheet" as="style">
+<meta name="description" content="再一次地、从头开始学习C/C&#43;&#43;。 C&#43;&#43; 数据类型及其表示范围 这一部分是基础，不过我之前都没有系统性的搞清楚，所以现在还是先把这些知识点列出来，该">
+<meta name="author" content="jifan">
+<link rel="canonical" href="https://jifan.tech/posts/2019-02-27-cpp-study-notes-1/" />
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.d2d913f96f20672531467f8a00a1afae6af2b44b8ba24b7a5cab31330f0bcb2c.css" integrity="sha256-0tkT&#43;W8gZyUxRn&#43;KAKGvrmrytEuLokt6XKsxMw8Lyyw=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.min.4dcb3c4f38462f66c6b6137227726f5543cb934cca9788f041c087e374491df2.js" integrity="sha256-Tcs8TzhGL2bGthNyJ3JvVUPLk0zKl4jwQcCH43RJHfI="
     onload="hljs.initHighlightingOnLoad();"></script>
-<link rel="icon" href="https://fang-lansheng.github.io/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://fang-lansheng.github.io/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://fang-lansheng.github.io/favicon-32x32.png">
-<link rel="apple-touch-icon" href="https://fang-lansheng.github.io/apple-touch-icon.png">
-<link rel="mask-icon" href="https://fang-lansheng.github.io/safari-pinned-tab.svg">
+<link rel="icon" href="https://jifan.tech/imgs/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://jifan.tech/imgs/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://jifan.tech/imgs/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://jifan.tech/imgs/apple-touch-icon.png">
+<link rel="mask-icon" href="https://jifan.tech/imgs/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
 <noscript>
@@ -61,26 +56,16 @@ typedef wchar_t short int; 所以 wchar_t 实际上的空间是和 short int 一
         }
 
     </style>
-</noscript><meta property="og:title" content="C&#43;&#43; 学习笔记（一）：初学者的小窍门" />
-<meta property="og:description" content="一个多月以来，确定好了考研的计划。现在开始准备刷题学习一些算法的基础，也是从头开始学习C/C&#43;&#43;，当然在学习过程中踩了不少坑，在这里进行一些总结。
- C&#43;&#43; 数据类型及其表示范围 这一部分是基础，不过我之前都没有系统性的搞清楚，所以现在还是先把这些知识点列出来，该部分参考C&#43;&#43; 数据类型 - 菜鸟教程。
-1. 基本的内置类型 C&#43;&#43; 为程序员提供了种类丰富的内置数据类型和用户自定义的数据类型。下表列出了七种基本的 C&#43;&#43; 数据类型：
-   类型 关键字     布尔型 bool   字符型 char   整型 int   浮点型 float   双浮点型 double   无类型 void   宽字符型 wchar_t    其中，wchar_t 实际上是：
-typedef wchar_t short int; 所以 wchar_t 实际上的空间是和 short int 一样。 一些基本类型可以使用一个或多个类型修饰符进行修饰：
- signed unsigned short long  2." />
+</noscript><meta property="og:title" content="C&#43;&#43; 学习笔记：数据类型、浮点数的比较以及“大数”的读取" />
+<meta property="og:description" content="再一次地、从头开始学习C/C&#43;&#43;。 C&#43;&#43; 数据类型及其表示范围 这一部分是基础，不过我之前都没有系统性的搞清楚，所以现在还是先把这些知识点列出来，该" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://fang-lansheng.github.io/posts/2019-02-27-cpp-study-notes-1/" /><meta property="article:section" content="posts" />
+<meta property="og:url" content="https://jifan.tech/posts/2019-02-27-cpp-study-notes-1/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2019-02-27T00:00:00&#43;00:00" />
 <meta property="article:modified_time" content="2019-02-27T00:00:00&#43;00:00" />
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="C&#43;&#43; 学习笔记（一）：初学者的小窍门"/>
-<meta name="twitter:description" content="一个多月以来，确定好了考研的计划。现在开始准备刷题学习一些算法的基础，也是从头开始学习C/C&#43;&#43;，当然在学习过程中踩了不少坑，在这里进行一些总结。
- C&#43;&#43; 数据类型及其表示范围 这一部分是基础，不过我之前都没有系统性的搞清楚，所以现在还是先把这些知识点列出来，该部分参考C&#43;&#43; 数据类型 - 菜鸟教程。
-1. 基本的内置类型 C&#43;&#43; 为程序员提供了种类丰富的内置数据类型和用户自定义的数据类型。下表列出了七种基本的 C&#43;&#43; 数据类型：
-   类型 关键字     布尔型 bool   字符型 char   整型 int   浮点型 float   双浮点型 double   无类型 void   宽字符型 wchar_t    其中，wchar_t 实际上是：
-typedef wchar_t short int; 所以 wchar_t 实际上的空间是和 short int 一样。 一些基本类型可以使用一个或多个类型修饰符进行修饰：
- signed unsigned short long  2."/>
+<meta name="twitter:title" content="C&#43;&#43; 学习笔记：数据类型、浮点数的比较以及“大数”的读取"/>
+<meta name="twitter:description" content="再一次地、从头开始学习C/C&#43;&#43;。 C&#43;&#43; 数据类型及其表示范围 这一部分是基础，不过我之前都没有系统性的搞清楚，所以现在还是先把这些知识点列出来，该"/>
 
 
 <script type="application/ld+json">
@@ -92,13 +77,13 @@ typedef wchar_t short int; 所以 wchar_t 实际上的空间是和 short int 一
       "@type": "ListItem",
       "position":  2 ,
       "name": "Posts",
-      "item": "https://fang-lansheng.github.io/posts/"
+      "item": "https://jifan.tech/posts/"
     }, 
     {
       "@type": "ListItem",
       "position":  3 ,
-      "name": "C++ 学习笔记（一）：初学者的小窍门",
-      "item": "https://fang-lansheng.github.io/posts/2019-02-27-cpp-study-notes-1/"
+      "name": "C++ 学习笔记：数据类型、浮点数的比较以及“大数”的读取",
+      "item": "https://jifan.tech/posts/2019-02-27-cpp-study-notes-1/"
     }
   ]
 }
@@ -107,31 +92,31 @@ typedef wchar_t short int; 所以 wchar_t 实际上的空间是和 short int 一
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "C++ 学习笔记（一）：初学者的小窍门",
-  "name": "C\u002b\u002b 学习笔记（一）：初学者的小窍门",
-  "description": "一个多月以来，确定好了考研的计划。现在开始准备刷题学习一些算法的基础，也是从头开始学习C/C++，当然在学习过程中踩了不少坑，在这里进行一些总结。\n C++ 数据类型及其表示范围 这一部分是基础，不过我之前都没有系统性的搞清楚，所以现在还是先把这些知识点列出来，该部分参考C++ 数据类型 - 菜鸟教程。\n1. 基本的内置类型 C++ 为程序员提供了种类丰富的内置数据类型和用户自定义的数据类型。下表列出了七种基本的 C++ 数据类型：\n   类型 关键字     布尔型 bool   字符型 char   整型 int   浮点型 float   双浮点型 double   无类型 void   宽字符型 wchar_t    其中，wchar_t 实际上是：\ntypedef wchar_t short int; 所以 wchar_t 实际上的空间是和 short int 一样。 一些基本类型可以使用一个或多个类型修饰符进行修饰：\n signed unsigned short long  2.",
+  "headline": "C++ 学习笔记：数据类型、浮点数的比较以及“大数”的读取",
+  "name": "C\u002b\u002b 学习笔记：数据类型、浮点数的比较以及“大数”的读取",
+  "description": "再一次地、从头开始学习C/C++。 C++ 数据类型及其表示范围 这一部分是基础，不过我之前都没有系统性的搞清楚，所以现在还是先把这些知识点列出来，该",
   "keywords": [
     "C++"
   ],
-  "articleBody": " 一个多月以来，确定好了考研的计划。现在开始准备刷题学习一些算法的基础，也是从头开始学习C/C++，当然在学习过程中踩了不少坑，在这里进行一些总结。\n C++ 数据类型及其表示范围 这一部分是基础，不过我之前都没有系统性的搞清楚，所以现在还是先把这些知识点列出来，该部分参考C++ 数据类型 - 菜鸟教程。\n1. 基本的内置类型 C++ 为程序员提供了种类丰富的内置数据类型和用户自定义的数据类型。下表列出了七种基本的 C++ 数据类型：\n   类型 关键字     布尔型 bool   字符型 char   整型 int   浮点型 float   双浮点型 double   无类型 void   宽字符型 wchar_t    其中，wchar_t 实际上是：\ntypedef wchar_t short int; 所以 wchar_t 实际上的空间是和 short int 一样。 一些基本类型可以使用一个或多个类型修饰符进行修饰：\n signed unsigned short long  2. 各种变量类型的大小    数据类型 字节数 表示范围     char 1 $-128 \\sim 127 \\ ||\\ 0 \\sim 255$   unsigned char 1 $0 \\sim 255$   signed char 1 $-128 \\sim 127$   int 4 $-2^{31} \\sim 2^{31}-1$   unsigned int 4 $0 \\sim 2^{32} - 1$   signed int 4 $-2^{31} \\sim 2^{31}-1$   short int 2 $-2^{15} \\sim 2^{15}-1$   unsigned short int 2 $0 \\sim 2^{16} - 1$   signed short int 2 $-2^{15} \\sim 2^{15}-1$   long int 8 $-2^{63} \\sim 2^{63} - 1$   unsigned long int 8 $0 \\sim 2^{64} - 1$   signed long int 8 $-2^{63} \\sim 2^{63} - 1$   float 4 $-3.40 \\times 10^{38} \\sim 3.40 \\times 10^{38}$   double 8 $-1.79\\times10^{308} \\sim 1.79 \\times 10^{308}$    注：不同系统可能会有所差异。\n浮点数的比较  在学习《算法笔记》一书时，作者介绍了“极小数”用以修正浮点数在计算机中存储与计算产生的误差。这一点是我在之前学习中所没有意识到的，于是在此归纳一下相关的内容。\n 由于计算机中采用有限位的二进制编码，因此浮点数在计算机中的存储并不总是精确的。例如在经过大量运算后，一个浮点型的数 3.14 在计算机中就可能存储成 3.1400000000001，也有可能存储成 3.1399999999999，这种情况下会对比较操作带来极大的干扰（因为C/C++中的 == 操作是完全相同才能判定为 true）。于是在文中，作者引入了一个极小数 eps 来对这种误差进行修正。\n经验表明，eps 取 $1e-8$（$10^{-8}$） 在大多数情况下既不会漏判，也不会误判。因此可将 eps 定义为常量 $1e-8$：\nconst double eps = 1e-8; 1. 等于运算符 == 下图为等于区间示意图：\n如图所示，如果一个数 a 落在了 $[b - eps, b + eps]$ 的区间中，就判断 a == b 成立。为了使比较更为方便，把比较操作写成宏定义的形式：\n#include #define Equ(a, b) ((fabs((a) - (b))) - (eps)) // 括号是为防止宏定义可能带来的错误 2. 大于运算符  下图为大于区间示意图：\n如图所示，如果一个数 a 要大于 b，那么就必须在误差 eps 扰动范围之外大于 b，因此只有大于 b + eps 的数才能判定为大于 b（也即 $a - b  eps$）。\n#define More(a, b) (((a) - (b))  (eps)) 3. 小于运算符  下图为小于区间示意图：\n如图所示，如果一个数 a 要小于 b，那么就必须在误差 eps 扰动范围之外小于 b，因此只有小于 b - eps 的数才能判定为小于 b（也即 $a - b #define Less(a, b) (((a) - (b)) 4. 大于等于运算符 = 下图为大于等于区间示意图：\n如图所示，由于大于等于运算符可以理解为大于运算符和等于运算符的结合，于是需要让一个数 a 在误差扰动范围内大于或者等于 b，因此大于 b - eps 的数都应当判定为大于等于 b（也即 $a - b  -eps$）。\n#define MoreEqu(a, b) (((a) - (b))  (-eps)) 5. 小于等于运算符  下图为小于等于区间示意图：\n如图所示，由于小于等于运算符可以理解为小于运算符和等于运算符的结合，于是需要让一个数 a 在误差扰动范围内小于或者等于 b，因此小于 b + eps 的数都应当判定为小于等于 b（也即 $a - b #define LessEqu(a, b) (((a) - (b)) 6. 圆周率 π 圆周率 π 可由 $arccos(-1)$ 计算得到：\n#include const double PI = acos(-1.0); 汇总结果为如下代码：\n#include const double eps = 1e-8; const double PI = acos(-1.0);  #define Equ(a, b) ((fabs((a) - (b))) - (eps)) #define More(a, b) (((a) - (b))  (eps)) #define Less(a, b) (((a) - (b)) #define MoreEqu(a, b) (((a) - (b))  (-eps)) #define LessEqu(a, b) (((a) - (b)) 读取“大数” 有的时候，我需要读入一个很大的整数（例如，1234567890987654321123456789），并计算出它的各位数字之和。用 int ($-2^{31} \\sim 2^{31} - 1$) 或者 long int ($-2^{63} \\sim 2^{63} - 1$) 都不满足要求。这时可以将这样一个“大数”作为字符串（或是字符数组）读入。\n 字符串实际上是使用 null 字符 '\\0' 终止的一维字符数组。因此，一个以 null 结尾的字符串，包含了组成字符串的字符。\n 我们可以使用 getchar() 函数，将该数字的每一位作为字符读入到我们的字符串数组中。\n C 库函数 int getchar(void) 从标准输入 stdin 获取一个字符（一个无符号字符）。这等同于 getc 带有 stdin 作为参数。\n 用程序可以简单地表示为：\n#include  int main() {  char n[100];  int i = 0;  printf(\"Input: \");  while ((n[i] = getchar()) != '\\n') { // 逐位读入数字  i++;  }   printf(\"Output: \");  for (int k = 0; k  i; k++) {  printf(\"%c\", n[k]); // 逐位输出数字  }   printf(\"\\n\\n\");  return 0; } 当我们输入数字 1234567890987654321123456789，也会得到相应的输出：\n此时，存储字符的数组 n 为：\n",
-  "wordCount" : "475",
+  "articleBody": " 再一次地、从头开始学习C/C++。\n C++ 数据类型及其表示范围 这一部分是基础，不过我之前都没有系统性的搞清楚，所以现在还是先把这些知识点列出来，该部分参考C++ 数据类型 - 菜鸟教程。\n1. 基本的内置类型 C++ 为程序员提供了种类丰富的内置数据类型和用户自定义的数据类型。下表列出了七种基本的 C++ 数据类型：\n   类型 关键字     布尔型 bool   字符型 char   整型 int   浮点型 float   双浮点型 double   无类型 void   宽字符型 wchar_t    其中，wchar_t 实际上是：\ntypedef wchar_t short int; 所以 wchar_t 实际上的空间和 short int 一样。 一些基本类型可以使用一个或多个类型修饰符进行修饰：\n signed unsigned short long  2. 各种变量类型的大小    数据类型 字节数 表示范围     char 1 $-128 \\sim 127 \\ ||\\ 0 \\sim 255$   unsigned char 1 $0 \\sim 255$   signed char 1 $-128 \\sim 127$   int 4 $-2^{31} \\sim 2^{31}-1$   unsigned int 4 $0 \\sim 2^{32} - 1$   signed int 4 $-2^{31} \\sim 2^{31}-1$   short int 2 $-2^{15} \\sim 2^{15}-1$   unsigned short int 2 $0 \\sim 2^{16} - 1$   signed short int 2 $-2^{15} \\sim 2^{15}-1$   long int 8 $-2^{63} \\sim 2^{63} - 1$   unsigned long int 8 $0 \\sim 2^{64} - 1$   signed long int 8 $-2^{63} \\sim 2^{63} - 1$   float 4 $-3.40 \\times 10^{38} \\sim 3.40 \\times 10^{38}$   double 8 $-1.79\\times10^{308} \\sim 1.79 \\times 10^{308}$    注：不同系统可能会有所差异。\n浮点数的比较  在学习《算法笔记》一书时，作者介绍了“极小数”用以修正浮点数在计算机中存储与计算产生的误差。这一点是我在之前学习中所没有意识到的，于是在此归纳一下相关的内容。\n 由于计算机中采用有限位的二进制编码，因此浮点数在计算机中的存储并不总是精确的。例如在经过大量运算后，一个浮点型的数 3.14 在计算机中就可能存储成 3.1400000000001，也有可能存储成 3.1399999999999，这种情况下会对比较操作带来极大的干扰（因为C/C++中的 == 操作是完全相同才能判定为 true）。于是在文中，作者引入了一个极小数 eps 来对这种误差进行修正。\n经验表明，eps 取 $1e-8$（$10^{-8}$） 在大多数情况下既不会漏判，也不会误判。因此可将 eps 定义为常量 $1e-8$：\nconst double eps = 1e-8; 1. 等于运算符 == 下图为等于区间示意图：\n 图 1 等于区间示意图\n  如图所示，如果一个数 a 落在了 $[b - eps, b + eps]$ 的区间中，就判断 a == b 成立。为了使比较更为方便，把比较操作写成宏定义的形式：\n#include #define Equ(a, b) ((fabs((a) - (b))) - (eps)) // 括号是为防止宏定义可能带来的错误 2. 大于运算符  下图为大于区间示意图：\n 图 2 大于区间示意图\n  如图所示，如果一个数 a 要大于 b，那么就必须在误差 eps 扰动范围之外大于 b，因此只有大于 b + eps 的数才能判定为大于 b（也即 $a - b  eps$）。\n#define More(a, b) (((a) - (b))  (eps)) 3. 小于运算符  下图为小于区间示意图：\n 图 3 小于区间示意图\n  如图所示，如果一个数 a 要小于 b，那么就必须在误差 eps 扰动范围之外小于 b，因此只有小于 b - eps 的数才能判定为小于 b（也即 $a - b #define Less(a, b) (((a) - (b)) 4. 大于等于运算符 = 下图为大于等于区间示意图：\n 图 4 大于等于区间示意图\n  如图所示，由于大于等于运算符可以理解为大于运算符和等于运算符的结合，于是需要让一个数 a 在误差扰动范围内大于或者等于 b，因此大于 b - eps 的数都应当判定为大于等于 b（也即 $a - b  -eps$）。\n#define MoreEqu(a, b) (((a) - (b))  (-eps)) 5. 小于等于运算符  下图为小于等于区间示意图：\n 图 5 小于等于区间示意图\n  如图所示，由于小于等于运算符可以理解为小于运算符和等于运算符的结合，于是需要让一个数 a 在误差扰动范围内小于或者等于 b，因此小于 b + eps 的数都应当判定为小于等于 b（也即 $a - b #define LessEqu(a, b) (((a) - (b)) 6. 圆周率 π 圆周率 π 可由 $arccos(-1)$ 计算得到：\n#include const double PI = acos(-1.0); 汇总结果为如下代码：\n#include const double eps = 1e-8; const double PI = acos(-1.0); #define Equ(a, b) ((fabs((a) - (b))) - (eps)) #define More(a, b) (((a) - (b))  (eps)) #define Less(a, b) (((a) - (b)) #define MoreEqu(a, b) (((a) - (b))  (-eps)) #define LessEqu(a, b) (((a) - (b)) 读取“大数” 有的时候，我需要读入一个很大的整数（例如，1234567890987654321123456789），并计算出它的各位数字之和。用 int ($-2^{31} \\sim 2^{31} - 1$) 或者 long int ($-2^{63} \\sim 2^{63} - 1$) 都不满足要求。这时可以将这样一个“大数”作为字符串（或是字符数组）读入。\n 字符串实际上是使用 null 字符 '\\0' 终止的一维字符数组。因此，一个以 null 结尾的字符串，包含了组成字符串的字符。\n 我们可以使用 getchar() 函数，将该数字的每一位作为字符读入到我们的字符串数组中。\n C 库函数 int getchar(void) 从标准输入 stdin 获取一个字符（一个无符号字符）。这等同于 getc 带有 stdin 作为参数。\n 用程序可以简单地表示为：\n#include  int main() { char n[100]; int i = 0; printf(\"Input: \"); while ((n[i] = getchar()) != '\\n') { // 逐位读入数字  i++; } printf(\"Output: \"); for (int k = 0; k  i; k++) { printf(\"%c\", n[k]); // 逐位输出数字  } printf(\"\\n\\n\"); return 0; } 当我们输入数字 1234567890987654321123456789，也会得到相应的输出：\n 图 6 输出结果\n  此时，存储字符的数组 n 为：\n 图 7 字符数组在内存中的值\n  ",
+  "wordCount" : "1772",
   "inLanguage": "en",
   "datePublished": "2019-02-27T00:00:00Z",
   "dateModified": "2019-02-27T00:00:00Z",
   "author":{
     "@type": "Person",
-    "name": "Thistledown"
+    "name": "jifan"
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https://fang-lansheng.github.io/posts/2019-02-27-cpp-study-notes-1/"
+    "@id": "https://jifan.tech/posts/2019-02-27-cpp-study-notes-1/"
   },
   "publisher": {
     "@type": "Organization",
-    "name": "My-Thistledown",
+    "name": "Jifan's Blog",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://fang-lansheng.github.io/favicon.ico"
+      "url": "https://jifan.tech/imgs/favicon.ico"
     }
   }
 }
@@ -153,7 +138,7 @@ typedef wchar_t short int; 所以 wchar_t 实际上的空间是和 short int 一
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="https://fang-lansheng.github.io" accesskey="h" title="My-Thistledown (Alt + H)">My-Thistledown</a>
+            <a href="https://jifan.tech" accesskey="h" title="Jifan&#39;s Blog (Alt + H)">Jifan&#39;s Blog</a>
             <span class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -178,27 +163,90 @@ typedef wchar_t short int; 所以 wchar_t 实际上的空间是和 short int 一
             </span>
         </div>
         <ul id="menu">
+            <li>
+                <a href="https://jifan.tech/about/" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://jifan.tech/posts/" title="Posts">
+                    <span>Posts</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://jifan.tech/projects/" title="Projects">
+                    <span>Projects</span>
+                </a>
+            </li>
         </ul>
     </nav>
 </header>
 <main class="main">
 
+
+
+
+
+
+
+
+
+
+
 <article class="post-single">
   <header class="post-header">
-    
+    <div class="breadcrumbs"><a href="https://jifan.tech">Home</a>&nbsp;»&nbsp;<a href="https://jifan.tech/posts/">Posts</a></div>
     <h1 class="post-title">
-      C&#43;&#43; 学习笔记（一）：初学者的小窍门
+      C&#43;&#43; 学习笔记：数据类型、浮点数的比较以及“大数”的读取
     </h1>
-    <div class="post-meta"><span title='2019-02-27 00:00:00 +0000 UTC'>February 27, 2019</span>&nbsp;·&nbsp;Thistledown
+    <div class="post-meta"><span title='2019-02-27 00:00:00 +0000 UTC'>February 27, 2019</span>&nbsp;·&nbsp;jifan
 
 </div>
-  </header> 
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#c-%e6%95%b0%e6%8d%ae%e7%b1%bb%e5%9e%8b%e5%8f%8a%e5%85%b6%e8%a1%a8%e7%a4%ba%e8%8c%83%e5%9b%b4" aria-label="C&#43;&#43; 数据类型及其表示范围">C++ 数据类型及其表示范围</a><ul>
+                        
+                <li>
+                    <a href="#1-%e5%9f%ba%e6%9c%ac%e7%9a%84%e5%86%85%e7%bd%ae%e7%b1%bb%e5%9e%8b" aria-label="1. 基本的内置类型">1. 基本的内置类型</a></li>
+                <li>
+                    <a href="#2-%e5%90%84%e7%a7%8d%e5%8f%98%e9%87%8f%e7%b1%bb%e5%9e%8b%e7%9a%84%e5%a4%a7%e5%b0%8f" aria-label="2. 各种变量类型的大小">2. 各种变量类型的大小</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e6%b5%ae%e7%82%b9%e6%95%b0%e7%9a%84%e6%af%94%e8%be%83" aria-label="浮点数的比较">浮点数的比较</a><ul>
+                        
+                <li>
+                    <a href="#1-%e7%ad%89%e4%ba%8e%e8%bf%90%e7%ae%97%e7%ac%a6-" aria-label="1. 等于运算符 ==">1. 等于运算符 <code>==</code></a></li>
+                <li>
+                    <a href="#2-%e5%a4%a7%e4%ba%8e%e8%bf%90%e7%ae%97%e7%ac%a6-" aria-label="2. 大于运算符 &amp;gt;">2. 大于运算符 <code>&gt;</code></a></li>
+                <li>
+                    <a href="#3-%e5%b0%8f%e4%ba%8e%e8%bf%90%e7%ae%97%e7%ac%a6-" aria-label="3. 小于运算符 &amp;lt;">3. 小于运算符 <code>&lt;</code></a></li>
+                <li>
+                    <a href="#4-%e5%a4%a7%e4%ba%8e%e7%ad%89%e4%ba%8e%e8%bf%90%e7%ae%97%e7%ac%a6-" aria-label="4. 大于等于运算符 &amp;gt;=">4. 大于等于运算符 <code>&gt;=</code></a></li>
+                <li>
+                    <a href="#5-%e5%b0%8f%e4%ba%8e%e7%ad%89%e4%ba%8e%e8%bf%90%e7%ae%97%e7%ac%a6-" aria-label="5. 小于等于运算符 &amp;lt;=">5. 小于等于运算符 <code>&lt;=</code></a></li>
+                <li>
+                    <a href="#6-%e5%9c%86%e5%91%a8%e7%8e%87-%cf%80" aria-label="6. 圆周率 π">6. 圆周率 <code>π</code></a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e8%af%bb%e5%8f%96%e5%a4%a7%e6%95%b0" aria-label="读取“大数”">读取“大数”</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
   <div class="post-content"><blockquote>
-<p>一个多月以来，确定好了考研的计划。现在开始准备刷题学习一些算法的基础，也是从头开始学习C/C++，当然在学习过程中踩了不少坑，在这里进行一些总结。</p>
+<p>再一次地、从头开始学习C/C++。</p>
 </blockquote>
-<h2 id="c-数据类型及其表示范围">C++ 数据类型及其表示范围<a hidden class="anchor" aria-hidden="true" href="#c-数据类型及其表示范围">#</a></h2>
+<h1 id="c-数据类型及其表示范围">C++ 数据类型及其表示范围<a hidden class="anchor" aria-hidden="true" href="#c-数据类型及其表示范围">#</a></h1>
 <p>这一部分是基础，不过我之前都没有系统性的搞清楚，所以现在还是先把这些知识点列出来，该部分参考<a href="http://www.runoob.com/cplusplus/cpp-data-types.html">C++ 数据类型 - 菜鸟教程</a>。</p>
-<h4 id="1-基本的内置类型">1. 基本的内置类型<a hidden class="anchor" aria-hidden="true" href="#1-基本的内置类型">#</a></h4>
+<h2 id="1-基本的内置类型">1. 基本的内置类型<a hidden class="anchor" aria-hidden="true" href="#1-基本的内置类型">#</a></h2>
 <p>C++ 为程序员提供了种类丰富的内置数据类型和用户自定义的数据类型。下表列出了七种基本的 C++ 数据类型：</p>
 <table>
 <thead>
@@ -239,8 +287,8 @@ typedef wchar_t short int; 所以 wchar_t 实际上的空间是和 short int 一
 </tbody>
 </table>
 <p>其中，wchar_t 实际上是：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">wchar_t</span> <span style="color:#66d9ef">short</span> <span style="color:#66d9ef">int</span>;
-</span></span></code></pre></div><p>所以 <code>wchar_t</code> 实际上的空间是和 <code>short int</code> 一样。
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">typedef</span> <span class="kt">wchar_t</span> <span class="kt">short</span> <span class="kt">int</span><span class="p">;</span>
+</span></span></code></pre></div><p>所以 <code>wchar_t</code> 实际上的空间和 <code>short int</code> 一样。
 一些基本类型可以使用一个或多个类型修饰符进行修饰：</p>
 <ul>
 <li>signed</li>
@@ -248,7 +296,7 @@ typedef wchar_t short int; 所以 wchar_t 实际上的空间是和 short int 一
 <li>short</li>
 <li>long</li>
 </ul>
-<h4 id="2-各种变量类型的大小">2. 各种变量类型的大小<a hidden class="anchor" aria-hidden="true" href="#2-各种变量类型的大小">#</a></h4>
+<h2 id="2-各种变量类型的大小">2. 各种变量类型的大小<a hidden class="anchor" aria-hidden="true" href="#2-各种变量类型的大小">#</a></h2>
 <table>
 <thead>
 <tr>
@@ -331,106 +379,147 @@ typedef wchar_t short int; 所以 wchar_t 实际上的空间是和 short int 一
 </tbody>
 </table>
 <p>注：不同系统可能会有所差异。</p>
-<h2 id="浮点数的比较">浮点数的比较<a hidden class="anchor" aria-hidden="true" href="#浮点数的比较">#</a></h2>
+<h1 id="浮点数的比较">浮点数的比较<a hidden class="anchor" aria-hidden="true" href="#浮点数的比较">#</a></h1>
 <blockquote>
 <p>在学习<a href="https://book.douban.com/subject/26827295/">《算法笔记》</a>一书时，作者介绍了“极小数”用以修正浮点数在计算机中存储与计算产生的误差。这一点是我在之前学习中所没有意识到的，于是在此归纳一下相关的内容。</p>
 </blockquote>
 <p>由于计算机中采用有限位的二进制编码，因此浮点数在计算机中的存储并不总是精确的。例如在经过<strong>大量运算</strong>后，一个浮点型的数 3.14 在计算机中就可能存储成 3.1400000000001，也有可能存储成 3.1399999999999，这种情况下会对<strong>比较操作</strong>带来极大的干扰（因为C/C++中的 <code>==</code> 操作是完全相同才能判定为 <code>true</code>）。于是在文中，作者引入了一个极小数 <code>eps</code> 来对这种误差进行修正。</p>
 <p>经验表明，eps 取 $1e-8$（$10^{-8}$） 在大多数情况下既不会漏判，也不会误判。因此可将 eps 定义为常量 $1e-8$：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">double</span> eps <span style="color:#f92672">=</span> <span style="color:#ae81ff">1e-8</span>;
-</span></span></code></pre></div><h4 id="1-等于运算符-">1. 等于运算符 <code>==</code><a hidden class="anchor" aria-hidden="true" href="#1-等于运算符-">#</a></h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">double</span> <span class="n">eps</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">;</span>
+</span></span></code></pre></div><h2 id="1-等于运算符-">1. 等于运算符 <code>==</code><a hidden class="anchor" aria-hidden="true" href="#1-等于运算符-">#</a></h2>
 <p>下图为<em>等于区间示意图</em>：</p>
-<p><img loading="lazy" src="https://i.loli.net/2019/03/01/5c78f16aaa41d.jpg" alt="等于区间示意图"  />
-</p>
+<!-- raw HTML omitted -->
+<figure class="align-center ">
+    <img loading="lazy" src="https://i.loli.net/2019/03/01/5c78f16aaa41d.jpg#center"
+         alt="图 1 等于区间示意图" width="50%"/> <figcaption>
+            <p>图 1 等于区间示意图</p>
+        </figcaption>
+</figure>
+
 <p>如图所示，如果一个数 a 落在了 $[b - eps, b + eps]$ 的区间中，就判断 <code>a == b</code> 成立。为了使<strong>比较</strong>更为方便，把比较操作写成宏定义的形式：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;math.h&gt;</span><span style="color:#75715e">
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define Equ(a, b) ((fabs((a) - (b))) - (eps)) </span><span style="color:#75715e">// 括号是为防止宏定义可能带来的错误
-</span></span></span></code></pre></div><h4 id="2-大于运算符-">2. 大于运算符 <code>&gt;</code><a hidden class="anchor" aria-hidden="true" href="#2-大于运算符-">#</a></h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;math.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define Equ(a, b) ((fabs((a) - (b))) - (eps)) </span><span class="c1">// 括号是为防止宏定义可能带来的错误
+</span></span></span></code></pre></div><h2 id="2-大于运算符-">2. 大于运算符 <code>&gt;</code><a hidden class="anchor" aria-hidden="true" href="#2-大于运算符-">#</a></h2>
 <p>下图为<em>大于区间示意图</em>：</p>
-<p><img loading="lazy" src="https://i.loli.net/2019/03/01/5c78f185dcf6b.jpg" alt="大于区间示意图"  />
-</p>
+<!-- raw HTML omitted -->
+<figure class="align-center ">
+    <img loading="lazy" src="https://i.loli.net/2019/03/01/5c78f185dcf6b.jpg#center"
+         alt="图 2 大于区间示意图" width="50%"/> <figcaption>
+            <p>图 2 大于区间示意图</p>
+        </figcaption>
+</figure>
+
 <p>如图所示，如果一个数 a 要大于 b，那么就必须在误差 eps 扰动范围之外大于 b，因此只有大于 b + eps 的数才能判定为大于 b（也即 $a - b &gt; eps$）。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">#define More(a, b) (((a) - (b)) &gt; (eps))
-</span></span></span></code></pre></div><h4 id="3-小于运算符-">3. 小于运算符 <code>&lt;</code><a hidden class="anchor" aria-hidden="true" href="#3-小于运算符-">#</a></h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#define More(a, b) (((a) - (b)) &gt; (eps))
+</span></span></span></code></pre></div><h2 id="3-小于运算符-">3. 小于运算符 <code>&lt;</code><a hidden class="anchor" aria-hidden="true" href="#3-小于运算符-">#</a></h2>
 <p>下图为<em>小于区间示意图</em>：</p>
-<p><img loading="lazy" src="https://i.loli.net/2019/03/01/5c78f199ef6ff.jpg" alt="小于区间示意图"  />
-</p>
+<!-- raw HTML omitted -->
+<figure class="align-center ">
+    <img loading="lazy" src="https://i.loli.net/2019/03/01/5c78f199ef6ff.jpg#center"
+         alt="图 3 小于区间示意图" width="50%"/> <figcaption>
+            <p>图 3 小于区间示意图</p>
+        </figcaption>
+</figure>
+
 <p>如图所示，如果一个数 a 要小于 b，那么就必须在误差 eps 扰动范围之外小于 b，因此只有小于 b - eps 的数才能判定为小于 b（也即 $a - b &lt; -eps$）。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">#define Less(a, b) (((a) - (b)) &lt; (-eps))
-</span></span></span></code></pre></div><h4 id="4-大于等于运算符-">4. 大于等于运算符 <code>&gt;=</code><a hidden class="anchor" aria-hidden="true" href="#4-大于等于运算符-">#</a></h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#define Less(a, b) (((a) - (b)) &lt; (-eps))
+</span></span></span></code></pre></div><h2 id="4-大于等于运算符-">4. 大于等于运算符 <code>&gt;=</code><a hidden class="anchor" aria-hidden="true" href="#4-大于等于运算符-">#</a></h2>
 <p>下图为<em>大于等于区间示意图</em>：</p>
-<p><img loading="lazy" src="https://i.loli.net/2019/03/01/5c78f2115c572.jpg" alt="大于等于区间示意图"  />
-</p>
+<!-- raw HTML omitted -->
+<figure class="align-center ">
+    <img loading="lazy" src="https://i.loli.net/2019/03/01/5c78f2115c572.jpg#center"
+         alt="图 4 大于等于区间示意图" width="50%"/> <figcaption>
+            <p>图 4 大于等于区间示意图</p>
+        </figcaption>
+</figure>
+
 <p>如图所示，由于大于等于运算符可以理解为大于运算符和等于运算符的结合，于是需要让一个数 a 在误差扰动范围内大于或者等于 b，因此大于 b - eps 的数都应当判定为大于等于 b（也即 $a - b &gt; -eps$）。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">#define MoreEqu(a, b) (((a) - (b)) &gt; (-eps))
-</span></span></span></code></pre></div><h4 id="5-小于等于运算符-">5. 小于等于运算符 <code>&lt;=</code><a hidden class="anchor" aria-hidden="true" href="#5-小于等于运算符-">#</a></h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#define MoreEqu(a, b) (((a) - (b)) &gt; (-eps))
+</span></span></span></code></pre></div><h2 id="5-小于等于运算符-">5. 小于等于运算符 <code>&lt;=</code><a hidden class="anchor" aria-hidden="true" href="#5-小于等于运算符-">#</a></h2>
 <p>下图为<em>小于等于区间示意图</em>：</p>
-<p><img loading="lazy" src="https://i.loli.net/2019/03/01/5c78f220aa95f.jpg" alt="小于等于区间示意图"  />
-</p>
+<!-- raw HTML omitted -->
+<figure class="align-center ">
+    <img loading="lazy" src="https://i.loli.net/2019/03/01/5c78f220aa95f.jpg#center"
+         alt="图 5 小于等于区间示意图" width="50%"/> <figcaption>
+            <p>图 5 小于等于区间示意图</p>
+        </figcaption>
+</figure>
+
 <p>如图所示，由于小于等于运算符可以理解为小于运算符和等于运算符的结合，于是需要让一个数 a 在误差扰动范围内小于或者等于 b，因此小于 b + eps 的数都应当判定为小于等于 b（也即 $a - b &lt; eps$）。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">#define LessEqu(a, b) (((a) - (b)) &lt; (eps))
-</span></span></span></code></pre></div><h4 id="6-圆周率-π">6. 圆周率 <code>π</code><a hidden class="anchor" aria-hidden="true" href="#6-圆周率-π">#</a></h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#define LessEqu(a, b) (((a) - (b)) &lt; (eps))
+</span></span></span></code></pre></div><h2 id="6-圆周率-π">6. 圆周率 <code>π</code><a hidden class="anchor" aria-hidden="true" href="#6-圆周率-π">#</a></h2>
 <p>圆周率 π 可由 $arccos(-1)$ 计算得到：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;math.h&gt;</span><span style="color:#75715e">
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">double</span> PI <span style="color:#f92672">=</span> acos(<span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>);
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;math.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">const</span> <span class="kt">double</span> <span class="n">PI</span> <span class="o">=</span> <span class="n">acos</span><span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">);</span>
 </span></span></code></pre></div><p>汇总结果为如下代码：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;math.h&gt;</span><span style="color:#75715e">
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">double</span> eps <span style="color:#f92672">=</span> <span style="color:#ae81ff">1e-8</span>;
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">double</span> PI <span style="color:#f92672">=</span> acos(<span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#define Equ(a, b) ((fabs((a) - (b))) - (eps))
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define More(a, b) (((a) - (b)) &gt; (eps))
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define Less(a, b) (((a) - (b)) &lt; (-eps))
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define MoreEqu(a, b) (((a) - (b)) &gt; (-eps))
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define LessEqu(a, b) (((a) - (b)) &lt; (eps))
-</span></span></span></code></pre></div><h2 id="读取大数">读取“大数”<a hidden class="anchor" aria-hidden="true" href="#读取大数">#</a></h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;math.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">const</span> <span class="kt">double</span> <span class="n">eps</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">double</span> <span class="n">PI</span> <span class="o">=</span> <span class="n">acos</span><span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp">#define Equ(a, b) ((fabs((a) - (b))) - (eps))
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define More(a, b) (((a) - (b)) &gt; (eps))
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define Less(a, b) (((a) - (b)) &lt; (-eps))
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define MoreEqu(a, b) (((a) - (b)) &gt; (-eps))
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define LessEqu(a, b) (((a) - (b)) &lt; (eps))
+</span></span></span></code></pre></div><h1 id="读取大数">读取“大数”<a hidden class="anchor" aria-hidden="true" href="#读取大数">#</a></h1>
 <p>有的时候，我需要读入一个很大的<strong>整数</strong>（例如，1234567890987654321123456789），并计算出它的各位数字之和。用 <code>int</code> ($-2^{31} \sim 2^{31} - 1$) 或者 <code>long int</code> ($-2^{63} \sim 2^{63} - 1$) 都不满足要求。这时可以将这样一个“大数”作为字符串（或是字符数组）读入。</p>
 <blockquote>
 <p>字符串实际上是使用 null 字符 <code>'\0'</code> 终止的<strong>一维字符数组</strong>。因此，一个以 null 结尾的字符串，包含了组成字符串的字符。</p>
 </blockquote>
 <p>我们可以使用 <code>getchar()</code> 函数，将该数字的每一位作为字符读入到我们的字符串数组中。</p>
 <blockquote>
-<p>C 库函数 int getchar(void) 从标准输入 stdin 获取一个字符（一个无符号字符）。这等同于 getc 带有 stdin 作为参数。</p>
+<p>C 库函数 <code>int getchar(void)</code> 从标准输入 <code>stdin</code> 获取一个字符（一个无符号字符）。这等同于 <code>getc</code> 带有 <code>stdin</code> 作为参数。</p>
 </blockquote>
 <p>用程序可以简单地表示为：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">char</span> n[<span style="color:#ae81ff">100</span>];
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>    printf(<span style="color:#e6db74">&#34;Input:  &#34;</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> ((n[i] <span style="color:#f92672">=</span> getchar()) <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#39;\n&#39;</span>) {    <span style="color:#75715e">// 逐位读入数字
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        i<span style="color:#f92672">++</span>;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    printf(<span style="color:#e6db74">&#34;Output: &#34;</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> k <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; k <span style="color:#f92672">&lt;</span> i; k<span style="color:#f92672">++</span>) {
-</span></span><span style="display:flex;"><span>        printf(<span style="color:#e6db74">&#34;%c&#34;</span>, n[k]);     <span style="color:#75715e">// 逐位输出数字
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    printf(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">&#34;</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span> <span class="n">n</span><span class="p">[</span><span class="mi">100</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Input:  &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">((</span><span class="n">n</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">getchar</span><span class="p">())</span> <span class="o">!=</span> <span class="sc">&#39;\n&#39;</span><span class="p">)</span> <span class="p">{</span>    <span class="c1">// 逐位读入数字
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Output: &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">i</span><span class="p">;</span> <span class="n">k</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%c&#34;</span><span class="p">,</span> <span class="n">n</span><span class="p">[</span><span class="n">k</span><span class="p">]);</span>     <span class="c1">// 逐位输出数字
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>当我们输入数字 1234567890987654321123456789，也会得到相应的输出：</p>
-<p><img loading="lazy" src="https://i.loli.net/2019/03/01/5c78f230b9bca.jpg" alt="I&amp;amp;O"  />
-</p>
+<!-- raw HTML omitted -->
+<figure class="align-center ">
+    <img loading="lazy" src="https://i.loli.net/2019/03/01/5c78f230b9bca.jpg#center"
+         alt="图 6 输出结果" width="70%"/> <figcaption>
+            <p>图 6 输出结果</p>
+        </figcaption>
+</figure>
+
 <p>此时，存储字符的数组 <code>n</code> 为：</p>
-<p><img loading="lazy" src="https://i.loli.net/2019/03/01/5c78f23e60f77.jpg" alt="Array_n"  />
-</p>
+<!-- raw HTML omitted -->
+<figure class="align-center ">
+    <img loading="lazy" src="https://i.loli.net/2019/03/01/5c78f23e60f77.jpg#center"
+         alt="图 7 字符数组在内存中的值" width="30%"/> <figcaption>
+            <p>图 7 字符数组在内存中的值</p>
+        </figcaption>
+</figure>
+
 
 
   </div>
 
   <footer class="post-footer">
     <ul class="post-tags">
-      <li><a href="https://fang-lansheng.github.io/tags/c&#43;&#43;/">C&#43;&#43;</a></li>
     </ul>
   </footer>
 </article>
     </main>
     
 <footer class="footer">
-    <span>&copy; 2022 <a href="https://fang-lansheng.github.io">My-Thistledown</a></span>
+    <span>&copy; 2022 <a href="https://jifan.tech">Jifan&#39;s Blog</a></span>
     <span>
         Powered by
         <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
@@ -442,6 +531,27 @@ typedef wchar_t short int; 所以 wchar_t 实际上的空间是和 short int 一
         <path d="M12 6H0l6-6z" />
     </svg>
 </a>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css" integrity="sha384-KiWOvVjnN8qwAZbuQyWDIbfCLFhLXNETzBQjA/92pIowpC0d2O3nppDGQVgwd2nB" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js" integrity="sha384-0fdwu/T/EQMsQlrHCCHoH10pkPLlKA1jL5dFyUOvB3lfeT2540/2g6YgSi2BL14p" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            
+            
+            delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '$', right: '$', display: false},
+                {left: '\\(', right: '\\)', display: false},
+                {left: '\\[', right: '\\]', display: true}
+            ],
+            
+            throwOnError : false
+        });
+    });
+</script>
+
 
 <script>
     let menu = document.getElementById('menu')
@@ -496,6 +606,53 @@ typedef wchar_t short int; 所以 wchar_t 实际上的空间是和 short int 一
         }
     })
 
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerText = 'copy';
+
+        function copyingDone() {
+            copybutton.innerText = 'copied!';
+            setTimeout(() => {
+                copybutton.innerText = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
 </script>
 </body>
 
