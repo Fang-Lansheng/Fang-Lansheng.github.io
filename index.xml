@@ -19,11 +19,21 @@
     </item>
     
     <item>
-      <title>A Primer on Web Server</title>
-      <link>https://jifan.tech/posts/2022-04-02-web-server/</link>
-      <pubDate>Sat, 02 Apr 2022 00:00:00 +0000</pubDate>
+      <title>I/O multiplexing: select, poll and epoll</title>
+      <link>https://jifan.tech/posts/2022-03-28-io-models/</link>
+      <pubDate>Mon, 28 Mar 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://jifan.tech/posts/2022-04-02-web-server/</guid>
+      <guid>https://jifan.tech/posts/2022-03-28-io-models/</guid>
+      <description>TL,DR.
+ The select() and poll() are system calls to monitor file descriptors. And the epoll is a Linux-specified API to implement I/O multiplexing with higher performance when it comes to large numbers of file descriptors.   1. Why not blocking I/O? Under the convensional file I/O model, a process performs I/O on just one file descriptor, named fd, at a time, and each I/O system call blocks until the data is transferred.</description>
+    </item>
+    
+    <item>
+      <title>A Primer on Web Server</title>
+      <link>https://jifan.tech/posts/2022-03-02-web-server/</link>
+      <pubDate>Wed, 02 Mar 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://jifan.tech/posts/2022-03-02-web-server/</guid>
       <description>Before starting the TinyWebServer project, I took a quick look at what a web server is. This article is a general summary of it, based on my current basic understanding.
  1. What is a web server? The term web server can refer to software or underlying hardware.
  On the hardware side, a web server is a computer that:  stores web server software and a website&amp;rsquo;s component files (e.</description>

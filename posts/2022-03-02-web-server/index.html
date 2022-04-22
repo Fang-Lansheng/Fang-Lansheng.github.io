@@ -11,8 +11,8 @@
  1. What is a web server? The term web server can refer to software or underlying hardware.
  On the hardware side, a web server is a computer that:  stores web server software and a website&rsquo;s component files (e.">
 <meta name="author" content="Jifan">
-<link rel="canonical" href="https://jifan.tech/posts/2022-04-02-web-server/" />
-<link crossorigin="anonymous" href="/assets/css/stylesheet.min.f18076306f12d99da3fd0751b49f6f33cf329ffa8c84f737116764e7ec2e8c2f.css" integrity="sha256-8YB2MG8S2Z2j/QdRtJ9vM88yn/qMhPc3EWdk5&#43;wujC8=" rel="preload stylesheet" as="style">
+<link rel="canonical" href="https://jifan.tech/posts/2022-03-02-web-server/" />
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.d2d913f96f20672531467f8a00a1afae6af2b44b8ba24b7a5cab31330f0bcb2c.css" integrity="sha256-0tkT&#43;W8gZyUxRn&#43;KAKGvrmrytEuLokt6XKsxMw8Lyyw=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.min.4dcb3c4f38462f66c6b6137227726f5543cb934cca9788f041c087e374491df2.js" integrity="sha256-Tcs8TzhGL2bGthNyJ3JvVUPLk0zKl4jwQcCH43RJHfI="
     onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://jifan.tech/imgs/favicon.ico">
@@ -63,9 +63,9 @@
  1. What is a web server? The term web server can refer to software or underlying hardware.
  On the hardware side, a web server is a computer that:  stores web server software and a website&rsquo;s component files (e." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://jifan.tech/posts/2022-04-02-web-server/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2022-04-02T00:00:00&#43;00:00" />
-<meta property="article:modified_time" content="2022-04-02T00:00:00&#43;00:00" />
+<meta property="og:url" content="https://jifan.tech/posts/2022-03-02-web-server/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-03-02T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2022-03-02T00:00:00&#43;00:00" />
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="A Primer on Web Server"/>
@@ -89,7 +89,7 @@
       "@type": "ListItem",
       "position":  3 ,
       "name": "A Primer on Web Server",
-      "item": "https://jifan.tech/posts/2022-04-02-web-server/"
+      "item": "https://jifan.tech/posts/2022-03-02-web-server/"
     }
   ]
 }
@@ -104,18 +104,18 @@
   "keywords": [
     "Web"
   ],
-  "articleBody": " Before starting the TinyWebServer project, I took a quick look at what a web server is. This article is a general summary of it, based on my current basic understanding.\n 1. What is a web server? The term web server can refer to software or underlying hardware.\n On the hardware side, a web server is a computer that:  stores web server software and a website’s component files (e.g., HTML documents, images, CSS stylesheets and JavaScript files). connects to the Internet and supports physical data interchange with other devices connected to the web.   On the software side, a web server includes several parts that control how web users access hosted files.  At a minimum, this is an HTTP server. An HTTP server is a software that understands URLs (web address) and HTTP (the network protocal created to dsitribute web content). An HTTP server can be accessed through the domain names of the websites it stores. Besides HTTP, web servers can also support SMTP and FTP, used for email, file transfer and storage. It can deliver the content of hosted websites to the end usrer’s device, and also can accept and stores resources sent from the user agent if configured to do so.     Figure 1. A basic Client-Server model. (source: developer.mozilla.org)\n  Typically, web servers are classified as static and dynamic.\n A static web server, or stack, consists of a computer (hardware) with an HTTP server (software). We call it “static” because the server sends its hosted files as-is to your browser. A dynamic web server consists of a static web server plus extra software, most commonly an application server and a database. We call it “dynamic” because the application server updates the hosted files before sending content to your browser via the HTTP server.  Currently, the most used Web Servers in the world are Apache HTTP Server, Nginx, Microsoft-IIS, OpenResty, etc.\n2. How a client and server communicate? Normally, a client makes HTTP requests to a server.\n The server responds to the client’s HTTP requests. And the server and also populate data into a client cache, in advance of it being requested, through a mechanism called a server push. When requesting a file via HTTP, the client must provice the file’s URL. The web server must answer every HTTP request, at least with an error message.  On a web server, the HTTP server is responsible for processing and answering incoming requests.\n Upon receiving a request, an HTTP server first checks if the requested URL matches an existing file. If so, the web server sends the file content back to the browser. If not, an appicatoin server builds the necesary file. If neither process is possible, the web server returns an error message to the browser, most commonly 404 Not Found (indicates that the server cannot find the requested resource).  3. Performances To improve the user experience (on client / browser side), a web server should reply quickly (as soon as possible) to client requests; unless content response is throttled (by configuration) for some type of files (e.g. big or huge files), also returned data content should be sent as fast as possible (high transfer speed).\n3.1 Performance metrics For web server software, main key performance metrics usually are at least the following ones:\n number of requests per second (RPS); It’s similar to QPS (queries per second), depending on HTTP version and configuration, type of HTTP requests and other operating conditions; number of connections per second (CPS), is the number of connections per second accepted by web server; network latency + response time for each new client request; throughput of responses, in bytes per second.  3.2 Benchmarking Web server benchmarking is the process of estimating a web server performance in order to find if the server can serve sufficiently high workload. The measurements must be performed under a varying load of clients and requests per client.\nLoad testing (stress/performance testing) a web server can be performed using automation/analysis tools.\n Refrences:\n What is a web server? - Learn web development | MDN Web server - Wikipedia   ",
-  "wordCount" : "672",
+  "articleBody": " Before starting the TinyWebServer project, I took a quick look at what a web server is. This article is a general summary of it, based on my current basic understanding.\n 1. What is a web server? The term web server can refer to software or underlying hardware.\n On the hardware side, a web server is a computer that:  stores web server software and a website’s component files (e.g., HTML documents, images, CSS stylesheets and JavaScript files). connects to the Internet and supports physical data interchange with other devices connected to the web.   On the software side, a web server includes several parts that control how web users access hosted files.  At a minimum, this is an HTTP server. An HTTP server is a software that understands URLs (web address) and HTTP (the network protocal created to dsitribute web content). An HTTP server can be accessed through the domain names of the websites it stores. Besides HTTP, web servers can also support SMTP and FTP, used for email, file transfer and storage. It can deliver the content of hosted websites to the end usrer’s device, and also can accept and stores resources sent from the user agent if configured to do so.     Figure 1. A basic Client-Server model. (Image source: developer.mozilla.org)\n  Typically, web servers are classified as static and dynamic.\n A static web server, or stack, consists of a computer (hardware) with an HTTP server (software). We call it “static” because the server sends its hosted files as-is to your browser. A dynamic web server consists of a static web server plus extra software, most commonly an application server and a database. We call it “dynamic” because the application server updates the hosted files before sending content to your browser via the HTTP server.  Currently, the most used Web Servers in the world are Apache HTTP Server, Nginx, Microsoft-IIS, OpenResty, etc.\n2. How a client and server communicate? Normally, a client makes HTTP requests to a server.\n The server responds to the client’s HTTP requests. And the server and also populate data into a client cache, in advance of it being requested, through a mechanism called a server push. When requesting a file via HTTP, the client must provice the file’s URL. The web server must answer every HTTP request, at least with an error message.  On a web server, the HTTP server is responsible for processing and answering incoming requests.\n Upon receiving a request, an HTTP server first checks if the requested URL matches an existing file. If so, the web server sends the file content back to the browser. If not, an appicatoin server builds the necesary file. If neither process is possible, the web server returns an error message to the browser, most commonly 404 Not Found (indicates that the server cannot find the requested resource).  3. Performances To improve the user experience (on client / browser side), a web server should reply quickly (as soon as possible) to client requests; unless content response is throttled (by configuration) for some type of files (e.g. big or huge files), also returned data content should be sent as fast as possible (high transfer speed).\n3.1 Performance metrics For web server software, main key performance metrics usually are at least the following ones:\n number of requests per second (RPS); It’s similar to QPS (queries per second), depending on HTTP version and configuration, type of HTTP requests and other operating conditions; number of connections per second (CPS), is the number of connections per second accepted by web server; network latency + response time for each new client request; throughput of responses, in bytes per second.  3.2 Benchmarking Web server benchmarking is the process of estimating a web server performance in order to find if the server can serve sufficiently high workload. The measurements must be performed under a varying load of clients and requests per client.\nLoad testing (stress/performance testing) a web server can be performed using automation/analysis tools.\n Refrences:\n What is a web server? - Learn web development | MDN Web server - Wikipedia   ",
+  "wordCount" : "673",
   "inLanguage": "en",
-  "datePublished": "2022-04-02T00:00:00Z",
-  "dateModified": "2022-04-02T00:00:00Z",
+  "datePublished": "2022-03-02T00:00:00Z",
+  "dateModified": "2022-03-02T00:00:00Z",
   "author":{
     "@type": "Person",
     "name": "Jifan"
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https://jifan.tech/posts/2022-04-02-web-server/"
+    "@id": "https://jifan.tech/posts/2022-03-02-web-server/"
   },
   "publisher": {
     "@type": "Organization",
@@ -184,15 +184,20 @@
                     <span>Projects</span>
                 </a>
             </li>
-            <li>
-                <a href="https://jifan.tech/search/" title="Search (Alt &#43; /)" accesskey=/>
-                    <span>Search</span>
-                </a>
-            </li>
         </ul>
     </nav>
 </header>
 <main class="main">
+
+
+
+
+
+
+
+
+
+
 
 <article class="post-single">
   <header class="post-header">
@@ -200,7 +205,7 @@
     <h1 class="post-title">
       A Primer on Web Server
     </h1>
-    <div class="post-meta"><span title='2022-04-02 00:00:00 +0000 UTC'>April 2, 2022</span>&nbsp;·&nbsp;Jifan
+    <div class="post-meta"><span title='2022-03-02 00:00:00 +0000 UTC'>March 2, 2022</span>&nbsp;·&nbsp;Jifan
 
 </div>
   </header> <div class="toc">
@@ -251,8 +256,8 @@
 </ul>
 <figure class="align-center ">
     <img loading="lazy" src="./assets/web-server.svg#center"
-         alt="Figure 1. A basic Client-Server model. (source: developer.mozilla.org)" width="70%"/> <figcaption>
-            <p>Figure 1. A basic Client-Server model. (<em>source: developer.mozilla.org</em>)</p>
+         alt="Figure 1. A basic Client-Server model. (Image source: developer.mozilla.org)" width="70%"/> <figcaption>
+            <p>Figure 1. A basic Client-Server model. (<em>Image source: developer.mozilla.org</em>)</p>
         </figcaption>
 </figure>
 
@@ -302,14 +307,6 @@
   <footer class="post-footer">
     <ul class="post-tags">
     </ul>
-<nav class="paginav">
-  <a class="next" href="https://jifan.tech/posts/2019-05-10-opencv-4/">
-    <span class="title">Next Page »</span>
-    <br>
-    <span>OpenCV 源码分析：SIFT 算法原理与实现</span>
-  </a>
-</nav>
-
   </footer>
 </article>
     </main>

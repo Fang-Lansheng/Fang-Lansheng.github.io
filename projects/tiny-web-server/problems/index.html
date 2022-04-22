@@ -12,7 +12,7 @@
  mysql_init(): return an initialized MYSQL* handler (i.e. a MYSQL object suitable for mysql_real_connect()), or NULL in case of insufficient memory.">
 <meta name="author" content="Jifan">
 <link rel="canonical" href="https://jifan.tech/projects/tiny-web-server/problems/" />
-<link crossorigin="anonymous" href="/assets/css/stylesheet.min.f18076306f12d99da3fd0751b49f6f33cf329ffa8c84f737116764e7ec2e8c2f.css" integrity="sha256-8YB2MG8S2Z2j/QdRtJ9vM88yn/qMhPc3EWdk5&#43;wujC8=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.d2d913f96f20672531467f8a00a1afae6af2b44b8ba24b7a5cab31330f0bcb2c.css" integrity="sha256-0tkT&#43;W8gZyUxRn&#43;KAKGvrmrytEuLokt6XKsxMw8Lyyw=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.min.4dcb3c4f38462f66c6b6137227726f5543cb934cca9788f041c087e374491df2.js" integrity="sha256-Tcs8TzhGL2bGthNyJ3JvVUPLk0zKl4jwQcCH43RJHfI="
     onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://jifan.tech/imgs/favicon.ico">
@@ -110,8 +110,8 @@
   "keywords": [
     
   ],
-  "articleBody": "1. MySQL Error in log file Server stopped immediately after running ./server in shell, and output an error MySQL Error in log file.\n  Find the source of the error: Although the error log is fairly vague, it’s not difficult to find out that it was thrown by the function connection_pool::init in the file CGImysql/sql_connection_pool.cpp.\n mysql_init(): return an initialized MYSQL* handler (i.e. a MYSQL object suitable for mysql_real_connect()), or NULL in case of insufficient memory. mysql_real_connect(): return a MYSQL* connection handler if the connection was successful, NULL if the connection was unsuccessful. It’s no doubt that detailed error output helps us to locate the problem.  void connection_pool::init(string url, string User, string PassWord, string DBName, int Port, int MaxConn, int close_log) { m_url = url; m_Port = Port; m_User = User; m_PassWord = PassWord; m_DatabaseName = DBName; m_close_log = close_log; for (int i = 0; i  MaxConn; i++) { MYSQL* con = NULL; con = mysql_init(con); if (con == NULL) { // If `mysql_init()` return NULL, print corresponding error log.  // LOG_ERROR(\"MySQL Error\");  LOG_ERROR(\"MySQL Error: `mysql_init()` return NULL, maybe there was insufficient memory to allocate a new object.\"); exit(1); } MYSQL* temp = con; con = mysql_real_connect(con, url.c_str(), User.c_str(), PassWord.c_str(), DBName.c_str(), Port, NULL, 0); if (con == NULL) { // If `mysql_real_connect()` return NULL, print correspnding error log.  // LOG_ERROR(\"MySQL Error\");  string err_info( mysql_error(temp) ); err_info = (string(\"MySQL Error [errno=\") + std::to_string(mysql_errno(temp)) + string(\"]: \") + err_info); LOG_ERROR( err_info.c_str() ); exit(1); } connList.push_back(con); ++m_FreeConn; } reserve = sem(m_FreeConn); m_MaxConn = m_FreeConn; }   Identify error type: after modifying the log output style, the following error ocurrs:\n2022-04-03 19:30:29.360109 [erro]: MySQL Error [errno=1045]: Access denied for user 'USER_NAME'@'localhost' (using password: YES)   Solutions:\n Check whether the database information in the main.cpp file is correct, including USER_NAME, PASSWORD, and DATABASE_NAME. Verify that user USER_NAME has access privileges to the target database DATABASE_NAME.    ",
-  "wordCount" : "307",
+  "articleBody": "1. MySQL Error in log file Server stopped immediately after running ./server in shell, and output an error MySQL Error in log file.\n  Find the source of the error: Although the error log is fairly vague, it’s not difficult to find out that it was thrown by the function connection_pool::init in the file CGImysql/sql_connection_pool.cpp.\n mysql_init(): return an initialized MYSQL* handler (i.e. a MYSQL object suitable for mysql_real_connect()), or NULL in case of insufficient memory. mysql_real_connect(): return a MYSQL* connection handler if the connection was successful, NULL if the connection was unsuccessful. It’s no doubt that detailed error output helps us to locate the problem.  // Note: due to the refactoring of the project, this code no longer corresponds to // the existing one, but the idea of solving this problem remains similar. void connection_pool::init(string url, string User, string PassWord, string DBName, int Port, int MaxConn, int close_log) { m_url = url; m_Port = Port; m_User = User; m_PassWord = PassWord; m_DatabaseName = DBName; m_close_log = close_log; for (int i = 0; i  MaxConn; i++) { MYSQL* con = NULL; con = mysql_init(con); if (con == NULL) { // If `mysql_init()` return NULL, print corresponding error log.  // LOG_ERROR(\"MySQL Error\");  LOG_ERROR(\"MySQL Error: `mysql_init()` return NULL, maybe there was insufficient memory to allocate a new object.\"); exit(1); } MYSQL* temp = con; con = mysql_real_connect(con, url.c_str(), User.c_str(), PassWord.c_str(), DBName.c_str(), Port, NULL, 0); if (con == NULL) { // If `mysql_real_connect()` return NULL, print correspnding error log.  // LOG_ERROR(\"MySQL Error\");  string err_info( mysql_error(temp) ); err_info = (string(\"MySQL Error [errno=\") + std::to_string(mysql_errno(temp)) + string(\"]: \") + err_info); LOG_ERROR( err_info.c_str() ); exit(1); } connList.push_back(con); ++m_FreeConn; } reserve = sem(m_FreeConn); m_MaxConn = m_FreeConn; }   Identify error type: after modifying the log output style, the following error ocurrs:\n2022-04-03 19:30:29.360109 [erro]: MySQL Error [errno=1045]: Access denied for user 'USER_NAME'@'localhost' (using password: YES)   Solutions:\n Check whether the database information in the main.cpp file is correct, including USER_NAME, PASSWORD, and DATABASE_NAME. Verify that user USER_NAME has access privileges to the target database DATABASE_NAME.    ",
+  "wordCount" : "335",
   "inLanguage": "en",
   "datePublished": "2022-04-03T00:00:00Z",
   "dateModified": "2022-04-03T00:00:00Z",
@@ -190,11 +190,6 @@
                     <span>Projects</span>
                 </a>
             </li>
-            <li>
-                <a href="https://jifan.tech/search/" title="Search (Alt &#43; /)" accesskey=/>
-                    <span>Search</span>
-                </a>
-            </li>
         </ul>
     </nav>
 </header>
@@ -244,7 +239,9 @@
 <li><code>mysql_real_connect()</code>: return a <code>MYSQL*</code> connection handler if the connection was successful, <code>NULL</code> if the connection was unsuccessful.</li>
 <li>It&rsquo;s no doubt that detailed error output helps us to locate the problem.</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">connection_pool</span><span class="o">::</span><span class="n">init</span><span class="p">(</span><span class="n">string</span> <span class="n">url</span><span class="p">,</span> <span class="n">string</span> <span class="n">User</span><span class="p">,</span> <span class="n">string</span> <span class="n">PassWord</span><span class="p">,</span> <span class="n">string</span> <span class="n">DBName</span><span class="p">,</span> <span class="kt">int</span> <span class="n">Port</span><span class="p">,</span> <span class="kt">int</span> <span class="n">MaxConn</span><span class="p">,</span> <span class="kt">int</span> <span class="n">close_log</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">// Note: due to the refactoring of the project, this code no longer corresponds to 
+</span></span></span><span class="line"><span class="cl"><span class="c1">// the existing one, but the idea of solving this problem remains similar.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="n">connection_pool</span><span class="o">::</span><span class="n">init</span><span class="p">(</span><span class="n">string</span> <span class="n">url</span><span class="p">,</span> <span class="n">string</span> <span class="n">User</span><span class="p">,</span> <span class="n">string</span> <span class="n">PassWord</span><span class="p">,</span> <span class="n">string</span> <span class="n">DBName</span><span class="p">,</span> <span class="kt">int</span> <span class="n">Port</span><span class="p">,</span> <span class="kt">int</span> <span class="n">MaxConn</span><span class="p">,</span> <span class="kt">int</span> <span class="n">close_log</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">m_url</span> <span class="o">=</span> <span class="n">url</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">m_Port</span> <span class="o">=</span> <span class="n">Port</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">m_User</span> <span class="o">=</span> <span class="n">User</span><span class="p">;</span>
@@ -298,7 +295,6 @@
   </div>
 
   <footer class="post-footer">
-
   </footer>
 </article>
     </main>
