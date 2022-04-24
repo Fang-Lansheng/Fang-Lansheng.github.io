@@ -7,12 +7,10 @@
 <meta name="robots" content="index, follow">
 <title>Projects | Jifan&#39;s Blog</title>
 <meta name="keywords" content="" />
-<meta name="description" content="projects">
+<meta name="description" content="Projects - Jifan&#39;s Blog">
 <meta name="author" content="Jifan">
 <link rel="canonical" href="https://jifan.tech/projects/" />
 <link crossorigin="anonymous" href="/assets/css/stylesheet.min.d2d913f96f20672531467f8a00a1afae6af2b44b8ba24b7a5cab31330f0bcb2c.css" integrity="sha256-0tkT&#43;W8gZyUxRn&#43;KAKGvrmrytEuLokt6XKsxMw8Lyyw=" rel="preload stylesheet" as="style">
-<script defer crossorigin="anonymous" src="/assets/js/highlight.min.4dcb3c4f38462f66c6b6137227726f5543cb934cca9788f041c087e374491df2.js" integrity="sha256-Tcs8TzhGL2bGthNyJ3JvVUPLk0zKl4jwQcCH43RJHfI="
-    onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://jifan.tech/imgs/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://jifan.tech/imgs/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://jifan.tech/imgs/favicon-32x32.png">
@@ -20,6 +18,7 @@
 <link rel="mask-icon" href="https://jifan.tech/imgs/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" type="application/rss+xml" href="https://jifan.tech/projects/index.xml">
 <noscript>
     <style>
         #theme-toggle,
@@ -57,15 +56,13 @@
 
     </style>
 </noscript><meta property="og:title" content="Projects" />
-<meta property="og:description" content="projects" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://jifan.tech/projects/" /><meta property="article:section" content="" />
-
-
+<meta property="og:description" content="Jifan&#39;s Blog - https://jifan.tech" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://jifan.tech/projects/" />
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Projects"/>
-<meta name="twitter:description" content="projects"/>
+<meta name="twitter:description" content="Jifan&#39;s Blog - https://jifan.tech"/>
 
 
 <script type="application/ld+json">
@@ -80,39 +77,6 @@
       "item": "https://jifan.tech/projects/"
     }
   ]
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "Projects",
-  "name": "Projects",
-  "description": "projects",
-  "keywords": [
-    
-  ],
-  "articleBody": "",
-  "wordCount" : "0",
-  "inLanguage": "en",
-  "datePublished": "0001-01-01T00:00:00Z",
-  "dateModified": "0001-01-01T00:00:00Z",
-  "author":{
-    "@type": "Person",
-    "name": "Jifan"
-  },
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://jifan.tech/projects/"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "Jifan's Blog",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://jifan.tech/imgs/favicon.ico"
-    }
-  }
 }
 </script>
 </head>
@@ -326,53 +290,6 @@
         }
     })
 
-</script>
-<script>
-    document.querySelectorAll('pre > code').forEach((codeblock) => {
-        const container = codeblock.parentNode.parentNode;
-
-        const copybutton = document.createElement('button');
-        copybutton.classList.add('copy-code');
-        copybutton.innerText = 'copy';
-
-        function copyingDone() {
-            copybutton.innerText = 'copied!';
-            setTimeout(() => {
-                copybutton.innerText = 'copy';
-            }, 2000);
-        }
-
-        copybutton.addEventListener('click', (cb) => {
-            if ('clipboard' in navigator) {
-                navigator.clipboard.writeText(codeblock.textContent);
-                copyingDone();
-                return;
-            }
-
-            const range = document.createRange();
-            range.selectNodeContents(codeblock);
-            const selection = window.getSelection();
-            selection.removeAllRanges();
-            selection.addRange(range);
-            try {
-                document.execCommand('copy');
-                copyingDone();
-            } catch (e) { };
-            selection.removeRange(range);
-        });
-
-        if (container.classList.contains("highlight")) {
-            container.appendChild(copybutton);
-        } else if (container.parentNode.firstChild == container) {
-            
-        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
-            
-            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
-        } else {
-            
-            codeblock.parentNode.appendChild(copybutton);
-        }
-    });
 </script>
 </body>
 
