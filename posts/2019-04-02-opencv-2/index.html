@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>OpenCV 点特征提取算子：Moravec，Forstner 与 Harris | Jifan&#39;s Blog</title>
+<meta name="keywords" content="OpenCV, C&#43;&#43;" />
+<meta name="description" content="在计算机视觉（Computer Vision）与摄影测量（Photogrammetry）中，我们在不同影像之间找到相匹配的特征，已建立两幅影像">
+<meta name="author" content="Jifan">
+<link rel="canonical" href="https://jifan.tech/posts/2019-04-02-opencv-2/" />
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.d2d913f96f20672531467f8a00a1afae6af2b44b8ba24b7a5cab31330f0bcb2c.css" integrity="sha256-0tkT&#43;W8gZyUxRn&#43;KAKGvrmrytEuLokt6XKsxMw8Lyyw=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.min.4dcb3c4f38462f66c6b6137227726f5543cb934cca9788f041c087e374491df2.js" integrity="sha256-Tcs8TzhGL2bGthNyJ3JvVUPLk0zKl4jwQcCH43RJHfI="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://jifan.tech/imgs/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://jifan.tech/imgs/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://jifan.tech/imgs/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://jifan.tech/imgs/apple-touch-icon.png">
+<link rel="mask-icon" href="https://jifan.tech/imgs/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="OpenCV 点特征提取算子：Moravec，Forstner 与 Harris" />
+<meta property="og:description" content="在计算机视觉（Computer Vision）与摄影测量（Photogrammetry）中，我们在不同影像之间找到相匹配的特征，已建立两幅影像" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://jifan.tech/posts/2019-04-02-opencv-2/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2019-04-02T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2019-04-02T00:00:00&#43;00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="OpenCV 点特征提取算子：Moravec，Forstner 与 Harris"/>
+<meta name="twitter:description" content="在计算机视觉（Computer Vision）与摄影测量（Photogrammetry）中，我们在不同影像之间找到相匹配的特征，已建立两幅影像"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Posts",
+      "item": "https://jifan.tech/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "OpenCV 点特征提取算子：Moravec，Forstner 与 Harris",
+      "item": "https://jifan.tech/posts/2019-04-02-opencv-2/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "OpenCV 点特征提取算子：Moravec，Forstner 与 Harris",
+  "name": "OpenCV 点特征提取算子：Moravec，Forstner 与 Harris",
+  "description": "在计算机视觉（Computer Vision）与摄影测量（Photogrammetry）中，我们在不同影像之间找到相匹配的特征，已建立两幅影像",
+  "keywords": [
+    "OpenCV", "C++"
+  ],
+  "articleBody": "在计算机视觉（Computer Vision）与摄影测量（Photogrammetry）中，我们在不同影像之间找到相匹配的特征，已建立两幅影像之间的联系，提取出我们所需要的信息。这些特征主要分为：\n 边缘（Edges） 角点（Corners） 兴趣区域 ROI（Regions of Interest）  其中，提取点特征的算子称为兴趣算子或有利算子（Interest Operator），即运用某种算法从影像种提取我们感兴趣的、有利于某种目的的点。\n人眼对角点的识别通常是在一个局部的小区域或小窗口内完成的。如果在各个方向上移动这个特征的小窗口，窗口内区域的灰度发生了较大的变化，那么就认为在窗口内遇到了角点。如果这个特定的窗口在图像各个方面移动时，窗口内图像的灰度没有发生变化，那么窗口内就不存在角点；如果窗口在某一个方向移动时，窗口内图像的灰度发生了较大的变化，而在另一些方向上没有发生变化，那么窗口内的图像可能只是一条直线的线段。\n 图 1 角点\n  角点的特殊之处在于，它是两条边的交点，所以它代表这两条边的方向发生变化的点。因此，图像在该点的梯度（在各个方向上）具有明显的变化。利用这一点，前人提出了一系列算法，其中比较经典的有 Moravec 算子、Forstner 算子以及 Harris 算子等。\nMoravec 算子 基本原理 Moravec 于 1977 年提出利用灰度方差提取点特征的算子，其步骤为：\n1. 计算各像元的兴趣值 $IV$（Interest Value）。 在以像素 $(c, r)$ 为中心的 $w \\times w$ 的窗口中（如 $5 \\times 5$ 的窗口），计算四个方向相邻像素灰度差的平方和：\n$$ \\begin{cases} V_1 = \\sum_{i = -k}^{k-1}(g_{c+i,r}-g_{c+i+1, r})^2 \\cr V_2 = \\sum_{i = -k}^{k-1}(g_{c+i,r+i}-g_{c+i+1, r+i+1})^2 \\cr V_3 = \\sum_{i = -k}^{k-1}(g_{c,r+i}-g_{c+i+1, r+i+1})^2 \\cr V_4 = \\sum_{i = -k}^{k-1}(g_{c+i,r-i}-g_{c+i+1, r-i-1})^2 \\end{cases} $$\n其中 $k = \\text{int}(w/2)$。取其中最小者作为该像素 $(c,r)$ 的兴趣值：\n$$ IV_{c,r} = \\min (V_1,\\ V_2,\\ V_3,\\ V_4) $$\n2. 给定一经验阈值，将兴趣值大于该阈值的点（即兴趣值计算窗口的中心点）作为候选点。 阈值的选择应以候选点中包括所需要的特征点而又不含过多的非特征点为原则。\n3. 选取候选点中的极值点作为特征点。 在一定大小的窗口内（可不同于兴趣值计算窗口，例如 $5 \\times 5$ 像元，$7 \\times 7$ 像元或 $9 \\times 9$ 像元），将候选点中兴趣值不是最大者均去掉，仅留下一个兴趣值最大者，该像素即为一个特征点（有的文献中称此步骤为抑制局部非最大）。\n代码实现 /// Moravec 点特征提取算法 void Moravec(InputArray image, vectorKeyPoint\u0026 keyPoints, int kSize, int threshold) { Mat img; cvtColor(image, img, COLOR_BGR2GRAY); unsigned char* pImg = img.data; int height = img.rows; int width = img.cols; int size = height * width; double* candidatePoints = new double[size]; for (int i = 0; i  size; i++) candidatePoints[i] = 0; int k = kSize / 2; /// I. 计算各像元的兴趣值  for (int i = k; i  height - k; i++) { for (int j = k; j  width - k; j++) { int V1, V2, V3, V4; V1 = V2 = V3 = V4 = 0; // 在以像素 (i, j) 为中心的 k * k 的影像窗口中  // 计算水平、45°、竖直、135°四个方向上相邻像素灰度差的平方和  for (int r = -k; r  k; r++) { V1 += (pImg[(i + r) * width + j] - pImg[(i + r + 1) * width + j]) * (pImg[(i + r) * width + j] - pImg[(i + r + 1) * width + j]); V2 += (pImg[(i + r) * width + j + r] - pImg[(i + r + 1) * width + j + r + 1]) * (pImg[(i + r) * width + j + r] - pImg[(i + r + 1) * width + j + r + 1]); V3 += (pImg[i * width + j + r] - pImg[i * width + j + r + 1]) * (pImg[i * width + j + r] - pImg[i * width + j + r + 1]); V4 += (pImg[(i + r) * width + j - r] - pImg[(i + r + 1) * width + j - r - 1]) * (pImg[(i + r) * width + j - r] - pImg[(i + r + 1) * width + j - r - 1]); } // 取其中的最小值作为该像素 (i, j) 的兴趣值  int value = min(min(V1, V2), min(V3, V4)); // II. 将兴趣值大于阈值的点作为候选点  if (value  threshold) candidatePoints[i * width + j] = value; } } /// III. 选取候选点中的极值点作为特征点（非极大值抑制）  int max_i, max_j, flag; double max_val; for (int i = k; i  height - k; i += kSize) { for (int j = k; j  width - k; j += kSize) { max_i = 0; max_j = 0; max_val = 0; flag = 0; for (int m = -k; m  k; m++) { for (int n = -k; n  k; n++) { double val = candidatePoints[(i + m) * width + j + n]; if (val  max_val) { max_i = i + m; max_j = j + n; max_val = val; flag = 1; } } } if (flag) keyPoints.push_back(KeyPoint((float)max_j, (float)max_i, 2)); } } } 提取结果  图 2 Moravec 算子 输出结果\n  Forstner 算子 基本原理 该算子通过计算各像素的 Robert 梯度和像素 $(c, r)$ 为中心的一个窗口（如 $5 \\times 5)$ 的灰度协方差矩阵，在影像中寻找具有尽可能小而接近圆的误差椭圆的点作为特征点，其步骤为：\n1. 计算各像素的 Robert 梯度。\n$$ \\left.\\begin{matrix} g_u = \\frac{\\partial g}{\\partial u} = g_{i + 1, j + 1} - g_{i, j} \\cr\\cr g_v = \\frac{\\partial g}{\\partial v} = g_{i, j + 1} - g_{i + 1, j} \\end{matrix}\\right\\rbrace $$\n2. 计算 $l \\times l$（如 $5 \\times 5$ 或更大）窗口中灰度的协方差矩阵。\n$$ Q = N^{-1} = \\begin{bmatrix} \\sum g^2_u \u0026 \\sum g_ug_v \\cr \\sum g_vg_u \u0026 \\sum g^2_v \\end{bmatrix}^{-1} $$\n其中：\n$$ \\begin{align*} \u0026\\sum g_u^2 = \\sum_{i = c - k}^{c+k-1} \\sum_{j=r-k}^{r+k+1}(g_{i+1, j+1} - g_{i,j})^2 \\cr \u0026\\sum g_v^2 = \\sum_{i = c - k}^{c+k-1} \\sum_{j=r-k}^{r+k+1}(g_{i, j+1} - g_{i+1,j})^2 \\cr \u0026\\sum g_ug_v = \\sum_{i = c - k}^{c+k-1} \\sum_{j=r-k}^{r+k+1}(g_{i+1, j+1} - g_{i,j})(g_{i, j+1} - g_{i+1,j}) \\end{align*} $$\n3. 计算兴趣值 $q$ 和 $w$\n$$ \\begin{align*} w \u0026= \\frac{1}{\\text{tr}(Q)} = \\frac{\\det(N)}{\\text{tr}(N)} \\cr q \u0026= \\frac{4\\det(N)}{\\text{tr}(N)^2} \\end{align*} $$\n其中，$\\det(N)$ 代表矩阵 $N$ 的行列式；$\\text{tr}(N)$ 代表矩阵 $N$ 的迹。\n可以证明，$q$ 即像素 $(c, r)$ 对应误差椭圆的圆度：\n$$ q = 1 - \\frac{(a^2-b^2)^2}{(a^2+b^2)^2} $$\n4. 确定待选点。 如果兴趣值大于给定的阈值，则该像元为待选点。阈值为经验值，可参考下列值：\n$$ \\begin{align*} T_q \u0026= 0.5 \\sim 0.75 \\cr T_w \u0026= \\begin{cases} f\\overline{w}\u0026(f=0.5 \\sim 1.5) \\cr cw_c\u0026(c = 5) \\end{cases} \\end{align*} $$\n其中 $\\overline{w}$ 为权平均值；$w_c$ 为权的中值。当 $q  T_q$，且 $w  T_w$ 时，该像元为待选点。\n5. 选取极值点。 以权值 $w$ 为依据选择极值点，即在一个适当窗口中选择最大的待选点，而去掉其余的点。\n代码实现 void Forstner(InputArray image, vectorKeyPoint \u0026 keyPoints, int kSize) { Mat img; cvtColor(image, img, COLOR_BGR2GRAY); unsigned char* pImg = img.data; int height = img.rows; int width = img.cols; int size = height * width; int k = kSize / 2; double grad_u = 0, grad_v = 0;\t// Robert 梯度  double DetN = 0.0, trN = 0.0;\t// DetN: 矩阵 N 的行列式，trN: 矩阵 N 的迹  double weight_total = 0, weight_mean = 0;\t// 权的总值与均值  double q = 0, w = 0;\t// 兴趣值 q、w  double* wPoints = new double[size];\t// 声明存储兴趣值的数组  double* qPoints = new double[size]; for (int i = 0; i  size; i++) {\t// 给数组赋初值  wPoints[i] = 0; qPoints[i] = 0; } for (int i = k; i  height - k; i++) { for (int j = k; j  width - k; j++) { double N[4] = { 0 }; for (int m = -k; m  k; m++) { for (int n = -k; n  k; n++) { grad_u = pImg[(i + m + 1) * width + j + n + 1] - pImg[(i + m) * width + j + n]; grad_v = pImg[(i + m + 1) * width + j + n] - pImg[(i + m) * width + j + n + 1]; N[0] += grad_u * grad_u; N[1] += grad_u * grad_v; N[2] = N[1]; N[3] += grad_v * grad_v; } } DetN = N[0] * N[3] - N[1] * N[2];\t// DetN = determinant(N);  trN = N[0] + N[3];\t// trN = trace(N);  if (trN != 0) { w = DetN / trN;\t// 权  q = 4 * DetN / (trN * trN);\t// 圆度  weight_total += w; wPoints[i * width + j] = w; qPoints[i * width + j] = q; } } } weight_mean = weight_total / size;\t// 权平均值  double Tq = 0.75;\t// 参考阈值  double Tw = 0.5 * weight_mean; for (int i = k; i  height - k; i += kSize) { for (int j = k; j  width - k; j += kSize) { int max_i = 0, max_j = 0, flag = 0; double max_weight = 0; for (int m = -k; m  k; m++) { for (int n = -k; n  k; n++) { double val_q = qPoints[(i + m) * width + j + n]; double val_w = wPoints[(i + m) * width + j + n]; // 大于阈值时，该点为待选点  if ((val_q  Tq) \u0026\u0026 (val_w  Tw)) { // 从候选点中选出极值点  if (val_w  max_weight) { max_i = i + m; max_j = j + n; max_weight = val_w; flag = 1; } } } } if (flag)\t// 若有极值点，则存储在 keyPoints 中  keyPoints.push_back(KeyPoint((float)max_j, (float)max_i, 2)); } } } 提取结果 密密麻麻（辣眼睛），感觉效果一般\n 图 3 Forstner 算子输出结果\n  Harris 算子 基本原理 Harris 角点提取算法是 Chris Harris 和 Mike Stephens 在 H.Moravec 算法的基础上发展出的通过自相关矩阵的角点提取算法，又称 Plessey 算法。这种算子受信号处理中自相关函数的启发，给出与自相关函数相联系的矩阵 $M$。$M$ 阵的特征值是自相关函数的一阶曲率，如果两个曲率值都高，那么就认为该点是特征角点。\n对于图像 $I(x, y)$，其在所有方向上位移 $(u, v)$ 后的自相似性可表示为：\n$$ E(u,v) = \\sum_{x,y} \\underbrace{w(x,y)}_{\\text{window function}}\\left[{\\underbrace{I(x+u,y+v)}_{\\text{shifted intensity}}}-\\underbrace{I(x,y)}_\\text{intensity}\\right]^2 $$\n其中窗口函数 $w(x, y)$ 既可以是常数，也可以是高斯函数。\n根据泰勒展开，对图像 $I(x, y)$ 在平移 $(u, v)$ 后进行一阶近似：\n$$ \\begin{align*} I(x+u,y+v) \u0026= I(x, y) + I_x(x, y)u + I_y(x, y)v + O(u^2, v^2) \\cr \u0026\\approx I(x, y) + I_x(x, y)u + I_y(x, y)v \\end{align*} $$\n其中，$I_x$，$I_y$ 是图像 $I(x, y)$ 的偏导数。因此可以推得：\n$$ E(u, v) \\approx \\sum_w[I_x(x, y)u + I_y(x, y)v]^2 = \\begin{bmatrix}u \u0026 v\\end{bmatrix} M \\begin{bmatrix} u \\cr v \\end{bmatrix} $$\n其中\n$$ M = \\sum_{x, y} w(x, y) \\begin{bmatrix} I_xI_x \u0026 I_xI_y \\cr I_xI_y \u0026 I_yI_y\\end{bmatrix} = \\begin{bmatrix}\\sum_{w} I_x^2 \u0026 \\sum_{w} I_x I_y \\cr \\sum_{w} I_x I_y \u0026 \\sum_{w} I_y^2 \\end{bmatrix} = \\begin{bmatrix}A \u0026 C \\cr C \u0026 B\\end{bmatrix} $$\n即图像 $I(x, y)$ 在点 $(x, y)$ 处平移 $(u, v)$ 后的自相关函数可以近似为二次项函数：\n$$ E(x, y; u, v) \\approx Au^2 + 2Cuv + Bv^2 $$\n其中\n$$ A = \\sum_{w} I_x^2, \\quad B = \\sum_{w} I_y^2, \\quad C = \\sum_{w} I_xI_y $$\n二次项函数本质上就是一个椭圆函数。椭圆的扁率与尺寸是由 $M(x, y)$ 的特征值 $\\lambda_1$，$\\lambda_2$ 决定的，椭圆的方向是由 $M(x, y)$ 的特征矢量决定的，如下图所示，椭圆方程为：\n$$ \\begin{bmatrix}u \u0026 v\\end{bmatrix} M(x, y) \\begin{bmatrix}u \\cr v\\end{bmatrix} = 1 $$\n 图 4 椭圆函数\n  椭圆函数特征值与图像中的角点、直线（边缘）和平面之间的关系如下图所示。共可分为三种情况：\n 图像中的直线。一个特征值大，另一个特征值小，$\\lambda_1 \\gg \\lambda_1$ 或 $\\lambda_2 \\gg \\lambda_1$。自相关函数在某一方向上大，在其他方向上小。 图像中的平面。两个特征值都小，且近似相等。自相关函数数值在各个方向上都小。 图像中的角点。两个特征值都大，且近似相等。自相关函数数值在所有方向上都大。   图 5 椭圆函数特征值与图像中的角点、直线（边缘）和平面之间的关系\n  Harris 算法通过计算角点响应值 $R$ 来判断角点，其计算公式为：\n$$ R = \\det(M)-k(\\text{tr}(M))^2 $$\n式中，$\\det(M)$ 为矩阵 $M = \\begin{bmatrix}A\u0026C \\cr C\u0026B\\end{bmatrix}$ 的行列式；$\\text{tr}(M)$ 为矩阵 $M$ 的直迹；$k$ 为默认常数，取值范围为 $0.04 \\sim 0.06$。事实上，特征是隐含在 $\\det(M)$ 和 $\\text{tr}(M)$ 中的，因为：\n$$ \\begin{align*} \\det(M) = \\lambda_1\\lambda_2 = AB - C^2 \\cr \\text{tr}(M) = \\lambda_1 + \\lambda_2 = A + B \\end{align*} $$\n根绝上述讨论，Harris 角点检测算法的步骤可以总结为：\n1. 计算图像 $I(x, y)$ 在 $x$ 和 $y$ 方向上的梯度 $I_x$、$I_y$：\n$$ \\begin{align*} I_x = \\frac{\\partial I}{\\partial x} = I \\bigotimes (-1 \\ 0 \\ 1), \\cr I_y = \\frac{\\partial I}{\\partial y} = I \\bigotimes (-1 \\ 0 \\ 1)^T \\end{align*} $$\n2. 计算图像两个方向梯度的乘积。\n$$ I_x^2=I_x \\cdot I_x, \\quad I_y^2 = I_y \\cdot I_y, \\quad I_xI_y = I_x \\cdot I_y $$\n3. 使用高斯函数对 $I_x^2$、$I_y^2$ 和 $I_xI_y$ 进行高斯滤波，生成矩阵 $M$ 的元素 $A$、$B$ 和 $C$。 这里，高斯卷积模板的 $\\sigma$ 取 $0.3 \\sim 0.9$。\n$$ A = G(\\tilde{s}) \\bigotimes I_x^2, \\quad B = G(\\tilde{s}) \\bigotimes I_y^2, \\quad C = G(\\tilde{s}) \\bigotimes I_xI_y $$\n4. 计算每个像素的 Harris 响应值 $R$。\n$$ R = \\det(M)-k(\\text{tr}(M))^2 $$\n5. 在 $3 \\times 3$ 或 $5 \\times 5$ 的领域内进行非极大值抑制，局部极值点即为图像中的角点。\n代码实现 void Harris(InputArray image, vectorKeyPoint \u0026 keyPoints) { Mat img = image.getMat(); if (img.channels() == 3) cvtColor(img, img, COLOR_BGR2GRAY); img.convertTo(img, CV_64F); Mat xKernel = (Mat_double(1, 3)  -1, 0, 1); Mat yKernel = xKernel.t(); Mat gX, gY; // filter2D: Convolves an image with the kernel.  filter2D(img, gX, CV_64F, xKernel);\t// x 方向梯度  filter2D(img, gY, CV_64F, yKernel);\t// y 方向梯度  Mat gX2, gY2, gXY; gX2 = gX.mul(gX);\t// gX2 = gX * gX  gY2 = gY.mul(gY);\t// gY2 = gY * gY  gXY = gX.mul(gY);\t// gXY = gX * gY  // getGaussianKernel: Returns Gaussian filter coefficients.  // Aperture size: 7; σ: 0.9  Mat gaussKernel = getGaussianKernel(5, 0.9); // 对梯度值进行高斯滤波  filter2D(gX2, gX2, CV_64F, gaussKernel); filter2D(gY2, gY2, CV_64F, gaussKernel); filter2D(gXY, gXY, CV_64F, gaussKernel); Mat R(img.size(), img.type()); // R: 每个像素的 Harris 响应值  double k = 0.04;\t// k: 默认常数  double detM, trM;\t// det(M): 行列式，tr(M): 迹  for (int i = 0; i  img.rows; i++) { for (int j = 0; j  img.cols; j++) { // 分别计算每个像素的 Harris 响应值  detM = gX2.atdouble(i, j) * gX2.atdouble(i, j) - gXY.atdouble(i, j) * gXY.atdouble(i, j); trM = gX2.atdouble(i, j) + gY2.atdouble(i, j); R.atdouble(i, j) = detM - k * trM * trM; } } double maxStrength;\t// 图像中的最大值  // minMaxLoc: Finds the global minimum and maximum in an array.  minMaxLoc(R, NULL, \u0026maxStrength); Mat dilated, localMax; // dilate: Dilates an image by using a specific structuring element.  // 默认 3 × 3 内核膨胀，膨胀之后除局部最大值与原来相同，其他非局部最大值均被该邻域内的最大值点取代  dilate(R, dilated, Mat()); // compare: Performs the per-element comparison of two arrays or an array and scalar value.  // 与原图相比，找出值相同的（CMP_EQ）点，这些点都是局部最大值点，保存到 localMax 中  compare(R, dilated, localMax, CMP_EQ); Mat cornerMap; double qualityLevel = 0.01; double threshold = qualityLevel * maxStrength; cornerMap = R  threshold; bitwise_and(cornerMap, localMax, cornerMap); // 遍历找出保留的极值点  Mat_uchar::const_iterator it = cornerMap.beginuchar(); Mat_uchar::const_iterator itd = cornerMap.enduchar(); for (int i = 0; it != itd; it++, i++) { if (*it) keyPoints.push_back(KeyPoint((float)(i % img.cols), (float)(i / img.cols), 2)); } }  注：在 OpenCV 也有现成的 cornerHarris() 函数计算角点，可以直接调用。\n 提取结果 效果不错，与 Moravec 算子比较接近\n 图 6 Harris 算子输出结果\n   参考：\n$1$. 张剑清，潘励，王树根，《摄影测量学（第二版）》\n$2$. H. P. Moravec, Obstacle Avoidance and Navigation in the Real World by a Seeing Robot Rover, PhD Thesis, Stanford University, Stanford, CA, USA, 1980.\n$3$. OpenCV: Harris Corner Detection\n$4$. Harris角点 - ☆Ronny丶 - 博客园\n ",
+  "wordCount" : "4209",
+  "inLanguage": "en",
+  "datePublished": "2019-04-02T00:00:00Z",
+  "dateModified": "2019-04-02T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "Jifan"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://jifan.tech/posts/2019-04-02-opencv-2/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Jifan's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://jifan.tech/imgs/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://jifan.tech" accesskey="h" title="Jifan&#39;s Blog (Alt + H)">Jifan&#39;s Blog</a>
+            <span class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </span>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://jifan.tech/about/" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://jifan.tech/posts/" title="Posts">
+                    <span>Posts</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://jifan.tech/projects/" title="Projects">
+                    <span>Projects</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+
+
+
+
+
+
+
+
+
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://jifan.tech">Home</a>&nbsp;»&nbsp;<a href="https://jifan.tech/posts/">Posts</a></div>
+    <h1 class="post-title">
+      OpenCV 点特征提取算子：Moravec，Forstner 与 Harris
+    </h1>
+    <div class="post-meta"><span title='2019-04-02 00:00:00 +0000 UTC'>April 2, 2019</span>&nbsp;·&nbsp;Jifan
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#moravec-%e7%ae%97%e5%ad%90" aria-label="Moravec 算子">Moravec 算子</a><ul>
+                        
+                <li>
+                    <a href="#%e5%9f%ba%e6%9c%ac%e5%8e%9f%e7%90%86" aria-label="基本原理">基本原理</a></li>
+                <li>
+                    <a href="#%e4%bb%a3%e7%a0%81%e5%ae%9e%e7%8e%b0" aria-label="代码实现">代码实现</a></li>
+                <li>
+                    <a href="#%e6%8f%90%e5%8f%96%e7%bb%93%e6%9e%9c" aria-label="提取结果">提取结果</a></li></ul>
+                </li>
+                <li>
+                    <a href="#forstner-%e7%ae%97%e5%ad%90" aria-label="Forstner 算子">Forstner 算子</a><ul>
+                        
+                <li>
+                    <a href="#%e5%9f%ba%e6%9c%ac%e5%8e%9f%e7%90%86-1" aria-label="基本原理">基本原理</a></li>
+                <li>
+                    <a href="#%e4%bb%a3%e7%a0%81%e5%ae%9e%e7%8e%b0-1" aria-label="代码实现">代码实现</a></li>
+                <li>
+                    <a href="#%e6%8f%90%e5%8f%96%e7%bb%93%e6%9e%9c-1" aria-label="提取结果">提取结果</a></li></ul>
+                </li>
+                <li>
+                    <a href="#harris-%e7%ae%97%e5%ad%90" aria-label="Harris 算子">Harris 算子</a><ul>
+                        
+                <li>
+                    <a href="#%e5%9f%ba%e6%9c%ac%e5%8e%9f%e7%90%86-2" aria-label="基本原理">基本原理</a></li>
+                <li>
+                    <a href="#%e4%bb%a3%e7%a0%81%e5%ae%9e%e7%8e%b0-2" aria-label="代码实现">代码实现</a></li>
+                <li>
+                    <a href="#%e6%8f%90%e5%8f%96%e7%bb%93%e6%9e%9c-2" aria-label="提取结果">提取结果</a>
+                </li>
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><p>在计算机视觉（<em>Computer Vision</em>）与摄影测量（<em>Photogrammetry</em>）中，我们在不同影像之间找到相匹配的特征，已建立两幅影像之间的联系，提取出我们所需要的信息。这些特征主要分为：</p>
+<ul>
+<li>边缘（<em>Edges</em>）</li>
+<li>角点（<em>Corners</em>）</li>
+<li>兴趣区域 ROI（<em>Regions of Interest</em>）</li>
+</ul>
+<p>其中，提取点特征的算子称为兴趣算子或有利算子（<em>Interest Operator</em>），即运用某种算法从影像种提取我们感兴趣的、有利于某种目的的点。</p>
+<p>人眼对角点的识别通常是在一个局部的小区域或小窗口内完成的。如果在各个方向上移动这个特征的小窗口，窗口内区域的灰度发生了较大的变化，那么就认为在窗口内遇到了角点。如果这个特定的窗口在图像各个方面移动时，窗口内图像的灰度没有发生变化，那么窗口内就不存在角点；如果窗口在某一个方向移动时，窗口内图像的灰度发生了较大的变化，而在另一些方向上没有发生变化，那么窗口内的图像可能只是一条直线的线段。</p>
+<!-- raw HTML omitted -->
+<figure class="align-center ">
+    <img loading="lazy" src="https://i.loli.net/2019/04/04/5ca60f38390f0.jpg#center"
+         alt="图 1 角点" width="50%"/> <figcaption>
+            <p>图 1 角点</p>
+        </figcaption>
+</figure>
+
+<p>角点的特殊之处在于，它是两条边的交点，所以它代表这两条边的方向发生变化的点。因此，图像在该点的梯度（在各个方向上）具有明显的变化。利用这一点，前人提出了一系列算法，其中比较经典的有 Moravec 算子、Forstner 算子以及 Harris 算子等。</p>
+<h1 id="moravec-算子">Moravec 算子<a hidden class="anchor" aria-hidden="true" href="#moravec-算子">#</a></h1>
+<h2 id="基本原理">基本原理<a hidden class="anchor" aria-hidden="true" href="#基本原理">#</a></h2>
+<p>Moravec 于 1977 年提出利用灰度方差提取点特征的算子，其步骤为：</p>
+<p><strong>1. 计算各像元的兴趣值 $IV$</strong>（<em>Interest Value</em>）。
+在以像素 $(c, r)$ 为中心的 $w \times w$ 的窗口中（如 $5 \times 5$ 的窗口），计算四个方向相邻像素灰度差的平方和：</p>
+<p>$$
+\begin{cases}
+V_1 = \sum_{i = -k}^{k-1}(g_{c+i,r}-g_{c+i+1, r})^2       \cr
+V_2 = \sum_{i = -k}^{k-1}(g_{c+i,r+i}-g_{c+i+1, r+i+1})^2 \cr
+V_3 = \sum_{i = -k}^{k-1}(g_{c,r+i}-g_{c+i+1, r+i+1})^2   \cr
+V_4 = \sum_{i = -k}^{k-1}(g_{c+i,r-i}-g_{c+i+1, r-i-1})^2
+\end{cases}
+$$</p>
+<p>其中 $k = \text{int}(w/2)$。取其中最小者作为该像素 $(c,r)$ 的兴趣值：</p>
+<p>$$
+IV_{c,r} = \min (V_1,\ V_2,\ V_3,\ V_4)
+$$</p>
+<p><strong>2. 给定一经验阈值，将兴趣值大于该阈值的点（即兴趣值计算窗口的中心点）作为候选点。</strong>
+阈值的选择应以候选点中包括所需要的特征点而又不含过多的非特征点为原则。</p>
+<p><strong>3. 选取候选点中的极值点作为特征点。</strong>
+在一定大小的窗口内（可不同于兴趣值计算窗口，例如 $5 \times 5$ 像元，$7 \times 7$ 像元或 $9 \times 9$ 像元），将候选点中兴趣值不是最大者均去掉，仅留下一个兴趣值最大者，该像素即为一个特征点（有的文献中称此步骤为抑制局部非最大）。</p>
+<h2 id="代码实现">代码实现<a hidden class="anchor" aria-hidden="true" href="#代码实现">#</a></h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">/// Moravec 点特征提取算法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">Moravec</span><span class="p">(</span><span class="n">InputArray</span> <span class="n">image</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">KeyPoint</span><span class="o">&gt;&amp;</span> <span class="n">keyPoints</span><span class="p">,</span> <span class="kt">int</span> <span class="n">kSize</span><span class="p">,</span> <span class="kt">int</span> <span class="n">threshold</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Mat</span> <span class="n">img</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cvtColor</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">img</span><span class="p">,</span> <span class="n">COLOR_BGR2GRAY</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">unsigned</span> <span class="kt">char</span><span class="o">*</span> <span class="n">pImg</span> <span class="o">=</span> <span class="n">img</span><span class="p">.</span><span class="n">data</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">height</span> <span class="o">=</span> <span class="n">img</span><span class="p">.</span><span class="n">rows</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">width</span> <span class="o">=</span> <span class="n">img</span><span class="p">.</span><span class="n">cols</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">size</span> <span class="o">=</span> <span class="n">height</span> <span class="o">*</span> <span class="n">width</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">double</span><span class="o">*</span> <span class="n">candidatePoints</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">double</span><span class="p">[</span><span class="n">size</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">size</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">candidatePoints</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="n">kSize</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">/// I. 计算各像元的兴趣值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">k</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">height</span> <span class="o">-</span> <span class="n">k</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">k</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">width</span> <span class="o">-</span> <span class="n">k</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">int</span> <span class="n">V1</span><span class="p">,</span> <span class="n">V2</span><span class="p">,</span> <span class="n">V3</span><span class="p">,</span> <span class="n">V4</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">V1</span> <span class="o">=</span> <span class="n">V2</span> <span class="o">=</span> <span class="n">V3</span> <span class="o">=</span> <span class="n">V4</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="c1">// 在以像素 (i, j) 为中心的 k * k 的影像窗口中
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="c1">// 计算水平、45°、竖直、135°四个方向上相邻像素灰度差的平方和
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">r</span> <span class="o">=</span> <span class="o">-</span><span class="n">k</span><span class="p">;</span> <span class="n">r</span> <span class="o">&lt;</span> <span class="n">k</span><span class="p">;</span> <span class="n">r</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">V1</span> <span class="o">+=</span> <span class="p">(</span><span class="n">pImg</span><span class="p">[(</span><span class="n">i</span> <span class="o">+</span> <span class="n">r</span><span class="p">)</span> <span class="o">*</span> <span class="n">width</span> <span class="o">+</span> <span class="n">j</span><span class="p">]</span> <span class="o">-</span> <span class="n">pImg</span><span class="p">[(</span><span class="n">i</span> <span class="o">+</span> <span class="n">r</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">width</span> <span class="o">+</span> <span class="n">j</span><span class="p">])</span> <span class="o">*</span> 
+</span></span><span class="line"><span class="cl">                      <span class="p">(</span><span class="n">pImg</span><span class="p">[(</span><span class="n">i</span> <span class="o">+</span> <span class="n">r</span><span class="p">)</span> <span class="o">*</span> <span class="n">width</span> <span class="o">+</span> <span class="n">j</span><span class="p">]</span> <span class="o">-</span> <span class="n">pImg</span><span class="p">[(</span><span class="n">i</span> <span class="o">+</span> <span class="n">r</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">width</span> <span class="o">+</span> <span class="n">j</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">                <span class="n">V2</span> <span class="o">+=</span> <span class="p">(</span><span class="n">pImg</span><span class="p">[(</span><span class="n">i</span> <span class="o">+</span> <span class="n">r</span><span class="p">)</span> <span class="o">*</span> <span class="n">width</span> <span class="o">+</span> <span class="n">j</span> <span class="o">+</span> <span class="n">r</span><span class="p">]</span> <span class="o">-</span> <span class="n">pImg</span><span class="p">[(</span><span class="n">i</span> <span class="o">+</span> <span class="n">r</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">width</span> <span class="o">+</span> <span class="n">j</span> <span class="o">+</span> <span class="n">r</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span> <span class="o">*</span> 
+</span></span><span class="line"><span class="cl">                      <span class="p">(</span><span class="n">pImg</span><span class="p">[(</span><span class="n">i</span> <span class="o">+</span> <span class="n">r</span><span class="p">)</span> <span class="o">*</span> <span class="n">width</span> <span class="o">+</span> <span class="n">j</span> <span class="o">+</span> <span class="n">r</span><span class="p">]</span> <span class="o">-</span> <span class="n">pImg</span><span class="p">[(</span><span class="n">i</span> <span class="o">+</span> <span class="n">r</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">width</span> <span class="o">+</span> <span class="n">j</span> <span class="o">+</span> <span class="n">r</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">                <span class="n">V3</span> <span class="o">+=</span> <span class="p">(</span><span class="n">pImg</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">width</span> <span class="o">+</span> <span class="n">j</span> <span class="o">+</span> <span class="n">r</span><span class="p">]</span> <span class="o">-</span> <span class="n">pImg</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">width</span> <span class="o">+</span> <span class="n">j</span> <span class="o">+</span> <span class="n">r</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span> <span class="o">*</span> 
+</span></span><span class="line"><span class="cl">                      <span class="p">(</span><span class="n">pImg</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">width</span> <span class="o">+</span> <span class="n">j</span> <span class="o">+</span> <span class="n">r</span><span class="p">]</span> <span class="o">-</span> <span class="n">pImg</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">width</span> <span class="o">+</span> <span class="n">j</span> <span class="o">+</span> <span class="n">r</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">                <span class="n">V4</span> <span class="o">+=</span> <span class="p">(</span><span class="n">pImg</span><span class="p">[(</span><span class="n">i</span> <span class="o">+</span> <span class="n">r</span><span class="p">)</span> <span class="o">*</span> <span class="n">width</span> <span class="o">+</span> <span class="n">j</span> <span class="o">-</span> <span class="n">r</span><span class="p">]</span> <span class="o">-</span> <span class="n">pImg</span><span class="p">[(</span><span class="n">i</span> <span class="o">+</span> <span class="n">r</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">width</span> <span class="o">+</span> <span class="n">j</span> <span class="o">-</span> <span class="n">r</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span> <span class="o">*</span> 
+</span></span><span class="line"><span class="cl">                      <span class="p">(</span><span class="n">pImg</span><span class="p">[(</span><span class="n">i</span> <span class="o">+</span> <span class="n">r</span><span class="p">)</span> <span class="o">*</span> <span class="n">width</span> <span class="o">+</span> <span class="n">j</span> <span class="o">-</span> <span class="n">r</span><span class="p">]</span> <span class="o">-</span> <span class="n">pImg</span><span class="p">[(</span><span class="n">i</span> <span class="o">+</span> <span class="n">r</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">width</span> <span class="o">+</span> <span class="n">j</span> <span class="o">-</span> <span class="n">r</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="c1">// 取其中的最小值作为该像素 (i, j) 的兴趣值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="kt">int</span> <span class="n">value</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">min</span><span class="p">(</span><span class="n">V1</span><span class="p">,</span> <span class="n">V2</span><span class="p">),</span> <span class="n">min</span><span class="p">(</span><span class="n">V3</span><span class="p">,</span> <span class="n">V4</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="c1">// II. 将兴趣值大于阈值的点作为候选点
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="k">if</span> <span class="p">(</span><span class="n">value</span> <span class="o">&gt;</span> <span class="n">threshold</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="n">candidatePoints</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">width</span> <span class="o">+</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">/// III. 选取候选点中的极值点作为特征点（非极大值抑制）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">int</span> <span class="n">max_i</span><span class="p">,</span> <span class="n">max_j</span><span class="p">,</span> <span class="n">flag</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">double</span> <span class="n">max_val</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">k</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">height</span> <span class="o">-</span> <span class="n">k</span><span class="p">;</span> <span class="n">i</span> <span class="o">+=</span> <span class="n">kSize</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">k</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">width</span> <span class="o">-</span> <span class="n">k</span><span class="p">;</span> <span class="n">j</span> <span class="o">+=</span> <span class="n">kSize</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">max_i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">max_j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">max_val</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">flag</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">m</span> <span class="o">=</span> <span class="o">-</span><span class="n">k</span><span class="p">;</span> <span class="n">m</span> <span class="o">&lt;</span> <span class="n">k</span><span class="p">;</span> <span class="n">m</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="o">-</span><span class="n">k</span><span class="p">;</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="n">k</span><span class="p">;</span> <span class="n">n</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="kt">double</span> <span class="n">val</span> <span class="o">=</span> <span class="n">candidatePoints</span><span class="p">[(</span><span class="n">i</span> <span class="o">+</span> <span class="n">m</span><span class="p">)</span> <span class="o">*</span> <span class="n">width</span> <span class="o">+</span> <span class="n">j</span> <span class="o">+</span> <span class="n">n</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">if</span> <span class="p">(</span><span class="n">val</span> <span class="o">&gt;</span> <span class="n">max_val</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">max_i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="n">m</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">max_j</span> <span class="o">=</span> <span class="n">j</span> <span class="o">+</span> <span class="n">n</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">max_val</span> <span class="o">=</span> <span class="n">val</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">flag</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">flag</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="n">keyPoints</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">KeyPoint</span><span class="p">((</span><span class="kt">float</span><span class="p">)</span><span class="n">max_j</span><span class="p">,</span> <span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="n">max_i</span><span class="p">,</span> <span class="mi">2</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="提取结果">提取结果<a hidden class="anchor" aria-hidden="true" href="#提取结果">#</a></h2>
+<!-- raw HTML omitted -->
+<figure class="align-center ">
+    <img loading="lazy" src="https://i.loli.net/2019/04/04/5ca60af5e8a72.jpg#center"
+         alt="图 2 Moravec 算子 输出结果"/> <figcaption>
+            <p>图 2 Moravec 算子 输出结果</p>
+        </figcaption>
+</figure>
+
+<h1 id="forstner-算子">Forstner 算子<a hidden class="anchor" aria-hidden="true" href="#forstner-算子">#</a></h1>
+<h2 id="基本原理-1">基本原理<a hidden class="anchor" aria-hidden="true" href="#基本原理-1">#</a></h2>
+<p>该算子通过计算各像素的 Robert 梯度和像素 $(c, r)$ 为中心的一个窗口（如 $5 \times 5)$ 的灰度协方差矩阵，在影像中寻找<strong>具有尽可能小而接近圆的误差椭圆的点</strong>作为特征点，其步骤为：</p>
+<p><strong>1. 计算各像素的 Robert 梯度。</strong></p>
+<p>$$
+\left.\begin{matrix}
+g_u = \frac{\partial g}{\partial u} = g_{i + 1, j + 1} - g_{i, j} \cr\cr
+g_v = \frac{\partial g}{\partial v} = g_{i, j + 1} - g_{i + 1, j}
+\end{matrix}\right\rbrace
+$$</p>
+<p><strong>2. 计算 $l \times l$（如 $5 \times 5$ 或更大）窗口中灰度的协方差矩阵。</strong></p>
+<p>$$
+Q = N^{-1} =
+\begin{bmatrix}
+\sum g^2_u &amp; \sum g_ug_v \cr
+\sum g_vg_u &amp; \sum g^2_v
+\end{bmatrix}^{-1}
+$$</p>
+<p>其中：</p>
+<p>$$
+\begin{align*}
+&amp;\sum g_u^2 = \sum_{i = c - k}^{c+k-1} \sum_{j=r-k}^{r+k+1}(g_{i+1, j+1} - g_{i,j})^2 \cr
+&amp;\sum g_v^2 = \sum_{i = c - k}^{c+k-1} \sum_{j=r-k}^{r+k+1}(g_{i, j+1} - g_{i+1,j})^2 \cr
+&amp;\sum g_ug_v = \sum_{i = c - k}^{c+k-1} \sum_{j=r-k}^{r+k+1}(g_{i+1, j+1} - g_{i,j})(g_{i, j+1} - g_{i+1,j})
+\end{align*}
+$$</p>
+<p><strong>3. 计算兴趣值 $q$ 和 $w$</strong></p>
+<p>$$
+\begin{align*}
+w &amp;= \frac{1}{\text{tr}(Q)} = \frac{\det(N)}{\text{tr}(N)} \cr
+q &amp;= \frac{4\det(N)}{\text{tr}(N)^2}
+\end{align*}
+$$</p>
+<p>其中，$\det(N)$ 代表矩阵 $N$ 的行列式；$\text{tr}(N)$ 代表矩阵 $N$ 的迹。</p>
+<p>可以证明，$q$ 即像素 $(c, r)$ 对应误差椭圆的圆度：</p>
+<p>$$
+q = 1 - \frac{(a^2-b^2)^2}{(a^2+b^2)^2}
+$$</p>
+<p><strong>4. 确定待选点。</strong>
+如果兴趣值大于给定的阈值，则该像元为待选点。阈值为经验值，可参考下列值：</p>
+<p>$$
+\begin{align*}
+T_q &amp;= 0.5 \sim 0.75 \cr
+T_w &amp;=
+\begin{cases}
+f\overline{w}&amp;(f=0.5 \sim 1.5) \cr
+cw_c&amp;(c = 5)
+\end{cases}
+\end{align*}
+$$</p>
+<p>其中 $\overline{w}$ 为权平均值；$w_c$ 为权的中值。当 $q &gt; T_q$，且 $w &gt; T_w$ 时，该像元为待选点。</p>
+<p><strong>5. 选取极值点。</strong>
+以权值 $w$ 为依据选择极值点，即在一个适当窗口中选择最大的待选点，而去掉其余的点。</p>
+<h2 id="代码实现-1">代码实现<a hidden class="anchor" aria-hidden="true" href="#代码实现-1">#</a></h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">Forstner</span><span class="p">(</span><span class="n">InputArray</span> <span class="n">image</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">KeyPoint</span><span class="o">&gt;</span> <span class="o">&amp;</span> <span class="n">keyPoints</span><span class="p">,</span> <span class="kt">int</span> <span class="n">kSize</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Mat</span> <span class="n">img</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cvtColor</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">img</span><span class="p">,</span> <span class="n">COLOR_BGR2GRAY</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">unsigned</span> <span class="kt">char</span><span class="o">*</span> <span class="n">pImg</span> <span class="o">=</span> <span class="n">img</span><span class="p">.</span><span class="n">data</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">height</span> <span class="o">=</span> <span class="n">img</span><span class="p">.</span><span class="n">rows</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">width</span> <span class="o">=</span> <span class="n">img</span><span class="p">.</span><span class="n">cols</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">size</span> <span class="o">=</span> <span class="n">height</span> <span class="o">*</span> <span class="n">width</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="n">kSize</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">double</span> <span class="n">grad_u</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">grad_v</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>		<span class="c1">// Robert 梯度
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">double</span> <span class="n">DetN</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">trN</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>	        <span class="c1">// DetN: 矩阵 N 的行列式，trN: 矩阵 N 的迹
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">double</span> <span class="n">weight_total</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">weight_mean</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>	<span class="c1">// 权的总值与均值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="kt">double</span> <span class="n">q</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>			<span class="c1">// 兴趣值 q、w
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">double</span><span class="o">*</span> <span class="n">wPoints</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">double</span><span class="p">[</span><span class="n">size</span><span class="p">];</span>		<span class="c1">// 声明存储兴趣值的数组
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">double</span><span class="o">*</span> <span class="n">qPoints</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">double</span><span class="p">[</span><span class="n">size</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">size</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>		<span class="c1">// 给数组赋初值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">wPoints</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">qPoints</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">k</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">height</span> <span class="o">-</span> <span class="n">k</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">k</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">width</span> <span class="o">-</span> <span class="n">k</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">double</span> <span class="n">N</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">m</span> <span class="o">=</span> <span class="o">-</span><span class="n">k</span><span class="p">;</span> <span class="n">m</span> <span class="o">&lt;</span> <span class="n">k</span><span class="p">;</span> <span class="n">m</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="o">-</span><span class="n">k</span><span class="p">;</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="n">k</span><span class="p">;</span> <span class="n">n</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">grad_u</span> <span class="o">=</span> <span class="n">pImg</span><span class="p">[(</span><span class="n">i</span> <span class="o">+</span> <span class="n">m</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">width</span> <span class="o">+</span> <span class="n">j</span> <span class="o">+</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> 
+</span></span><span class="line"><span class="cl">                             <span class="n">pImg</span><span class="p">[(</span><span class="n">i</span> <span class="o">+</span> <span class="n">m</span><span class="p">)</span> <span class="o">*</span> <span class="n">width</span> <span class="o">+</span> <span class="n">j</span> <span class="o">+</span> <span class="n">n</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">grad_v</span> <span class="o">=</span> <span class="n">pImg</span><span class="p">[(</span><span class="n">i</span> <span class="o">+</span> <span class="n">m</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">width</span> <span class="o">+</span> <span class="n">j</span> <span class="o">+</span> <span class="n">n</span><span class="p">]</span> <span class="o">-</span> 
+</span></span><span class="line"><span class="cl">                             <span class="n">pImg</span><span class="p">[(</span><span class="n">i</span> <span class="o">+</span> <span class="n">m</span><span class="p">)</span> <span class="o">*</span> <span class="n">width</span> <span class="o">+</span> <span class="n">j</span> <span class="o">+</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">N</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="n">grad_u</span> <span class="o">*</span> <span class="n">grad_u</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">N</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">grad_u</span> <span class="o">*</span> <span class="n">grad_v</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">N</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">N</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">N</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">+=</span> <span class="n">grad_v</span> <span class="o">*</span> <span class="n">grad_v</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="n">DetN</span> <span class="o">=</span> <span class="n">N</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">N</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">N</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">N</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>	<span class="c1">// DetN = determinant(N);
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">trN</span> <span class="o">=</span> <span class="n">N</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">N</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>			<span class="c1">// trN = trace(N);
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="k">if</span> <span class="p">(</span><span class="n">trN</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">w</span> <span class="o">=</span> <span class="n">DetN</span> <span class="o">/</span> <span class="n">trN</span><span class="p">;</span>			<span class="c1">// 权
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="n">q</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">DetN</span> <span class="o">/</span> <span class="p">(</span><span class="n">trN</span> <span class="o">*</span> <span class="n">trN</span><span class="p">);</span>	<span class="c1">// 圆度
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">                <span class="n">weight_total</span> <span class="o">+=</span> <span class="n">w</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="n">wPoints</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">width</span> <span class="o">+</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">w</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="n">qPoints</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">width</span> <span class="o">+</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">q</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">weight_mean</span> <span class="o">=</span> <span class="n">weight_total</span> <span class="o">/</span> <span class="n">size</span><span class="p">;</span>	        <span class="c1">// 权平均值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="kt">double</span> <span class="n">Tq</span> <span class="o">=</span> <span class="mf">0.75</span><span class="p">;</span>			        <span class="c1">// 参考阈值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">double</span> <span class="n">Tw</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">weight_mean</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">k</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">height</span> <span class="o">-</span> <span class="n">k</span><span class="p">;</span> <span class="n">i</span> <span class="o">+=</span> <span class="n">kSize</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">k</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">width</span> <span class="o">-</span> <span class="n">k</span><span class="p">;</span> <span class="n">j</span> <span class="o">+=</span> <span class="n">kSize</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">int</span> <span class="n">max_i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">max_j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">flag</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">double</span> <span class="n">max_weight</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">m</span> <span class="o">=</span> <span class="o">-</span><span class="n">k</span><span class="p">;</span> <span class="n">m</span> <span class="o">&lt;</span> <span class="n">k</span><span class="p">;</span> <span class="n">m</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="o">-</span><span class="n">k</span><span class="p">;</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="n">k</span><span class="p">;</span> <span class="n">n</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="kt">double</span> <span class="n">val_q</span> <span class="o">=</span> <span class="n">qPoints</span><span class="p">[(</span><span class="n">i</span> <span class="o">+</span> <span class="n">m</span><span class="p">)</span> <span class="o">*</span> <span class="n">width</span> <span class="o">+</span> <span class="n">j</span> <span class="o">+</span> <span class="n">n</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">                    <span class="kt">double</span> <span class="n">val_w</span> <span class="o">=</span> <span class="n">wPoints</span><span class="p">[(</span><span class="n">i</span> <span class="o">+</span> <span class="n">m</span><span class="p">)</span> <span class="o">*</span> <span class="n">width</span> <span class="o">+</span> <span class="n">j</span> <span class="o">+</span> <span class="n">n</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">                    <span class="c1">// 大于阈值时，该点为待选点
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                    <span class="k">if</span> <span class="p">((</span><span class="n">val_q</span> <span class="o">&gt;</span> <span class="n">Tq</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">val_w</span> <span class="o">&gt;</span> <span class="n">Tw</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                        <span class="c1">// 从候选点中选出极值点
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                        <span class="k">if</span> <span class="p">(</span><span class="n">val_w</span> <span class="o">&gt;</span> <span class="n">max_weight</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                            <span class="n">max_i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="n">m</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                            <span class="n">max_j</span> <span class="o">=</span> <span class="n">j</span> <span class="o">+</span> <span class="n">n</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                            <span class="n">max_weight</span> <span class="o">=</span> <span class="n">val_w</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                            <span class="n">flag</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">flag</span><span class="p">)</span>	<span class="c1">// 若有极值点，则存储在 keyPoints 中
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="n">keyPoints</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">KeyPoint</span><span class="p">((</span><span class="kt">float</span><span class="p">)</span><span class="n">max_j</span><span class="p">,</span> <span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="n">max_i</span><span class="p">,</span> <span class="mi">2</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="提取结果-1">提取结果<a hidden class="anchor" aria-hidden="true" href="#提取结果-1">#</a></h2>
+<p>密密麻麻（辣眼睛），感觉效果一般</p>
+<!-- raw HTML omitted -->
+<figure class="align-center ">
+    <img loading="lazy" src="https://i.loli.net/2019/04/04/5ca60c4b29a90.jpg#center"
+         alt="图 3 Forstner 算子输出结果"/> <figcaption>
+            <p>图 3 Forstner 算子输出结果</p>
+        </figcaption>
+</figure>
+
+<h1 id="harris-算子">Harris 算子<a hidden class="anchor" aria-hidden="true" href="#harris-算子">#</a></h1>
+<h2 id="基本原理-2">基本原理<a hidden class="anchor" aria-hidden="true" href="#基本原理-2">#</a></h2>
+<p>Harris 角点提取算法是 Chris Harris 和 Mike Stephens 在 H.Moravec 算法的基础上发展出的通过自相关矩阵的角点提取算法，又称 Plessey 算法。这种算子受信号处理中自相关函数的启发，给出与自相关函数相联系的矩阵 $M$。$M$ 阵的特征值是自相关函数的一阶曲率，如果两个曲率值都高，那么就认为该点是特征角点。</p>
+<p>对于图像 $I(x, y)$，其在所有方向上位移 $(u, v)$ 后的自相似性可表示为：</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>$$
+E(u,v) = \sum_{x,y} \underbrace{w(x,y)}_{\text{window function}}\left[{\underbrace{I(x+u,y+v)}_{\text{shifted intensity}}}-\underbrace{I(x,y)}_\text{intensity}\right]^2
+$$</p>
+<p>其中窗口函数 $w(x, y)$ 既可以是常数，也可以是高斯函数。</p>
+<p>根据泰勒展开，对图像 $I(x, y)$ 在平移 $(u, v)$ 后进行一阶近似：</p>
+<p>$$
+\begin{align*}
+I(x+u,y+v) &amp;= I(x, y) + I_x(x, y)u + I_y(x, y)v + O(u^2, v^2) \cr
+&amp;\approx I(x, y) + I_x(x, y)u + I_y(x, y)v
+\end{align*}
+$$</p>
+<p>其中，$I_x$，$I_y$ 是图像 $I(x, y)$ 的偏导数。因此可以推得：</p>
+<p>$$
+E(u, v) \approx \sum_w[I_x(x, y)u + I_y(x, y)v]^2 = \begin{bmatrix}u &amp; v\end{bmatrix} M \begin{bmatrix} u \cr v \end{bmatrix}
+$$</p>
+<p>其中</p>
+<p>$$
+M = \sum_{x, y} w(x, y)
+\begin{bmatrix} I_xI_x &amp; I_xI_y \cr I_xI_y &amp; I_yI_y\end{bmatrix}
+= \begin{bmatrix}\sum_{w} I_x^2 &amp; \sum_{w} I_x I_y \cr \sum_{w} I_x I_y &amp; \sum_{w} I_y^2 \end{bmatrix}
+= \begin{bmatrix}A &amp; C \cr C &amp; B\end{bmatrix}
+$$</p>
+<p>即图像 $I(x, y)$ 在点 $(x, y)$ 处平移 $(u, v)$ 后的自相关函数可以近似为二次项函数：</p>
+<p>$$
+E(x, y; u, v) \approx Au^2 + 2Cuv + Bv^2
+$$</p>
+<p>其中</p>
+<p>$$
+A = \sum_{w} I_x^2, \quad B = \sum_{w} I_y^2, \quad C = \sum_{w} I_xI_y
+$$</p>
+<p>二次项函数本质上就是一个椭圆函数。椭圆的扁率与尺寸是由 $M(x, y)$ 的特征值 $\lambda_1$，$\lambda_2$ 决定的，椭圆的方向是由 $M(x, y)$ 的特征矢量决定的，如下图所示，椭圆方程为：</p>
+<p>$$
+\begin{bmatrix}u &amp; v\end{bmatrix} M(x, y) \begin{bmatrix}u \cr v\end{bmatrix} = 1
+$$</p>
+<!-- raw HTML omitted -->
+<figure class="align-center ">
+    <img loading="lazy" src="https://i.loli.net/2019/04/04/5ca6167f2d040.jpg#center"
+         alt="图 4 椭圆函数" width="50%"/> <figcaption>
+            <p>图 4 椭圆函数</p>
+        </figcaption>
+</figure>
+
+<p>椭圆函数特征值与图像中的角点、直线（边缘）和平面之间的关系如下图所示。共可分为三种情况：</p>
+<ul>
+<li>图像中的直线。一个特征值大，另一个特征值小，$\lambda_1 \gg \lambda_1$ 或 $\lambda_2 \gg \lambda_1$。自相关函数在某一方向上大，在其他方向上小。</li>
+<li>图像中的平面。两个特征值都小，且近似相等。自相关函数数值在各个方向上都小。</li>
+<li>图像中的角点。两个特征值都大，且近似相等。自相关函数数值在所有方向上都大。</li>
+</ul>
+<!-- raw HTML omitted -->
+<figure class="align-center ">
+    <img loading="lazy" src="https://i.loli.net/2019/04/04/5ca617f724bbd.jpg#center"
+         alt="图 5 椭圆函数特征值与图像中的角点、直线（边缘）和平面之间的关系" width="50%"/> <figcaption>
+            <p>图 5 椭圆函数特征值与图像中的角点、直线（边缘）和平面之间的关系</p>
+        </figcaption>
+</figure>
+
+<p>Harris 算法通过计算角点响应值 $R$ 来判断角点，其计算公式为：</p>
+<p>$$
+R = \det(M)-k(\text{tr}(M))^2
+$$</p>
+<p>式中，$\det(M)$ 为矩阵 $M = \begin{bmatrix}A&amp;C \cr C&amp;B\end{bmatrix}$ 的行列式；$\text{tr}(M)$ 为矩阵 $M$ 的直迹；$k$ 为默认常数，取值范围为 $0.04 \sim 0.06$。事实上，特征是隐含在 $\det(M)$ 和 $\text{tr}(M)$ 中的，因为：</p>
+<p>$$
+\begin{align*}
+\det(M) = \lambda_1\lambda_2 = AB - C^2 \cr
+\text{tr}(M) = \lambda_1 + \lambda_2 = A + B
+\end{align*}
+$$</p>
+<p>根绝上述讨论，Harris 角点检测算法的步骤可以总结为：</p>
+<p><strong>1. 计算图像 $I(x, y)$ 在 $x$ 和 $y$ 方向上的梯度 $I_x$、$I_y$：</strong></p>
+<p>$$
+\begin{align*}
+I_x = \frac{\partial I}{\partial x} = I \bigotimes (-1 \ 0 \ 1), \cr
+I_y = \frac{\partial I}{\partial y} = I \bigotimes (-1 \ 0 \ 1)^T
+\end{align*}
+$$</p>
+<p><strong>2. 计算图像两个方向梯度的乘积。</strong></p>
+<p>$$
+I_x^2=I_x \cdot I_x, \quad I_y^2 = I_y \cdot I_y, \quad I_xI_y = I_x \cdot I_y
+$$</p>
+<p><strong>3. 使用高斯函数对 $I_x^2$、$I_y^2$ 和 $I_xI_y$ 进行高斯滤波，生成矩阵 $M$ 的元素 $A$、$B$ 和 $C$。</strong>
+这里，高斯卷积模板的 $\sigma$ 取 $0.3 \sim 0.9$。</p>
+<p>$$
+A = G(\tilde{s}) \bigotimes I_x^2, \quad
+B = G(\tilde{s}) \bigotimes I_y^2, \quad
+C = G(\tilde{s}) \bigotimes I_xI_y
+$$</p>
+<p><strong>4. 计算每个像素的 Harris 响应值 $R$。</strong></p>
+<p>$$
+R = \det(M)-k(\text{tr}(M))^2
+$$</p>
+<p><strong>5. 在 $3 \times 3$ 或 $5 \times 5$ 的领域内进行非极大值抑制，局部极值点即为图像中的角点。</strong></p>
+<h2 id="代码实现-2">代码实现<a hidden class="anchor" aria-hidden="true" href="#代码实现-2">#</a></h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">Harris</span><span class="p">(</span><span class="n">InputArray</span> <span class="n">image</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">KeyPoint</span><span class="o">&gt;</span> <span class="o">&amp;</span> <span class="n">keyPoints</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Mat</span> <span class="n">img</span> <span class="o">=</span> <span class="n">image</span><span class="p">.</span><span class="n">getMat</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">img</span><span class="p">.</span><span class="n">channels</span><span class="p">()</span> <span class="o">==</span> <span class="mi">3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">cvtColor</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">img</span><span class="p">,</span> <span class="n">COLOR_BGR2GRAY</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">img</span><span class="p">.</span><span class="n">convertTo</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">CV_64F</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">Mat</span> <span class="n">xKernel</span> <span class="o">=</span> <span class="p">(</span><span class="n">Mat_</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Mat</span> <span class="n">yKernel</span> <span class="o">=</span> <span class="n">xKernel</span><span class="p">.</span><span class="n">t</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">Mat</span> <span class="n">gX</span><span class="p">,</span> <span class="n">gY</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// filter2D: Convolves an image with the kernel.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">filter2D</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">gX</span><span class="p">,</span> <span class="n">CV_64F</span><span class="p">,</span> <span class="n">xKernel</span><span class="p">);</span>	<span class="c1">// x 方向梯度
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">filter2D</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">gY</span><span class="p">,</span> <span class="n">CV_64F</span><span class="p">,</span> <span class="n">yKernel</span><span class="p">);</span>	<span class="c1">// y 方向梯度
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="n">Mat</span> <span class="n">gX2</span><span class="p">,</span> <span class="n">gY2</span><span class="p">,</span> <span class="n">gXY</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">gX2</span> <span class="o">=</span> <span class="n">gX</span><span class="p">.</span><span class="n">mul</span><span class="p">(</span><span class="n">gX</span><span class="p">);</span>	<span class="c1">// gX2 = gX * gX
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">gY2</span> <span class="o">=</span> <span class="n">gY</span><span class="p">.</span><span class="n">mul</span><span class="p">(</span><span class="n">gY</span><span class="p">);</span>	<span class="c1">// gY2 = gY * gY
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">gXY</span> <span class="o">=</span> <span class="n">gX</span><span class="p">.</span><span class="n">mul</span><span class="p">(</span><span class="n">gY</span><span class="p">);</span>	<span class="c1">// gXY = gX * gY
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// getGaussianKernel: Returns Gaussian filter coefficients.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// Aperture size: 7; σ: 0.9
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">Mat</span> <span class="n">gaussKernel</span> <span class="o">=</span> <span class="n">getGaussianKernel</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 对梯度值进行高斯滤波
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">filter2D</span><span class="p">(</span><span class="n">gX2</span><span class="p">,</span> <span class="n">gX2</span><span class="p">,</span> <span class="n">CV_64F</span><span class="p">,</span> <span class="n">gaussKernel</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">filter2D</span><span class="p">(</span><span class="n">gY2</span><span class="p">,</span> <span class="n">gY2</span><span class="p">,</span> <span class="n">CV_64F</span><span class="p">,</span> <span class="n">gaussKernel</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">filter2D</span><span class="p">(</span><span class="n">gXY</span><span class="p">,</span> <span class="n">gXY</span><span class="p">,</span> <span class="n">CV_64F</span><span class="p">,</span> <span class="n">gaussKernel</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">Mat</span> <span class="n">R</span><span class="p">(</span><span class="n">img</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="n">img</span><span class="p">.</span><span class="n">type</span><span class="p">());</span>  <span class="c1">// R: 每个像素的 Harris 响应值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">double</span> <span class="n">k</span> <span class="o">=</span> <span class="mf">0.04</span><span class="p">;</span>	            <span class="c1">// k: 默认常数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">double</span> <span class="n">detM</span><span class="p">,</span> <span class="n">trM</span><span class="p">;</span>	            <span class="c1">// det(M): 行列式，tr(M): 迹
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">img</span><span class="p">.</span><span class="n">rows</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">img</span><span class="p">.</span><span class="n">cols</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// 分别计算每个像素的 Harris 响应值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">detM</span> <span class="o">=</span> <span class="n">gX2</span><span class="p">.</span><span class="n">at</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="o">*</span> <span class="n">gX2</span><span class="p">.</span><span class="n">at</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="o">-</span> 
+</span></span><span class="line"><span class="cl">                   <span class="n">gXY</span><span class="p">.</span><span class="n">at</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="o">*</span> <span class="n">gXY</span><span class="p">.</span><span class="n">at</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">trM</span> <span class="o">=</span> <span class="n">gX2</span><span class="p">.</span><span class="n">at</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="o">+</span> <span class="n">gY2</span><span class="p">.</span><span class="n">at</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">R</span><span class="p">.</span><span class="n">at</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="o">=</span> <span class="n">detM</span> <span class="o">-</span> <span class="n">k</span> <span class="o">*</span> <span class="n">trM</span> <span class="o">*</span> <span class="n">trM</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">double</span> <span class="n">maxStrength</span><span class="p">;</span>	<span class="c1">// 图像中的最大值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// minMaxLoc: Finds the global minimum and maximum in an array.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">minMaxLoc</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">maxStrength</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">Mat</span> <span class="n">dilated</span><span class="p">,</span> <span class="n">localMax</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// dilate: Dilates an image by using a specific structuring element.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// 默认 3 × 3 内核膨胀，膨胀之后除局部最大值与原来相同，其他非局部最大值均被该邻域内的最大值点取代
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">dilate</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">dilated</span><span class="p">,</span> <span class="n">Mat</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// compare: Performs the per-element comparison of two arrays or an array and scalar value.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// 与原图相比，找出值相同的（CMP_EQ）点，这些点都是局部最大值点，保存到 localMax 中
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">compare</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">dilated</span><span class="p">,</span> <span class="n">localMax</span><span class="p">,</span> <span class="n">CMP_EQ</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">Mat</span> <span class="n">cornerMap</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">double</span> <span class="n">qualityLevel</span> <span class="o">=</span> <span class="mf">0.01</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">double</span> <span class="n">threshold</span> <span class="o">=</span> <span class="n">qualityLevel</span> <span class="o">*</span> <span class="n">maxStrength</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cornerMap</span> <span class="o">=</span> <span class="n">R</span> <span class="o">&gt;</span> <span class="n">threshold</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">bitwise_and</span><span class="p">(</span><span class="n">cornerMap</span><span class="p">,</span> <span class="n">localMax</span><span class="p">,</span> <span class="n">cornerMap</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 遍历找出保留的极值点
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">Mat_</span><span class="o">&lt;</span><span class="n">uchar</span><span class="o">&gt;::</span><span class="n">const_iterator</span> <span class="n">it</span> <span class="o">=</span> <span class="n">cornerMap</span><span class="p">.</span><span class="n">begin</span><span class="o">&lt;</span><span class="n">uchar</span><span class="o">&gt;</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Mat_</span><span class="o">&lt;</span><span class="n">uchar</span><span class="o">&gt;::</span><span class="n">const_iterator</span> <span class="n">itd</span> <span class="o">=</span> <span class="n">cornerMap</span><span class="p">.</span><span class="n">end</span><span class="o">&lt;</span><span class="n">uchar</span><span class="o">&gt;</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">it</span> <span class="o">!=</span> <span class="n">itd</span><span class="p">;</span> <span class="n">it</span><span class="o">++</span><span class="p">,</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="o">*</span><span class="n">it</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">keyPoints</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">KeyPoint</span><span class="p">((</span><span class="kt">float</span><span class="p">)(</span><span class="n">i</span> <span class="o">%</span> <span class="n">img</span><span class="p">.</span><span class="n">cols</span><span class="p">),</span> <span class="p">(</span><span class="kt">float</span><span class="p">)(</span><span class="n">i</span> <span class="o">/</span> <span class="n">img</span><span class="p">.</span><span class="n">cols</span><span class="p">),</span> <span class="mi">2</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><blockquote>
+<p><strong>注</strong>：在 OpenCV 也有现成的 <a href="https://docs.opencv.org/3.3.0/dd/d1a/group__imgproc__feature.html#gac1fc3598018010880e370e2f709b4345">cornerHarris()</a> 函数计算角点，可以直接调用。</p>
+</blockquote>
+<h2 id="提取结果-2">提取结果<a hidden class="anchor" aria-hidden="true" href="#提取结果-2">#</a></h2>
+<p>效果不错，与 Moravec 算子比较接近</p>
+<!-- raw HTML omitted -->
+<figure class="align-center ">
+    <img loading="lazy" src="https://i.loli.net/2019/04/04/5ca60b7d85c44.jpg#center"
+         alt="图 6 Harris 算子输出结果"/> <figcaption>
+            <p>图 6 Harris 算子输出结果</p>
+        </figcaption>
+</figure>
+
+<blockquote>
+<p><strong>参考：</strong><br>
+$1$. 张剑清，潘励，王树根，《摄影测量学（第二版）》<br>
+$2$. H. P. Moravec, <em><a href="https://www.ri.cmu.edu/publications/obstacle-avoidance-and-navigation-in-the-real-world-by-a-seeing-robot-rover/">Obstacle Avoidance and Navigation in the Real World by a Seeing Robot Rover</a></em>, PhD Thesis, Stanford University, Stanford, CA, USA, 1980.<br>
+$3$. <a href="https://docs.opencv.org/3.3.0/dc/d0d/tutorial_py_features_harris.html">OpenCV: Harris Corner Detection</a><br>
+$4$. <a href="https://www.cnblogs.com/ronny/p/4009425.html">Harris角点 - ☆Ronny丶 - 博客园</a></p>
+</blockquote>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2022 <a href="https://jifan.tech">Jifan&#39;s Blog</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css" integrity="sha384-KiWOvVjnN8qwAZbuQyWDIbfCLFhLXNETzBQjA/92pIowpC0d2O3nppDGQVgwd2nB" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js" integrity="sha384-0fdwu/T/EQMsQlrHCCHoH10pkPLlKA1jL5dFyUOvB3lfeT2540/2g6YgSi2BL14p" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            
+            
+            delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '$', right: '$', display: false},
+                {left: '\\(', right: '\\)', display: false},
+                {left: '\\[', right: '\\]', display: true}
+            ],
+            
+            throwOnError : false
+        });
+    });
+</script>
+
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerText = 'copy';
+
+        function copyingDone() {
+            copybutton.innerText = 'copied!';
+            setTimeout(() => {
+                copybutton.innerText = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
