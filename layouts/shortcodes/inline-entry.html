@@ -1,0 +1,23 @@
+<div class="inline-entry">
+    {{- if .Get "img" }}
+    <figure class="inline-entry-cover">
+        <img loading="lazy" src="{{ .Get "img" }}" alt="">
+    </figure>
+    {{- end }}
+    <!-- <div class="inline-entry-cover-mask"></div> -->
+    {{- if or (or (.Get "title") (.Get "summary")) }}
+    <div style="position: relative;">
+        {{- if .Get "title" }}
+        <header class="inline-entry-header text-on-image">
+            <h2>{{ .Get "title" }}</h2>  
+        </header>
+        {{- end }}
+        {{- if .Get "summary" }}
+        <section class="inline-entry-content text-on-image">
+            <p>{{ .Get "summary" }}</p>
+        </section>
+        {{- end }}
+    </div>
+    {{- end }}
+    <a class="inline-entry-link" aria-label="post link to" href="{{ .Get "link" }}"></a>
+</div>

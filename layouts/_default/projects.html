@@ -1,0 +1,71 @@
+{{- define "main" }}
+
+<!-- List all the pages -->
+<!-- {{ printf ".Sections: %#v" .Sections }} -->
+<!-- {{ printf ".Pages: %#v" .Pages }} -->
+<!-- {{ printf ".Kind: %#v" .Kind }} -->
+<!-- {{ printf ".Page.Kind: %#v" .Page.Kind }} -->
+<!-- {{ printf ".Type: %#v" .Type }} -->
+<!-- {{ printf ".Layout: %#v" .Layout }} -->
+<!-- {{ printf ".Parent.Kind: %#v" .Parent.Kind }} -->
+<!-- {{ printf ".Site.Pages: %#v" .Site.Pages }} -->
+
+{{- if eq .Parent.Kind "home" -}}
+  {{- if .Title }}
+  <header class="page-header">
+    <!-- {{- partial "breadcrumbs.html" . }} -->
+    <h1>{{ .Title }}</h1>
+    {{- if .Description }}
+    <div class="post-description">
+      {{ .Description | markdownify }}
+    </div>
+    {{- end }}
+  </header>
+  {{- end }}
+
+  {{- if .Content }}
+  <div class="post-content">
+    {{ .Content }}
+  </div>
+  {{- end }}
+  {{- range (where .Site.Pages "Section" "projects") }}
+    {{- range .Pages }}
+      {{- if (and (and .Layout `project`) (eq .Parent.Parent.Kind `home`))}}
+        <article class="post-entry">
+          <!-- {{- $isHidden := (.Site.Params.cover.hidden | default .Site.Params.cover.hiddenInList) }}
+          {{- partial "cover.html" (dict "cxt" . "IsHome" true "isHidden" $isHidden) }} -->
+          {{- $isHidden := (.Site.Params.cover.hidden | default .Site.Params.cover.hiddenInList) }}
+          {{- partial "project_cover.html" (dict "cxt" . "IsHome" true "isHidden" $isHidden) }}
+          <div style="position: relative;">
+            <header class="entry-header {{- if .Params.cover.image }} {{- print " text-on-image" }} {{- end }}">
+              <h2>
+                {{- .Title }} 
+                {{- if .Draft }}<sup><span class="entry-isdraft">&nbsp;&nbsp;[draft]</span></sup>{{- end }}
+              </h2>
+            </header>
+            {{- if (ne (.Param "hideSummary") true) }}
+            <section class="entry-content {{- if .Params.cover.image }} {{- print " text-on-image" }} {{- end }}">
+              <p>
+                {{ .Summary | plainify | htmlUnescape }}{{ if .Truncated }}...{{ end }}
+              </p>
+            </section>
+            {{- end }}
+            {{- if not (.Param "hideMeta") }}
+            <footer class="entry-footer {{- if .Params.cover.image }} {{- print " text-on-image" }} {{- end }}">
+              {{- if not .Date.IsZero -}}
+              <span title='%s'>
+                {{ (.Date | time.Format (default "January 2, 2006" .Site.Params.DateFormat)) }}
+              </span>
+              {{- end }}
+            </footer>
+            {{- end }}
+          </div>
+          <a class="entry-link" aria-label="post link to {{ .Title | plainify }}" href="{{ .Permalink }}"></a>
+        </article>
+      {{- end}}
+    {{- end }}
+  {{- end }}
+{{- end }}
+<!-- end listing -->
+
+{{- end }}{{- /* end main */ -}}

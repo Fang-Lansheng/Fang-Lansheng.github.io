@@ -1,0 +1,40 @@
+<button class='temp-button' alt="Expand/collapse all answers" onclick="openAll()">
+<div style="font-size: larger;">🤔</div>
+</button>
+
+<script>
+function openAll() {
+    document.body.querySelectorAll('details').forEach((e) => (e.hasAttribute('open') & e.parentElement.className != 'toc') ? e.removeAttribute('open') : e.setAttribute('open',true))
+}
+</script>
+ 
+<style>
+.temp-button {
+    position: fixed;
+    bottom: 60px;
+    right: 30px;
+    z-index: 99;
+    background: var(--tertiary);
+    width: 42px;
+    height: 42px;
+    border-radius: var(--radius);
+    /* box-shadow: 0 8px #999; */
+    transition: visibility 0.5s, opacity 0.8s linear;
+}
+
+.temp-button:active {
+background-color: var(--tertiary);
+/* box-shadow: 0 4px #666; */
+/* transform: translateY(4px); */
+}
+
+.temp-button div {
+    transition: all 1.0s;
+}
+
+.temp-button div:hover {
+    transform: scale(1.3);
+    transition-duration: 0.5s;
+}
+
+</style>

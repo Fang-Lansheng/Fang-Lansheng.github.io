@@ -1,0 +1,15 @@
+/* .post-content table th, .post-content table:not(.highlighttable,.highlight table,.gist .highlight) td {
+    min-width: 80px;
+    padding: 12px 8px;
+    line-height: 1.5;
+    border: 1px solid #f1f1f1;
+    overflow: auto;
+}
+
+.post-content table tr:nth-child(2n) {
+    background-color: #f6f8fa;
+}
+
+.post-content table tr td code {
+    background-color: rgba(175,184,193,0.2);
+} */
