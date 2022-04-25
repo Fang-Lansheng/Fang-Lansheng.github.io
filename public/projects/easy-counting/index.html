@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>EasyCounting | Jifan&#39;s Blog</title>
+<meta name="keywords" content="Deep Learning, PyTorch" />
+<meta name="description" content="An open source crowd/vehicle counting toolbox based on PyTorch.">
+<meta name="author" content="jifan">
+<link rel="canonical" href="https://jifan.tech/projects/easy-counting/" />
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.d2d913f96f20672531467f8a00a1afae6af2b44b8ba24b7a5cab31330f0bcb2c.css" integrity="sha256-0tkT&#43;W8gZyUxRn&#43;KAKGvrmrytEuLokt6XKsxMw8Lyyw=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.min.4dcb3c4f38462f66c6b6137227726f5543cb934cca9788f041c087e374491df2.js" integrity="sha256-Tcs8TzhGL2bGthNyJ3JvVUPLk0zKl4jwQcCH43RJHfI="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://jifan.tech/imgs/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://jifan.tech/imgs/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://jifan.tech/imgs/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://jifan.tech/imgs/apple-touch-icon.png">
+<link rel="mask-icon" href="https://jifan.tech/imgs/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="EasyCounting" />
+<meta property="og:description" content="An open source crowd/vehicle counting toolbox based on PyTorch." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://jifan.tech/projects/easy-counting/" />
+<meta property="og:image" content="https://jifan.tech/projects/easy-counting/projects/easy-counting/assets/an_image_in_UCF-QNRF_dataset.jpg" /><meta property="article:section" content="projects" />
+<meta property="article:published_time" content="2021-11-21T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2021-11-21T00:00:00&#43;00:00" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://jifan.tech/projects/easy-counting/projects/easy-counting/assets/an_image_in_UCF-QNRF_dataset.jpg" />
+<meta name="twitter:title" content="EasyCounting"/>
+<meta name="twitter:description" content="An open source crowd/vehicle counting toolbox based on PyTorch."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Projects",
+      "item": "https://jifan.tech/projects/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "EasyCounting",
+      "item": "https://jifan.tech/projects/easy-counting/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "EasyCounting",
+  "name": "EasyCounting",
+  "description": "An open source crowd/vehicle counting toolbox based on PyTorch.",
+  "keywords": [
+    "Deep Learning", "PyTorch"
+  ],
+  "articleBody": " GitHub repository: https://github.com/Fang-Lansheng/EasyCounting.\n Features  Preprocessing code and dataloader of multiple crowd/vehicle datasets. PyTorch implementations of multiple SOTA methods. Standardized model training/testing process. Config system with modular and inheritance design.  Requirements More details in reqirement.txt.\nQuickstart  Append the project’s path to PYTHONPATH and make sure to use absolute imports.  export PYTHONPATH=\"${PYTHONPATH}:/path/to/your/project\" Preprocess the dataset.  # Take ShanghaiTech Part_A for example. python datasets/SHHA/generate_dataset.py --data-root ~/workspace/datasets/ShanghaiTech/part_A_final  Arguments of generate_dataset.py  --data-root:  Path to the raw dataset downloaded from the Internet. Default: ~/workspace/datasets/{DATASET_NAME}.   --destination:  Where the preprocessed data will be saved in. Default: {PROJECT_PATH}/processed_data/{DATASET_NAME}.   --resize-shape:  Usage: --resize-shape {width} {height}. Default: None (no resizing).    \nEdit the configuration (if needed) and then enjoy training your network!  # Like, train CSRNet on ShanghaiTech Part_A dataset. python train.py --config configs/CSRNet/SHHA.py Supported methods and datasets Methods    Method Year Venue Experiments Source Code     CSRNet 2018 CVPR Link leeyeehoo/CSRNet-pytorch   DM_Count 2020 NIPS Link cvlab-stonybrook/DM-Count   PSNet 2020 arXiv Link daimuuc/PyramidScaleNetwork   STDNet 2021 TMM Link stk513486/STDNet    Datasets  Crowd counting datasets     Dataset Year Attributes Avg. Resolution No.Samples No.Instance Avg.Count Source     Fudan-ShanghaiTech 2019 Video 1080×1920 15,000 394,081 27 Homepage   Venice 2019 Video 720×1280 167 - - Homepage   UCF-QNRF 2018 Congested 2013×2902 1,535 1,251,642 501 Homepage   ShanghaiTech Part_A 2016 Congested 589×868 482 241,677 501 Homepage Kaggle   ShanghaiTech Part_B 2016 Free Scenes 768×1024 716 88,488 123 Homepage Kaggle   MALL 2012 Video 480×640 2,000 62,325 31 Homepage   UCSD 2008 Video 158×238 2,000 49,885 25 Homepage    Vehicle counting datasets     Dataset Year Attributes Avg. Resolution No.Samples No.Instance Avg.Count Source     UAVCC 2020 Drone-view 540×1024 885 - - -   CARPK 2017 Drone-view 720×1080 1,448 - - Homepage   TRANCOS 2015 Surveillance-view 2013×2902 1,244 46,796 37 Homepage    Acknowledgement   This project was inspired by:\n gjy3035/C-3-Framework: An open-source PyTorch code for crowd counting open-mmlab/mmsegmentation: OpenMMLab Semantic Segmentation Toolbox and Benchmark    Some codes were borrowed from:\n gjy3035/C-3-Framework open-mmlab/mmsegmentation leeyeehoo/CSRNet-pytorch cvlab-stonybrook/DM-Count daimuuc/PyramidScaleNetwork stk513486/STDNet    Cover image source: UCF-QNRF dataset.\n  Many thanks!\n",
+  "wordCount" : "301",
+  "inLanguage": "en",
+  "image":"https://jifan.tech/projects/easy-counting/projects/easy-counting/assets/an_image_in_UCF-QNRF_dataset.jpg","datePublished": "2021-11-21T00:00:00Z",
+  "dateModified": "2021-11-21T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "jifan"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://jifan.tech/projects/easy-counting/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Jifan's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://jifan.tech/imgs/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://jifan.tech" accesskey="h" title="Jifan&#39;s Blog (Alt + H)">Jifan&#39;s Blog</a>
+            <span class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </span>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://jifan.tech/about/" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://jifan.tech/posts/" title="Posts">
+                    <span>Posts</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://jifan.tech/projects/" title="Projects">
+                    <span>Projects</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+
+
+
+
+
+
+
+
+
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://jifan.tech">Home</a>&nbsp;»&nbsp;<a href="https://jifan.tech/projects/">Projects</a></div>
+    <h1 class="post-title">
+      EasyCounting
+    </h1>
+    <div class="post-description">
+      An open source crowd/vehicle counting toolbox based on PyTorch.
+    </div>
+    <div class="post-meta"><span title='2021-11-21 00:00:00 +0000 UTC'>November 21, 2021</span>&nbsp;·&nbsp;jifan
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#features" aria-label="Features">Features</a></li>
+                <li>
+                    <a href="#requirements" aria-label="Requirements">Requirements</a></li>
+                <li>
+                    <a href="#quickstart" aria-label="Quickstart">Quickstart</a></li>
+                <li>
+                    <a href="#supported-methods-and-datasets" aria-label="Supported methods and datasets">Supported methods and datasets</a><ul>
+                        
+                <li>
+                    <a href="#methods" aria-label="Methods">Methods</a></li>
+                <li>
+                    <a href="#datasets" aria-label="Datasets">Datasets</a></li></ul>
+                </li>
+                <li>
+                    <a href="#acknowledgement" aria-label="Acknowledgement">Acknowledgement</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><blockquote>
+<p>GitHub repository: <a href="https://github.com/Fang-Lansheng/EasyCounting">https://github.com/Fang-Lansheng/EasyCounting</a>.</p>
+</blockquote>
+<h2 id="features">Features<a hidden class="anchor" aria-hidden="true" href="#features">#</a></h2>
+<ul>
+<li>Preprocessing code and dataloader of multiple crowd/vehicle datasets.</li>
+<li>PyTorch implementations of multiple SOTA methods.</li>
+<li>Standardized model training/testing process.</li>
+<li>Config system with modular and inheritance design.</li>
+</ul>
+<h2 id="requirements">Requirements<a hidden class="anchor" aria-hidden="true" href="#requirements">#</a></h2>
+<p>More details in <code>reqirement.txt</code>.</p>
+<h2 id="quickstart">Quickstart<a hidden class="anchor" aria-hidden="true" href="#quickstart">#</a></h2>
+<ol>
+<li>Append the project&rsquo;s path to <code>PYTHONPATH</code> and
+make sure to use absolute imports.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">PYTHONPATH</span><span class="o">=</span><span class="s2">&#34;</span><span class="si">${</span><span class="nv">PYTHONPATH</span><span class="si">}</span><span class="s2">:/path/to/your/project&#34;</span>
+</span></span></code></pre></div><ol start="2">
+<li>Preprocess the dataset.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Take ShanghaiTech Part_A for example.</span>
+</span></span><span class="line"><span class="cl">python datasets/SHHA/generate_dataset.py --data-root ~/workspace/datasets/ShanghaiTech/part_A_final
+</span></span></code></pre></div>
+
+<p><details >
+  <summary markdown="span">Arguments of <code>generate_dataset.py</code></summary>
+  <ul>
+<li><code>--data-root</code>:
+<ul>
+<li>Path to the raw dataset downloaded from the Internet.</li>
+<li>Default: <code>~/workspace/datasets/{DATASET_NAME}</code>.</li>
+</ul>
+</li>
+<li><code>--destination</code>:
+<ul>
+<li>Where the preprocessed data will be saved in.</li>
+<li>Default: <code>{PROJECT_PATH}/processed_data/{DATASET_NAME}</code>.</li>
+</ul>
+</li>
+<li><code>--resize-shape</code>:
+<ul>
+<li>Usage: <code>--resize-shape {width} {height}</code>.</li>
+<li>Default: <code>None</code> (no resizing).</li>
+</ul>
+</li>
+</ul>
+
+</details></p>
+
+<ol start="3">
+<li>Edit the configuration (if needed) and then enjoy training your network!</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Like, train CSRNet on ShanghaiTech Part_A dataset.</span>
+</span></span><span class="line"><span class="cl">python train.py --config configs/CSRNet/SHHA.py
+</span></span></code></pre></div><h2 id="supported-methods-and-datasets">Supported methods and datasets<a hidden class="anchor" aria-hidden="true" href="#supported-methods-and-datasets">#</a></h2>
+<h3 id="methods">Methods<a hidden class="anchor" aria-hidden="true" href="#methods">#</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Method</th>
+<th style="text-align:center">Year</th>
+<th style="text-align:center">Venue</th>
+<th style="text-align:center">Experiments</th>
+<th>Source Code</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">CSRNet</td>
+<td style="text-align:center">2018</td>
+<td style="text-align:center">CVPR</td>
+<td style="text-align:center"><a href="https://github.com/Fang-Lansheng/EasyCounting/blob/main/models/CSRNet/README.md">Link</a></td>
+<td><a href="https://github.com/leeyeehoo/CSRNet-pytorch">leeyeehoo/CSRNet-pytorch</a></td>
+</tr>
+<tr>
+<td style="text-align:center">DM_Count</td>
+<td style="text-align:center">2020</td>
+<td style="text-align:center">NIPS</td>
+<td style="text-align:center"><a href="https://github.com/Fang-Lansheng/EasyCounting/blob/main/models/DM_Count/README.md">Link</a></td>
+<td><a href="https://github.com/cvlab-stonybrook/DM-Count">cvlab-stonybrook/DM-Count</a></td>
+</tr>
+<tr>
+<td style="text-align:center">PSNet</td>
+<td style="text-align:center">2020</td>
+<td style="text-align:center">arXiv</td>
+<td style="text-align:center"><a href="https://github.com/Fang-Lansheng/EasyCounting/blob/main/models/PSNet/README.md">Link</a></td>
+<td><a href="https://github.com/daimuuc/PyramidScaleNetwork">daimuuc/PyramidScaleNetwork</a></td>
+</tr>
+<tr>
+<td style="text-align:center">STDNet</td>
+<td style="text-align:center">2021</td>
+<td style="text-align:center">TMM</td>
+<td style="text-align:center"><a href="https://github.com/Fang-Lansheng/EasyCounting/blob/main/models/STDNet/README.md">Link</a></td>
+<td><a href="https://github.com/stk513486/STDNet">stk513486/STDNet</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="datasets">Datasets<a hidden class="anchor" aria-hidden="true" href="#datasets">#</a></h3>
+<ol>
+<li>Crowd counting datasets</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Dataset</th>
+<th style="text-align:center">Year</th>
+<th style="text-align:center">Attributes</th>
+<th style="text-align:center">Avg. <!-- raw HTML omitted -->Resolution</th>
+<th style="text-align:center">No.<!-- raw HTML omitted -->Samples</th>
+<th style="text-align:center">No.<!-- raw HTML omitted -->Instance</th>
+<th style="text-align:center">Avg.<!-- raw HTML omitted -->Count</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Fudan-ShanghaiTech</td>
+<td style="text-align:center">2019</td>
+<td style="text-align:center">Video</td>
+<td style="text-align:center">1080×1920</td>
+<td style="text-align:center">15,000</td>
+<td style="text-align:center">394,081</td>
+<td style="text-align:center">27</td>
+<td><a href="https://github.com/sweetyy83/Lstn_fdst_dataset">Homepage</a></td>
+</tr>
+<tr>
+<td style="text-align:center">Venice</td>
+<td style="text-align:center">2019</td>
+<td style="text-align:center">Video</td>
+<td style="text-align:center">720×1280</td>
+<td style="text-align:center">167</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">-</td>
+<td><a href="https://github.com/weizheliu/Context-Aware-Crowd-Counting">Homepage</a></td>
+</tr>
+<tr>
+<td style="text-align:center">UCF-QNRF</td>
+<td style="text-align:center">2018</td>
+<td style="text-align:center">Congested</td>
+<td style="text-align:center">2013×2902</td>
+<td style="text-align:center">1,535</td>
+<td style="text-align:center">1,251,642</td>
+<td style="text-align:center">501</td>
+<td><a href="https://www.crcv.ucf.edu/data/ucf-qnrf/">Homepage</a></td>
+</tr>
+<tr>
+<td style="text-align:center">ShanghaiTech Part_A</td>
+<td style="text-align:center">2016</td>
+<td style="text-align:center">Congested</td>
+<td style="text-align:center">589×868</td>
+<td style="text-align:center">482</td>
+<td style="text-align:center">241,677</td>
+<td style="text-align:center">501</td>
+<td><a href="https://github.com/desenzhou/ShanghaiTechDataset">Homepage</a> <!-- raw HTML omitted --> <a href="https://www.kaggle.com/datasets/tthien/shanghaitech">Kaggle</a></td>
+</tr>
+<tr>
+<td style="text-align:center">ShanghaiTech Part_B</td>
+<td style="text-align:center">2016</td>
+<td style="text-align:center">Free Scenes</td>
+<td style="text-align:center">768×1024</td>
+<td style="text-align:center">716</td>
+<td style="text-align:center">88,488</td>
+<td style="text-align:center">123</td>
+<td><a href="https://github.com/desenzhou/ShanghaiTechDataset">Homepage</a> <!-- raw HTML omitted --> <a href="https://www.kaggle.com/datasets/tthien/shanghaitech">Kaggle</a></td>
+</tr>
+<tr>
+<td style="text-align:center">MALL</td>
+<td style="text-align:center">2012</td>
+<td style="text-align:center">Video</td>
+<td style="text-align:center">480×640</td>
+<td style="text-align:center">2,000</td>
+<td style="text-align:center">62,325</td>
+<td style="text-align:center">31</td>
+<td><a href="https://personal.ie.cuhk.edu.hk/~ccloy/downloads_mall_dataset.html">Homepage</a></td>
+</tr>
+<tr>
+<td style="text-align:center">UCSD</td>
+<td style="text-align:center">2008</td>
+<td style="text-align:center">Video</td>
+<td style="text-align:center">158×238</td>
+<td style="text-align:center">2,000</td>
+<td style="text-align:center">49,885</td>
+<td style="text-align:center">25</td>
+<td><a href="http://visal.cs.cityu.edu.hk/downloads/ucsdpeds-vids/">Homepage</a></td>
+</tr>
+</tbody>
+</table>
+<ol start="2">
+<li>Vehicle counting datasets</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Dataset</th>
+<th style="text-align:center">Year</th>
+<th style="text-align:center">Attributes</th>
+<th style="text-align:center">Avg. <!-- raw HTML omitted -->Resolution</th>
+<th style="text-align:center">No.<!-- raw HTML omitted -->Samples</th>
+<th style="text-align:center">No.<!-- raw HTML omitted -->Instance</th>
+<th style="text-align:center">Avg.<!-- raw HTML omitted -->Count</th>
+<th style="text-align:center">Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">UAVCC</td>
+<td style="text-align:center">2020</td>
+<td style="text-align:center">Drone-view</td>
+<td style="text-align:center">540×1024</td>
+<td style="text-align:center">885</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">-</td>
+</tr>
+<tr>
+<td style="text-align:center">CARPK</td>
+<td style="text-align:center">2017</td>
+<td style="text-align:center">Drone-view</td>
+<td style="text-align:center">720×1080</td>
+<td style="text-align:center">1,448</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center"><a href="https://lafi.github.io/LPN/">Homepage</a></td>
+</tr>
+<tr>
+<td style="text-align:center">TRANCOS</td>
+<td style="text-align:center">2015</td>
+<td style="text-align:center">Surveillance-view</td>
+<td style="text-align:center">2013×2902</td>
+<td style="text-align:center">1,244</td>
+<td style="text-align:center">46,796</td>
+<td style="text-align:center">37</td>
+<td style="text-align:center"><a href="https://gram.web.uah.es/data/datasets/trancos/index.html">Homepage</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="acknowledgement">Acknowledgement<a hidden class="anchor" aria-hidden="true" href="#acknowledgement">#</a></h2>
+<ul>
+<li>
+<p>This project was inspired by:</p>
+<ul>
+<li><a href="https://github.com/gjy3035/C-3-Framework">gjy3035/C-3-Framework</a>: An open-source PyTorch code for crowd counting</li>
+<li><a href="https://github.com/open-mmlab/mmsegmentation">open-mmlab/mmsegmentation</a>: OpenMMLab Semantic Segmentation Toolbox and Benchmark</li>
+</ul>
+</li>
+<li>
+<p>Some codes were borrowed from:</p>
+<ul>
+<li><a href="https://github.com/gjy3035/C-3-Framework">gjy3035/C-3-Framework</a></li>
+<li><a href="https://github.com/open-mmlab/mmsegmentation">open-mmlab/mmsegmentation</a></li>
+<li><a href="https://github.com/leeyeehoo/CSRNet-pytorch">leeyeehoo/CSRNet-pytorch</a></li>
+<li><a href="https://github.com/cvlab-stonybrook/DM-Count">cvlab-stonybrook/DM-Count</a></li>
+<li><a href="https://github.com/daimuuc/PyramidScaleNetwork">daimuuc/PyramidScaleNetwork</a></li>
+<li><a href="https://github.com/stk513486/STDNet">stk513486/STDNet</a></li>
+</ul>
+</li>
+<li>
+<p>Cover image source: UCF-QNRF dataset.</p>
+</li>
+</ul>
+<p>Many thanks!</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2022 <a href="https://jifan.tech">Jifan&#39;s Blog</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css" integrity="sha384-KiWOvVjnN8qwAZbuQyWDIbfCLFhLXNETzBQjA/92pIowpC0d2O3nppDGQVgwd2nB" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js" integrity="sha384-0fdwu/T/EQMsQlrHCCHoH10pkPLlKA1jL5dFyUOvB3lfeT2540/2g6YgSi2BL14p" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            
+            
+            delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '$', right: '$', display: false},
+                {left: '\\(', right: '\\)', display: false},
+                {left: '\\[', right: '\\]', display: true}
+            ],
+            
+            throwOnError : false
+        });
+    });
+</script>
+
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerText = 'copy';
+
+        function copyingDone() {
+            copybutton.innerText = 'copied!';
+            setTimeout(() => {
+                copybutton.innerText = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
