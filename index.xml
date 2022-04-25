@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Jifan&#39;s Blog</title>
+    <link>https://jifan.tech/</link>
+    <description>Recent content on Jifan&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 03 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://jifan.tech/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Tiny Web Server: Problems Encountered</title>
+      <link>https://jifan.tech/projects/tiny-web-server/problems/</link>
+      <pubDate>Sun, 03 Apr 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://jifan.tech/projects/tiny-web-server/problems/</guid>
+      <description>1. MySQL Error in log file Server stopped immediately after running ./server in shell, and output an error MySQL Error in log file.
+  Find the source of the error: Although the error log is fairly vague, it&amp;rsquo;s not difficult to find out that it was thrown by the function connection_pool::init in the file CGImysql/sql_connection_pool.cpp.
+ mysql_init(): return an initialized MYSQL* handler (i.e. a MYSQL object suitable for mysql_real_connect()), or NULL in case of insufficient memory.</description>
+    </item>
+    
+    <item>
+      <title>I/O multiplexing: select, poll and epoll</title>
+      <link>https://jifan.tech/posts/2022-03-28-io-models/</link>
+      <pubDate>Mon, 28 Mar 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://jifan.tech/posts/2022-03-28-io-models/</guid>
+      <description>TL,DR.
+ The select() and poll() are system calls to monitor file descriptors. And the epoll is a Linux-specified API to implement I/O multiplexing with higher performance when it comes to large numbers of file descriptors.   1. Why not blocking I/O? Under the convensional file I/O model, a process performs I/O on just one file descriptor, named fd, at a time, and each I/O system call blocks until the data is transferred.</description>
+    </item>
+    
+    <item>
+      <title>A Primer on Web Server</title>
+      <link>https://jifan.tech/posts/2022-03-02-web-server/</link>
+      <pubDate>Wed, 02 Mar 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://jifan.tech/posts/2022-03-02-web-server/</guid>
+      <description>Before starting the TinyWebServer project, I took a quick look at what a web server is. This article is a general summary of it, based on my current basic understanding.
+ 1. What is a web server? The term web server can refer to software or underlying hardware.
+ On the hardware side, a web server is a computer that:  stores web server software and a website&amp;rsquo;s component files (e.</description>
+    </item>
+    
+    <item>
+      <title>EasyCounting</title>
+      <link>https://jifan.tech/projects/easy-counting/</link>
+      <pubDate>Sun, 21 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://jifan.tech/projects/easy-counting/</guid>
+      <description>An open source crowd/vehicle counting toolbox based on PyTorch.</description>
+    </item>
+    
+    <item>
+      <title>OpenCV 源码分析：SIFT 算法原理与实现</title>
+      <link>https://jifan.tech/posts/2019-05-10-opencv-4/</link>
+      <pubDate>Fri, 10 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://jifan.tech/posts/2019-05-10-opencv-4/</guid>
+      <description>本文及接下来几篇同系列文章是学习 SIFT 算法和 OpenCV SIFT 源码时的学习笔记，整合自参考文献及博客。强烈建议阅读 论文原文、GitHub上的源码 以及 @赵春江 的</description>
+    </item>
+    
+    <item>
+      <title>OpenCV 相机检校：原理及简单实现</title>
+      <link>https://jifan.tech/posts/2019-04-18-opencv-3/</link>
+      <pubDate>Thu, 18 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://jifan.tech/posts/2019-04-18-opencv-3/</guid>
+      <description>本文主要参考自 OpenCV 官方教程 OpenCV: Camera calibration With OpenCV，大部分内容是对原文的直接翻译。 1. 前言 利用手机相机对棋盘图拍摄得到的图像如下所示： 图 1 手机相机拍</description>
+    </item>
+    
+    <item>
+      <title>线性代数：特征值分解、奇异值分解与 RQ 分解</title>
+      <link>https://jifan.tech/posts/2019-04-12-linear-algebra-1/</link>
+      <pubDate>Fri, 12 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://jifan.tech/posts/2019-04-12-linear-algebra-1/</guid>
+      <description>特征值分解 1. 特征值与特征向量 在线性代数中，对于 $n$ 阶方阵 $A$，如果存在某个数 $\lambda$ 及某个 $n$ 维非零列向量 $v$，使得 $$ Av = \lambda v $$ 则称 $\lambda$ 是方阵 $A$ 的一</description>
+    </item>
+    
+    <item>
+      <title>OpenCV 点特征提取算子：Moravec，Forstner 与 Harris</title>
+      <link>https://jifan.tech/posts/2019-04-02-opencv-2/</link>
+      <pubDate>Tue, 02 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://jifan.tech/posts/2019-04-02-opencv-2/</guid>
+      <description>在计算机视觉（Computer Vision）与摄影测量（Photogrammetry）中，我们在不同影像之间找到相匹配的特征，已建立两幅影像</description>
+    </item>
+    
+    <item>
+      <title>OpenCV 内置边缘检测算子：Canny，Sobel 与 Laplace</title>
+      <link>https://jifan.tech/posts/2019-03-19-opencv-1/</link>
+      <pubDate>Tue, 19 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://jifan.tech/posts/2019-03-19-opencv-1/</guid>
+      <description>边缘检测（Edge Detection）是图像处理的基础内容。本文中，我从OpenCV官网上下载了最新版本的 OpenCV 4.0.1（2018-12-22</description>
+    </item>
+    
+    <item>
+      <title>数据结构笔记：求解斐波那契数列算法的复杂度</title>
+      <link>https://jifan.tech/posts/2019-03-01-ds-notes-1/</link>
+      <pubDate>Fri, 01 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://jifan.tech/posts/2019-03-01-ds-notes-1/</guid>
+      <description>斐波那契数列 斐波那契数列（Fibonacci Sequence）是一串数字： \[ (0,)\ 1,\ 1,\ 2,\ 3,\ 5,\ 8,\ 13,\ 21,\ 34,\ 55,\ 89,\ 144,\ &amp;hellip; \] 很容易看出，每一个数（除第 1、2 个</description>
+    </item>
+    
+    <item>
+      <title>C&#43;&#43; 学习笔记：数据类型、浮点数的比较以及“大数”的读取</title>
+      <link>https://jifan.tech/posts/2019-02-27-cpp-study-notes-1/</link>
+      <pubDate>Wed, 27 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://jifan.tech/posts/2019-02-27-cpp-study-notes-1/</guid>
+      <description>再一次地、从头开始学习C/C++。 C++ 数据类型及其表示范围 这一部分是基础，不过我之前都没有系统性的搞清楚，所以现在还是先把这些知识点列出来，该</description>
+    </item>
+    
+    <item>
+      <title>About</title>
+      <link>https://jifan.tech/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://jifan.tech/about/</guid>
+      <description>about</description>
+    </item>
+    
+    <item>
+      <title>Blog</title>
+      <link>https://jifan.tech/projects/blog/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://jifan.tech/projects/blog/</guid>
+      <description>Why and how did I build this blog.</description>
+    </item>
+    
+    
+    <item>
+      <title>Projects</title>
+      <link>https://jifan.tech/projects/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://jifan.tech/projects/</guid>
+      <description>projects</description>
+    </item>
+    
+    <item>
+      <title>Resume</title>
+      <link>https://jifan.tech/resume/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://jifan.tech/resume/</guid>
+      <description>  Unfinished
+  </description>
+    </item>
+    
+    
+  </channel>
+</rss>
