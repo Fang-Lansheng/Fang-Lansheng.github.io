@@ -14,7 +14,7 @@
       
       <guid>https://jifan.tech/posts/2022-03-28-io-models/</guid>
       <description>TL,DR.
- The select() and poll() are system calls to monitor file descriptors. And the epoll is a Linux-specified API to implement I/O multiplexing with higher performance when it comes to large numbers of file descriptors.   1. Why not blocking I/O? Under the convensional file I/O model, a process performs I/O on just one file descriptor, named fd, at a time, and each I/O system call blocks until the data is transferred.</description>
+ I/O multiplexing allows a process to simultaneously monitor multiple file descriptors to find out whether I/O is possible on any of them. The select() and poll() are system calls to monitor file descriptors. And the epoll is a Linux-specified API to implement I/O multiplexing with higher performance when it comes to large numbers of file descriptors.   Why not blocking I/O? Under the conventional file I/O model, a process performs I/O on just one file descriptor, named fd, at a time, and each I/O system call blocks until the data is transferred.</description>
     </item>
     
     <item>
