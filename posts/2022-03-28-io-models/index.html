@@ -101,8 +101,8 @@
   "keywords": [
     "Linux", "I/O"
   ],
-  "articleBody": " TL,DR.\n I/O multiplexing allows a process to simultaneously monitor multiple file descriptors to find out whether I/O is possible on any of them. The select() and poll() are system calls to monitor file descriptors. And the epoll is a Linux-specified API to implement I/O multiplexing with higher performance when it comes to large numbers of file descriptors.   Why not blocking I/O? Under the conventional file I/O model, a process performs I/O on just one file descriptor, named fd, at a time, and each I/O system call blocks until the data is transferred. For example, when reading from the pipe,\n a read() call normally blocks if no data is currently present in the pipe. And, a write() call blocks if there is insufficient space in the pipe to hold the data to be written.  It’s no doubt that the traditional blocking I/O model is already stretched when we need to monitor multiple file descriptors, or avoid blocking the current process if I/O is not possible on a file descriptor.\nThere are two direct approaches to partially address these needs:\n Non-blocking I/O. Use of multiple processes or threads.  Non-blocking I/O allows us to periodically check (“poll”) whether I/O is possible. For example, we can make an input file descriptor non-blocking, and then periodically performing non-blocking reads. If we need to monitor multiple file descriptor, then we mark them all non-blocking, and poll each of them in turn. However, polling in this manner is usually undesirable. If polling is done only infrequently, then the latency before an application responds to an I/O event may be unacceptably long; on the other hand, polling in a tight loop wastes CPU time.\nIf we need to handle I/O on multiple file descriptors, we can create one child process or thread for each descriptor. To do so, however, an inter-process/thread communication mechanism is needed to inform the parent about the status of the I/O operations, which demanding more resources and can lead to programming difficulties.\nFortunately, modern Linux provides the following alternative I/O models.\nWhy not non-blocking I/O? ……\nI/O multiplexing: select() \u0026 poll() I/O multiplexing allows a process to simultaneously monitor multiple file descriptors to find out whether I/O is possible on any of them. The select() and poll() system calls perform I/O multiplexing.\nThe Linux-specific epoll API The epoll API is a Linux-specific feature that first appeared in Linux 2.6 (?).\n Features:  Allows a process or thread to monitor multiple file descriptors to see if I/O is possible on any of them (like the I/O multiplexing APIs). Provides much better performance when monitoring large numbers of file descriptors (like signal-driven I/O).    The central concept: epoll instance  An in-kernel data structure referred via an open file descriptor epfd. Can be considered as a container for two lists:  The interest list: a set of file descriptors that the process/thread has declared an interest in monitoring. The ready list: maintaining a list of file descriptors that are ready for I/O.  A subset of the ready list. Dynamically populated by the kernel as a result of I/O activity on those file descriptors.      Three system calls provided by epoll Creating an epoll instance: epoll_create() extern int epoll_create (int __size) __THROW;  Creates an epoll instance. Return:  On success: a file descriptor referring epfd to this instance. On error: -1 (and errno is set to indicate the error).   Parameters:  __size: specifying the number of file descriptors to be associated with the new instance.  Not a upper limit, but rather a hint to the kernel about how to initially dimension internal data structures. Since Linux 2.6.8, this argument is ignored (but must be greater than 0).      To read more: https://man7.org/linux/man-pages/man2/epoll_create.2.html\nModifying the epoll interest list: epoll_ctl() extern int epoll_ctl (int __epfd, int __op, int __fd, struct epoll_event *__event) __THROW;  Manipulate an epoll instance. Return:  On success: 0. On error: -1 (and errno is set to indicate the error).   Parameters:  __epfd: referred to the epoll instance to be modified. __op: specifies the operation to be performed. __fd: identifies which of the file descriptors in the interest list is to have its setting modified. __events: a pointer to a structure of type epoll_event.    To read more: https://man7.org/linux/man-pages/man2/epoll_ctl.2.html\nWaiting for events: epoll_wait() extern int epoll_wait (int __epfd, struct epoll_event *__events, int __maxevents, int __timeout);  Waits for events on the epoll instance referred to by the file descriptor __epfd. The buffer pointed to by __events is used to return information from the ready list about file descriptors in the interest list that have some events available. Return:  On success: the number of file descriptors ready for the requested I/O. On error: -1 (and errno is set to indicate the error).   Parameters:  __epfd: referred to the epoll instance. __events: a pointer to a structure of type epoll_event. __maxevents: the maximum number of events to be returned. __timeout: specifies the number of milliseconds that epoll_wait() will block.    To read more: https://man7.org/linux/man-pages/man2/epoll_wait.2.html\nComparisons Comparisons between select() and poll() ……\nComparisons between select(), poll() and epoll ……\n References:\n The Linux Programming Interface (Chapter 56-61, 63). Linux man pages online   ",
-  "wordCount" : "838",
+  "articleBody": " TL,DR.\n I/O multiplexing allows a process to simultaneously monitor multiple file descriptors to find out whether I/O is possible on any of them. The select() and poll() are system calls to monitor file descriptors. And the epoll is a Linux-specified API to implement I/O multiplexing with higher performance when it comes to large numbers of file descriptors.   Why not blocking I/O? Under the conventional file I/O model, a process performs I/O on just one file descriptor, named fd, at a time, and each I/O system call blocks until the data is transferred. For example, when reading from the pipe,\n a read() call normally blocks if no data is currently present in the pipe. And, a write() call blocks if there is insufficient space in the pipe to hold the data to be written.  It’s no doubt that the traditional blocking I/O model is already stretched when we need to monitor multiple file descriptors, or avoid blocking the current process if I/O is not possible on a file descriptor.\nThere are two direct approaches to partially address these needs:\n Non-blocking I/O. Use of multiple processes or threads.  Non-blocking I/O allows us to periodically check (“poll”) whether I/O is possible. For example, we can make an input file descriptor non-blocking, and then periodically performing non-blocking reads. If we need to monitor multiple file descriptor, then we mark them all non-blocking, and poll each of them in turn. However, polling in this manner is usually undesirable. If polling is done only infrequently, then the latency before an application responds to an I/O event may be unacceptably long; on the other hand, polling in a tight loop wastes CPU time.\nIf we need to handle I/O on multiple file descriptors, we can create one child process or thread for each descriptor. To do so, however, an inter-process/thread communication mechanism is needed to inform the parent about the status of the I/O operations, which demanding more resources and can lead to programming difficulties.\nFortunately, modern Linux provides the following alternative I/O models.\nWhy not non-blocking I/O? ……\nI/O multiplexing: select() \u0026 poll() I/O multiplexing allows a process to simultaneously monitor multiple file descriptors to find out whether I/O is possible on any of them. The select() and poll() system calls perform I/O multiplexing.\nThe Linux-specific epoll API The epoll (event poll) API is a Linux-specific feature that first appeared in Linux 2.6 (?).\n Features:  Allows a process or thread to monitor multiple file descriptors to see if I/O is possible on any of them (like the I/O multiplexing APIs). Provides much better performance when monitoring large numbers of file descriptors (like signal-driven I/O).    The central concept: epoll instance  An in-kernel data structure referred via an open file descriptor epfd. Can be considered as a container for two lists:  The interest list: a set of file descriptors that the process/thread has declared an interest in monitoring. The ready list: maintaining a list of file descriptors that are ready for I/O.  A subset of (or, more precisely, a set of refereces to) the interest list. Dynamically populated by the kernel as a result of I/O activity on those file descriptors.      Three system calls provided by epoll Creating an epoll instance: epoll_create() extern int epoll_create (int __size) __THROW;  Creates an epoll instance. Return:  On success: a file descriptor referring epfd to this instance. On error: -1 (and errno is set to indicate the error).   Parameters:  __size: specifying the number of file descriptors to be associated with the new instance.  Not a upper limit, but rather a hint to the kernel about how to initially dimension internal data structures. Since Linux 2.6.8, this argument is ignored (but must be greater than 0).      To read more: https://man7.org/linux/man-pages/man2/epoll_create.2.html\nModifying the epoll interest list: epoll_ctl() extern int epoll_ctl (int __epfd, int __op, int __fd, struct epoll_event *__event) __THROW;  Manipulate an epoll instance. Return:  On success: 0. On error: -1 (and errno is set to indicate the error).   Parameters:  __epfd: referred to the epoll instance to be modified. __op: specifies the operation to be performed. __fd: identifies which of the file descriptors in the interest list is to have its setting modified. __events: a pointer to a structure of type epoll_event.    To read more: https://man7.org/linux/man-pages/man2/epoll_ctl.2.html\nWaiting for events: epoll_wait() extern int epoll_wait (int __epfd, struct epoll_event *__events, int __maxevents, int __timeout);  Waits for events on the epoll instance referred to by the file descriptor __epfd. The buffer pointed to by __events is used to return information from the ready list about file descriptors in the interest list that have some events available. Return:  On success: the number of file descriptors ready for the requested I/O. On error: -1 (and errno is set to indicate the error).   Parameters:  __epfd: referred to the epoll instance. __events: a pointer to a structure of type epoll_event. __maxevents: the maximum number of events to be returned. __timeout: specifies the number of milliseconds that epoll_wait() will block.    To read more: https://man7.org/linux/man-pages/man2/epoll_wait.2.html\nEvent notification mode: LT and ET ……\nComparisons Differences between select() and poll() ……\nDifferences between select(), poll() and epoll   Each time we call select() or poll():\n we pass a data structure to the kernel that identifies all of the file descriptors that are to be monitored. on return, the kernel passes back a data structure describing the readiness of all of theses descriptors.    With epoll:\n we use epoll_ctl() to build up a data structure in kernel space that lists the set of file descriptors to be monitored. Once this data structure has been build, each later call to epoll_wait() doesn’t need to pass any information about file descriptors to the kernel, and the call returns information about only those descriptors that are ready.    The table below shows the results (on Linux 2.6.25) when we monitor $N$ contiguous file descriptors in the range $0$ to $N - 1$ using poll(), select(), and epoll (source: The Linux Programming Interface, page 1365).\n   Number of descriptors monitored ($N$) poll() CPU time (seconds) select() CPU time (seconds) epoll CPU time (seconds)     10 0.61 0.73 0.41   100 2.9 3.0 0.42   1000 35 35 0.53   1000 990 930 0.66      It is clear that epoll is a better choice when there are a lot of file descriptors to monitor, but only a (small) part of them are active.\n   References:\n The Linux Programming Interface (Chapter 56-61, 63). Linux man pages online   ",
+  "wordCount" : "1055",
   "inLanguage": "en",
   "datePublished": "2022-03-28T00:00:00Z",
   "dateModified": "2022-03-28T00:00:00Z",
@@ -232,16 +232,18 @@
                 <li>
                     <a href="#modifying-the-epoll-interest-list-epoll_ctl" aria-label="Modifying the epoll interest list: epoll_ctl()">Modifying the <em>epoll</em> interest list: <code>epoll_ctl()</code></a></li>
                 <li>
-                    <a href="#waiting-for-events-epoll_wait" aria-label="Waiting for events: epoll_wait()">Waiting for events: <code>epoll_wait()</code></a></li></ul>
+                    <a href="#waiting-for-events-epoll_wait" aria-label="Waiting for events: epoll_wait()">Waiting for events: <code>epoll_wait()</code></a></li>
+                <li>
+                    <a href="#event-notification-mode-lt-and-et" aria-label="Event notification mode: LT and ET">Event notification mode: LT and ET</a></li></ul>
                 </li></ul>
                 </li>
                 <li>
                     <a href="#comparisons" aria-label="Comparisons">Comparisons</a><ul>
                         
                 <li>
-                    <a href="#comparisons-between-select-and-poll" aria-label="Comparisons between select() and poll()">Comparisons between <code>select()</code> and <code>poll()</code></a></li>
+                    <a href="#differences-between-select-and-poll" aria-label="Differences between select() and poll()">Differences between <code>select()</code> and <code>poll()</code></a></li>
                 <li>
-                    <a href="#comparisons-between-select-poll-and-epoll" aria-label="Comparisons between select(), poll() and epoll">Comparisons between <code>select()</code>, <code>poll()</code> and <code>epoll</code></a>
+                    <a href="#differences-between-select-poll-and-epoll" aria-label="Differences between select(), poll() and epoll">Differences between <code>select()</code>, <code>poll()</code> and <em>epoll</em></a>
                 </li>
             </ul>
             </li>
@@ -279,11 +281,11 @@ However, polling in this manner is usually undesirable. If polling is done only 
 <h1 id="why-not-non-blocking-io">Why not non-blocking I/O?<a hidden class="anchor" aria-hidden="true" href="#why-not-non-blocking-io">#</a></h1>
 <p>……</p>
 <h1 id="io-multiplexing-select--poll">I/O multiplexing: <code>select()</code> &amp; <code>poll()</code><a hidden class="anchor" aria-hidden="true" href="#io-multiplexing-select--poll">#</a></h1>
-<p><strong>I/O multiplexing</strong> allows a process to simultaneously monitor multiple file descriptors to find out whether I/O is possible on any of them. The <code>select()</code> and <code>poll()</code> system calls perform I/O multiplexing.</p>
+<p>I/O multiplexing allows a process to simultaneously monitor multiple file descriptors to find out whether I/O is possible on any of them. The <code>select()</code> and <code>poll()</code> system calls perform I/O multiplexing.</p>
 <!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
 <h1 id="the-linux-specific-epoll-api">The Linux-specific <em>epoll</em> API<a hidden class="anchor" aria-hidden="true" href="#the-linux-specific-epoll-api">#</a></h1>
-<p><strong>The <em>epoll</em> API</strong> is a Linux-specific feature that first appeared in Linux 2.6 (?).</p>
+<p>The <em>epoll</em> (event poll) API is a Linux-specific feature that first appeared in Linux 2.6 (?).</p>
 <ul>
 <li>Features:
 <ul>
@@ -294,13 +296,13 @@ However, polling in this manner is usually undesirable. If polling is done only 
 </ul>
 <h2 id="the-central-concept-epoll-instance">The central concept: <em>epoll</em> instance<a hidden class="anchor" aria-hidden="true" href="#the-central-concept-epoll-instance">#</a></h2>
 <ul>
-<li>An in-kernel data structure referred via an open file descriptor <code>epfd</code>.</li>
+<li>An <strong>in-kernel</strong> data structure referred via an open file descriptor <code>epfd</code>.</li>
 <li>Can be considered as a container for two lists:
 <ul>
 <li><em>The <strong>interest</strong> list</em>: a set of file descriptors that the process/thread has declared an interest in monitoring.</li>
 <li><em>The <strong>ready</strong> list</em>: maintaining a list of file descriptors that are ready for I/O.
 <ul>
-<li>A subset of the ready list.</li>
+<li>A subset of (or, more precisely, a set of refereces to) the interest list.</li>
 <li>Dynamically populated by the kernel as a result of I/O activity on those file descriptors.</li>
 </ul>
 </li>
@@ -372,11 +374,70 @@ However, polling in this manner is usually undesirable. If polling is done only 
 </li>
 </ul>
 <p><em>To read more: <a href="https://man7.org/linux/man-pages/man2/epoll_wait.2.html">https://man7.org/linux/man-pages/man2/epoll_wait.2.html</a></em></p>
+<h3 id="event-notification-mode-lt-and-et">Event notification mode: LT and ET<a hidden class="anchor" aria-hidden="true" href="#event-notification-mode-lt-and-et">#</a></h3>
+<p>……</p>
 <h1 id="comparisons">Comparisons<a hidden class="anchor" aria-hidden="true" href="#comparisons">#</a></h1>
-<h2 id="comparisons-between-select-and-poll">Comparisons between <code>select()</code> and <code>poll()</code><a hidden class="anchor" aria-hidden="true" href="#comparisons-between-select-and-poll">#</a></h2>
+<h2 id="differences-between-select-and-poll">Differences between <code>select()</code> and <code>poll()</code><a hidden class="anchor" aria-hidden="true" href="#differences-between-select-and-poll">#</a></h2>
 <p>……</p>
-<h2 id="comparisons-between-select-poll-and-epoll">Comparisons between <code>select()</code>, <code>poll()</code> and <code>epoll</code><a hidden class="anchor" aria-hidden="true" href="#comparisons-between-select-poll-and-epoll">#</a></h2>
-<p>……</p>
+<h2 id="differences-between-select-poll-and-epoll">Differences between <code>select()</code>, <code>poll()</code> and <em>epoll</em><a hidden class="anchor" aria-hidden="true" href="#differences-between-select-poll-and-epoll">#</a></h2>
+<ul>
+<li>
+<p>Each time we call <code>select()</code> or <code>poll()</code>:</p>
+<ul>
+<li>we <strong>pass a data structure to the kernel</strong> that identifies all of the file descriptors that are to be monitored.</li>
+<li>on return, <strong>the kernel passes back a data structure</strong> describing the readiness of all of theses descriptors.</li>
+</ul>
+</li>
+<li>
+<p>With <em>epoll</em>:</p>
+<ul>
+<li>we use <code>epoll_ctl()</code> to build up a data structure <strong>in kernel space</strong> that lists the set of file descriptors to be monitored.</li>
+<li>Once this data structure has been build, each later call to <code>epoll_wait()</code> doesn&rsquo;t need to pass any information about file descriptors to the kernel, and the call returns information about <strong>only those descriptors that are ready</strong>.</li>
+</ul>
+</li>
+<li>
+<p>The table below shows the results (on Linux 2.6.25) when we monitor $N$ contiguous file descriptors in the range $0$ to $N - 1$ using <code>poll()</code>, <code>select()</code>, and <em>epoll</em> (source: <em>The Linux Programming Interface</em>, page 1365).</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Number of descriptors monitored ($N$)</th>
+<th style="text-align:center"><code>poll()</code> CPU time (seconds)</th>
+<th style="text-align:center"><code>select()</code> CPU time (seconds)</th>
+<th style="text-align:center"><em>epoll</em> CPU time (seconds)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">10</td>
+<td style="text-align:center">0.61</td>
+<td style="text-align:center">0.73</td>
+<td style="text-align:center">0.41</td>
+</tr>
+<tr>
+<td style="text-align:center">100</td>
+<td style="text-align:center">2.9</td>
+<td style="text-align:center">3.0</td>
+<td style="text-align:center">0.42</td>
+</tr>
+<tr>
+<td style="text-align:center">1000</td>
+<td style="text-align:center">35</td>
+<td style="text-align:center">35</td>
+<td style="text-align:center">0.53</td>
+</tr>
+<tr>
+<td style="text-align:center">1000</td>
+<td style="text-align:center">990</td>
+<td style="text-align:center">930</td>
+<td style="text-align:center">0.66</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>It is clear that <strong><em>epoll</em> is a better choice</strong> when there are a lot of file descriptors to monitor, but only a (small) part of them are active.</p>
+</li>
+</ul>
 <blockquote>
 <p><strong>References:</strong></p>
 <ul>
