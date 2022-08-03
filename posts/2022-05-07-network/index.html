@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>What happens when (1): type google.com in the browser address bar and press enter | Jifan&#39;s Blog</title>
+<meta name="keywords" content="Network" />
+<meta name="description" content="This post is a brief summary of alex/what-happens-when, please read the original article for details.
+  TL,DR;
+ Stage 1: Before connecting to the network, what does your host do?  Responding to keyboard interrupts [OS]. Parsing the text you input [Browser].  Auto-completion &amp; suggestions. Is it a URL or a search term?     Stage 2: Network communication.  Check HSTS list DNS lookup: domain → ip ARP process: ip → MAC Opening of a socket: IP routing, TCP connection flow.">
+<meta name="author" content="Jifan">
+<link rel="canonical" href="https://jifan.tech/posts/2022-05-07-network/" />
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.d2d913f96f20672531467f8a00a1afae6af2b44b8ba24b7a5cab31330f0bcb2c.css" integrity="sha256-0tkT&#43;W8gZyUxRn&#43;KAKGvrmrytEuLokt6XKsxMw8Lyyw=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.min.4dcb3c4f38462f66c6b6137227726f5543cb934cca9788f041c087e374491df2.js" integrity="sha256-Tcs8TzhGL2bGthNyJ3JvVUPLk0zKl4jwQcCH43RJHfI="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://jifan.tech/imgs/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://jifan.tech/imgs/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://jifan.tech/imgs/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://jifan.tech/imgs/apple-touch-icon.png">
+<link rel="mask-icon" href="https://jifan.tech/imgs/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="What happens when (1): type google.com in the browser address bar and press enter" />
+<meta property="og:description" content="This post is a brief summary of alex/what-happens-when, please read the original article for details.
+  TL,DR;
+ Stage 1: Before connecting to the network, what does your host do?  Responding to keyboard interrupts [OS]. Parsing the text you input [Browser].  Auto-completion &amp; suggestions. Is it a URL or a search term?     Stage 2: Network communication.  Check HSTS list DNS lookup: domain → ip ARP process: ip → MAC Opening of a socket: IP routing, TCP connection flow." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://jifan.tech/posts/2022-05-07-network/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-05-07T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2022-05-07T00:00:00&#43;00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="What happens when (1): type google.com in the browser address bar and press enter"/>
+<meta name="twitter:description" content="This post is a brief summary of alex/what-happens-when, please read the original article for details.
+  TL,DR;
+ Stage 1: Before connecting to the network, what does your host do?  Responding to keyboard interrupts [OS]. Parsing the text you input [Browser].  Auto-completion &amp; suggestions. Is it a URL or a search term?     Stage 2: Network communication.  Check HSTS list DNS lookup: domain → ip ARP process: ip → MAC Opening of a socket: IP routing, TCP connection flow."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Posts",
+      "item": "https://jifan.tech/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "What happens when (1): type google.com in the browser address bar and press enter",
+      "item": "https://jifan.tech/posts/2022-05-07-network/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "What happens when (1): type google.com in the browser address bar and press enter",
+  "name": "What happens when (1): type google.com in the browser address bar and press enter",
+  "description": "This post is a brief summary of alex/what-happens-when, please read the original article for details.\n  TL,DR;\n Stage 1: Before connecting to the network, what does your host do?  Responding to keyboard interrupts [OS]. Parsing the text you input [Browser].  Auto-completion \u0026amp; suggestions. Is it a URL or a search term?     Stage 2: Network communication.  Check HSTS list DNS lookup: domain → ip ARP process: ip → MAC Opening of a socket: IP routing, TCP connection flow.",
+  "keywords": [
+    "Network"
+  ],
+  "articleBody": " This post is a brief summary of alex/what-happens-when, please read the original article for details.\n  TL,DR;\n Stage 1: Before connecting to the network, what does your host do?  Responding to keyboard interrupts [OS]. Parsing the text you input [Browser].  Auto-completion \u0026 suggestions. Is it a URL or a search term?     Stage 2: Network communication.  Check HSTS list DNS lookup: domain → ip ARP process: ip → MAC Opening of a socket: IP routing, TCP connection flow. TLS handshake HTTP protocol: request \u0026 response   Stage 3: After getting the resources, what role does your browser play?  Parsing: HTML, CSS, JavaScript Rendering     Before connecting to the network, what does your host do? The “g” key is pressed  The physical keyboards actions and the OS interrupts. The browser receives the event, then (based on search history, bookmarks, cookies, and popular searches from the internet as a whole)  the auto-complete functions suggestions    The “enter” key bottoms out  An electrical circuit specific to the enter key is closed (either directly or capacitively). A small amount of current flows into the logic circuitry of the keyboard, which scans the state of each key switch, debounces the electrical noise of the rapid intermittent closure of the switch, and converts it to a keycode integer, in this case 13. The keyboard controller then encodes the keycode for transport to the computer. Note that the USB keyboard and the virtual keyboard will behave differently.  Interrupt fires [Not for USB keyboards]  The keyboard sends signals on its interrupt request line (IRQ), which is mapped to an interrupt vector (integer) by the interrupt controller. The CPU uses the Interrupt Descriptor Table (IDT) to map the interrupt vectors to functions (interrupt handlers) which are supplied by the kernel. When an interrupt arrives, the CPU indexes the IDT with the interrupt vector and runs the appropriate handler. Thus, the kernel is entered. Then, the browser will know that the enter has been pressed.  [On Windows] A WM_KEYDOWN message is sent to the app (more). [On MacOS] A KeyDown NSEvent is sent to the app (more). [On GNU/Linux] the Xorg server listens for keycodes (more).    Parse URL  The browser now has the following information contained in the URL (Uniform Resource Locator):    Protocol http: Use ‘Hyper Text Transfer Protocol’ Resource /: Retrieve main (index) page   Is it a URL or a search term  When no protocol or valid domain name is given, the browser proceeds to feed the text given in the address box to the browser’s default web search engine. In many cases the URL has a special piece of text appended to it to tell the search engine that it came from a particular browser’s URL bar.  Convert non-ASCII Unicode characters in the hostname  The browser checks the hostname for characters that are not in a-z, A-Z, 0-9,-, or .`. Since the hostname is google.com there won’t be any, but if there were the browser would apply Punycode encoding to the hostname portion of the URL.  Check HSTS list  The browser checks its “preloaded HSTS (HTTP Strict Transport Security)” list. This is a list of websites that have requested to be contacted via HTTPS only. If the website is in the list, the browser sends its request via HTTPS instead of HTTP. Otherwise, the initial request is sent via HTTP.    Note that a website can still use the HSTS policy without being in the HSTS list. The first HTTP request to the website by a user will receive a response requesting that the user only send HTTPS requests. However, this single HTTP request could potentially leave the user vulnerable to a downgrade attack, which is why the HSTS list is included in modern web browsers.   Network communication DNS lookup  Browser checks if the domain is in its cache. (to see the DNS Cache in Chrome, go to chrome://net-internals/#dns). If not found, the browser calls gethostbyname library function (varies by OS) to do the lookup. gethostbyname checks if the hostname can be resolved by reference in the local hosts file (whose location varies by OS) before trying to resolve the hostname through DNS. If gethostbyname does not have it cached nor can find it in the hosts file then it makes a request to the DNS server configured in the network stack. This is typically the local router or the ISP’s caching DNS server. If the DNS server is on the same subnet the network library follows the ARP process below for the DNS server. If the DNS server is on a different subnet, the network library follows the ARP process below for the default gateway IP.  ARP process  In order to send an ARP (Address Resolution Protocol) broadcast, the network stack library needs the target IP address to lookup. It also needs to know the MAC address of the interface it will use to send out the ARP broadcast. The ARP cache is first checked for an ARP entry for our target IP. If it is in the cache, the library function returns the result: Target IP = MAC. If the entry is not in the ARP cache:  The route table is looked up, to see if the Target IP address is on any of the subnets on the local route table.  If it is, the library uses the interface associated with that subnet. If it is not, the library uses the interface that has the subnet of our default gateway.   The MAC address of the selected network interface is looked up. The network library sends a Layer 2 (data link layer of the OSI model) ARP request.  More details see this      Opening for a socket  Once the browser receives the IP address of the destination server, it takes that and the given port number from the URL (the HTTP protocol defaults to port 80, and HTTPS to port 443), and makes a call to the system library function named socket and requests a TCP socket stream - AF_INET/AF_INET6 and SOCK_STREAM. At this point the packet is ready to be transmitted through: ethernet/Wi-Fi/Cellular data network.  For most home or small business Internet connections the packet will pass from your computer, possibly through a local network, and then through a modem (MOdulator/DEModulator) which converts digital 1’s and 0’s into an analog signal suitable for transmission over telephone, cable, or wireless telephony connections. On the other end of the connection is another modem which converts the analog signal back into digital data to be processed by the next network node where the from and to addresses would be analyzed further. Most larger businesses and some newer residential connections will have fiber or direct Ethernet connections in which case the data remains digital and is passed directly to the next network node for processing.   Eventually, the packet will reach the router managing the local subnet.  From there, it will continue to travel to the autonomous system’s (AS) border routers, other ASes, and finally to the destination server. Each router along the way extracts the destination address from the IP header and routes it to the appropriate next hop. The time to live (TTL) field in the IP header is decremented by one for each router that passes.  The packet will be dropped if the TTL field reaches zero, or if the current router has no space in its queue (perhaps due to network congestion).     This send and receive happens multiple times following the TCP connection flow:  Client chooses an initial sequence number (ISN) and sends the packet to the server with the SYN bit set to indicate it is setting the ISN Server receives SYN and if it’s in an agreeable mood:  Server chooses its own initial sequence number Server sets SYN to indicate it is choosing its ISN Server copies the (client ISN +1) to its ACK field and adds the ACK flag to indicate it is acknowledging receipt of the first packet   Client acknowledges the connection by sending a packet:  Increases its own sequence number Increases the receiver acknowledgment number Sets ACK field   Data is transferred as follows:  As one side sends N data bytes, it increases its SEQ by that number When the other side acknowledges receipt of that packet (or a string of packets), it sends an ACK packet with the ACK value equal to the last received sequence from the other   To close the connection:  The closer sends a FIN packet The other sides ACKs the FIN packet and sends its own FIN The closer acknowledges the other side’s FIN with an ACK      TLS handshake  The client computer sends a ClientHello message to the server with its Transport Layer Security (TLS) version, list of cipher algorithms and compression methods available. The server replies with a ServerHello message to the client with the TLS version, selected cipher, selected compression methods and the server’s public certificate signed by a CA (Certificate Authority).  The certificate contains a public key that will be used by the client to encrypt the rest of the handshake until a symmetric key can be agreed upon.   The client verifies the server digital certificate against its list of trusted CAs.  If trust can be established based on the CA, the client generates a string of pseudo-random bytes and encrypts this with the server’s public key. These random bytes can be used to determine the symmetric key.   The server decrypts the random bytes using its private key and uses these bytes to generate its own copy of the symmetric master key. The client sends a Finished message to the server, encrypting a hash of the transmission up to this point with the symmetric key. The server generates its own hash, and then decrypts the client-sent hash to verify that it matches. If it does, it sends its own Finished message to the client, also encrypted with the symmetric key. From now on the TLS session transmits the application (HTTP) data encrypted with the agreed symmetric key.  If a packet is dropped  Sometimes, due to network congestion or flaky hardware connections, TLS packets will be dropped before they get to their final destination. The sender then has to decide how to react. The algorithm for this is called TCP congestion control. This varies depending on the sender.  HTTP protocol  The browser send a HTTP request to the server to retrieve the page.  The form of the request: GET / HTTP/1.1 Host: google.com Connection: close [other headers] where [other headers] refers to a series of colon-separated key-value pairs formatted as per the HTTP specification and separated by single newlines. After sending the request and headers, the web browser sends a single blank newline to the server indicating that the content of the request is done.   The server responds with a response code denoting the status of the request and responds with a response  The form of the response: 200 OK [response headers]  Following a single newline, the payload of the HTML content of www.google.com is send to the client. The server may then either close the connection, or if headers sent by the client requested it, keep the connection open to be reused for further requests.    HTTP Server Request Handle  The HTTPD (HTTP Daemon) server is the one handling the requests/responses on the server-side.  The HTTPD (HTTP Daemon) receives the request. The server breaks down the request to the following parameters:  HTTP Request Method (either GET, HEAD, POST, PUT, PATCH, DELETE, CONNECT, OPTIONS, or TRACE). In the case of a URL entered directly into the address bar, it will be GET. Domain. In this case: google.com. Requested path/page. In this case: / (as no specific path/page was requested, / is the default path).   The server verifies that there is a Virtual Host configured on the server that corresponds with google.com. The server verifies that google.com can accept GET requests. The server verifies that the client is allowed to use this method (by IP, authentication, etc.). If the server has a rewrite module installed (like mod_rewrite for Apache or URL Rewrite for IIS), it tries to match the request against one of the configured rules. If a matching rule is found, the server uses that rule to rewrite the request. The server goes to pull the content that corresponds with the request, in our case it will fall back to the index file, as “/” is the main file (some cases can override this, but this is the most common method). The server parses the file according to the handler. If Google is running on PHP, the server uses PHP to interpret the index file, and streams the output to the client.   The most common HTTPD servers are Apache or nginx for Linux and IIS for Windows.  After getting the resources, what role does your browser play? Behind the scenes of the Browser  Once the server supplies the resources (HTML, CSS, JS, images, etc.) to the browser it undergoes the below process:  Parsing - HTML, CSS, JS Rendering - Construct DOM Tree → Render Tree → Layout of Render Tree → Painting the render tree    Browser  The browser’s functionality is to present the web resource you choose, by requesting it from the server and displaying it in the browser window.  The resource is usually an HTML document, but may also be a PDF, image, or some other type of content. The location of the resource is specified by the user using a URI (Uniform Resource Identifier).   The way the browser interprets and displays HTML files is specified in the HTML and CSS specifications. These specifications are maintained by the W3C (World Wide Web Consortium) organization, which is the standards organization for the web.  HTML parsing  The rendering engine starts getting the contents of the requested document from the networking layer. The primary job of the HTML parser is to parse the HTML markup into a parse tree. The output tree (the “parse tree”) is a tree of DOM element and attribute nodes.  DOM is short for Document Object Model. It is the object presentation of the HTML document and the interface of HTML elements to the outside world like JavaScript. The root of the tree is the “Document” object. Prior to any manipulation via scripting, the DOM has an almost one-to-one relation to the markup.   The parsing algorithm: tokenization and tree construction. When the parsing is finished, the browser begins fetching external resources linked to the page (CSS, images, JavaScript files, etc.).  CSS interpretation  Parse CSS files,  tag contents, and style attribute values using “CSS lexical and syntax grammar” Each CSS file is parsed into a StyleSheet object, where each object contains CSS rules with selectors and objects corresponding CSS grammar. A CSS parser can be top-down or bottom-up when a specific parser generator is used.  Page Rendering GPU Rendering Window Server Post-rendering and user-induced execution  After rendering has been completed, the browser executes JavaScript code as a result of some timing mechanism (such as a Google Doodle animation) or user interaction (typing a query into the search box and receiving suggestions). Plugins such as Flash or Java may execute as well, although not at this time on the Google homepage. Scripts can cause additional network requests to be performed, as well as modify the page or its layout, causing another round of page rendering and painting.  ",
+  "wordCount" : "2534",
+  "inLanguage": "en",
+  "datePublished": "2022-05-07T00:00:00Z",
+  "dateModified": "2022-05-07T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "Jifan"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://jifan.tech/posts/2022-05-07-network/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Jifan's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://jifan.tech/imgs/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://jifan.tech" accesskey="h" title="Jifan&#39;s Blog (Alt + H)">Jifan&#39;s Blog</a>
+            <span class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </span>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://jifan.tech/about/" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://jifan.tech/posts/" title="Posts">
+                    <span>Posts</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://jifan.tech/projects/" title="Projects">
+                    <span>Projects</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+
+
+
+
+
+
+
+
+
+
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://jifan.tech">Home</a>&nbsp;»&nbsp;<a href="https://jifan.tech/posts/">Posts</a></div>
+    <h1 class="post-title">
+      What happens when (1): type google.com in the browser address bar and press enter
+    </h1>
+    <div class="post-meta"><span title='2022-05-07 00:00:00 +0000 UTC'>May 7, 2022</span>&nbsp;·&nbsp;Jifan
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#before-connecting-to-the-network-what-does-your-host-do" aria-label="Before connecting to the network, what does your host do?">Before connecting to the network, what does your host do?</a><ul>
+                        
+                <li>
+                    <a href="#the-g-key-is-pressed" aria-label="The &amp;ldquo;g&amp;rdquo; key is pressed">The &ldquo;g&rdquo; key is pressed</a></li>
+                <li>
+                    <a href="#the-enter-key-bottoms-out" aria-label="The &amp;ldquo;enter&amp;rdquo; key bottoms out">The &ldquo;enter&rdquo; key bottoms out</a></li>
+                <li>
+                    <a href="#interrupt-fires-not-for-usb-keyboards" aria-label="Interrupt fires [Not for USB keyboards]">Interrupt fires [Not for USB keyboards]</a></li>
+                <li>
+                    <a href="#parse-url" aria-label="Parse URL">Parse URL</a></li>
+                <li>
+                    <a href="#is-it-a-url-or-a-search-term" aria-label="Is it a URL or a search term">Is it a URL or a search term</a></li>
+                <li>
+                    <a href="#convert-non-ascii-unicode-characters-in-the-hostname" aria-label="Convert non-ASCII Unicode characters in the hostname">Convert non-ASCII Unicode characters in the hostname</a></li>
+                <li>
+                    <a href="#check-hsts-list" aria-label="Check HSTS list">Check HSTS list</a></li></ul>
+                </li>
+                <li>
+                    <a href="#network-communication" aria-label="Network communication">Network communication</a><ul>
+                        
+                <li>
+                    <a href="#dns-lookup" aria-label="DNS lookup">DNS lookup</a></li>
+                <li>
+                    <a href="#arp-process" aria-label="ARP process">ARP process</a></li>
+                <li>
+                    <a href="#opening-for-a-socket" aria-label="Opening for a socket">Opening for a socket</a></li>
+                <li>
+                    <a href="#tls-handshake" aria-label="TLS handshake">TLS handshake</a></li>
+                <li>
+                    <a href="#if-a-packet-is-dropped" aria-label="If a packet is dropped">If a packet is dropped</a></li>
+                <li>
+                    <a href="#http-protocol" aria-label="HTTP protocol">HTTP protocol</a></li>
+                <li>
+                    <a href="#http-server-request-handle" aria-label="HTTP Server Request Handle">HTTP Server Request Handle</a></li></ul>
+                </li>
+                <li>
+                    <a href="#after-getting-the-resources-what-role-does-your-browser-play" aria-label="After getting the resources, what role does your browser play?">After getting the resources, what role does your browser play?</a><ul>
+                        
+                <li>
+                    <a href="#behind-the-scenes-of-the-browser" aria-label="Behind the scenes of the Browser">Behind the scenes of the Browser</a></li>
+                <li>
+                    <a href="#browser" aria-label="Browser">Browser</a></li>
+                <li>
+                    <a href="#html-parsing" aria-label="HTML parsing">HTML parsing</a></li>
+                <li>
+                    <a href="#css-interpretation" aria-label="CSS interpretation">CSS interpretation</a></li>
+                <li>
+                    <a href="#page-rendering" aria-label="Page Rendering">Page Rendering</a></li>
+                <li>
+                    <a href="#gpu-rendering" aria-label="GPU Rendering">GPU Rendering</a></li>
+                <li>
+                    <a href="#window-server" aria-label="Window Server">Window Server</a></li>
+                <li>
+                    <a href="#post-rendering-and-user-induced-execution" aria-label="Post-rendering and user-induced execution">Post-rendering and user-induced execution</a>
+                </li>
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><blockquote>
+<p>This post is a brief summary of <a href="https://github.com/alex/what-happens-when">alex/what-happens-when</a>, please read the original article for details.</p>
+</blockquote>
+<blockquote>
+<p><strong>TL,DR;</strong></p>
+<ul>
+<li>Stage 1: Before connecting to the network, what does your host do?
+<ul>
+<li>Responding to keyboard interrupts [OS].</li>
+<li>Parsing the text you input [Browser].
+<ul>
+<li>Auto-completion &amp; suggestions.</li>
+<li>Is it a URL or a search term?</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Stage 2: Network communication.
+<ul>
+<li>Check HSTS list</li>
+<li><strong>DNS lookup</strong>: domain → ip</li>
+<li><strong>ARP process</strong>: ip → MAC</li>
+<li><strong>Opening of a socket</strong>: IP routing, TCP connection flow.</li>
+<li>TLS handshake</li>
+<li><strong>HTTP protocol</strong>: request &amp; response</li>
+</ul>
+</li>
+<li>Stage 3: After getting the resources, what role does your browser play?
+<ul>
+<li>Parsing: HTML, CSS, JavaScript</li>
+<li>Rendering</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h1 id="before-connecting-to-the-network-what-does-your-host-do">Before connecting to the network, what does your host do?<a hidden class="anchor" aria-hidden="true" href="#before-connecting-to-the-network-what-does-your-host-do">#</a></h1>
+<h2 id="the-g-key-is-pressed">The &ldquo;g&rdquo; key is pressed<a hidden class="anchor" aria-hidden="true" href="#the-g-key-is-pressed">#</a></h2>
+<ul>
+<li>The physical keyboards actions and the OS interrupts.</li>
+<li>The browser receives the event, then (based on search history, bookmarks, cookies, and popular searches from the internet as a whole)
+<ul>
+<li>the auto-complete functions</li>
+<li>suggestions</li>
+</ul>
+</li>
+</ul>
+<h2 id="the-enter-key-bottoms-out">The &ldquo;enter&rdquo; key bottoms out<a hidden class="anchor" aria-hidden="true" href="#the-enter-key-bottoms-out">#</a></h2>
+<ul>
+<li>An electrical circuit specific to the enter key is closed (either directly or capacitively).</li>
+<li>A small amount of current flows into the logic circuitry of the keyboard, which scans the state of each key switch, debounces the electrical noise of the rapid intermittent closure of the switch, and converts it to a keycode integer, in this case 13.</li>
+<li>The keyboard controller then encodes the keycode for transport to the computer.</li>
+<li>Note that the USB keyboard and the virtual keyboard will behave differently.</li>
+</ul>
+<h2 id="interrupt-fires-not-for-usb-keyboards">Interrupt fires [Not for USB keyboards]<a hidden class="anchor" aria-hidden="true" href="#interrupt-fires-not-for-usb-keyboards">#</a></h2>
+<ul>
+<li>The keyboard sends signals on its interrupt request line (IRQ), which is mapped to an interrupt vector (integer) by the interrupt controller.</li>
+<li>The CPU uses the Interrupt Descriptor Table (IDT) to map the interrupt vectors to functions (interrupt handlers) which are supplied by the kernel.</li>
+<li>When an interrupt arrives, the CPU indexes the IDT with the interrupt vector and runs the appropriate handler. Thus, the kernel is entered.</li>
+<li>Then, the browser will know that the enter has been pressed.
+<ul>
+<li>[On Windows] A <code>WM_KEYDOWN</code> message is sent to the app (<a href="https://github.com/alex/what-happens-when#on-windows-a-wm_keydown-message-is-sent-to-the-app">more</a>).</li>
+<li>[On MacOS] A <code>KeyDown</code> NSEvent is sent to the app (<a href="https://github.com/alex/what-happens-when#on-os-x-a-keydown-nsevent-is-sent-to-the-app">more</a>).</li>
+<li>[On GNU/Linux] the Xorg server listens for keycodes (<a href="https://github.com/alex/what-happens-when#on-gnulinux-the-xorg-server-listens-for-keycodes">more</a>).</li>
+</ul>
+</li>
+</ul>
+<h2 id="parse-url">Parse URL<a hidden class="anchor" aria-hidden="true" href="#parse-url">#</a></h2>
+<ul>
+<li>The browser now has the following information contained in the URL (Uniform Resource Locator):</li>
+</ul>
+<blockquote>
+<ul>
+<li>Protocol <code>http</code>: Use &lsquo;Hyper Text Transfer Protocol&rsquo;</li>
+<li>Resource <code>/</code>: Retrieve main (index) page</li>
+</ul>
+</blockquote>
+<h2 id="is-it-a-url-or-a-search-term">Is it a URL or a search term<a hidden class="anchor" aria-hidden="true" href="#is-it-a-url-or-a-search-term">#</a></h2>
+<ul>
+<li>When no protocol or valid domain name is given, the browser proceeds to feed the text given in the address box to the browser&rsquo;s default web search engine.</li>
+<li>In many cases the URL has a special piece of text appended to it to tell the search engine that it came from a particular browser&rsquo;s URL bar.</li>
+</ul>
+<h2 id="convert-non-ascii-unicode-characters-in-the-hostname">Convert non-ASCII Unicode characters in the hostname<a hidden class="anchor" aria-hidden="true" href="#convert-non-ascii-unicode-characters-in-the-hostname">#</a></h2>
+<ul>
+<li>The browser checks the hostname for characters that are not in <code>a-z</code>, <code>A-Z</code>, <code>0-9</code>,<code>-, or </code>.`.</li>
+<li>Since the hostname is google.com there won&rsquo;t be any, but if there were the browser would apply <a href="https://en.wikipedia.org/wiki/Punycode">Punycode</a> encoding to the hostname portion of the URL.</li>
+</ul>
+<h2 id="check-hsts-list">Check HSTS list<a hidden class="anchor" aria-hidden="true" href="#check-hsts-list">#</a></h2>
+<ul>
+<li>The browser checks its &ldquo;preloaded HSTS (HTTP Strict Transport Security)&rdquo; list. This is a list of websites that have requested to be contacted via HTTPS only.</li>
+<li>If the website is in the list, the browser sends its request via HTTPS instead of HTTP.</li>
+<li>Otherwise, the initial request is sent via HTTP.</li>
+</ul>
+<blockquote>
+<ul>
+<li>Note that a website can still use the HSTS policy without being in the HSTS list.</li>
+<li>The first HTTP request to the website by a user will receive a response requesting that the user only send HTTPS requests.</li>
+<li>However, this single HTTP request could potentially leave the user vulnerable to a downgrade attack, which is why the HSTS list is included in modern web browsers.</li>
+</ul>
+</blockquote>
+<h1 id="network-communication">Network communication<a hidden class="anchor" aria-hidden="true" href="#network-communication">#</a></h1>
+<h2 id="dns-lookup">DNS lookup<a hidden class="anchor" aria-hidden="true" href="#dns-lookup">#</a></h2>
+<ul>
+<li>Browser checks if the domain is in its cache. (to see the DNS Cache in Chrome, go to chrome://net-internals/#dns).</li>
+<li>If not found, the browser calls <code>gethostbyname</code> library function (varies by OS) to do the lookup.</li>
+<li><code>gethostbyname</code> checks if the hostname can be resolved by reference in the local hosts file (<a href="https://en.wikipedia.org/wiki/Hosts_%28file%29#Location_in_the_file_system">whose location varies by OS</a>) before trying to resolve the hostname through DNS.</li>
+<li>If <code>gethostbyname</code> does not have it cached nor can find it in the hosts file then it makes a request to the DNS server configured in the network stack. This is typically the local router or the ISP&rsquo;s caching DNS server.</li>
+<li>If the DNS server is on the same subnet the network library follows the <em>ARP process</em> below for the DNS server.</li>
+<li>If the DNS server is on a different subnet, the network library follows the ARP process below for the default gateway IP.</li>
+</ul>
+<h2 id="arp-process">ARP process<a hidden class="anchor" aria-hidden="true" href="#arp-process">#</a></h2>
+<ul>
+<li>In order to send an ARP (Address Resolution Protocol) broadcast, the network stack library needs the target IP address to lookup. It also needs to know the MAC address of the interface it will use to send out the ARP broadcast.</li>
+<li>The ARP cache is first checked for an ARP entry for our target IP. If it is in the cache, the library function returns the result: Target IP = MAC.</li>
+<li>If the entry is not in the ARP cache:
+<ul>
+<li>The route table is looked up, to see if the Target IP address is on any of the subnets on the local route table.
+<ul>
+<li>If it is, the library uses the interface associated with that subnet.</li>
+<li>If it is not, the library uses the interface that has the subnet of our default gateway.</li>
+</ul>
+</li>
+<li>The MAC address of the selected network interface is looked up.</li>
+<li>The network library sends a Layer 2 (data link layer of <a href="https://en.wikipedia.org/wiki/OSI_model">the OSI model</a>) ARP request.
+<ul>
+<li>More details see <a href="https://github.com/alex/what-happens-when#arp-process">this</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="opening-for-a-socket">Opening for a socket<a hidden class="anchor" aria-hidden="true" href="#opening-for-a-socket">#</a></h2>
+<ul>
+<li>Once the browser receives the IP address of the destination server, it takes that and the given port number from the URL (the HTTP protocol defaults to port 80, and HTTPS to port 443), and makes a call to the system library function named <code>socket</code> and requests a TCP socket stream - <code>AF_INET</code>/<code>AF_INET6</code> and <code>SOCK_STREAM</code>.</li>
+<li>At this point the packet is ready to be transmitted through: ethernet/Wi-Fi/Cellular data network.
+<ul>
+<li>For most home or small business Internet connections the packet will pass from your computer, possibly through a local network, and then through a modem (MOdulator/DEModulator) which converts digital 1&rsquo;s and 0&rsquo;s into an analog signal suitable for transmission over telephone, cable, or wireless telephony connections. On the other end of the connection is another modem which converts the analog signal back into digital data to be processed by the next <a href="https://en.wikipedia.org/wiki/Computer_network#Network_nodes">network node</a> where the from and to addresses would be analyzed further.</li>
+<li>Most larger businesses and some newer residential connections will have fiber or direct Ethernet connections in which case the data remains digital and is passed directly to the next <a href="https://en.wikipedia.org/wiki/Computer_network#Network_nodes">network node</a> for processing.</li>
+</ul>
+</li>
+<li>Eventually, the packet will reach the router managing the local subnet.
+<ul>
+<li>From there, it will continue to travel to the autonomous system&rsquo;s (AS) border routers, other ASes, and finally to the destination server.</li>
+<li>Each router along the way extracts the destination address from the IP header and routes it to the appropriate next hop.</li>
+<li>The <strong>time to live (TTL)</strong> field in the IP header is decremented by one for each router that passes.
+<ul>
+<li>The packet will be dropped if the TTL field reaches zero,</li>
+<li>or if the current router has no space in its queue (perhaps due to network congestion).</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>This send and receive happens multiple times following the <strong>TCP connection</strong> flow:
+<ul>
+<li>Client chooses an initial sequence number (ISN) and sends the packet to the server with the <strong>SYN</strong> bit set to indicate it is setting the ISN</li>
+<li>Server receives SYN and if it&rsquo;s in an agreeable mood:
+<ul>
+<li>Server chooses its own initial sequence number</li>
+<li>Server sets <strong>SYN</strong> to indicate it is choosing its ISN</li>
+<li>Server copies the (client ISN +1) to its <strong>ACK</strong> field and adds the ACK flag to indicate it is acknowledging receipt of the first packet</li>
+</ul>
+</li>
+<li>Client acknowledges the connection by sending a packet:
+<ul>
+<li>Increases its own sequence number</li>
+<li>Increases the receiver acknowledgment number</li>
+<li>Sets <strong>ACK</strong> field</li>
+</ul>
+</li>
+<li>Data is transferred as follows:
+<ul>
+<li>As one side sends N data bytes, it increases its SEQ by that number</li>
+<li>When the other side acknowledges receipt of that packet (or a string of packets), it sends an ACK packet with the ACK value equal to the last received sequence from the other</li>
+</ul>
+</li>
+<li>To close the connection:
+<ul>
+<li>The closer sends a <strong>FIN</strong> packet</li>
+<li>The other sides <strong>ACKs</strong> the FIN packet and sends its own <strong>FIN</strong></li>
+<li>The closer acknowledges the other side&rsquo;s FIN with an <strong>ACK</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="tls-handshake">TLS handshake<a hidden class="anchor" aria-hidden="true" href="#tls-handshake">#</a></h2>
+<ul>
+<li>The client computer sends a <code>ClientHello</code> message to the server with its Transport Layer Security (TLS) version, list of cipher algorithms and compression methods available.</li>
+<li>The server replies with a <code>ServerHello</code> message to the client with the TLS version, selected cipher, selected compression methods and the server&rsquo;s public certificate signed by a CA (Certificate Authority).
+<ul>
+<li>The certificate contains a public key that will be used by the client to encrypt the rest of the handshake until a symmetric key can be agreed upon.</li>
+</ul>
+</li>
+<li>The client verifies the server digital certificate against its list of trusted CAs.
+<ul>
+<li>If trust can be established based on the CA, the client generates a string of pseudo-random bytes and encrypts this with the server&rsquo;s public key.</li>
+<li>These random bytes can be used to determine the symmetric key.</li>
+</ul>
+</li>
+<li>The server decrypts the random bytes using its private key and uses these bytes to generate its own copy of the symmetric master key.</li>
+<li>The client sends a <code>Finished</code> message to the server, encrypting a hash of the transmission up to this point with the symmetric key.</li>
+<li>The server generates its own hash, and then decrypts the client-sent hash to verify that it matches. If it does, it sends its own <code>Finished</code> message to the client, also encrypted with the symmetric key.</li>
+<li>From now on the TLS session transmits the application (HTTP) data encrypted with the agreed symmetric key.</li>
+</ul>
+<h2 id="if-a-packet-is-dropped">If a packet is dropped<a hidden class="anchor" aria-hidden="true" href="#if-a-packet-is-dropped">#</a></h2>
+<ul>
+<li>Sometimes, due to network congestion or flaky hardware connections, TLS packets will be dropped before they get to their final destination. The sender then has to decide how to react.</li>
+<li>The algorithm for this is called <a href="https://en.wikipedia.org/wiki/TCP_congestion_control">TCP congestion control</a>. This varies depending on the sender.</li>
+</ul>
+<h2 id="http-protocol">HTTP protocol<a hidden class="anchor" aria-hidden="true" href="#http-protocol">#</a></h2>
+<ul>
+<li>The browser send a HTTP request to the server to retrieve the page.
+<ul>
+<li>The form of the request:
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">GET / HTTP/1.1
+</span></span><span class="line"><span class="cl">Host: google.com
+</span></span><span class="line"><span class="cl">Connection: close
+</span></span><span class="line"><span class="cl">[other headers]
+</span></span></code></pre></div>where <code>[other headers]</code> refers to a series of colon-separated key-value pairs formatted as per the HTTP specification and separated by single newlines.</li>
+<li>After sending the request and headers, the web browser sends a single blank newline to the server indicating that the content of the request is done.</li>
+</ul>
+</li>
+<li>The server responds with a response code denoting the status of the request and responds with a response
+<ul>
+<li>The form of the response:
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">200 OK
+</span></span><span class="line"><span class="cl">[response headers]
+</span></span></code></pre></div></li>
+<li>Following a single newline, the payload of the HTML content of <code>www.google.com</code> is send to the client.</li>
+<li>The server may then either close the connection, or if headers sent by the client requested it, keep the connection open to be reused for further requests.</li>
+</ul>
+</li>
+</ul>
+<h2 id="http-server-request-handle">HTTP Server Request Handle<a hidden class="anchor" aria-hidden="true" href="#http-server-request-handle">#</a></h2>
+<ul>
+<li>The HTTPD (HTTP Daemon) server is the one handling the requests/responses on the server-side.
+<ul>
+<li>The HTTPD (HTTP Daemon) receives the request.</li>
+<li><strong>The server breaks down the request to the following parameters:</strong>
+<ul>
+<li><strong>HTTP Request Method</strong> (either <code>GET</code>, <code>HEAD</code>, <code>POST</code>, <code>PUT</code>, <code>PATCH</code>, <code>DELETE</code>, <code>CONNECT</code>, <code>OPTIONS</code>, or <code>TRACE</code>). In the case of a URL entered directly into the address bar, it will be <code>GET</code>.</li>
+<li><strong>Domain</strong>. In this case: google.com.</li>
+<li><strong>Requested <code>path/page</code></strong>. In this case: <code>/</code> (as no specific <code>path/page</code> was requested, <code>/</code> is the default path).</li>
+</ul>
+</li>
+<li>The server verifies that there is a Virtual Host configured on the server that corresponds with google.com.</li>
+<li>The server verifies that google.com can accept GET requests.</li>
+<li>The server verifies that the client is allowed to use this method (by IP, authentication, etc.).</li>
+<li>If the server has a rewrite module installed (like mod_rewrite for Apache or URL Rewrite for IIS), it tries to match the request against one of the configured rules. If a matching rule is found, the server uses that rule to rewrite the request.</li>
+<li>The server goes to pull the content that corresponds with the request, in our case it will fall back to the index file, as &ldquo;<code>/</code>&rdquo; is the main file (some cases can override this, but this is the most common method).</li>
+<li>The server parses the file according to the handler. If Google is running on PHP, the server uses PHP to interpret the index file, and streams the output to the client.</li>
+</ul>
+</li>
+<li>The most common HTTPD servers are Apache or nginx for Linux and IIS for Windows.</li>
+</ul>
+<h1 id="after-getting-the-resources-what-role-does-your-browser-play">After getting the resources, what role does your browser play?<a hidden class="anchor" aria-hidden="true" href="#after-getting-the-resources-what-role-does-your-browser-play">#</a></h1>
+<h2 id="behind-the-scenes-of-the-browser">Behind the scenes of the Browser<a hidden class="anchor" aria-hidden="true" href="#behind-the-scenes-of-the-browser">#</a></h2>
+<ul>
+<li>Once the server supplies the resources (HTML, CSS, JS, images, etc.) to the browser it undergoes the below process:
+<ul>
+<li>Parsing - HTML, CSS, JS</li>
+<li>Rendering - Construct DOM Tree → Render Tree → Layout of Render Tree → Painting the render tree</li>
+</ul>
+</li>
+</ul>
+<h2 id="browser">Browser<a hidden class="anchor" aria-hidden="true" href="#browser">#</a></h2>
+<ul>
+<li>The browser&rsquo;s functionality is to present the web resource you choose, by requesting it from the server and displaying it in the browser window.
+<ul>
+<li>The resource is usually an HTML document, but may also be a PDF, image, or some other type of content.</li>
+<li>The location of the resource is specified by the user using a URI (Uniform Resource Identifier).</li>
+</ul>
+</li>
+<li>The way the browser interprets and displays HTML files is specified in the HTML and CSS specifications. These specifications are maintained by the W3C (World Wide Web Consortium) organization, which is the standards organization for the web.</li>
+</ul>
+<h2 id="html-parsing">HTML parsing<a hidden class="anchor" aria-hidden="true" href="#html-parsing">#</a></h2>
+<ul>
+<li>The rendering engine starts getting the contents of the requested document from the networking layer.</li>
+<li>The primary job of the HTML parser is to parse the HTML markup into a parse tree.</li>
+<li>The output tree (the &ldquo;parse tree&rdquo;) is a tree of DOM element and attribute nodes.
+<ul>
+<li>DOM is short for Document Object Model. It is the object presentation of the HTML document and the interface of HTML elements to the outside world like JavaScript.</li>
+<li>The root of the tree is the &ldquo;Document&rdquo; object. Prior to any manipulation via scripting, the DOM has an almost one-to-one relation to the markup.</li>
+</ul>
+</li>
+<li>The parsing algorithm: tokenization and tree construction.</li>
+<li>When the parsing is finished, the browser begins fetching external resources linked to the page (CSS, images, JavaScript files, etc.).</li>
+</ul>
+<h2 id="css-interpretation">CSS interpretation<a hidden class="anchor" aria-hidden="true" href="#css-interpretation">#</a></h2>
+<ul>
+<li>Parse CSS files, <code>&lt;style&gt;</code> tag contents, and <code>style</code> attribute values using &ldquo;<a href="https://www.w3.org/TR/CSS2/grammar.html">CSS lexical and syntax grammar</a>&rdquo;</li>
+<li>Each CSS file is parsed into a <code>StyleSheet object</code>, where each object contains CSS rules with selectors and objects corresponding CSS grammar.</li>
+<li>A CSS parser can be top-down or bottom-up when a specific parser generator is used.</li>
+</ul>
+<h2 id="page-rendering">Page Rendering<a hidden class="anchor" aria-hidden="true" href="#page-rendering">#</a></h2>
+<h2 id="gpu-rendering">GPU Rendering<a hidden class="anchor" aria-hidden="true" href="#gpu-rendering">#</a></h2>
+<h2 id="window-server">Window Server<a hidden class="anchor" aria-hidden="true" href="#window-server">#</a></h2>
+<h2 id="post-rendering-and-user-induced-execution">Post-rendering and user-induced execution<a hidden class="anchor" aria-hidden="true" href="#post-rendering-and-user-induced-execution">#</a></h2>
+<ul>
+<li>After rendering has been completed, the browser executes JavaScript code as a result of some timing mechanism (such as a Google Doodle animation) or user interaction (typing a query into the search box and receiving suggestions).</li>
+<li>Plugins such as Flash or Java may execute as well, although not at this time on the Google homepage.</li>
+<li>Scripts can cause additional network requests to be performed, as well as modify the page or its layout, causing another round of page rendering and painting.</li>
+</ul>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2022 <a href="https://jifan.tech">Jifan&#39;s Blog</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css" integrity="sha384-KiWOvVjnN8qwAZbuQyWDIbfCLFhLXNETzBQjA/92pIowpC0d2O3nppDGQVgwd2nB" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js" integrity="sha384-0fdwu/T/EQMsQlrHCCHoH10pkPLlKA1jL5dFyUOvB3lfeT2540/2g6YgSi2BL14p" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            
+            
+            delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '$', right: '$', display: false},
+                {left: '\\(', right: '\\)', display: false},
+                {left: '\\[', right: '\\]', display: true}
+            ],
+            
+            throwOnError : false
+        });
+    });
+</script>
+
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerText = 'copy';
+
+        function copyingDone() {
+            copybutton.innerText = 'copied!';
+            setTimeout(() => {
+                copybutton.innerText = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

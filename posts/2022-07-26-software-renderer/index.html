@@ -5,12 +5,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>Posts | Jifan&#39;s Blog</title>
-<meta name="keywords" content="" />
-<meta name="description" content="archives">
+<title>How to implement your first software renderer | Jifan&#39;s Blog</title>
+<meta name="keywords" content="CG, C&#43;&#43;" />
+<meta name="description" content="How to implement your first software renderer - Jifan&#39;s Blog">
 <meta name="author" content="Jifan">
-<link rel="canonical" href="https://jifan.tech/archives/" />
+<link rel="canonical" href="https://jifan.tech/posts/2022-07-26-software-renderer/" />
 <link crossorigin="anonymous" href="/assets/css/stylesheet.min.d2d913f96f20672531467f8a00a1afae6af2b44b8ba24b7a5cab31330f0bcb2c.css" integrity="sha256-0tkT&#43;W8gZyUxRn&#43;KAKGvrmrytEuLokt6XKsxMw8Lyyw=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.min.4dcb3c4f38462f66c6b6137227726f5543cb934cca9788f041c087e374491df2.js" integrity="sha256-Tcs8TzhGL2bGthNyJ3JvVUPLk0zKl4jwQcCH43RJHfI="
+    onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://jifan.tech/imgs/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://jifan.tech/imgs/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://jifan.tech/imgs/favicon-32x32.png">
@@ -54,16 +56,16 @@
         }
 
     </style>
-</noscript><meta property="og:title" content="Posts" />
-<meta property="og:description" content="archives" />
+</noscript><meta property="og:title" content="How to implement your first software renderer" />
+<meta property="og:description" content="" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://jifan.tech/archives/" /><meta property="article:section" content="" />
-
-
+<meta property="og:url" content="https://jifan.tech/posts/2022-07-26-software-renderer/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-07-26T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2022-07-26T00:00:00&#43;00:00" />
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Posts"/>
-<meta name="twitter:description" content="archives"/>
+<meta name="twitter:title" content="How to implement your first software renderer"/>
+<meta name="twitter:description" content=""/>
 
 
 <script type="application/ld+json">
@@ -75,7 +77,13 @@
       "@type": "ListItem",
       "position":  2 ,
       "name": "Posts",
-      "item": "https://jifan.tech/archives/"
+      "item": "https://jifan.tech/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "How to implement your first software renderer",
+      "item": "https://jifan.tech/posts/2022-07-26-software-renderer/"
     }
   ]
 }
@@ -84,24 +92,24 @@
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "Posts",
-  "name": "Posts",
-  "description": "archives",
+  "headline": "How to implement your first software renderer",
+  "name": "How to implement your first software renderer",
+  "description": "",
   "keywords": [
-    
+    "CG", "C++"
   ],
   "articleBody": "",
   "wordCount" : "0",
   "inLanguage": "en",
-  "datePublished": "0001-01-01T00:00:00Z",
-  "dateModified": "0001-01-01T00:00:00Z",
+  "datePublished": "2022-07-26T00:00:00Z",
+  "dateModified": "2022-07-26T00:00:00Z",
   "author":{
     "@type": "Person",
     "name": "Jifan"
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https://jifan.tech/archives/"
+    "@id": "https://jifan.tech/posts/2022-07-26-software-renderer/"
   },
   "publisher": {
     "@type": "Organization",
@@ -115,7 +123,7 @@
 </script>
 </head>
 
-<body class="list" id="top">
+<body class="" id="top">
 <script>
     if (localStorage.getItem("pref-theme") === "dark") {
         document.body.classList.add('dark');
@@ -175,124 +183,34 @@
 </header>
 <main class="main">
 
-<header class="page-header">
-  <h1>Posts</h1>
-</header>
-<div class="archive-year">
-  <h2 class="archive-year-header">2022<sup class="archive-count">&nbsp;&nbsp;5</sup>
-  </h2>
-  <div class="archive-month">
-    <h3 class="archive-month-header">July<sup class="archive-count">&nbsp;&nbsp;1</sup></h3>
-    <div class="archive-posts">
-      <div class="archive-entry">
-        <h3 class="archive-entry-title">How to implement your first software renderer<sup><span class="entry-isdraft">&nbsp;&nbsp;[draft]</span></sup>
-        </h3>
-        <div class="archive-meta"><span title='2022-07-26 00:00:00 +0000 UTC'>July 26, 2022</span>&nbsp;·&nbsp;Jifan</div>
-        <a class="entry-link" aria-label="post link to How to implement your first software renderer" href="https://jifan.tech/posts/2022-07-26-software-renderer/"></a>
-      </div>
-    </div>
-  </div>
-  <div class="archive-month">
-    <h3 class="archive-month-header">May<sup class="archive-count">&nbsp;&nbsp;2</sup></h3>
-    <div class="archive-posts">
-      <div class="archive-entry">
-        <h3 class="archive-entry-title">What happens when (2): from C++ source code to executables
-        </h3>
-        <div class="archive-meta"><span title='2022-05-19 00:00:00 +0000 UTC'>May 19, 2022</span>&nbsp;·&nbsp;Jifan</div>
-        <a class="entry-link" aria-label="post link to What happens when (2): from C&#43;&#43; source code to executables" href="https://jifan.tech/posts/2022-05-19-the-programming-process/"></a>
-      </div>
-      <div class="archive-entry">
-        <h3 class="archive-entry-title">What happens when (1): type google.com in the browser address bar and press enter
-        </h3>
-        <div class="archive-meta"><span title='2022-05-07 00:00:00 +0000 UTC'>May 7, 2022</span>&nbsp;·&nbsp;Jifan</div>
-        <a class="entry-link" aria-label="post link to What happens when (1): type google.com in the browser address bar and press enter" href="https://jifan.tech/posts/2022-05-07-network/"></a>
-      </div>
-    </div>
-  </div>
-  <div class="archive-month">
-    <h3 class="archive-month-header">March<sup class="archive-count">&nbsp;&nbsp;2</sup></h3>
-    <div class="archive-posts">
-      <div class="archive-entry">
-        <h3 class="archive-entry-title">I/O multiplexing: select, poll and epoll
-        </h3>
-        <div class="archive-meta"><span title='2022-03-28 00:00:00 +0000 UTC'>March 28, 2022</span>&nbsp;·&nbsp;Jifan</div>
-        <a class="entry-link" aria-label="post link to I/O multiplexing: select, poll and epoll" href="https://jifan.tech/posts/2022-03-28-io-models/"></a>
-      </div>
-      <div class="archive-entry">
-        <h3 class="archive-entry-title">Web server: a brief introduction
-        </h3>
-        <div class="archive-meta"><span title='2022-03-02 00:00:00 +0000 UTC'>March 2, 2022</span>&nbsp;·&nbsp;Jifan</div>
-        <a class="entry-link" aria-label="post link to Web server: a brief introduction" href="https://jifan.tech/posts/2022-03-02-web-server/"></a>
-      </div>
-    </div>
-  </div>
+
+
+
+
+
+
+
+
+
+
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://jifan.tech">Home</a>&nbsp;»&nbsp;<a href="https://jifan.tech/posts/">Posts</a></div>
+    <h1 class="post-title">
+      How to implement your first software renderer<sup><span class="entry-isdraft">&nbsp;&nbsp;[draft]</span></sup>
+    </h1>
+    <div class="post-meta"><span title='2022-07-26 00:00:00 +0000 UTC'>July 26, 2022</span>&nbsp;·&nbsp;Jifan
+
 </div>
-<div class="archive-year">
-  <h2 class="archive-year-header">2019<sup class="archive-count">&nbsp;&nbsp;7</sup>
-  </h2>
-  <div class="archive-month">
-    <h3 class="archive-month-header">May<sup class="archive-count">&nbsp;&nbsp;1</sup></h3>
-    <div class="archive-posts">
-      <div class="archive-entry">
-        <h3 class="archive-entry-title">OpenCV 源码分析：SIFT 算法原理与实现
-        </h3>
-        <div class="archive-meta"><span title='2019-05-10 00:00:00 +0000 UTC'>May 10, 2019</span>&nbsp;·&nbsp;Jifan</div>
-        <a class="entry-link" aria-label="post link to OpenCV 源码分析：SIFT 算法原理与实现" href="https://jifan.tech/posts/2019-05-10-opencv-4/"></a>
-      </div>
-    </div>
-  </div>
-  <div class="archive-month">
-    <h3 class="archive-month-header">April<sup class="archive-count">&nbsp;&nbsp;3</sup></h3>
-    <div class="archive-posts">
-      <div class="archive-entry">
-        <h3 class="archive-entry-title">OpenCV 相机检校：原理及简单实现
-        </h3>
-        <div class="archive-meta"><span title='2019-04-18 00:00:00 +0000 UTC'>April 18, 2019</span>&nbsp;·&nbsp;Jifan</div>
-        <a class="entry-link" aria-label="post link to OpenCV 相机检校：原理及简单实现" href="https://jifan.tech/posts/2019-04-18-opencv-3/"></a>
-      </div>
-      <div class="archive-entry">
-        <h3 class="archive-entry-title">线性代数：特征值分解、奇异值分解与 RQ 分解
-        </h3>
-        <div class="archive-meta"><span title='2019-04-12 00:00:00 +0000 UTC'>April 12, 2019</span>&nbsp;·&nbsp;Jifan</div>
-        <a class="entry-link" aria-label="post link to 线性代数：特征值分解、奇异值分解与 RQ 分解" href="https://jifan.tech/posts/2019-04-12-linear-algebra-1/"></a>
-      </div>
-      <div class="archive-entry">
-        <h3 class="archive-entry-title">OpenCV 点特征提取算子：Moravec，Forstner 与 Harris
-        </h3>
-        <div class="archive-meta"><span title='2019-04-02 00:00:00 +0000 UTC'>April 2, 2019</span>&nbsp;·&nbsp;Jifan</div>
-        <a class="entry-link" aria-label="post link to OpenCV 点特征提取算子：Moravec，Forstner 与 Harris" href="https://jifan.tech/posts/2019-04-02-opencv-2/"></a>
-      </div>
-    </div>
-  </div>
-  <div class="archive-month">
-    <h3 class="archive-month-header">March<sup class="archive-count">&nbsp;&nbsp;2</sup></h3>
-    <div class="archive-posts">
-      <div class="archive-entry">
-        <h3 class="archive-entry-title">OpenCV 内置边缘检测算子：Canny，Sobel 与 Laplace
-        </h3>
-        <div class="archive-meta"><span title='2019-03-19 00:00:00 +0000 UTC'>March 19, 2019</span>&nbsp;·&nbsp;Jifan</div>
-        <a class="entry-link" aria-label="post link to OpenCV 内置边缘检测算子：Canny，Sobel 与 Laplace" href="https://jifan.tech/posts/2019-03-19-opencv-1/"></a>
-      </div>
-      <div class="archive-entry">
-        <h3 class="archive-entry-title">数据结构笔记：求解斐波那契数列算法的复杂度
-        </h3>
-        <div class="archive-meta"><span title='2019-03-01 00:00:00 +0000 UTC'>March 1, 2019</span>&nbsp;·&nbsp;Jifan</div>
-        <a class="entry-link" aria-label="post link to 数据结构笔记：求解斐波那契数列算法的复杂度" href="https://jifan.tech/posts/2019-03-01-ds-notes-1/"></a>
-      </div>
-    </div>
-  </div>
-  <div class="archive-month">
-    <h3 class="archive-month-header">February<sup class="archive-count">&nbsp;&nbsp;1</sup></h3>
-    <div class="archive-posts">
-      <div class="archive-entry">
-        <h3 class="archive-entry-title">C++ 学习笔记：数据类型、浮点数的比较以及“大数”的读取
-        </h3>
-        <div class="archive-meta"><span title='2019-02-27 00:00:00 +0000 UTC'>February 27, 2019</span>&nbsp;·&nbsp;jifan</div>
-        <a class="entry-link" aria-label="post link to C&#43;&#43; 学习笔记：数据类型、浮点数的比较以及“大数”的读取" href="https://jifan.tech/posts/2019-02-27-cpp-study-notes-1/"></a>
-      </div>
-    </div>
-  </div>
-</div>
+  </header> 
+
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
     </main>
     
 <footer class="footer">
@@ -308,7 +226,26 @@
         <path d="M12 6H0l6-6z" />
     </svg>
 </a>
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css" integrity="sha384-KiWOvVjnN8qwAZbuQyWDIbfCLFhLXNETzBQjA/92pIowpC0d2O3nppDGQVgwd2nB" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js" integrity="sha384-0fdwu/T/EQMsQlrHCCHoH10pkPLlKA1jL5dFyUOvB3lfeT2540/2g6YgSi2BL14p" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            
+            
+            delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '$', right: '$', display: false},
+                {left: '\\(', right: '\\)', display: false},
+                {left: '\\[', right: '\\]', display: true}
+            ],
+            
+            throwOnError : false
+        });
+    });
+</script>
 
 
 <script>
@@ -364,6 +301,53 @@
         }
     })
 
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerText = 'copy';
+
+        function copyingDone() {
+            copybutton.innerText = 'copied!';
+            setTimeout(() => {
+                copybutton.innerText = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
 </script>
 </body>
 

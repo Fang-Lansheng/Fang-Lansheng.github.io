@@ -2,8 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://jifan.tech/posts/2022-07-26-software-renderer/</loc>
+    <lastmod>2022-07-26T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://jifan.tech/</loc>
-    <lastmod>2022-04-03T00:00:00+00:00</lastmod>
+    <lastmod>2022-07-26T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://jifan.tech/posts/</loc>
+    <lastmod>2022-07-26T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://jifan.tech/posts/2022-05-19-the-programming-process/</loc>
+    <lastmod>2022-05-19T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://jifan.tech/posts/2022-05-07-network/</loc>
+    <lastmod>2022-05-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://jifan.tech/projects/</loc>
     <lastmod>2022-04-03T00:00:00+00:00</lastmod>
@@ -15,9 +27,6 @@
     <lastmod>2022-04-03T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://jifan.tech/posts/cs-interview-notebook/</loc>
-    <lastmod>2022-04-01T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://jifan.tech/posts/</loc>
     <lastmod>2022-04-01T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://jifan.tech/posts/2022-03-28-io-models/</loc>

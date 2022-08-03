@@ -6,7 +6,37 @@
     <description>Recent content in Posts on Jifan&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 01 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://jifan.tech/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 26 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://jifan.tech/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to implement your first software renderer</title>
+      <link>https://jifan.tech/posts/2022-07-26-software-renderer/</link>
+      <pubDate>Tue, 26 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://jifan.tech/posts/2022-07-26-software-renderer/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>What happens when (2): from C&#43;&#43; source code to executables</title>
+      <link>https://jifan.tech/posts/2022-05-19-the-programming-process/</link>
+      <pubDate>Thu, 19 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://jifan.tech/posts/2022-05-19-the-programming-process/</guid>
+      <description>TL,DR;
+ Writing code.  Tool: plain text editor, like VS Code, Vim. Result: source code, .cpp file.   Compiling source code to object file.  Tool: complier, like GCC, Clang. Result: intermediate object file, .o/.obj file.   Link object file to executable.  Tool: linker. Result: executable file, no extension on UNIX-like systems (MacOS) and Linux or .exe on Windows.     Coding  Write a piece of human-readable C++ code in your editor, and save it as hello.</description>
+    </item>
+    
+    <item>
+      <title>What happens when (1): type google.com in the browser address bar and press enter</title>
+      <link>https://jifan.tech/posts/2022-05-07-network/</link>
+      <pubDate>Sat, 07 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://jifan.tech/posts/2022-05-07-network/</guid>
+      <description>This post is a brief summary of alex/what-happens-when, please read the original article for details.
+  TL,DR;
+ Stage 1: Before connecting to the network, what does your host do?  Responding to keyboard interrupts [OS]. Parsing the text you input [Browser].  Auto-completion &amp;amp; suggestions. Is it a URL or a search term?     Stage 2: Network communication.  Check HSTS list DNS lookup: domain → ip ARP process: ip → MAC Opening of a socket: IP routing, TCP connection flow.</description>
+    </item>
+    
     <item>
       <title>I/O multiplexing: select, poll and epoll</title>
       <link>https://jifan.tech/posts/2022-03-28-io-models/</link>
@@ -14,11 +44,11 @@
       
       <guid>https://jifan.tech/posts/2022-03-28-io-models/</guid>
       <description>TL,DR.
- I/O multiplexing allows a process to simultaneously monitor multiple file descriptors to find out whether I/O is possible on any of them. The select() and poll() are system calls to monitor file descriptors. And the epoll is a Linux-specified API to implement I/O multiplexing with higher performance when it comes to large numbers of file descriptors.   Why not blocking I/O? Under the conventional file I/O model, a process performs I/O on just one file descriptor, named fd, at a time, and each I/O system call blocks until the data is transferred.</description>
+ I/O multiplexing allows a process to simultaneously monitor multiple file descriptors to find out whether I/O is possible on any of them. The select() and poll() are system calls to monitor file descriptors. And the epoll is a Linux-specified API to implement I/O multiplexing with higher performance when it comes to large numbers of file descriptors. For now, this article is merely a copy/summary of the introduction of them in man pages.</description>
     </item>
     
     <item>
-      <title>A Primer on Web Server</title>
+      <title>Web server: a brief introduction</title>
       <link>https://jifan.tech/posts/2022-03-02-web-server/</link>
       <pubDate>Wed, 02 Mar 2022 00:00:00 +0000</pubDate>
       
